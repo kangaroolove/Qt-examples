@@ -3,6 +3,7 @@
 #include <QWidget>
 
 class QThread;
+class WorkerThread;
 
 class Widget : public QWidget
 {
@@ -15,6 +16,8 @@ signals:
 private:
     void initWorker();
     void print();
+    void initWorkerThread();
 
     QThread* m_thread;
+    WorkerThread* m_workerThread;
 };
