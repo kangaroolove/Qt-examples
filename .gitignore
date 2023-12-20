@@ -6,3 +6,5 @@
 /ImageSliceOutline/build
 /RestartApplication/build
 /RestartApplication/.vscode
+/SerialPort/.vscode
+/SerialPort/build
