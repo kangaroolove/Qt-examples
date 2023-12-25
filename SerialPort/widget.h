@@ -9,7 +9,7 @@ class QComboBox;
 class QTextEdit;
 class QSpinBox;
 class SerialPortThread;
-
+class QHBoxLayout;
 class Widget : public QWidget
 {
     Q_OBJECT
@@ -20,6 +20,8 @@ public:
 private:
     void initGui();
     void readSerialPort();
+    void createLeftLayout();
+    void createRightLayout();
 
     QLabel* m_serialPortLabel;
     QLabel* m_baudRateLabel;
@@ -37,12 +39,18 @@ private:
     QComboBox* m_stopBitsComboBox;
     QComboBox* m_pinoutSignalComboBox;
 
+    QHBoxLayout* m_mainLayout;
+
     QLabel* m_responseLabel;
     QPushButton* m_connectButton;
+    QPushButton* m_responseClearButton;
     QTextEdit* m_responseTextEdit;
     QLabel* m_sendLabel;
     QTextEdit* m_sendTextEdit;
     QPushButton* m_sendButton;
+    QPushButton* m_sendClearButton;
+    QPushButton* m_sendByAscii;
+    QPushButton* m_sendByHex;
     SerialPortThread* m_serialPortThread;
 };
 #endif // WIDGET_H

@@ -25,12 +25,17 @@ Widget::Widget(QWidget *parent)
     , m_parityComboBox(new QComboBox(this))
     , m_stopBitsComboBox(new QComboBox(this))
     , m_pinoutSignalComboBox(new QComboBox(this))
+    , m_mainLayout(new QHBoxLayout(this))
     , m_responseLabel(new QLabel("Response:"))
     , m_responseTextEdit(new QTextEdit())
     , m_connectButton(new QPushButton("Connect"))
     , m_sendLabel(new QLabel("Send:"))
     , m_sendTextEdit(new QTextEdit())
     , m_sendButton(new QPushButton("Send"))
+    , m_responseClearButton(new QPushButton("Clear"))
+    , m_sendClearButton(new QPushButton("Clear"))
+    , m_sendByAscii(new QPushButton("Send By ASCII"))
+    , m_sendByHex(new QPushButton("Send By Hex"))
     , m_serialPortThread(new SerialPortThread())
 {
     initGui();
@@ -44,41 +49,10 @@ Widget::~Widget()
 
 void Widget::initGui()
 {
-    QGridLayout* layout = new QGridLayout(this);
-    layout->addWidget(m_serialPortLabel, 0, 0);
-    layout->addWidget(m_baudRateLabel, 1, 0);
-    layout->addWidget(m_dataBitsLabel, 2, 0);
-    layout->addWidget(m_flowControlLabel, 3, 0);
-    layout->addWidget(m_parityLabel, 4, 0);
-    layout->addWidget(m_stopBitsLabel, 5, 0);
-    layout->addWidget(m_pinoutSignalLabel, 6, 0);
-
-    layout->addWidget(m_serialPortComboBox, 0, 1);
-    layout->addWidget(m_baudRateComboBox, 1, 1);
-    layout->addWidget(m_dataBitsComboBox, 2, 1);
-    layout->addWidget(m_flowControlComboBox, 3, 1);
-    layout->addWidget(m_parityComboBox, 4, 1);
-    layout->addWidget(m_stopBitsComboBox, 5, 1);
-    layout->addWidget(m_pinoutSignalComboBox, 6, 1);
-
-    layout->addWidget(m_connectButton, 7, 0, 1, 2);
+    createLeftLayout();
+    createRightLayout();
 
     #if 0
-    QGridLayout* layout = new QGridLayout(this);
-    layout->addWidget(m_serialNameLabel, 0, 0);
-    layout->addWidget(m_serialNameComboBox, 0, 1);
-    layout->addWidget(m_connectButton, 0, 2);
-    layout->addWidget(m_waitTimeLabel, 1, 0);
-    layout->addWidget(m_waitTimeSpinBox, 1, 1);
-    layout->addWidget(m_sendButton, 1, 2);
-    layout->addWidget(m_sendLabel, 2, 0);
-    layout->addWidget(m_sendTextEdit, 3, 0, 1, 2);
-    layout->addWidget(m_responseLabel, 4, 0);
-    layout->addWidget(m_responseTextEdit, 5, 0, 1, 2);
-
-    m_waitTimeSpinBox->setMinimum(0);
-    m_waitTimeSpinBox->setMaximum(10000);
-    m_waitTimeSpinBox->setValue(1000);
 
     connect(m_connectButton, &QPushButton::clicked, this, [this]{
         QString portName = m_serialNameComboBox->currentText();
@@ -115,4 +89,47 @@ void Widget::readSerialPort()
     // auto ports = QSerialPortInfo::availablePorts();
     // for (auto it = ports.begin(); it != ports.end(); ++it)
     //     m_serialNameComboBox->addItem((*it).portName());
+}
+
+void Widget::createLeftLayout()
+{
+    QGridLayout* layout = new QGridLayout(this);
+    layout->addWidget(m_serialPortLabel, 0, 0);
+    layout->addWidget(m_baudRateLabel, 1, 0);
+    layout->addWidget(m_dataBitsLabel, 2, 0);
+    layout->addWidget(m_flowControlLabel, 3, 0);
+    layout->addWidget(m_parityLabel, 4, 0);
+    layout->addWidget(m_stopBitsLabel, 5, 0);
+    layout->addWidget(m_pinoutSignalLabel, 6, 0);
+
+    layout->addWidget(m_serialPortComboBox, 0, 1);
+    layout->addWidget(m_baudRateComboBox, 1, 1);
+    layout->addWidget(m_dataBitsComboBox, 2, 1);
+    layout->addWidget(m_flowControlComboBox, 3, 1);
+    layout->addWidget(m_parityComboBox, 4, 1);
+    layout->addWidget(m_stopBitsComboBox, 5, 1);
+    layout->addWidget(m_pinoutSignalComboBox, 6, 1);
+
+    layout->addWidget(m_connectButton, 7, 0, 1, 2);
+    layout->setRowStretch(8, 1);
+
+    m_mainLayout->addLayout(layout);
+}
+
+void Widget::createRightLayout()
+{
+    auto layout = new QVBoxLayout(this);
+    layout->addWidget(m_responseLabel);
+    layout->addWidget(m_responseTextEdit);
+    layout->addWidget(m_responseClearButton);
+    layout->addWidget(m_sendLabel);
+    layout->addWidget(m_sendTextEdit);
+    
+    auto buttonsLayout = new QHBoxLayout(this);
+    buttonsLayout->addWidget(m_sendClearButton);
+    buttonsLayout->addWidget(m_sendByHex);
+    buttonsLayout->addWidget(m_sendByAscii);
+    layout->addLayout(buttonsLayout);
+
+    m_mainLayout->addLayout(layout);
 }
