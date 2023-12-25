@@ -11,8 +11,13 @@
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
-    , m_serialNameLabel(new QLabel("Serial Port:"))
-    , m_waitTimeLabel(new QLabel("Wait response msec:"))
+    , m_serialPortLabel(new QLabel("Serial Port:"))
+    , m_baudRateLabel(new QLabel("BaudRate:"))
+    , m_dataBitsLabel(new QLabel("DataBits:"))
+    , m_flowControlLabel(new QLabel("FlowControl:"))
+    , m_parityLabel(new QLabel("Parity:"))
+    , m_stopBitsLabel(new QLabel("StopBits:"))
+    , m_pinoutSignalLabel(new QLabel("PinoutSignal:"))
     , m_responseLabel(new QLabel("Response:"))
     , m_responseTextEdit(new QTextEdit())
     , m_serialNameComboBox(new QComboBox())
@@ -34,6 +39,16 @@ Widget::~Widget()
 
 void Widget::initGui()
 {
+    QGridLayout* layout = new QGridLayout(this);
+    layout->addWidget(m_serialPortLabel, 0, 0);
+    layout->addWidget(m_baudRateLabel, 1, 0);
+    layout->addWidget(m_dataBitsLabel, 2, 0);
+    layout->addWidget(m_flowControlLabel, 3, 0);
+    layout->addWidget(m_parityLabel, 4, 0);
+    layout->addWidget(m_stopBitsLabel, 5, 0);
+    layout->addWidget(m_pinoutSignalLabel, 6, 0);
+
+    #if 0
     QGridLayout* layout = new QGridLayout(this);
     layout->addWidget(m_serialNameLabel, 0, 0);
     layout->addWidget(m_serialNameComboBox, 0, 1);
@@ -76,6 +91,7 @@ void Widget::initGui()
     });
 
     this->resize(400, 300);
+    #endif
 }
 
 void Widget::readSerialPort()

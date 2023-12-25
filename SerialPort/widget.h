@@ -21,8 +21,16 @@ private:
     void initGui();
     void readSerialPort();
 
-    QLabel* m_serialNameLabel;
-    QLabel* m_waitTimeLabel;
+    QLabel* m_serialPortLabel;
+    QLabel* m_baudRateLabel;
+    QLabel* m_dataBitsLabel;
+    QLabel* m_flowControlLabel;
+    QLabel* m_parityLabel;
+    QLabel* m_stopBitsLabel;
+    QLabel* m_pinoutSignalLabel;
+
+
+
     QLabel* m_responseLabel;
     QPushButton* m_connectButton;
     QComboBox* m_serialNameComboBox;
