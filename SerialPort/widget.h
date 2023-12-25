@@ -29,6 +29,14 @@ private:
     QLabel* m_stopBitsLabel;
     QLabel* m_pinoutSignalLabel;
 
+    QComboBox* m_serialPortComboBox;
+    QComboBox* m_baudRateComboBox;
+    QComboBox* m_dataBitsComboBox;
+    QComboBox* m_flowControlComboBox;
+    QComboBox* m_parityComboBox;
+    QComboBox* m_stopBitsComboBox;
+    QComboBox* m_pinoutSignalComboBox;
+
 
 
     QLabel* m_responseLabel;

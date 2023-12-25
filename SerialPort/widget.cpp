@@ -18,6 +18,15 @@ Widget::Widget(QWidget *parent)
     , m_parityLabel(new QLabel("Parity:"))
     , m_stopBitsLabel(new QLabel("StopBits:"))
     , m_pinoutSignalLabel(new QLabel("PinoutSignal:"))
+    , m_serialPortComboBox(new QComboBox(this))
+    , m_baudRateComboBox(new QComboBox(this))
+    , m_dataBitsComboBox(new QComboBox(this))
+    , m_flowControlComboBox(new QComboBox(this))
+    , m_parityComboBox(new QComboBox(this))
+    , m_stopBitsComboBox(new QComboBox(this))
+    , m_pinoutSignalComboBox(new QComboBox(this))
+
+
     , m_responseLabel(new QLabel("Response:"))
     , m_responseTextEdit(new QTextEdit())
     , m_serialNameComboBox(new QComboBox())
@@ -47,6 +56,14 @@ void Widget::initGui()
     layout->addWidget(m_parityLabel, 4, 0);
     layout->addWidget(m_stopBitsLabel, 5, 0);
     layout->addWidget(m_pinoutSignalLabel, 6, 0);
+
+    layout->addWidget(m_serialPortComboBox, 0, 1);
+    layout->addWidget(m_baudRateComboBox, 1, 1);
+    layout->addWidget(m_dataBitsComboBox, 2, 1);
+    layout->addWidget(m_flowControlComboBox, 3, 1);
+    layout->addWidget(m_parityComboBox, 4, 1);
+    layout->addWidget(m_stopBitsComboBox, 5, 1);
+    layout->addWidget(m_pinoutSignalComboBox, 6, 1);
 
     #if 0
     QGridLayout* layout = new QGridLayout(this);
@@ -89,9 +106,9 @@ void Widget::initGui()
 
         m_serialPortThread->sendMessage(text);
     });
+    #endif
 
     this->resize(400, 300);
-    #endif
 }
 
 void Widget::readSerialPort()
