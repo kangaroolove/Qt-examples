@@ -25,12 +25,8 @@ Widget::Widget(QWidget *parent)
     , m_parityComboBox(new QComboBox(this))
     , m_stopBitsComboBox(new QComboBox(this))
     , m_pinoutSignalComboBox(new QComboBox(this))
-
-
     , m_responseLabel(new QLabel("Response:"))
     , m_responseTextEdit(new QTextEdit())
-    , m_serialNameComboBox(new QComboBox())
-    , m_waitTimeSpinBox(new QSpinBox())
     , m_connectButton(new QPushButton("Connect"))
     , m_sendLabel(new QLabel("Send:"))
     , m_sendTextEdit(new QTextEdit())
@@ -64,6 +60,8 @@ void Widget::initGui()
     layout->addWidget(m_parityComboBox, 4, 1);
     layout->addWidget(m_stopBitsComboBox, 5, 1);
     layout->addWidget(m_pinoutSignalComboBox, 6, 1);
+
+    layout->addWidget(m_connectButton, 7, 0, 1, 2);
 
     #if 0
     QGridLayout* layout = new QGridLayout(this);
@@ -113,8 +111,8 @@ void Widget::initGui()
 
 void Widget::readSerialPort()
 {
-    m_serialNameComboBox->clear();
-    auto ports = QSerialPortInfo::availablePorts();
-    for (auto it = ports.begin(); it != ports.end(); ++it)
-        m_serialNameComboBox->addItem((*it).portName());
+    // m_serialNameComboBox->clear();
+    // auto ports = QSerialPortInfo::availablePorts();
+    // for (auto it = ports.begin(); it != ports.end(); ++it)
+    //     m_serialNameComboBox->addItem((*it).portName());
 }

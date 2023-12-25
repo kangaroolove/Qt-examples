@@ -37,13 +37,9 @@ private:
     QComboBox* m_stopBitsComboBox;
     QComboBox* m_pinoutSignalComboBox;
 
-
-
     QLabel* m_responseLabel;
     QPushButton* m_connectButton;
-    QComboBox* m_serialNameComboBox;
     QTextEdit* m_responseTextEdit;
-    QSpinBox* m_waitTimeSpinBox;
     QLabel* m_sendLabel;
     QTextEdit* m_sendTextEdit;
     QPushButton* m_sendButton;
