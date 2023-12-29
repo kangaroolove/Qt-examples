@@ -26,6 +26,7 @@ private:
     void initSetting();
     void initBaudRates();
     void initDataBits();
+    void initFlowControl();
 
     QLabel* m_serialPortLabel;
     QLabel* m_baudRateLabel;
@@ -55,5 +56,6 @@ private:
     SerialPortThread* m_serialPortThread;
     std::vector<QSerialPort::BaudRate> m_baudRates;
     std::vector<QSerialPort::DataBits> m_dataBits;
+    std::map<QSerialPort::FlowControl, QString> m_flowControl;
 };
 #endif // WIDGET_H

@@ -140,6 +140,7 @@ void Widget::initSetting()
 {
     initBaudRates();
     initDataBits();
+    initFlowControl();
 }
 
 void Widget::initBaudRates()
@@ -172,4 +173,16 @@ void Widget::initDataBits()
         m_dataBitsComboBox->insertItem(std::distance(m_dataBits.begin(), it), QString::number(*it));
 
     m_dataBitsComboBox->setCurrentText(QString::number(m_dataBits.back()));
+}
+
+void Widget::initFlowControl()
+{
+    m_flowControl = {
+        { QSerialPort::NoFlowControl, tr("No Flow Control") },
+        { QSerialPort::SoftwareControl, tr("Software Control") },
+        { QSerialPort::HardwareControl, tr("Hardware Control") }
+    };
+
+    for (auto it = m_flowControl.begin(); it != m_flowControl.end(); it++)
+    m_flowControlComboBox->insertItem(std::distance(m_flowControl.begin(), it), it->second);
 }
