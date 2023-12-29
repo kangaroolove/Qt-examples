@@ -20,6 +20,8 @@ public:
     ~Widget();
 private slots:
     void onConnectButtonClicked(bool checked);
+    void onSendClearButtonClicked();
+    void onResponseClearButtonClicked();
 
 private:
     void initGui();

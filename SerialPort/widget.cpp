@@ -49,6 +49,16 @@ Widget::~Widget()
     delete m_serialPortThread;
 }
 
+void Widget::onSendClearButtonClicked()
+{
+    m_sendTextEdit->clear();
+}
+
+void Widget::onResponseClearButtonClicked()
+{
+    m_responseTextEdit->clear();
+}
+
 void Widget::onConnectButtonClicked(bool checked)
 {
     checked ? m_connectButton->setText("Disconnect") : m_connectButton->setText("Connect");
@@ -62,20 +72,6 @@ void Widget::initGui()
     setButtonsEnable(true);
 
     #if 0
-
-    connect(m_connectButton, &QPushButton::clicked, this, [this]{
-        QString portName = m_serialNameComboBox->currentText();
-        if (portName.isEmpty())
-            return;
-
-        int waitTime = m_waitTimeSpinBox->value();
-        
-        m_connectButton->setEnabled(false);
-        m_connectButton->setText("Connected");
-
-        m_serialPortThread->connectPort(portName, waitTime);
-    });
-
     connect(m_serialPortThread, &SerialPortThread::receiveMessage, this, [this](const QString& message){
         m_responseTextEdit->append(message);
     }, Qt::QueuedConnection);
@@ -248,6 +244,8 @@ void Widget::initPinoutSignals()
 void Widget::initConnections()
 {
     connect(m_connectButton, &QPushButton::clicked, this, &Widget::onConnectButtonClicked);
+    connect(m_sendClearButton, &QPushButton::clicked, this, &Widget::onSendClearButtonClicked);
+    connect(m_responseClearButton, &QPushButton::clicked, this, &Widget::onResponseClearButtonClicked);
 }
 
 void Widget::setButtonsEnable(const bool &enable)
