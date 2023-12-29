@@ -2,6 +2,7 @@
 #define WIDGET_H
 
 #include <QWidget>
+#include <QSerialPort>
 
 class QLabel;
 class QPushButton;
@@ -23,6 +24,8 @@ private:
     void createLeftLayout();
     void createRightLayout();
     void initSetting();
+    void initBaudRates();
+    void initDataBits();
 
     QLabel* m_serialPortLabel;
     QLabel* m_baudRateLabel;
@@ -31,7 +34,6 @@ private:
     QLabel* m_parityLabel;
     QLabel* m_stopBitsLabel;
     QLabel* m_pinoutSignalLabel;
-
     QComboBox* m_serialPortComboBox;
     QComboBox* m_baudRateComboBox;
     QComboBox* m_dataBitsComboBox;
@@ -39,9 +41,7 @@ private:
     QComboBox* m_parityComboBox;
     QComboBox* m_stopBitsComboBox;
     QComboBox* m_pinoutSignalComboBox;
-
     QHBoxLayout* m_mainLayout;
-
     QLabel* m_responseLabel;
     QPushButton* m_connectButton;
     QPushButton* m_responseClearButton;
@@ -53,5 +53,7 @@ private:
     QPushButton* m_sendByAscii;
     QPushButton* m_sendByHex;
     SerialPortThread* m_serialPortThread;
+    std::vector<QSerialPort::BaudRate> m_baudRates;
+    std::vector<QSerialPort::DataBits> m_dataBits;
 };
 #endif // WIDGET_H

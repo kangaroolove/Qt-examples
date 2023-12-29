@@ -7,7 +7,7 @@
 #include <QSpinBox>
 #include <QSerialPortInfo>
 #include <QFile>
-#include <QSerialPort>
+
 #include "SerialPortThread.h"
 
 Widget::Widget(QWidget *parent)
@@ -138,7 +138,13 @@ void Widget::createRightLayout()
 
 void Widget::initSetting()
 {
-    std::vector<QSerialPort::BaudRate> baudRates = {
+    initBaudRates();
+    initDataBits();
+}
+
+void Widget::initBaudRates()
+{
+    m_baudRates = {
         QSerialPort::Baud1200,
         QSerialPort::Baud2400,
         QSerialPort::Baud4800,
@@ -149,6 +155,21 @@ void Widget::initSetting()
         QSerialPort::Baud115200
     };
 
-    for (auto it = baudRates.begin(); it != baudRates.end(); it++)
-        m_baudRateComboBox->insertItem(std::distance(baudRates.begin(), it), QString::number(*it));
+    for (auto it = m_baudRates.begin(); it != m_baudRates.end(); it++)
+        m_baudRateComboBox->insertItem(std::distance(m_baudRates.begin(), it), QString::number(*it));
+}
+
+void Widget::initDataBits()
+{
+    m_dataBits = {
+        QSerialPort::Data5,
+        QSerialPort::Data6,
+        QSerialPort::Data7,
+        QSerialPort::Data8,
+    };
+
+    for (auto it = m_dataBits.begin(); it != m_dataBits.end(); it++)
+        m_dataBitsComboBox->insertItem(std::distance(m_dataBits.begin(), it), QString::number(*it));
+
+    m_dataBitsComboBox->setCurrentText(QString::number(m_dataBits.back()));
 }
