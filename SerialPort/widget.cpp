@@ -32,15 +32,15 @@ Widget::Widget(QWidget *parent)
     , m_connectButton(new QPushButton("Connect"))
     , m_sendLabel(new QLabel("Send:"))
     , m_sendTextEdit(new QTextEdit())
-    , m_sendButton(new QPushButton("Send"))
     , m_responseClearButton(new QPushButton("Clear"))
     , m_sendClearButton(new QPushButton("Clear"))
-    , m_sendByAscii(new QPushButton("Send By ASCII"))
-    , m_sendByHex(new QPushButton("Send By Hex"))
+    , m_sendByAsciiButton(new QPushButton("Send By ASCII"))
+    , m_sendByHexButton(new QPushButton("Send By Hex"))
     , m_serialPortThread(new SerialPortThread())
 {
     initGui();
     initSetting();
+    initConnections();
     readSerialPort();
 }
 
@@ -49,10 +49,17 @@ Widget::~Widget()
     delete m_serialPortThread;
 }
 
+void Widget::onConnectButtonClicked(bool checked)
+{
+    checked ? m_connectButton->setText("Disconnect") : m_connectButton->setText("Connect");
+    setButtonsEnable(!checked);
+}
+
 void Widget::initGui()
 {
     createLeftLayout();
     createRightLayout();
+    setButtonsEnable(true);
 
     #if 0
 
@@ -116,6 +123,8 @@ void Widget::createLeftLayout()
     layout->setRowStretch(8, 1);
 
     m_mainLayout->addLayout(layout);
+
+    m_connectButton->setCheckable(true);
 }
 
 void Widget::createRightLayout()
@@ -129,8 +138,8 @@ void Widget::createRightLayout()
     
     auto buttonsLayout = new QHBoxLayout();
     buttonsLayout->addWidget(m_sendClearButton);
-    buttonsLayout->addWidget(m_sendByHex);
-    buttonsLayout->addWidget(m_sendByAscii);
+    buttonsLayout->addWidget(m_sendByHexButton);
+    buttonsLayout->addWidget(m_sendByAsciiButton);
     layout->addLayout(buttonsLayout);
 
     m_mainLayout->addLayout(layout);
@@ -143,7 +152,7 @@ void Widget::initSetting()
     initFlowControl();
     initParities();
     initStopBits();
-    initPinoutSignal();
+    initPinoutSignals();
 }
 
 void Widget::initBaudRates()
@@ -216,7 +225,7 @@ void Widget::initStopBits()
         m_stopBitsComboBox->insertItem(std::distance(m_stopBits.begin(), it), it->second);
 }
 
-void Widget::initPinoutSignal()
+void Widget::initPinoutSignals()
 {
     m_pinoutSignal = {
         { QSerialPort::NoSignal, tr("No Signal") },
@@ -234,4 +243,22 @@ void Widget::initPinoutSignal()
 
     for (auto it = m_pinoutSignal.begin(); it != m_pinoutSignal.end(); it++)
         m_pinoutSignalComboBox->insertItem(std::distance(m_pinoutSignal.begin(), it), it->second);
+}
+
+void Widget::initConnections()
+{
+    connect(m_connectButton, &QPushButton::clicked, this, &Widget::onConnectButtonClicked);
+}
+
+void Widget::setButtonsEnable(const bool &enable)
+{
+    m_serialPortComboBox->setEnabled(enable);
+    m_baudRateComboBox->setEnabled(enable);
+    m_dataBitsComboBox->setEnabled(enable);
+    m_flowControlComboBox->setEnabled(enable);
+    m_parityComboBox->setEnabled(enable);
+    m_stopBitsComboBox->setEnabled(enable);
+    m_pinoutSignalComboBox->setEnabled(enable);
+    m_sendByAsciiButton->setEnabled(!enable);
+    m_sendByHexButton->setEnabled(!enable);
 }

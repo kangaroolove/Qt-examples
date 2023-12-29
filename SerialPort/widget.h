@@ -18,6 +18,9 @@ class Widget : public QWidget
 public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
+private slots:
+    void onConnectButtonClicked(bool checked);
+
 private:
     void initGui();
     void readSerialPort();
@@ -29,7 +32,9 @@ private:
     void initFlowControl();
     void initParities();
     void initStopBits();
-    void initPinoutSignal();
+    void initPinoutSignals();
+    void initConnections();
+    void setButtonsEnable(const bool& enable);
 
     QLabel* m_serialPortLabel;
     QLabel* m_baudRateLabel;
@@ -52,10 +57,9 @@ private:
     QTextEdit* m_responseTextEdit;
     QLabel* m_sendLabel;
     QTextEdit* m_sendTextEdit;
-    QPushButton* m_sendButton;
     QPushButton* m_sendClearButton;
-    QPushButton* m_sendByAscii;
-    QPushButton* m_sendByHex;
+    QPushButton* m_sendByAsciiButton;
+    QPushButton* m_sendByHexButton;
     SerialPortThread* m_serialPortThread;
 
     std::vector<QSerialPort::BaudRate> m_baudRates;
