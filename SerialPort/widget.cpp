@@ -7,6 +7,7 @@
 #include <QSpinBox>
 #include <QSerialPortInfo>
 #include <QFile>
+#include <QSerialPort>
 #include "SerialPortThread.h"
 
 Widget::Widget(QWidget *parent)
@@ -39,6 +40,7 @@ Widget::Widget(QWidget *parent)
     , m_serialPortThread(new SerialPortThread())
 {
     initGui();
+    initSetting();
     readSerialPort();
 }
 
@@ -132,4 +134,21 @@ void Widget::createRightLayout()
     layout->addLayout(buttonsLayout);
 
     m_mainLayout->addLayout(layout);
+}
+
+void Widget::initSetting()
+{
+    std::vector<QSerialPort::BaudRate> baudRates = {
+        QSerialPort::Baud1200,
+        QSerialPort::Baud2400,
+        QSerialPort::Baud4800,
+        QSerialPort::Baud9600,
+        QSerialPort::Baud19200,
+        QSerialPort::Baud38400,
+        QSerialPort::Baud57600,
+        QSerialPort::Baud115200
+    };
+
+    for (auto it = baudRates.begin(); it != baudRates.end(); it++)
+        m_baudRateComboBox->insertItem(std::distance(baudRates.begin(), it), QString::number(*it));
 }

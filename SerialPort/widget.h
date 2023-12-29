@@ -22,6 +22,7 @@ private:
     void readSerialPort();
     void createLeftLayout();
     void createRightLayout();
+    void initSetting();
 
     QLabel* m_serialPortLabel;
     QLabel* m_baudRateLabel;
