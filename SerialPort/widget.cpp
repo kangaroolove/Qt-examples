@@ -141,6 +141,7 @@ void Widget::initSetting()
     initBaudRates();
     initDataBits();
     initFlowControl();
+    initParities();
 }
 
 void Widget::initBaudRates()
@@ -185,4 +186,18 @@ void Widget::initFlowControl()
 
     for (auto it = m_flowControl.begin(); it != m_flowControl.end(); it++)
     m_flowControlComboBox->insertItem(std::distance(m_flowControl.begin(), it), it->second);
+}
+
+void Widget::initParities()
+{
+    m_parities = {
+        { QSerialPort::NoParity, tr("No Parity") },
+        { QSerialPort::EvenParity, tr("Even Parity") },
+        { QSerialPort::OddParity, tr("Odd Parity") },
+        { QSerialPort::SpaceParity, tr("Space Parity") },
+        { QSerialPort::MarkParity, tr("Mark Parity") }
+    };
+
+    for (auto it = m_parities.begin(); it != m_parities.end(); it++)
+    m_parityComboBox->insertItem(std::distance(m_parities.begin(), it), it->second);
 }
