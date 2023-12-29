@@ -85,15 +85,15 @@ void Widget::initGui()
 
 void Widget::readSerialPort()
 {
-    // m_serialNameComboBox->clear();
-    // auto ports = QSerialPortInfo::availablePorts();
-    // for (auto it = ports.begin(); it != ports.end(); ++it)
-    //     m_serialNameComboBox->addItem((*it).portName());
+    m_serialPortComboBox->clear();
+    auto ports = QSerialPortInfo::availablePorts();
+    for (auto it = ports.begin(); it != ports.end(); ++it)
+        m_serialPortComboBox->addItem((*it).portName());
 }
 
 void Widget::createLeftLayout()
 {
-    QGridLayout* layout = new QGridLayout(this);
+    QGridLayout* layout = new QGridLayout();
     layout->addWidget(m_serialPortLabel, 0, 0);
     layout->addWidget(m_baudRateLabel, 1, 0);
     layout->addWidget(m_dataBitsLabel, 2, 0);
@@ -118,14 +118,14 @@ void Widget::createLeftLayout()
 
 void Widget::createRightLayout()
 {
-    auto layout = new QVBoxLayout(this);
+    auto layout = new QVBoxLayout();
     layout->addWidget(m_responseLabel);
     layout->addWidget(m_responseTextEdit);
     layout->addWidget(m_responseClearButton);
     layout->addWidget(m_sendLabel);
     layout->addWidget(m_sendTextEdit);
     
-    auto buttonsLayout = new QHBoxLayout(this);
+    auto buttonsLayout = new QHBoxLayout();
     buttonsLayout->addWidget(m_sendClearButton);
     buttonsLayout->addWidget(m_sendByHex);
     buttonsLayout->addWidget(m_sendByAscii);
