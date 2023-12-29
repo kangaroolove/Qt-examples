@@ -29,6 +29,7 @@ private:
     void initFlowControl();
     void initParities();
     void initStopBits();
+    void initPinoutSignal();
 
     QLabel* m_serialPortLabel;
     QLabel* m_baudRateLabel;
@@ -56,10 +57,12 @@ private:
     QPushButton* m_sendByAscii;
     QPushButton* m_sendByHex;
     SerialPortThread* m_serialPortThread;
+
     std::vector<QSerialPort::BaudRate> m_baudRates;
     std::vector<QSerialPort::DataBits> m_dataBits;
     std::map<QSerialPort::FlowControl, QString> m_flowControl;
     std::map<QSerialPort::Parity, QString> m_parities;
     std::map<QSerialPort::StopBits, QString> m_stopBits;
+    std::map<QSerialPort::PinoutSignal, QString> m_pinoutSignal;
 };
 #endif // WIDGET_H

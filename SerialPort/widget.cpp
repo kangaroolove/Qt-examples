@@ -143,6 +143,7 @@ void Widget::initSetting()
     initFlowControl();
     initParities();
     initStopBits();
+    initPinoutSignal();
 }
 
 void Widget::initBaudRates()
@@ -213,4 +214,24 @@ void Widget::initStopBits()
 
     for (auto it = m_stopBits.begin(); it != m_stopBits.end(); it++)
         m_stopBitsComboBox->insertItem(std::distance(m_stopBits.begin(), it), it->second);
+}
+
+void Widget::initPinoutSignal()
+{
+    m_pinoutSignal = {
+        { QSerialPort::NoSignal, tr("No Signal") },
+        { QSerialPort::TransmittedDataSignal, tr("Transmitted Data Signal") },
+        { QSerialPort::ReceivedDataSignal, tr("Received Data Signal") },
+        { QSerialPort::DataTerminalReadySignal, tr("Data Terminal Ready Signal") },
+        { QSerialPort::DataCarrierDetectSignal, tr("Data Carrier Detect Signal") },
+        { QSerialPort::DataSetReadySignal, tr("Data Set Ready Signal") },
+        { QSerialPort::RingIndicatorSignal, tr("Ring Indicator Signal") },
+        { QSerialPort::RequestToSendSignal, tr("Request To Send Signal") },
+        { QSerialPort::ClearToSendSignal, tr("Clear To Send Signal") },
+        { QSerialPort::SecondaryTransmittedDataSignal, tr("Secondary Transmitted Data Signal") },
+        { QSerialPort::SecondaryReceivedDataSignal, tr("Secondary Received Data Signal") }
+    };
+
+    for (auto it = m_pinoutSignal.begin(); it != m_pinoutSignal.end(); it++)
+        m_pinoutSignalComboBox->insertItem(std::distance(m_pinoutSignal.begin(), it), it->second);
 }
