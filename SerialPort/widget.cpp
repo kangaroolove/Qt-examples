@@ -281,7 +281,7 @@ void Widget::setButtonsEnable(const bool &enable)
 void Widget::initWorker()
 {
     m_serialPortWorker->moveToThread(m_serialPortThread);
-    connect(m_serialPortWorker, &SerialPortWorker::receiveMessage, this, &Widget::receiveMessage);
+    connect(m_serialPortWorker, &SerialPortWorker::receiveMessage, this, &Widget::receiveMessage, Qt::QueuedConnection);
     connect(m_serialPortThread, &QThread::finished, m_serialPortWorker, &QObject::deleteLater);
     m_serialPortThread->start();
 }
