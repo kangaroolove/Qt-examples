@@ -26,21 +26,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt5 COMPONENTS Widgets SerialPort REQUIRED)
 
-if(ANDROID)
-  add_library(SerialPort SHARED
-    main.cpp
-    widget.cpp
-    widget.h
-
-  )
-else()
-  add_executable(SerialPort
-    main.cpp
-    widget.cpp
-    widget.h
-    SerialPortThread.cpp
-    SerialPortThread.h
-  )
-endif()
+add_executable(SerialPort
+  main.cpp
+  widget.cpp
+  widget.h
+  SerialPortThread.cpp
+  SerialPortThread.h
+  SerialPortWorker.cpp
+  SerialPortWorker.h
+)
 
 target_link_libraries(SerialPort PRIVATE Qt5::Widgets Qt5::SerialPort)
