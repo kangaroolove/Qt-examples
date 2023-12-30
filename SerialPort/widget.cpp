@@ -9,6 +9,7 @@
 #include <QSerialPortInfo>
 #include <QFile>
 #include <QThread>
+#include <QMessageBox>
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -70,6 +71,12 @@ void Widget::receiveMessage(const QString &message)
 
 void Widget::onConnectButtonClicked()
 {
+    if (m_serialPortComboBox->currentText().isEmpty())
+    {
+        QMessageBox::critical(this, tr("Error"), "There is no serial port");
+        return;
+    }
+
     if (!m_serialPortConnected)
         m_serialPortConnected = m_serialPortWorker->openSerialPort(getSerialPortInfo());
     else 
