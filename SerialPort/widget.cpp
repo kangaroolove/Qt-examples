@@ -1,4 +1,5 @@
 #include "widget.h"
+#include "SerialPortWorker.h"
 #include <QLabel>
 #include <QPushButton>
 #include <QComboBox>
@@ -7,8 +8,7 @@
 #include <QSpinBox>
 #include <QSerialPortInfo>
 #include <QFile>
-
-#include "SerialPortThread.h"
+#include <QThread>
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
@@ -36,17 +36,20 @@ Widget::Widget(QWidget *parent)
     , m_sendClearButton(new QPushButton("Clear"))
     , m_sendByAsciiButton(new QPushButton("Send By ASCII"))
     , m_sendByHexButton(new QPushButton("Send By Hex"))
-    , m_serialPortThread(new SerialPortThread())
+    , m_serialPortWorker(new SerialPortWorker())
+    , m_serialPortThread(new QThread(this))
 {
     initGui();
     initSetting();
+    initWorker();
     initConnections();
     readSerialPort();
 }
 
 Widget::~Widget()
 {
-    delete m_serialPortThread;
+    m_serialPortThread->quit();
+    m_serialPortThread->wait();
 }
 
 void Widget::onSendClearButtonClicked()
@@ -57,6 +60,11 @@ void Widget::onSendClearButtonClicked()
 void Widget::onResponseClearButtonClicked()
 {
     m_responseTextEdit->clear();
+}
+
+void Widget::receiveMessage(const QString &message)
+{
+    m_responseTextEdit->append(message);
 }
 
 void Widget::onConnectButtonClicked(bool checked)
@@ -70,21 +78,6 @@ void Widget::initGui()
     createLeftLayout();
     createRightLayout();
     setButtonsEnable(true);
-
-    #if 0
-    connect(m_serialPortThread, &SerialPortThread::receiveMessage, this, [this](const QString& message){
-        m_responseTextEdit->append(message);
-    }, Qt::QueuedConnection);
-
-    connect(m_sendButton, &QPushButton::clicked, this, [this]{
-        QString text = m_sendTextEdit->toPlainText();
-        if (text.isEmpty())
-            return;
-
-        m_serialPortThread->sendMessage(text);
-    });
-    #endif
-
     this->resize(400, 300);
 }
 
@@ -259,4 +252,12 @@ void Widget::setButtonsEnable(const bool &enable)
     m_pinoutSignalComboBox->setEnabled(enable);
     m_sendByAsciiButton->setEnabled(!enable);
     m_sendByHexButton->setEnabled(!enable);
+}
+
+void Widget::initWorker()
+{
+    m_serialPortWorker->moveToThread(m_serialPortThread);
+    connect(m_serialPortWorker, &SerialPortWorker::receiveMessage, this, &Widget::receiveMessage);
+    connect(m_serialPortThread, &QThread::finished, m_serialPortWorker, &QObject::deleteLater);
+    m_serialPortThread->start();
 }

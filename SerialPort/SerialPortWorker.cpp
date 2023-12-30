@@ -6,12 +6,13 @@ SerialPortWorker::SerialPortWorker(QObject* parent)
     : QObject(parent)
     , m_serialPort(new QSerialPort(this))
 {
-    connect(m_serialPort, &QSerialPort::readyRead, this, &SerialPortWorker::receiveMessage);
+    connect(m_serialPort, &QSerialPort::readyRead, this, &SerialPortWorker::receiveMessageFromSerialPort);
 }
 
 SerialPortWorker::~SerialPortWorker()
 {
-
+    closeSerialPort();
+    delete m_serialPort;
 }
 
 bool SerialPortWorker::openSerialPort(const SerialPortInfo &info)
@@ -36,10 +37,11 @@ void SerialPortWorker::closeSerialPort()
     m_serialPort->close();
 }
 
-void SerialPortWorker::receiveMessage()
+void SerialPortWorker::receiveMessageFromSerialPort()
 {
     QByteArray data = m_serialPort->readAll();
     qDebug()<<"Receive data from serialPort:"<<data;
+    emit receiveMessage(data);
 }
 
 void SerialPortWorker::sendMessage(const QString& message, const bool& useHex)

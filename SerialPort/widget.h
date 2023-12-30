@@ -9,8 +9,9 @@ class QPushButton;
 class QComboBox;
 class QTextEdit;
 class QSpinBox;
-class SerialPortThread;
 class QHBoxLayout;
+class QThread;
+class SerialPortWorker;
 class Widget : public QWidget
 {
     Q_OBJECT
@@ -22,6 +23,7 @@ private slots:
     void onConnectButtonClicked(bool checked);
     void onSendClearButtonClicked();
     void onResponseClearButtonClicked();
+    void receiveMessage(const QString& message);
 
 private:
     void initGui();
@@ -37,6 +39,7 @@ private:
     void initPinoutSignals();
     void initConnections();
     void setButtonsEnable(const bool& enable);
+    void initWorker();
 
     QLabel* m_serialPortLabel;
     QLabel* m_baudRateLabel;
@@ -62,7 +65,8 @@ private:
     QPushButton* m_sendClearButton;
     QPushButton* m_sendByAsciiButton;
     QPushButton* m_sendByHexButton;
-    SerialPortThread* m_serialPortThread;
+    QThread* m_serialPortThread;
+    SerialPortWorker* m_serialPortWorker;
 
     std::vector<QSerialPort::BaudRate> m_baudRates;
     std::vector<QSerialPort::DataBits> m_dataBits;
