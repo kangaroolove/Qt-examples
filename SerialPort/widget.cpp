@@ -38,6 +38,7 @@ Widget::Widget(QWidget *parent)
     , m_sendByHexButton(new QPushButton("Send By Hex"))
     , m_serialPortWorker(new SerialPortWorker())
     , m_serialPortThread(new QThread(this))
+    , m_serialPortConnected(false)
 {
     initGui();
     initSetting();
@@ -67,10 +68,18 @@ void Widget::receiveMessage(const QString &message)
     m_responseTextEdit->append(message);
 }
 
-void Widget::onConnectButtonClicked(bool checked)
+void Widget::onConnectButtonClicked()
 {
-    checked ? m_connectButton->setText("Disconnect") : m_connectButton->setText("Connect");
-    setButtonsEnable(!checked);
+    if (!m_serialPortConnected)
+        m_serialPortConnected = m_serialPortWorker->openSerialPort(getSerialPortInfo());
+    else 
+    {
+        m_serialPortWorker->closeSerialPort();
+        m_serialPortConnected = false;
+    }
+
+    m_serialPortConnected ? m_connectButton->setText("Disconnect") : m_connectButton->setText("Connect");
+    setButtonsEnable(!m_serialPortConnected);
 }
 
 void Widget::initGui()
@@ -112,8 +121,6 @@ void Widget::createLeftLayout()
     layout->setRowStretch(8, 1);
 
     m_mainLayout->addLayout(layout);
-
-    m_connectButton->setCheckable(true);
 }
 
 void Widget::createRightLayout()
@@ -185,7 +192,7 @@ void Widget::initFlowControl()
     };
 
     for (auto it = m_flowControl.begin(); it != m_flowControl.end(); it++)
-        m_flowControlComboBox->insertItem(std::distance(m_flowControl.begin(), it), it->second);
+        m_flowControlComboBox->insertItem(std::distance(m_flowControl.begin(), it), it->second, it->first);
 }
 
 void Widget::initParities()
@@ -199,7 +206,7 @@ void Widget::initParities()
     };
 
     for (auto it = m_parities.begin(); it != m_parities.end(); it++)
-        m_parityComboBox->insertItem(std::distance(m_parities.begin(), it), it->second);
+        m_parityComboBox->insertItem(std::distance(m_parities.begin(), it), it->second, it->first);
 }
 
 void Widget::initStopBits()
@@ -211,7 +218,7 @@ void Widget::initStopBits()
     };
 
     for (auto it = m_stopBits.begin(); it != m_stopBits.end(); it++)
-        m_stopBitsComboBox->insertItem(std::distance(m_stopBits.begin(), it), it->second);
+        m_stopBitsComboBox->insertItem(std::distance(m_stopBits.begin(), it), it->second, it->first);
 }
 
 void Widget::initPinoutSignals()
@@ -231,7 +238,7 @@ void Widget::initPinoutSignals()
     };
 
     for (auto it = m_pinoutSignal.begin(); it != m_pinoutSignal.end(); it++)
-        m_pinoutSignalComboBox->insertItem(std::distance(m_pinoutSignal.begin(), it), it->second);
+        m_pinoutSignalComboBox->insertItem(std::distance(m_pinoutSignal.begin(), it), it->second, it->first);
 }
 
 void Widget::initConnections()
@@ -260,4 +267,17 @@ void Widget::initWorker()
     connect(m_serialPortWorker, &SerialPortWorker::receiveMessage, this, &Widget::receiveMessage);
     connect(m_serialPortThread, &QThread::finished, m_serialPortWorker, &QObject::deleteLater);
     m_serialPortThread->start();
+}
+
+SerialPortInfo Widget::getSerialPortInfo()
+{
+    SerialPortInfo info;
+    info.name = m_serialPortComboBox->currentText();
+    info.baudRate = m_baudRates.at(m_baudRateComboBox->currentIndex());
+    info.dataBits = m_dataBits.at(m_dataBitsComboBox->currentIndex());
+    info.flowControl = (QSerialPort::FlowControl)m_flowControlComboBox->currentData().toInt();
+    info.parity = (QSerialPort::Parity)m_parityComboBox->currentData().toInt();
+    info.stopBits = (QSerialPort::StopBits)m_stopBitsComboBox->currentData().toInt();
+
+    return info;
 }
