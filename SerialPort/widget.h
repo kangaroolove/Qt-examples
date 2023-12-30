@@ -51,6 +51,9 @@ private:
     QLabel* m_parityLabel;
     QLabel* m_stopBitsLabel;
     QLabel* m_pinoutSignalLabel;
+    QLabel* m_responseLabel;
+    QLabel* m_sendLabel;
+
     QComboBox* m_serialPortComboBox;
     QComboBox* m_baudRateComboBox;
     QComboBox* m_dataBitsComboBox;
@@ -59,15 +62,16 @@ private:
     QComboBox* m_stopBitsComboBox;
     QComboBox* m_pinoutSignalComboBox;
     QHBoxLayout* m_mainLayout;
-    QLabel* m_responseLabel;
+
     QPushButton* m_connectButton;
     QPushButton* m_responseClearButton;
-    QTextEdit* m_responseTextEdit;
-    QLabel* m_sendLabel;
-    QTextEdit* m_sendTextEdit;
     QPushButton* m_sendClearButton;
     QPushButton* m_sendByAsciiButton;
     QPushButton* m_sendByHexButton;
+
+    QTextEdit* m_responseTextEdit;
+    QTextEdit* m_sendTextEdit;
+
     QThread* m_serialPortThread;
     SerialPortWorker* m_serialPortWorker;
     bool m_serialPortConnected;
