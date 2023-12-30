@@ -23,6 +23,8 @@ private slots:
     void onConnectButtonClicked();
     void onSendClearButtonClicked();
     void onResponseClearButtonClicked();
+    void onSendByAsciiButtonClicked();
+    void onSendByHexButtonClicked();
     void receiveMessage(const QString& message);
 
 private:

@@ -46,6 +46,12 @@ void SerialPortWorker::receiveMessageFromSerialPort()
 
 void SerialPortWorker::sendMessage(const QString& message, const bool& useHex)
 {
+    if (!m_serialPort->isOpen())
+    {
+        qDebug()<<"Please open serial port first";
+        return;
+    }
+
     QByteArray data = useHex ? QByteArray::fromHex(message.toLatin1()) : message.toUtf8();
     m_serialPort->write(data);
 }

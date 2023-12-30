@@ -64,6 +64,16 @@ void Widget::onResponseClearButtonClicked()
     m_responseTextEdit->clear();
 }
 
+void Widget::onSendByAsciiButtonClicked()
+{
+    m_serialPortWorker->sendMessage(m_sendTextEdit->toPlainText(), false);
+}
+
+void Widget::onSendByHexButtonClicked()
+{
+    m_serialPortWorker->sendMessage(m_sendTextEdit->toPlainText(), true);
+}
+
 void Widget::receiveMessage(const QString &message)
 {
     m_responseTextEdit->append(message);
