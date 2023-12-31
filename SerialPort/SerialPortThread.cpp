@@ -14,8 +14,8 @@ SerialPortThread::SerialPortThread(QObject* parent)
 
 SerialPortThread::~SerialPortThread()
 {
-    m_serialPort->close();
     m_quit = true;
+    m_serialPort->close();
 }
 
 void SerialPortThread::connectPort(const QString &portName, int waitTime)
@@ -26,15 +26,7 @@ void SerialPortThread::connectPort(const QString &portName, int waitTime)
     m_serialPort->setPortName(portName);
     qDebug()<<m_serialPort->error();
     m_serialPort->setBaudRate(QSerialPort::Baud19200);
-    // m_serialPort->setDataBits(QSerialPort::Data8);
-    // m_serialPort->setParity(QSerialPort::NoParity);
-    // m_serialPort->setFlowControl(QSerialPort::NoFlowControl);
     qDebug()<<m_serialPort->error();
-
-
-    //qDebug()<<m_serialPort->readBufferSize();
-    //m_serialPort->setReadBufferSize(4);
-
 
     connect(m_serialPort, &QSerialPort::errorOccurred, this, [this]{
         qDebug()<<m_serialPort->error();
@@ -44,10 +36,6 @@ void SerialPortThread::connectPort(const QString &portName, int waitTime)
     connect(m_serialPort, &QSerialPort::readyRead, this, [this]{
         qDebug()<<"Ready to read";
         m_readReady = true;
-
-        // QByteArray data = m_serialPort->readAll();
-        // qDebug()<<data;
-        // qDebug()<<data.size();
     });
     
     if (!m_serialPort->open(QIODevice::ReadWrite))
@@ -75,26 +63,14 @@ void SerialPortThread::run()
         {
             m_readReady = false;
             QByteArray message = m_serialPort->readAll();
+            // To handle package loss
             if (m_serialPort->waitForReadyRead(10))
             {
                 message += m_serialPort->readAll();
                 qDebug()<<message.size();
             }
 
-            qDebug()<<"Run receive"<<message;
+            qDebug()<<"Receive:"<<message;
         }
-
-        // bool result = m_serialPort->waitForReadyRead(-1);
-        // if (result)
-        // {
-        //     QByteArray message = m_serialPort->readAll();
-        //     while (m_serialPort->waitForReadyRead(10))
-        //         message += m_serialPort->readAll();
-        //     qDebug()<<"Run receive"<<message;
-        // }
-        // else 
-        // {
-        //     qDebug()<<"error";
-        // }
     }
 }
