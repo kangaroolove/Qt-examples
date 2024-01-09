@@ -4,7 +4,7 @@
 
 SerialPortWorker::SerialPortWorker(QObject* parent)
     : QObject(parent)
-    , m_serialPort(new QSerialPort(this))
+    , m_serialPort(new QSerialPort(parent))
 {
     connect(m_serialPort, &QSerialPort::readyRead, this, &SerialPortWorker::receiveMessageFromSerialPort);
 }

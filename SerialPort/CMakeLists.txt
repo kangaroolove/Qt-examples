@@ -34,6 +34,7 @@ add_executable(SerialPort
   SerialPortThread.h
   SerialPortWorker.cpp
   SerialPortWorker.h
+  Classes.h
 )
 
 target_link_libraries(SerialPort PRIVATE Qt5::Widgets Qt5::SerialPort)

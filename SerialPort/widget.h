@@ -12,6 +12,7 @@ class QSpinBox;
 class QHBoxLayout;
 class QThread;
 class SerialPortWorker;
+class SerialPortThread;
 class Widget : public QWidget
 {
     Q_OBJECT
@@ -26,7 +27,6 @@ private slots:
     void onSendByAsciiButtonClicked();
     void onSendByHexButtonClicked();
     void receiveMessage(const QString& message);
-
 private:
     void initGui();
     void readSerialPort();
@@ -42,6 +42,7 @@ private:
     void initConnections();
     void setButtonsEnable(const bool& enable);
     void initWorker();
+    void initSerialPortThread();
     SerialPortInfo getSerialPortInfo();
 
     QLabel* m_serialPortLabel;
@@ -72,8 +73,7 @@ private:
     QTextEdit* m_responseTextEdit;
     QTextEdit* m_sendTextEdit;
 
-    QThread* m_serialPortThread;
-    SerialPortWorker* m_serialPortWorker;
+    SerialPortThread* m_serialPortThread;
     bool m_serialPortConnected;
 
     std::vector<QSerialPort::BaudRate> m_baudRates;

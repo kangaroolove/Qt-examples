@@ -1,18 +1,7 @@
 #pragma once
 
+#include "Classes.h"
 #include <QObject>
-#include <QSerialPort>
-
-class SerialPortInfo
-{
-public:
-    QString name;
-    QSerialPort::BaudRate baudRate;
-    QSerialPort::DataBits dataBits;
-    QSerialPort::FlowControl flowControl;
-    QSerialPort::Parity parity;
-    QSerialPort::StopBits stopBits;
-};
 
 class QSerialPort;
 class SerialPortWorker : public QObject
@@ -21,13 +10,13 @@ class SerialPortWorker : public QObject
 public:
     SerialPortWorker(QObject* parent = nullptr);
     ~SerialPortWorker();
-    bool openSerialPort(const SerialPortInfo& info);
     void closeSerialPort();
 signals:
     void receiveMessage(const QString& message);
 public slots:
     void sendMessage(const QString& message, const bool& useHex);
     void receiveMessageFromSerialPort();
+    bool openSerialPort(const SerialPortInfo& info);
 private:
     QSerialPort* m_serialPort;
 };

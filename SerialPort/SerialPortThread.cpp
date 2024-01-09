@@ -4,55 +4,53 @@
 
 SerialPortThread::SerialPortThread(QObject* parent)
     : QThread(parent)
-    , m_waitTime(0)
     , m_quit(false)
     , m_serialPort(new QSerialPort(this))
     , m_readReady(false)
 {
-
+    connect(m_serialPort, &QSerialPort::readyRead, this, &SerialPortThread::receiveMessageFromSerialPort);
 }
 
 SerialPortThread::~SerialPortThread()
 {
     m_quit = true;
+    closeSerialPort();
+}
+
+void SerialPortThread::closeSerialPort()
+{
     m_serialPort->close();
 }
 
-void SerialPortThread::connectPort(const QString &portName, int waitTime)
+bool SerialPortThread::openSerialPort(const SerialPortInfo &info)
 {
-    m_portName = portName;
-    m_waitTime = waitTime;
-
-    m_serialPort->setPortName(portName);
-    qDebug()<<m_serialPort->error();
-    m_serialPort->setBaudRate(QSerialPort::Baud19200);
-    qDebug()<<m_serialPort->error();
-
-    connect(m_serialPort, &QSerialPort::errorOccurred, this, [this]{
-        qDebug()<<m_serialPort->error();
-        qDebug()<<m_serialPort->errorString();
-    });
-
-    connect(m_serialPort, &QSerialPort::readyRead, this, [this]{
-        qDebug()<<"Ready to read";
-        m_readReady = true;
-    });
-    
-    if (!m_serialPort->open(QIODevice::ReadWrite))
+    if (m_serialPort->isOpen())
     {
-        qDebug()<<"Cannot open "<<m_portName;
+        qDebug()<<"SerialPort has opened";
+        return false;
+    }
+
+    m_serialPort->setPortName(info.name);
+    m_serialPort->setBaudRate(info.baudRate);
+    m_serialPort->setDataBits(info.dataBits);
+    m_serialPort->setFlowControl(info.flowControl);
+    m_serialPort->setParity(info.parity);
+    m_serialPort->setStopBits(info.stopBits);
+    return m_serialPort->open(QIODevice::ReadWrite);
+}
+
+void SerialPortThread::sendMessage(const QString& message, const bool& useHex)
+{
+    if (!m_serialPort->isOpen())
+    {
+        qDebug()<<"Please open serial port first";
         return;
     }
 
-    if (!this->isRunning())
-        start();
-}
+    qDebug()<<"SerialPortThread --- sendMessage --- "<<message;
 
-void SerialPortThread::sendMessage(const QString &message)
-{
-    m_serialPort->write(QByteArray::fromHex(message.toLatin1()));
-    m_serialPort->flush();
-    qDebug()<<"Write data:"<<message<<" successfully";
+    QByteArray data = useHex ? QByteArray::fromHex(message.toLatin1()) : message.toUtf8();
+    m_serialPort->write(data);
 }
 
 void SerialPortThread::run()
@@ -73,4 +71,10 @@ void SerialPortThread::run()
             qDebug()<<"Receive:"<<message;
         }
     }
+}
+
+void SerialPortThread::receiveMessageFromSerialPort()
+{
+    qDebug()<<"Ready to read";
+    m_readReady = true;
 }
