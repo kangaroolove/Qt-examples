@@ -69,6 +69,7 @@ void SerialPortThread::run()
             }
 
             qDebug()<<"Receive:"<<message;
+            emit receiveMessage(message.toHex(' ').toUpper());
         }
     }
 }
