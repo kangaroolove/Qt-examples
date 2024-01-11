@@ -1,12 +1,14 @@
 #include "SerialPortThread.h"
 #include <QSerialPort>
 #include <QDebug>
+#include <QTimer>
 
 SerialPortThread::SerialPortThread(QObject* parent)
     : QThread(parent)
     , m_quit(false)
     , m_serialPort(new QSerialPort(this))
     , m_readReady(false)
+    , m_isFirstTimeReceiveMessage(false)
 {
     connect(m_serialPort, &QSerialPort::readyRead, this, &SerialPortThread::receiveMessageFromSerialPort);
 }
@@ -60,22 +62,25 @@ void SerialPortThread::run()
         if (m_readReady)
         {
             m_readReady = false;
+            m_isFirstTimeReceiveMessage = false;
             QByteArray message = m_serialPort->readAll();
-            // To handle package loss
-            if (m_serialPort->waitForReadyRead(10))
-            {
-                message += m_serialPort->readAll();
-                qDebug()<<message.size();
-            }
-
             qDebug()<<"Receive:"<<message;
             emit receiveMessage(message.toHex(' ').toUpper());
         }
     }
 }
 
+void SerialPortThread::setUpReadyToRead()
+{
+    m_readReady = true;
+}
+
 void SerialPortThread::receiveMessageFromSerialPort()
 {
-    qDebug()<<"Ready to read";
-    m_readReady = true;
+    // To handle package loss
+    if (m_isFirstTimeReceiveMessage == false)
+    {
+        m_isFirstTimeReceiveMessage = true;
+        QTimer::singleShot(50, this, &SerialPortThread::setUpReadyToRead);
+    }
 }

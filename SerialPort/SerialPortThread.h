@@ -19,9 +19,11 @@ protected:
     void run() override;
 private slots:
     void receiveMessageFromSerialPort();
+    void setUpReadyToRead();
 
 private:
     QSerialPort* m_serialPort;
     bool m_quit;
     bool m_readReady;
+    bool m_isFirstTimeReceiveMessage;
 };
