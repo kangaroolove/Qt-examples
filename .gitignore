@@ -16,3 +16,5 @@
 /LocalIPC/.vscode
 /MemoryLeakDetectCRT/.vscode
 /MemoryLeakDetectCRT/build
+/MemoryLeakDetectVLD/.vscode
+/MemoryLeakDetectVLD/build
