@@ -13,10 +13,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
-list(APPEND EXTRA_LIBS
-  VisualLeakDetector/lib/Win64/vld.lib
-)
-
 list(APPEND EXTRA_INCLUDES 
   "VisualLeakDetector/include")
 
