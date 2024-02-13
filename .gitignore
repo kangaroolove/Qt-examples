@@ -18,3 +18,5 @@
 /MemoryLeakDetectCRT/build
 /MemoryLeakDetectVLD/.vscode
 /MemoryLeakDetectVLD/build
+/Doxygen/build
+/Doxygen/.vscode
