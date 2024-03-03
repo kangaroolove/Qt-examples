@@ -42,6 +42,8 @@ set(PROJECT_SOURCES
 	tasks/GetValueTask.h
 	tasks/SetValueTask.cpp
 	tasks/SetValueTask.h
+	tasks/DaqcHandleRequestTask.cpp
+	tasks/DaqcHandleRequestTask.h
 	packets/Packet.cpp
 	packets/Packet.h
 	packets/FramePacket.cpp
