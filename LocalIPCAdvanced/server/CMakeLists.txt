@@ -34,6 +34,10 @@ set(PROJECT_SOURCES
 	tasks/SendTask.h
 	tasks/SendFrameTask.cpp
 	tasks/SendFrameTask.h
+	tasks/GetValueTask.cpp
+	tasks/GetValueTask.h
+	tasks/SetValueTask.cpp
+	tasks/SetValueTask.h
 )
 
 set(PROJECT_UIS
