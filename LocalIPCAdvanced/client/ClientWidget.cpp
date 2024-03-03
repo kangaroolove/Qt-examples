@@ -18,7 +18,7 @@ ClientWidget::ClientWidget(QWidget* parent)
         //m_client->sendMessage(m_sendTextEdit->toPlainText());
         //m_sendTextEdit->clear();
 
-        m_client->testGetApi();
+        m_client->testSetApi(true);
     });
     connect(m_client, &Client::receiveMessage, this, [this](const QString& msg){
         m_receiveTextEdit->append(msg);

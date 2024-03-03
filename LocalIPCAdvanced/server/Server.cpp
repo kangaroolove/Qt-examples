@@ -41,11 +41,11 @@ void Server::readyRead()
     if (it == m_clientSockets.end())
         return;
 
-    qDebug()<<"bytesAvailable"<<socket->bytesAvailable();
     if (socket->bytesAvailable() > 0 && !it->second->atEnd())
     {
         QByteArray msg;
         *(it->second) >> msg;
+        qDebug()<<msg;
 
         auto task = generateHandleRequestTask(msg);
         QThreadPool::globalInstance()->start(task);

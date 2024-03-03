@@ -1,5 +1,6 @@
 #include "DaqcHandleRequestTask.h"
 #include <QJsonDocument>
+#include <QDebug>
 
 DaqcHandleRequestTask::DaqcHandleRequestTask(const QByteArray& data) :
     HandleRequestTask(data)
@@ -24,4 +25,5 @@ void DaqcHandleRequestTask::analyzeJson(const QByteArray &data)
 
 void DaqcHandleRequestTask::handleTask(const QString &api)
 {
+    qDebug()<<"api = "<<api;
 }
