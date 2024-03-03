@@ -20,3 +20,5 @@
 /MemoryLeakDetectVLD/build
 /Doxygen/build
 /Doxygen/.vscode
+/LocalIPCAdvanced/.vscode
+/LocalIPCAdvanced/build
