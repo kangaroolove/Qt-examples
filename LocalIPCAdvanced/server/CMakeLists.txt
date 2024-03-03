@@ -28,6 +28,8 @@ set(PROJECT_SOURCES
 	ui/ServerWidget.h
 	Server.cpp
 	Server.h
+	DaqcServer.cpp
+	DaqcServer.h
 	tasks/HandleRequestTask.cpp
 	tasks/HandleRequestTask.h
 	tasks/SendReplyTask.cpp
