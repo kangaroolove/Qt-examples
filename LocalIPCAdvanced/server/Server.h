@@ -14,9 +14,9 @@ public:
     Server(QObject* parent = nullptr);
     ~Server();
     virtual void start() = 0;
-    void sendMessage(const QString& msg);
+    void sendMessage(const QByteArray& msg);
 signals:
-    void receiveMessage(const QString& msg);
+    void receiveMessage(const QByteArray& msg);
 protected:
     virtual HandleRequestTask* generateHandleRequestTask(const QByteArray& data) = 0;
 private slots:
@@ -25,6 +25,4 @@ private slots:
 private:
     void init();
     std::map<QLocalSocket*, QDataStream*> m_clientSockets;
-    static const quint32 HEADER_DATA_FIRST;
-    static const quint32 HEADER_DATA_SECOND;
 };

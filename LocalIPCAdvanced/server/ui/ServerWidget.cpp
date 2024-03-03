@@ -16,7 +16,7 @@ ServerWidget::ServerWidget(QWidget* parent)
 {
     initGui();
     connect(m_sendButton, &QPushButton::clicked, this, [this]{
-        m_server->sendMessage(m_sendTextEdit->toPlainText());
+        //m_server->sendMessage(m_sendTextEdit->toPlainText());
         m_sendTextEdit->clear();
     });
     connect(m_server, &Server::receiveMessage, this, [this](const QString& msg){

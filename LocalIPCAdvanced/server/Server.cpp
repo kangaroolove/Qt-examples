@@ -5,9 +5,6 @@
 #include <QDebug>
 #include <QThreadPool>
 
-const quint32 Server::HEADER_DATA_FIRST = 0xAA;
-const quint32 Server::HEADER_DATA_SECOND = 0xCC;
-
 Server::Server(QObject* parent)
     : QLocalServer(parent)
 {
@@ -19,14 +16,12 @@ Server::~Server()
 
 }
 
-void Server::sendMessage(const QString &msg)
+void Server::sendMessage(const QByteArray &msg)
 {
     QByteArray data;
     QDataStream out(&data, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_5_12);
 
-    out << HEADER_DATA_FIRST;
-    out << HEADER_DATA_SECOND;
     out << msg;
 
     for (auto it = m_clientSockets.begin(); it != m_clientSockets.end(); it++)
@@ -53,9 +48,6 @@ void Server::readyRead()
         quint32 headerSecond;
         *(it->second) >> headerFirst;
         *(it->second) >> headerSecond;
-
-        if ((headerFirst != HEADER_DATA_FIRST) || headerSecond != HEADER_DATA_SECOND)
-            return;
 
         QByteArray msg;
         *(it->second) >> msg;
