@@ -10,4 +10,5 @@ public:
 protected:
     void analyzeJson(const QByteArray& data) override;
 private:
+    void handleTask(const QString& api);
 };
