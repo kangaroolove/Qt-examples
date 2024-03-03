@@ -5,6 +5,7 @@
 
 class QLocalSocket;
 class QDataStream;
+class HandleRequestTask;
 
 class Server : public QLocalServer
 {
@@ -16,6 +17,8 @@ public:
     void sendMessage(const QString& msg);
 signals:
     void receiveMessage(const QString& msg);
+protected:
+    virtual HandleRequestTask* generateHandleRequestTask() = 0;
 private slots:
     void newDeviceConnected();
     void readyRead();

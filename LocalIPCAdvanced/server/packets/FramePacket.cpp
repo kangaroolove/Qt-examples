@@ -12,4 +12,5 @@ FramePacket::~FramePacket()
 
 QByteArray FramePacket::toJson()
 {
+    return QByteArray();
 }
