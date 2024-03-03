@@ -9,3 +9,8 @@ DaqcHandleRequestTask::~DaqcHandleRequestTask()
 {
 
 }
+
+bool DaqcHandleRequestTask::analyzeJson(const QByteArray &data)
+{
+    return false;
+}
