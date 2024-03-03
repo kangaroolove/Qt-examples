@@ -10,6 +10,7 @@ class Client : public QLocalSocket
 public:
     Client(QObject* parent = nullptr);
     ~Client();
+    virtual void start() = 0;
     void sendMessage(const QByteArray& msg);
 signals:
     void receiveMessage(const QByteArray& msg);

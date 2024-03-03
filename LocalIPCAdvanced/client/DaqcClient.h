@@ -8,6 +8,7 @@ class DaqcClient : public Client
 public:
     DaqcClient(QObject* parent);
     ~DaqcClient();
+    void start() override;
     void testGetApi();
     void testSetApi(bool isTest);
 private:

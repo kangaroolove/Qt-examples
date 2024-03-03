@@ -23,7 +23,8 @@ ClientWidget::ClientWidget(QWidget* parent)
     connect(m_client, &Client::receiveMessage, this, [this](const QString& msg){
         m_receiveTextEdit->append(msg);
     });
-    connectServer();
+
+    m_client->start();
 }
 
 ClientWidget::~ClientWidget()
@@ -42,9 +43,4 @@ void ClientWidget::initGui()
     layout->addWidget(sendLabel);
     layout->addWidget(m_sendTextEdit);
     layout->addWidget(m_sendButton);
-}
-
-void ClientWidget::connectServer()
-{
-    m_client->connectToServer("KangarooLove");
 }

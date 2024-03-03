@@ -44,11 +44,6 @@ void Server::readyRead()
     qDebug()<<"bytesAvailable"<<socket->bytesAvailable();
     if (socket->bytesAvailable() > 0 && !it->second->atEnd())
     {
-        quint32 headerFirst;
-        quint32 headerSecond;
-        *(it->second) >> headerFirst;
-        *(it->second) >> headerSecond;
-
         QByteArray msg;
         *(it->second) >> msg;
 

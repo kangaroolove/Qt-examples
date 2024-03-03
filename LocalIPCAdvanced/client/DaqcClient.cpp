@@ -14,6 +14,11 @@ DaqcClient::~DaqcClient()
 
 }
 
+void DaqcClient::start()
+{
+    connectToServer("Daqc");
+}
+
 void DaqcClient::testGetApi()
 {
     QJsonObject object;
