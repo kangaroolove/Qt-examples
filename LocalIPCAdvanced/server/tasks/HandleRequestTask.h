@@ -1,15 +1,16 @@
 #pragma once
 
 #include <QRunnable>
+#include <QByteArray>
 
 class HandleRequestTask : public QRunnable
 {
 public:
-    HandleRequestTask();
+    HandleRequestTask(const QByteArray& data);
     ~HandleRequestTask();
     void run() override;
 protected:
-    virtual bool analyzeJson(const QByteArray& data) = 0;
+    virtual void analyzeJson(const QByteArray& data) = 0;
 private:
-
+    QByteArray m_data;
 };

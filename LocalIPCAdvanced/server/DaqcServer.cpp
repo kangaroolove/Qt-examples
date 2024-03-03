@@ -16,7 +16,7 @@ void DaqcServer::start()
     listen("Daqc");
 }
 
-HandleRequestTask *DaqcServer::generateHandleRequestTask()
+HandleRequestTask *DaqcServer::generateHandleRequestTask(const QByteArray& data)
 {
-    return new DaqcHandleRequestTask;
+    return new DaqcHandleRequestTask(data);
 }

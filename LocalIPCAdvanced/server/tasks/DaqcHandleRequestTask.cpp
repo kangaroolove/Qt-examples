@@ -1,6 +1,7 @@
 #include "DaqcHandleRequestTask.h"
 
-DaqcHandleRequestTask::DaqcHandleRequestTask()
+DaqcHandleRequestTask::DaqcHandleRequestTask(const QByteArray& data) :
+    HandleRequestTask(data)
 {
 
 }
@@ -10,7 +11,7 @@ DaqcHandleRequestTask::~DaqcHandleRequestTask()
 
 }
 
-bool DaqcHandleRequestTask::analyzeJson(const QByteArray &data)
+void DaqcHandleRequestTask::analyzeJson(const QByteArray &data)
 {
-    return false;
+
 }

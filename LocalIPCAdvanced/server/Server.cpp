@@ -17,11 +17,6 @@ Server::~Server()
 
 }
 
-// bool Server::start()
-// {
-//     return this->listen("KangarooLove");
-// }
-
 void Server::sendMessage(const QString &msg)
 {
     QByteArray data;
@@ -59,10 +54,12 @@ void Server::readyRead()
 
         if ((headerFirst != HEADER_DATA_FIRST) || headerSecond != HEADER_DATA_SECOND)
             return;
-        
-        QString msg;
+
+        QByteArray msg;
         *(it->second) >> msg;
-        emit receiveMessage(msg);
+
+        generateHandleRequestTask(msg);
+        //emit receiveMessage(msg);
     }
 }
 

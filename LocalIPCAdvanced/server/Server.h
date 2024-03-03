@@ -18,7 +18,7 @@ public:
 signals:
     void receiveMessage(const QString& msg);
 protected:
-    virtual HandleRequestTask* generateHandleRequestTask() = 0;
+    virtual HandleRequestTask* generateHandleRequestTask(const QByteArray& data) = 0;
 private slots:
     void newDeviceConnected();
     void readyRead();

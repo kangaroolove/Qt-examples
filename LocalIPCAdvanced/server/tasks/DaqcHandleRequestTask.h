@@ -5,10 +5,9 @@
 class DaqcHandleRequestTask : public HandleRequestTask
 {
 public:
-    DaqcHandleRequestTask();
+    DaqcHandleRequestTask(const QByteArray& data);
     ~DaqcHandleRequestTask();
 protected:
-    bool analyzeJson(const QByteArray& data) override;
+    void analyzeJson(const QByteArray& data) override;
 private:
-
 };
