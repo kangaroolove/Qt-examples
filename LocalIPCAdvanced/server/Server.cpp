@@ -1,7 +1,9 @@
 #include "Server.h"
+#include "HandleRequestTask.h"
 #include <QLocalSocket>
 #include <QDataStream>
 #include <QDebug>
+#include <QThreadPool>
 
 const quint32 Server::HEADER_DATA_FIRST = 0xAA;
 const quint32 Server::HEADER_DATA_SECOND = 0xCC;
@@ -58,7 +60,9 @@ void Server::readyRead()
         QByteArray msg;
         *(it->second) >> msg;
 
-        generateHandleRequestTask(msg);
+        auto task = generateHandleRequestTask(msg);
+        QThreadPool::globalInstance()->start(task);
+
         //emit receiveMessage(msg);
     }
 }
