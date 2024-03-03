@@ -1,8 +1,8 @@
 #pragma once
 
-#include <QRunnable>
+#include "SendTask.h"
 
-class SendReplyTask : public QRunnable
+class SendReplyTask : public SendTask
 {
 public:
     SendReplyTask();

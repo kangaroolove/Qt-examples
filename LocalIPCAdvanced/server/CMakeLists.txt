@@ -30,6 +30,10 @@ set(PROJECT_SOURCES
 	tasks/HandleRequestTask.h
 	tasks/SendReplyTask.cpp
 	tasks/SendReplyTask.h
+	tasks/SendTask.cpp
+	tasks/SendTask.h
+	tasks/SendFrameTask.cpp
+	tasks/SendFrameTask.h
 )
 
 set(PROJECT_UIS
