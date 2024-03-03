@@ -4,7 +4,7 @@
 
 class QTextEdit;
 class QPushButton;
-class Client;
+class DaqcClient;
 
 class ClientWidget : public QWidget
 {
@@ -19,5 +19,5 @@ private:
     QTextEdit* m_receiveTextEdit;
     QTextEdit* m_sendTextEdit;
     QPushButton* m_sendButton;
-    Client* m_client;
+    DaqcClient* m_client;
 };

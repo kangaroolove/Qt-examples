@@ -25,6 +25,8 @@ set(PROJECT_SOURCES
 	ClientWidget.h
 	Client.cpp
 	Client.h
+	DaqcClient.cpp
+	DaqcClient.h
 )
 
 set(PROJECT_UIS

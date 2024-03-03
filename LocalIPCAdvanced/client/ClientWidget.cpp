@@ -1,5 +1,5 @@
 #include "ClientWidget.h"
-#include "Client.h"
+#include "DaqcClient.h"
 #include <QVBoxLayout>
 #include <QTextEdit>
 #include <QLabel>
@@ -11,12 +11,14 @@ ClientWidget::ClientWidget(QWidget* parent)
     , m_receiveTextEdit(new QTextEdit(this))
     , m_sendTextEdit(new QTextEdit(this))
     , m_sendButton(new QPushButton("Send", this))
-    , m_client(new Client(this))
+    , m_client(new DaqcClient(this))
 {
     initGui();
     connect(m_sendButton, &QPushButton::clicked, this, [this]{
-        m_client->sendMessage(m_sendTextEdit->toPlainText());
-        m_sendTextEdit->clear();
+        //m_client->sendMessage(m_sendTextEdit->toPlainText());
+        //m_sendTextEdit->clear();
+
+        m_client->testGetApi();
     });
     connect(m_client, &Client::receiveMessage, this, [this](const QString& msg){
         m_receiveTextEdit->append(msg);
