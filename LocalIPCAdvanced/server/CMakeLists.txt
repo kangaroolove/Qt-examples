@@ -15,6 +15,7 @@ find_package(Qt5 COMPONENTS Widgets network REQUIRED)
 
 include_directories(
 	tasks
+	packets
 )
 
 list(APPEND EXTRA_LIBS 
@@ -38,6 +39,14 @@ set(PROJECT_SOURCES
 	tasks/GetValueTask.h
 	tasks/SetValueTask.cpp
 	tasks/SetValueTask.h
+	packets/Packet.cpp
+	packets/Packet.h
+	packets/FramePacket.cpp
+	packets/FramePacket.h
+	packets/ReplyPacket.cpp
+	packets/ReplyPacket.h
+	packets/RequestPacket.cpp
+	packets/RequestPacket.h
 )
 
 set(PROJECT_UIS
