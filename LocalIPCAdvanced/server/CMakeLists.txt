@@ -28,6 +28,8 @@ set(PROJECT_SOURCES
 	Server.h
 	tasks/HandleRequestTask.cpp
 	tasks/HandleRequestTask.h
+	tasks/SendReplyTask.cpp
+	tasks/SendReplyTask.h
 )
 
 set(PROJECT_UIS
