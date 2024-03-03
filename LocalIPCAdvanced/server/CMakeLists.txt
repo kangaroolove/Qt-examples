@@ -16,6 +16,7 @@ find_package(Qt5 COMPONENTS Widgets network REQUIRED)
 include_directories(
 	tasks
 	packets
+	ui
 )
 
 list(APPEND EXTRA_LIBS 
@@ -23,8 +24,8 @@ list(APPEND EXTRA_LIBS
 
 set(PROJECT_SOURCES
     main.cpp
-	ServerWidget.cpp
-	ServerWidget.h
+	ui/ServerWidget.cpp
+	ui/ServerWidget.h
 	Server.cpp
 	Server.h
 	tasks/HandleRequestTask.cpp
