@@ -1,11 +1,11 @@
 #include <QApplication>
-#include "ServerWidget.h"
+#include "DaqcServer.h"
 
 int main( int argc, char** argv )
 {
   QApplication app( argc, argv );
-  ServerWidget widget;
-  widget.show();
+  DaqcServer server;
+  server.start();
 
   return app.exec();
 }
