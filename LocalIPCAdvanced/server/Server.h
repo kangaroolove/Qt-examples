@@ -22,6 +22,7 @@ protected:
 private slots:
     void newDeviceConnected();
     void readyRead();
+    void clientDisconnected();
 private:
     void init();
     std::map<QLocalSocket*, QDataStream*> m_clientSockets;

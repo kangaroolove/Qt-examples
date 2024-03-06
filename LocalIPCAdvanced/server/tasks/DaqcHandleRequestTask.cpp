@@ -26,6 +26,4 @@ void DaqcHandleRequestTask::analyzeJson(const QByteArray &data)
 void DaqcHandleRequestTask::handleTask(const QString &api)
 {
     qDebug()<<"api = "<<api;
-
-    if (api == set)
 }

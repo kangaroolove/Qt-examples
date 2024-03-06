@@ -54,6 +54,18 @@ void Server::readyRead()
     }
 }
 
+void Server::clientDisconnected()
+{
+    qDebug()<<"Server::clientDisconnected";
+    QLocalSocket* socket = static_cast<QLocalSocket*>(this->sender());
+    if (!socket)
+        return;
+
+    auto it = m_clientSockets.find(socket);
+    if (it != m_clientSockets.end())
+        m_clientSockets.erase(it);
+}
+
 void Server::init()
 {
     connect(this, &Server::newConnection, this, &Server::newDeviceConnected);
@@ -63,6 +75,7 @@ void Server::newDeviceConnected()
 {
     QLocalSocket* socket = this->nextPendingConnection();
     connect(socket, &QLocalSocket::readyRead, this, &Server::readyRead);
+    connect(socket, &QLocalSocket::disconnected, this, &Server::clientDisconnected);
     QDataStream* dataStream = new QDataStream(socket);
     dataStream->setVersion(QDataStream::Qt_5_12);
     m_clientSockets.insert({socket, dataStream});
