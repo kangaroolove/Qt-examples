@@ -2,7 +2,7 @@
 
 #include "SendTask.h"
 
-class SendFrameTask : public SendTask
+class SendFrameTask
 {
 public:
     SendFrameTask();

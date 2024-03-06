@@ -9,7 +9,3 @@ SendReplyTask::~SendReplyTask()
 {
 
 }
-
-void SendReplyTask::run()
-{
-}

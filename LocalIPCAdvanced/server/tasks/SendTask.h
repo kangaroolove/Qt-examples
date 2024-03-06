@@ -1,13 +1,17 @@
 #pragma once
 
 #include <QRunnable>
+#include <QByteArray>
+
+class Server;
 
 class SendTask : public QRunnable
 {
 public:
-    SendTask();
+    SendTask(Server* server, const QByteArray& data);
     ~SendTask();
     void run() override;
-private:
-
+protected:
+    Server* m_server;
+    QByteArray m_data;
 };

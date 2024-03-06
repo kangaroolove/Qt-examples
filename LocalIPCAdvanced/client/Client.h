@@ -2,6 +2,7 @@
 
 #include <QLocalSocket>
 #include <unordered_map>
+#include <QString>
 
 class QDataStream;
 class QEventLoop;

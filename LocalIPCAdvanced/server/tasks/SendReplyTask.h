@@ -2,12 +2,9 @@
 
 #include "SendTask.h"
 
-class SendReplyTask : public SendTask
+class SendReplyTask
 {
 public:
     SendReplyTask();
     ~SendReplyTask();
-    void run() override;
-private:
-
 };

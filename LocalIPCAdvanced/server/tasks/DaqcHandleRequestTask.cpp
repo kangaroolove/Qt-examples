@@ -1,10 +1,14 @@
 #include "DaqcHandleRequestTask.h"
+#include "SendTask.h"
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDebug>
+#include <QUuid>
+#include <QThreadPool>
 
-DaqcHandleRequestTask::DaqcHandleRequestTask(const QByteArray& data) :
-    HandleRequestTask(data)
+DaqcHandleRequestTask::DaqcHandleRequestTask(Server* server, const QByteArray& data) :
+    HandleRequestTask(data),
+    m_server(server)
 {
 
 }
@@ -20,25 +24,35 @@ void DaqcHandleRequestTask::analyzeJson(const QByteArray &data)
     if (document.isNull())
         return;
 
-    QString requestType = getRequestType(document);
-    qDebug()<<"requestType = "<< requestType;
-    QString messageId = getMessageId(document);
-    qDebug()<<"messageId = "<< messageId;
-    QString parameter = getParameter(document);
-    qDebug()<<"parameter = "<< parameter;
-    //handleTask(api);
+    handleTask(getParameter(document), getRequestType(document), getClientMessageId(document));
 }
 
-void DaqcHandleRequestTask::handleTask(const QString &api)
+void DaqcHandleRequestTask::handleTask(const QString &parameter, const QString &requestType, const QString &clientMessageId)
 {
+    qDebug()<<"parameter = "<< parameter;
+    qDebug()<<"requestType = "<< requestType;
+    qDebug()<<"clientMessageId = "<< clientMessageId;
+
+    if (parameter == "testApi")
+    {
+        QJsonObject dataObject;
+        dataObject["clientMessageId"] = clientMessageId;
+        dataObject["testApi"] = 10; 
+        QJsonObject rootObject;
+        rootObject["data"] = dataObject;
+        rootObject["messageId"] = QUuid::createUuid().toString();
+        QJsonDocument document(rootObject);
+
+        QThreadPool::globalInstance()->start(new SendTask(m_server, document.toJson()));
+    }
 }
 
-QString DaqcHandleRequestTask::getRequestType(const QJsonDocument& document)
+QString DaqcHandleRequestTask::getRequestType(const QJsonDocument &document)
 {
     return document["data"].toObject()["requestType"].toString();
 }
 
-QString DaqcHandleRequestTask::getMessageId(const QJsonDocument &document)
+QString DaqcHandleRequestTask::getClientMessageId(const QJsonDocument &document)
 {
     return document["messageId"].toString();
 }
