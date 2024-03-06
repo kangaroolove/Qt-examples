@@ -34,12 +34,8 @@ void Client::sendMessage(const QByteArray &msg, const QString& messageId)
 
 void Client::readyToRead()
 {
-    qDebug()<<"bytesAvailable"<<this->bytesAvailable();
     if (this->bytesAvailable() > 0 && !in->atEnd())
-    {
-        quint32 headerFirst = 0;
-        quint32 headerSecond = 0;
-            
+    {  
         QByteArray msg;
         *in >> msg;
         emit receiveMessage(msg);
