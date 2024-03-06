@@ -3,6 +3,8 @@
 #include <QLocalServer>
 #include <map>
 
+
+class QMutex;
 class QLocalSocket;
 class QDataStream;
 class HandleRequestTask;
@@ -25,5 +27,7 @@ private slots:
     void clientDisconnected();
 private:
     void init();
+    // shared resources
     std::map<QLocalSocket*, QDataStream*> m_clientSockets;
+    QMutex* m_mutex;
 };
