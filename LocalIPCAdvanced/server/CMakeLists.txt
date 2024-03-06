@@ -32,16 +32,8 @@ set(PROJECT_SOURCES
 	DaqcServer.h
 	tasks/HandleRequestTask.cpp
 	tasks/HandleRequestTask.h
-	tasks/SendReplyTask.cpp
-	tasks/SendReplyTask.h
 	tasks/SendTask.cpp
 	tasks/SendTask.h
-	tasks/SendFrameTask.cpp
-	tasks/SendFrameTask.h
-	tasks/GetValueTask.cpp
-	tasks/GetValueTask.h
-	tasks/SetValueTask.cpp
-	tasks/SetValueTask.h
 	tasks/DaqcHandleRequestTask.cpp
 	tasks/DaqcHandleRequestTask.h
 	packets/Packet.cpp
