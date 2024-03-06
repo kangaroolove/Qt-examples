@@ -1,5 +1,6 @@
 #include "DaqcHandleRequestTask.h"
 #include <QJsonDocument>
+#include <QJsonObject>
 #include <QDebug>
 
 DaqcHandleRequestTask::DaqcHandleRequestTask(const QByteArray& data) :
@@ -19,11 +20,30 @@ void DaqcHandleRequestTask::analyzeJson(const QByteArray &data)
     if (document.isNull())
         return;
 
-    QString api = document["api"].toString();
-    handleTask(api);
+    QString requestType = getRequestType(document);
+    qDebug()<<"requestType = "<< requestType;
+    QString messageId = getMessageId(document);
+    qDebug()<<"messageId = "<< messageId;
+    QString parameter = getParameter(document);
+    qDebug()<<"parameter = "<< parameter;
+    //handleTask(api);
 }
 
 void DaqcHandleRequestTask::handleTask(const QString &api)
 {
-    qDebug()<<"api = "<<api;
+}
+
+QString DaqcHandleRequestTask::getRequestType(const QJsonDocument& document)
+{
+    return document["data"].toObject()["requestType"].toString();
+}
+
+QString DaqcHandleRequestTask::getMessageId(const QJsonDocument &document)
+{
+    return document["messageId"].toString();
+}
+
+QString DaqcHandleRequestTask::getParameter(const QJsonDocument &document)
+{
+    return document["data"].toObject()["parameter"].toString();
 }

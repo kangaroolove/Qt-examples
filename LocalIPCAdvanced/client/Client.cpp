@@ -1,6 +1,8 @@
 #include "Client.h"
 #include <QDataStream>
+#include <QEventLoop>
 #include <QDebug>
+#include <QUuid>
 
 Client::Client(QObject* parent)
     : QLocalSocket(parent)
@@ -15,7 +17,7 @@ Client::~Client()
 
 }
 
-void Client::sendMessage(const QByteArray &msg)
+void Client::sendMessage(const QByteArray &msg, const QString& messageId)
 {
     QByteArray data;
     QDataStream out(&data, QIODevice::WriteOnly);
@@ -24,6 +26,10 @@ void Client::sendMessage(const QByteArray &msg)
 
     this->write(data);
     this->flush();
+
+    QEventLoop* eventLoop = new QEventLoop(this);
+    m_eventLoopMap.insert({eventLoop, messageId});
+    eventLoop->exec();
 }
 
 void Client::readyToRead()

@@ -2,6 +2,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDebug>
+#include <QUuid>
 
 DaqcClient::DaqcClient(QObject* parent) :
     Client(parent)
@@ -22,18 +23,24 @@ void DaqcClient::start()
 
 void DaqcClient::testGetApi()
 {
+    QString messageId = QUuid::createUuid().toString();
+    QJsonObject rootObject;
     QJsonObject object;
-    object["api"] = "testGetApi";
-    QJsonDocument document(object);
-    sendMessage(document.toJson());
+    object["parameter"] = "testApi";
+    object["requestType"] = "get";
+    rootObject["data"] = object;
+    rootObject["messageId"] = messageId;
+    QJsonDocument document(rootObject);
+    sendMessage(document.toJson(QJsonDocument::Compact), messageId);
 }
 
 void DaqcClient::testSetApi(bool isTest)
 {
+    QString messageId = QUuid::createUuid().toString();
     QJsonObject object;
     object["api"] = "testSetApi";
     object["value"] = 10;
     object["type"] = "int";
     QJsonDocument document(object);
-    sendMessage(document.toJson());
+    sendMessage(document.toJson(QJsonDocument::Compact), messageId);
 }
