@@ -8,6 +8,4 @@ public:
     RequestPacket();
     ~RequestPacket();
     QByteArray toJson() override;
-private:
-
 };

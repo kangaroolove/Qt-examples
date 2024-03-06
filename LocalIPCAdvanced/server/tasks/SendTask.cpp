@@ -1,9 +1,10 @@
 #include "SendTask.h"
 #include "Server.h"
+#include "Packet.h"
 
-SendTask::SendTask(Server* server, const QByteArray& data) :
+SendTask::SendTask(Server* server, Packet* packet) :
     m_server(server),
-    m_data(data)
+    m_packet(packet)
 {
 
 }
@@ -15,5 +16,5 @@ SendTask::~SendTask()
 
 void SendTask::run()
 {
-    m_server->sendMessage(m_data);
+    m_server->sendMessage(m_packet->toJson());
 }

@@ -1,5 +1,6 @@
 #include "DaqcHandleRequestTask.h"
 #include "SendTask.h"
+#include "ReplyPacket.h"
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDebug>
@@ -35,15 +36,7 @@ void DaqcHandleRequestTask::handleTask(const QString &parameter, const QString &
 
     if (parameter == "testApi")
     {
-        QJsonObject dataObject;
-        dataObject["clientMessageId"] = clientMessageId;
-        dataObject["testApi"] = 10; 
-        QJsonObject rootObject;
-        rootObject["data"] = dataObject;
-        rootObject["messageId"] = QUuid::createUuid().toString();
-        QJsonDocument document(rootObject);
-
-        QThreadPool::globalInstance()->start(new SendTask(m_server, document.toJson()));
+        QThreadPool::globalInstance()->start(new SendTask(m_server, new TestGetApiPacket(clientMessageId)));
     }
 }
 
