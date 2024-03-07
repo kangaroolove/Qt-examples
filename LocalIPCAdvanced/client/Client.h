@@ -21,7 +21,9 @@ public:
      * @param messageId uuid
      */
     void sendMessage(const QByteArray& msg, const QString& messageId);
-    
+    void quitEventLoop(const QString& messageId);
+    void insertResult(const QString& messageId, const QVariant& value);
+    QVariant getResult(const QString& messageId);
 signals:
     void receiveMessage(const QByteArray& msg);
 private slots:
@@ -29,5 +31,8 @@ private slots:
 private:
     QDataStream* in;
     // shared variables
-    std::unordered_map<QEventLoop*, QString> m_eventLoopMap;
+    // key: messageId
+    std::map<QString, QEventLoop*> m_eventLoopMap;
+    // key: messageId
+    std::map<QString, QVariant> m_resultMap;
 };

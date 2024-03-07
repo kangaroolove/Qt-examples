@@ -21,7 +21,7 @@ void DaqcClient::start()
     qDebug()<<"Connect to server";
 }
 
-void DaqcClient::testGetApi()
+int DaqcClient::testGetApi()
 {
     QString messageId = QUuid::createUuid().toString();
     QJsonObject rootObject;
@@ -32,6 +32,8 @@ void DaqcClient::testGetApi()
     rootObject["messageId"] = messageId;
     QJsonDocument document(rootObject);
     sendMessage(document.toJson(QJsonDocument::Compact), messageId);
+
+    return 0;
 }
 
 void DaqcClient::testSetApi(bool isTest)

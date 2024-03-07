@@ -9,7 +9,7 @@ public:
     DaqcClient(QObject* parent);
     ~DaqcClient();
     void start() override;
-    void testGetApi();
+    int testGetApi();
     void testSetApi(bool isTest);
 private:
 
