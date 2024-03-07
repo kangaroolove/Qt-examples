@@ -2,19 +2,19 @@
 #include "DaqcHandleRequestTask.h"
 #include <QDebug>
 
-DaqcServer::DaqcServer()
+DaqcServer::DaqcServer(QObject* parent) :
+    Server(parent)
 {
 
 }
 
 DaqcServer::~DaqcServer()
 {
-
 }
 
 void DaqcServer::start()
 {
-    listen("ABC");
+    qDebug()<<listen("Daqc");
     qDebug()<<"Daqc server started";
 }
 

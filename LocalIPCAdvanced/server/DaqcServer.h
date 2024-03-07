@@ -4,8 +4,9 @@
 
 class DaqcServer : public Server
 {
+    Q_OBJECT
 public:
-    DaqcServer();
+    DaqcServer(QObject* parent = nullptr);
     ~DaqcServer();
     void start() override;
 protected:
