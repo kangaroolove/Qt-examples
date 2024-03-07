@@ -14,6 +14,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt5 COMPONENTS Widgets network REQUIRED)
 
 include_directories(
+	../common/packets
+	../common/tasks
 )
 
 list(APPEND EXTRA_LIBS 
@@ -27,6 +29,8 @@ set(PROJECT_SOURCES
 	Client.h
 	DaqcClient.cpp
 	DaqcClient.h
+	../common/packets/Packet.cpp
+	../common/packets/Packet.h
 )
 
 set(PROJECT_UIS

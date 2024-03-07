@@ -39,5 +39,6 @@ void Client::readyToRead()
         QByteArray msg;
         *in >> msg;
         emit receiveMessage(msg);
+        
     }
 }

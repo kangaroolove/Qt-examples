@@ -21,6 +21,7 @@ public:
      * @param messageId uuid
      */
     void sendMessage(const QByteArray& msg, const QString& messageId);
+    
 signals:
     void receiveMessage(const QByteArray& msg);
 private slots:
