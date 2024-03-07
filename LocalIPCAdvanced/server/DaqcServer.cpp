@@ -1,5 +1,5 @@
 #include "DaqcServer.h"
-#include "DaqcHandleRequestTask.h"
+#include "DaqcServerHandleReceiveMessageTask.h"
 #include <QDebug>
 
 DaqcServer::DaqcServer(QObject* parent) :
@@ -18,7 +18,7 @@ void DaqcServer::start()
     qDebug()<<"Daqc server started";
 }
 
-HandleRequestTask *DaqcServer::generateHandleRequestTask(const QByteArray& data)
+HandleReceiveMessageTask *DaqcServer::generateHandleRequestTask(const QByteArray& data)
 {
-    return new DaqcHandleRequestTask(this, data);
+    return new DaqcServerHandleReceiveMessageTask(this, data);
 }

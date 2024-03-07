@@ -1,4 +1,4 @@
-#include "DaqcHandleRequestTask.h"
+#include "DaqcServerHandleReceiveMessageTask.h"
 #include "SendTask.h"
 #include "ReplyPacket.h"
 #include <QJsonDocument>
@@ -7,19 +7,19 @@
 #include <QUuid>
 #include <QThreadPool>
 
-DaqcHandleRequestTask::DaqcHandleRequestTask(Server* server, const QByteArray& data) :
-    HandleRequestTask(data),
+DaqcServerHandleReceiveMessageTask::DaqcServerHandleReceiveMessageTask(Server* server, const QByteArray& data) :
+    HandleReceiveMessageTask(data),
     m_server(server)
 {
 
 }
 
-DaqcHandleRequestTask::~DaqcHandleRequestTask()
+DaqcServerHandleReceiveMessageTask::~DaqcServerHandleReceiveMessageTask()
 {
 
 }
 
-void DaqcHandleRequestTask::analyzeJson(const QByteArray &data)
+void DaqcServerHandleReceiveMessageTask::analyzeJson(const QByteArray &data)
 {
     auto document = QJsonDocument::fromJson(data);
     if (document.isNull())
@@ -28,7 +28,7 @@ void DaqcHandleRequestTask::analyzeJson(const QByteArray &data)
     handleTask(getParameter(document), getRequestType(document), getClientMessageId(document));
 }
 
-void DaqcHandleRequestTask::handleTask(const QString &parameter, const QString &requestType, const QString &clientMessageId)
+void DaqcServerHandleReceiveMessageTask::handleTask(const QString &parameter, const QString &requestType, const QString &clientMessageId)
 {
     qDebug()<<"parameter = "<< parameter;
     qDebug()<<"requestType = "<< requestType;
@@ -40,17 +40,17 @@ void DaqcHandleRequestTask::handleTask(const QString &parameter, const QString &
     }
 }
 
-QString DaqcHandleRequestTask::getRequestType(const QJsonDocument &document)
+QString DaqcServerHandleReceiveMessageTask::getRequestType(const QJsonDocument &document)
 {
     return document["data"].toObject()["requestType"].toString();
 }
 
-QString DaqcHandleRequestTask::getClientMessageId(const QJsonDocument &document)
+QString DaqcServerHandleReceiveMessageTask::getClientMessageId(const QJsonDocument &document)
 {
     return document["messageId"].toString();
 }
 
-QString DaqcHandleRequestTask::getParameter(const QJsonDocument &document)
+QString DaqcServerHandleReceiveMessageTask::getParameter(const QJsonDocument &document)
 {
     return document["data"].toObject()["parameter"].toString();
 }

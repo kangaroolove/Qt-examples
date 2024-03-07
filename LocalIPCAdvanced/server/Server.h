@@ -7,7 +7,7 @@
 class QMutex;
 class QLocalSocket;
 class QDataStream;
-class HandleRequestTask;
+class HandleReceiveMessageTask;
 
 class Server : public QLocalServer
 {
@@ -20,7 +20,7 @@ public:
 signals:
     void receiveMessage(const QByteArray& msg);
 protected:
-    virtual HandleRequestTask* generateHandleRequestTask(const QByteArray& data) = 0;
+    virtual HandleReceiveMessageTask* generateHandleRequestTask(const QByteArray& data) = 0;
 private slots:
     void newDeviceConnected();
     void readyRead();

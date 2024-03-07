@@ -10,7 +10,7 @@ public:
     ~DaqcServer();
     void start() override;
 protected:
-    HandleRequestTask* generateHandleRequestTask(const QByteArray& data) override;
+    HandleReceiveMessageTask* generateHandleRequestTask(const QByteArray& data) override;
 private:
 
 };

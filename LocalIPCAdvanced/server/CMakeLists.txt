@@ -30,12 +30,12 @@ set(PROJECT_SOURCES
 	Server.h
 	DaqcServer.cpp
 	DaqcServer.h
-	../common/tasks/HandleRequestTask.cpp
-	../common/tasks/HandleRequestTask.h
+	../common/tasks/HandleReceiveMessageTask.cpp
+	../common/tasks/HandleReceiveMessageTask.h
 	../common/tasks/SendTask.cpp
 	../common/tasks/SendTask.h
-	../common/tasks/DaqcHandleRequestTask.cpp
-	../common/tasks/DaqcHandleRequestTask.h
+	../common/tasks/DaqcServerHandleReceiveMessageTask.cpp
+	../common/tasks/DaqcServerHandleReceiveMessageTask.h
 	../common/packets/Packet.cpp
 	../common/packets/Packet.h
 	../common/packets/FramePacket.cpp

@@ -1,15 +1,15 @@
 #pragma once
 
-#include "HandleRequestTask.h"
+#include "HandleReceiveMessageTask.h"
 
 class Server;
 class QJsonDocument;
 
-class DaqcHandleRequestTask : public HandleRequestTask
+class DaqcServerHandleReceiveMessageTask : public HandleReceiveMessageTask
 {
 public:
-    DaqcHandleRequestTask(Server* server, const QByteArray& data);
-    ~DaqcHandleRequestTask();
+    DaqcServerHandleReceiveMessageTask(Server* server, const QByteArray& data);
+    ~DaqcServerHandleReceiveMessageTask();
 protected:
     void analyzeJson(const QByteArray& data) override;
 private:

@@ -3,11 +3,11 @@
 #include <QRunnable>
 #include <QByteArray>
 
-class HandleRequestTask : public QRunnable
+class HandleReceiveMessageTask : public QRunnable
 {
 public:
-    HandleRequestTask(const QByteArray& data);
-    ~HandleRequestTask();
+    HandleReceiveMessageTask(const QByteArray& data);
+    ~HandleReceiveMessageTask();
     void run() override;
 protected:
     virtual void analyzeJson(const QByteArray& data) = 0;
