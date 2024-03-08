@@ -18,8 +18,8 @@ ClientWidget::ClientWidget(QWidget* parent)
         //m_client->sendMessage(m_sendTextEdit->toPlainText());
         //m_sendTextEdit->clear();
 
-        m_client->testSetApi(true);
-        //qDebug()<<"m_client->testGetApi() = "<<m_client->testGetApi();
+        //m_client->testSetApi(true);
+        qDebug()<<"m_client->testGetApi() = "<<m_client->testGetApi();
     });
     connect(m_client, &DaqcClient::receiveMessage, this, [this](const QString& msg){
         m_receiveTextEdit->append(msg);

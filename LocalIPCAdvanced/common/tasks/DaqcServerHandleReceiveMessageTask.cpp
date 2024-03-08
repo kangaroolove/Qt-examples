@@ -1,7 +1,7 @@
 #include "DaqcServerHandleReceiveMessageTask.h"
 #include "SendTask.h"
 #include "ReplyPacket.h"
-#include "ReplyGetTest.h"
+#include "ReplyGetPacket.h"
 #include "Server.h"
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -38,7 +38,7 @@ void DaqcServerHandleReceiveMessageTask::handleTask(const QString &parameter, co
 
     if (parameter == "test" && requestType == "get")
     {
-        QThreadPool::globalInstance()->start(new SendTask(m_server, new ReplyGetTest(clientMessageId)));
+        QThreadPool::globalInstance()->start(new SendTask(m_server, new ReplyGetPacket( clientMessageId)));
     }
 }
 

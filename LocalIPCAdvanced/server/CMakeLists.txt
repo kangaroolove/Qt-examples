@@ -47,8 +47,8 @@ set(PROJECT_SOURCES
 	../common/packets/RequestPacket.h
 	../common/devices/CommunicationDevice.cpp
 	../common/devices/CommunicationDevice.h
-	../common/packets/ReplyGetTest.cpp
-	../common/packets/ReplyGetTest.h
+	../common/packets/ReplyGetPacket.cpp
+	../common/packets/ReplyGetPacket.h
 )
 
 set(PROJECT_UIS
