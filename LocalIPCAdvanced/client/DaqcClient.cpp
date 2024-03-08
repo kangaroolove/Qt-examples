@@ -1,6 +1,6 @@
 #include "DaqcClient.h"
 #include "SendTask.h"
-#include "RequestGetTest.h"
+#include "RequestGetPacket.h"
 #include "RequestUpdatePacket.h"
 #include "Client.h"
 #include <QJsonDocument>
@@ -34,7 +34,7 @@ void DaqcClient::start()
 
 int DaqcClient::testGetApi()
 {
-    auto packet = new RequestGetTest;
+    auto packet = new RequestGetPacket("test");
     emit sendMessage(packet->toJson());
     m_eventLoop->exec();
 

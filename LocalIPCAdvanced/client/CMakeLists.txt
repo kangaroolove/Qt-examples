@@ -34,8 +34,6 @@ set(PROJECT_SOURCES
 	../common/packets/Packet.h
 	../common/packets/RequestPacket.cpp
 	../common/packets/RequestPacket.h
-	../common/packets/RequestGetTest.cpp
-	../common/packets/RequestGetTest.h
 	../common/tasks/HandleReceiveMessageTask.cpp
 	../common/tasks/HandleReceiveMessageTask.h
 	../common/tasks/SendTask.cpp
@@ -46,6 +44,8 @@ set(PROJECT_SOURCES
 	../common/devices/CommunicationDevice.h
 	../common/packets/RequestUpdatePacket.cpp
 	../common/packets/RequestUpdatePacket.h
+	../common/packets/RequestGetPacket.cpp
+	../common/packets/RequestGetPacket.h
 )
 
 set(PROJECT_UIS
