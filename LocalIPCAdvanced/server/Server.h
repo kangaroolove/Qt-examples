@@ -1,22 +1,22 @@
 #pragma once
 
+#include "CommunicationDevice.h"
 #include <QLocalServer>
 #include <map>
-
 
 class QMutex;
 class QLocalSocket;
 class QDataStream;
 class HandleReceiveMessageTask;
 
-class Server : public QLocalServer
+class Server : public QLocalServer, public CommunicationDevice
 {
     Q_OBJECT
 public:
     Server(QObject* parent = nullptr);
     ~Server();
     virtual void start() = 0;
-    void sendMessage(const QByteArray& msg);
+    void sendMessage(const QByteArray& msg) override;
 signals:
     void receiveMessage(const QByteArray& msg);
 protected:

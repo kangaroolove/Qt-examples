@@ -24,6 +24,7 @@ Client::~Client()
 
 void Client::sendMessage(const QByteArray &msg)
 {
+    QMutexLocker locker(m_mutex);
     QByteArray data;
     QDataStream out(&data, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_5_12);

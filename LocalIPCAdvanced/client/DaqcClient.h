@@ -12,4 +12,5 @@ public:
     int testGetApi();
     void testSetApi(bool isTest);
 private:
+    QEventLoop* m_loop;
 };

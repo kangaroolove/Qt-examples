@@ -7,7 +7,7 @@ DaqcClientHandleReceiveMessageTask::DaqcClientHandleReceiveMessageTask(Client* c
     HandleReceiveMessageTask(data),
     m_client(client)
 {
-
+    connect(this, &DaqcClientHandleReceiveMessageTask::quitEventLoop, m_client, &Client::quitEventLoop, Qt::QueuedConnection);
 }
 
 DaqcClientHandleReceiveMessageTask::~DaqcClientHandleReceiveMessageTask()
@@ -27,5 +27,6 @@ void DaqcClientHandleReceiveMessageTask::analyzeJson(const QByteArray &data)
     result.value = document["data"].toObject()["value"].toVariant();
     result.valueType = document["data"].toObject()["valueType"].toString();
 
-    m_client->insertRequestResult(clientMessageId, result);
+    //m_client->insertRequestResult(clientMessageId, result);
+    //emit quitEventLoop(clientMessageId);
 }

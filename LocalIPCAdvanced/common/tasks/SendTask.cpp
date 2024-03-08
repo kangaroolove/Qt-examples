@@ -11,8 +11,6 @@ SendTask::SendTask(CommunicationDevice* device, Packet* packet) :
 
 SendTask::~SendTask()
 {
-    if (m_packet)
-        delete m_packet;
 }
 
 void SendTask::run()

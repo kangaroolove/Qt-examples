@@ -2,7 +2,7 @@
 
 #include <QRunnable>
 #include <QByteArray>
-
+#include <QObject>
 class HandleReceiveMessageTask : public QRunnable
 {
 public:

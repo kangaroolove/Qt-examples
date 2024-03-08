@@ -5,7 +5,7 @@
 class ReplyGetTest : public ReplyPacket
 {
 public:
-    ReplyGetTest();
+    ReplyGetTest(const QString& clientMessageId);
     ~ReplyGetTest();
     QJsonObject generateData() override;
 };

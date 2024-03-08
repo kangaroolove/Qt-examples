@@ -8,7 +8,7 @@
 #include <QEventLoop>
 
 DaqcClient::DaqcClient(QObject* parent) :
-    Client(parent)
+    Client(parent),
 {
 
 }

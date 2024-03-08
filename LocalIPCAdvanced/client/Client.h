@@ -31,9 +31,11 @@ public:
      * @param messageId uuid
      */
     void sendMessage(const QByteArray& msg) override;
-    void quitEventLoop(const QString& messageId);
+
     void insertRequestResult(const QString& messageId, const RequestResult& value);
     RequestResult getRequestResult(const QString& messageId);
+public slots:
+    void quitEventLoop(const QString& messageId);
 signals:
     void receiveMessage(const QByteArray& msg);
 private slots:
