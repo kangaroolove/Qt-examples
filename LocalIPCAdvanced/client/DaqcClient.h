@@ -1,16 +1,26 @@
 #pragma once
 
-#include "Client.h"
+#include <QObject>
 
-class DaqcClient : public Client
+class QThread;
+class Client;
+class QEventLoop;
+
+class DaqcClient : public QObject
 {
     Q_OBJECT
 public:
-    DaqcClient(QObject* parent);
+    DaqcClient(QObject* parent = nullptr);
     ~DaqcClient();
-    void start() override;
+    void start();
     int testGetApi();
     void testSetApi(bool isTest);
+signals:
+    void sendMessage(const QByteArray& msg);
+    void connectServer();
+    void receiveMessage(const QByteArray& msg);
 private:
-    QEventLoop* m_loop;
+    QEventLoop* m_eventLoop;
+    QThread* m_thread;
+    Client* m_client;
 };

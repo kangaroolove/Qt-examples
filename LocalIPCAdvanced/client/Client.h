@@ -21,31 +21,20 @@ class Client : public QLocalSocket, public CommunicationDevice
 {
     Q_OBJECT
 public:
-    Client(QObject* parent = nullptr);
+    Client(QEventLoop* eventLoop, QObject* parent = nullptr);
     ~Client();
-    virtual void start() = 0;
-    /**
-     * @brief 
-     * 
-     * @param msg json data
-     * @param messageId uuid
-     */
-    void sendMessage(const QByteArray& msg) override;
-
     void insertRequestResult(const QString& messageId, const RequestResult& value);
     RequestResult getRequestResult(const QString& messageId);
-public slots:
-    void quitEventLoop(const QString& messageId);
 signals:
     void receiveMessage(const QByteArray& msg);
+public slots:
+    void sendMessage(const QByteArray& msg) override;
+    void connectServer();
 private slots:
     void readyToRead();
 protected:
-    QDataStream* in;
-    QMutex* m_mutex;
-    // shared variables
-    // key: messageId
-    std::map<QString, QEventLoop*> m_eventLoopMap;
+    QDataStream* m_in;
+    QEventLoop* m_eventLoop;
     // key: messageId
     std::map<QString, RequestResult> m_resultMap;
 };

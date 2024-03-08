@@ -7,24 +7,24 @@
 #include <QThreadPool>
 #include <QMutexLocker>
 #include <QMutex>
+#include <QJsonDocument>
+#include <QJsonObject>
 
-Client::Client(QObject* parent) : 
+Client::Client(QEventLoop* eventLoop, QObject* parent) : 
     QLocalSocket(parent), 
-    in(new QDataStream(this)),
-    m_mutex(new QMutex)
+    m_in(new QDataStream(this)),
+    m_eventLoop(eventLoop)
 {
-    in->setVersion(QDataStream::Qt_5_12);
+    m_in->setVersion(QDataStream::Qt_5_12);
     connect(this, &Client::readyRead, this, &Client::readyToRead);
 }
 
 Client::~Client()
 {
-    delete m_mutex;
 }
 
 void Client::sendMessage(const QByteArray &msg)
 {
-    QMutexLocker locker(m_mutex);
     QByteArray data;
     QDataStream out(&data, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_5_12);
@@ -34,26 +34,13 @@ void Client::sendMessage(const QByteArray &msg)
     this->flush();
 }
 
-void Client::quitEventLoop(const QString &messageId)
-{
-    auto it = m_eventLoopMap.find(messageId);
-    if (it != m_eventLoopMap.end())
-    {
-        it->second->quit();
-        it->second->deleteLater();
-        m_eventLoopMap.erase(it);
-    }
-}
-
 void Client::insertRequestResult(const QString& messageId, const RequestResult& result)
 {
-    QMutexLocker locker(m_mutex);
     m_resultMap.insert({messageId, result});
 }
 
 RequestResult Client::getRequestResult(const QString &messageId)
 {
-    QMutexLocker locker(m_mutex);
     RequestResult result;
     auto it = m_resultMap.find(messageId);
     if (it != m_resultMap.end())
@@ -67,14 +54,28 @@ RequestResult Client::getRequestResult(const QString &messageId)
     return result;
 }
 
+void Client::connectServer()
+{
+    this->connectToServer("Daqc");
+}
+
 void Client::readyToRead()
 {
-    if (this->bytesAvailable() > 0 && !in->atEnd())
+    if (this->bytesAvailable() > 0 && !m_in->atEnd())
     {  
         QByteArray msg;
-        *in >> msg;
+        *m_in >> msg;
         emit receiveMessage(msg);
 
-        QThreadPool::globalInstance()->start(new DaqcClientHandleReceiveMessageTask(this, msg));
+        auto document = QJsonDocument::fromJson(msg);
+        if (document.isNull())
+            return;
+
+        RequestResult result;
+        QString clientMessageId = document["clientMessageId"].toString();
+        result.value = document["data"].toObject()["value"].toVariant();
+        result.valueType = document["data"].toObject()["valueType"].toString();
+        insertRequestResult(clientMessageId, result);
+        m_eventLoop->quit();
     }
 }

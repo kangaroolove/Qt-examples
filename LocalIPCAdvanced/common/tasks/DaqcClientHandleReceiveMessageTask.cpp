@@ -7,7 +7,7 @@ DaqcClientHandleReceiveMessageTask::DaqcClientHandleReceiveMessageTask(Client* c
     HandleReceiveMessageTask(data),
     m_client(client)
 {
-    connect(this, &DaqcClientHandleReceiveMessageTask::quitEventLoop, m_client, &Client::quitEventLoop, Qt::QueuedConnection);
+    //connect(this, &DaqcClientHandleReceiveMessageTask::quitEventLoop, m_client, &Client::quitEventLoop, Qt::QueuedConnection);
 }
 
 DaqcClientHandleReceiveMessageTask::~DaqcClientHandleReceiveMessageTask()
