@@ -9,3 +9,11 @@ RequestGetTest::~RequestGetTest()
 {
 
 }
+
+QJsonObject RequestGetTest::generateData()
+{
+    QJsonObject object;
+    object["parameter"] = "test";
+    object["requestType"] = "get";
+    return object;
+}

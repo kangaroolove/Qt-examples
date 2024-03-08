@@ -12,11 +12,3 @@ public:
 protected:
     QString m_clientMessageId;
 };
-
-class TestGetApiPacket : public ReplyPacket
-{
-public:
-    TestGetApiPacket(const QString& clientMessageId);
-    ~TestGetApiPacket();
-    QJsonObject generateData() override;
-};

@@ -1,8 +1,10 @@
 #include "DaqcClient.h"
+#include "SendTask.h"
+#include "RequestGetTest.h"
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDebug>
-#include <QUuid>
+#include <QThreadPool>
 
 DaqcClient::DaqcClient(QObject* parent) :
     Client(parent)
@@ -23,19 +25,7 @@ void DaqcClient::start()
 
 int DaqcClient::testGetApi()
 {
-
-
-
-    // QJsonObject rootObject;
-    // QJsonObject object;
-    // object["parameter"] = "testApi";
-    // object["requestType"] = "get";
-
-    // rootObject["data"] = object;
-    // rootObject["messageId"] = messageId;
-    // QJsonDocument document(rootObject);
-
-
+    QThreadPool::globalInstance()->start(new SendTask(this, new RequestGetTest));
 
     // sendMessage(document.toJson(QJsonDocument::Compact));
 

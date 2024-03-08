@@ -32,10 +32,14 @@ set(PROJECT_SOURCES
 	DaqcClient.h
 	../common/packets/Packet.cpp
 	../common/packets/Packet.h
+	../common/packets/RequestPacket.cpp
+	../common/packets/RequestPacket.h
 	../common/packets/RequestGetTest.cpp
 	../common/packets/RequestGetTest.h
 	../common/tasks/HandleReceiveMessageTask.cpp
 	../common/tasks/HandleReceiveMessageTask.h
+	../common/tasks/SendTask.cpp
+	../common/tasks/SendTask.h
 	../common/tasks/DaqcClientHandleReceiveMessageTask.cpp
 	../common/tasks/DaqcClientHandleReceiveMessageTask.h
 	../common/devices/CommunicationDevice.cpp

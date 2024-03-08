@@ -1,11 +1,11 @@
 #pragma once
 
-class RequestGetTest
+#include "RequestPacket.h"
+
+class RequestGetTest : public RequestPacket
 {
 public:
     RequestGetTest();
     ~RequestGetTest();
-
-private:
-
+    QJsonObject generateData() override;
 };

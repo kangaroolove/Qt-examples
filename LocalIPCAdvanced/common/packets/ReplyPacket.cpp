@@ -21,20 +21,3 @@ QByteArray ReplyPacket::toJson()
     QJsonDocument document(object);
     return document.toJson(QJsonDocument::Compact);
 }
-
-TestGetApiPacket::TestGetApiPacket(const QString &clientMessageId) :
-    ReplyPacket(clientMessageId)
-{
-}
-
-TestGetApiPacket::~TestGetApiPacket()
-{
-}
-
-QJsonObject TestGetApiPacket::generateData()
-{
-    QJsonObject object;
-    object["value"] = 20;
-    object["valueType"] = "int";
-    return object;
-}
