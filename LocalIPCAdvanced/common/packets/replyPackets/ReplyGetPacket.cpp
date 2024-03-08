@@ -1,6 +1,8 @@
 #include "ReplyGetPacket.h"
+#include <QVariant>
 
-ReplyGetPacket::ReplyGetPacket(const QString& requestType, const QString& parameter) :
+ReplyGetPacket::ReplyGetPacket(const QString& requestType, const QString& parameter, const QString& clientMessageId) :
+    ReplyPacket(clientMessageId),
     m_requestType(requestType),
     m_parameter(parameter)
 {
@@ -20,5 +22,7 @@ QJsonObject ReplyGetPacket::generateData()
     QString valueType = getValueType();
     object["valueType"] = valueType;
     if (valueType == "int")
-        object["value"] = getValue().;
+        object["value"] = getValue().toInt();
+
+    return object;
 }

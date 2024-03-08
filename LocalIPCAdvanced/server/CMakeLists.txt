@@ -18,6 +18,7 @@ include_directories(
 	../common/packets
 	ui
 	../common/devices
+	../common/packets/replyPackets
 )
 
 list(APPEND EXTRA_LIBS 
@@ -41,14 +42,12 @@ set(PROJECT_SOURCES
 	../common/packets/Packet.h
 	../common/packets/FramePacket.cpp
 	../common/packets/FramePacket.h
-	../common/packets/ReplyPacket.cpp
-	../common/packets/ReplyPacket.h
-	../common/packets/RequestPacket.cpp
-	../common/packets/RequestPacket.h
 	../common/devices/CommunicationDevice.cpp
 	../common/devices/CommunicationDevice.h
-	../common/packets/ReplyGetPacket.cpp
-	../common/packets/ReplyGetPacket.h
+	../common/packets/ReplyPackets/ReplyPacket.cpp
+	../common/packets/ReplyPackets/ReplyPacket.h
+	../common/packets/ReplyPackets/ReplyGetPacket.cpp
+	../common/packets/ReplyPackets/ReplyGetPacket.h
 )
 
 set(PROJECT_UIS

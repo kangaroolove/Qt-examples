@@ -5,7 +5,7 @@
 class ReplyGetPacket : public ReplyPacket
 {
 public:
-    ReplyGetPacket(const QString& requestType, const QString& parameter);
+    ReplyGetPacket(const QString& requestType, const QString& parameter, const QString& clientMessageId);
     ~ReplyGetPacket();
     QJsonObject generateData();
     virtual QVariant getValue() = 0;
