@@ -1,9 +1,9 @@
 #include "SendTask.h"
-#include "Server.h"
 #include "Packet.h"
+#include "CommunicationDevice.h"
 
-SendTask::SendTask(Server* server, Packet* packet) :
-    m_server(server),
+SendTask::SendTask(CommunicationDevice* device, Packet* packet) :
+    m_device(device),
     m_packet(packet)
 {
 
@@ -11,10 +11,11 @@ SendTask::SendTask(Server* server, Packet* packet) :
 
 SendTask::~SendTask()
 {
-
+    if (m_packet)
+        delete m_packet;
 }
 
 void SendTask::run()
 {
-    m_server->sendMessage(m_packet->toJson());
+    m_device->sendMessage(m_packet->toJson());
 }

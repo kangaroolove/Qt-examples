@@ -32,6 +32,8 @@ set(PROJECT_SOURCES
 	DaqcClient.h
 	../common/packets/Packet.cpp
 	../common/packets/Packet.h
+	../common/packets/RequestGetTest.cpp
+	../common/packets/RequestGetTest.h
 	../common/tasks/HandleReceiveMessageTask.cpp
 	../common/tasks/HandleReceiveMessageTask.h
 	../common/tasks/DaqcClientHandleReceiveMessageTask.cpp

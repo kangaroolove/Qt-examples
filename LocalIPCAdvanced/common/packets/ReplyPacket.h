@@ -9,7 +9,6 @@ public:
     ReplyPacket(const QString& clientMessageId);
     ~ReplyPacket();
     QByteArray toJson() override;
-    virtual QJsonObject generateData() = 0;
 protected:
     QString m_clientMessageId;
 };

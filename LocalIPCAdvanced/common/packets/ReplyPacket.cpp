@@ -1,6 +1,5 @@
 #include "ReplyPacket.h"
 #include <QJsonDocument>
-#include <QUuid>
 
 ReplyPacket::ReplyPacket(const QString& clientMessageId) :
     m_clientMessageId(clientMessageId)
@@ -18,7 +17,7 @@ QByteArray ReplyPacket::toJson()
     QJsonObject object;
     object["data"] = generateData();
     object["clientMessageId"] = m_clientMessageId;
-    object["messageId"] = QUuid::createUuid().toString();
+    object["messageId"] = getMessageId();
     QJsonDocument document(object);
     return document.toJson(QJsonDocument::Compact);
 }
