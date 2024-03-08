@@ -12,5 +12,4 @@ public:
     int testGetApi();
     void testSetApi(bool isTest);
 private:
-
 };

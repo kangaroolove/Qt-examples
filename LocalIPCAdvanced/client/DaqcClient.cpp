@@ -5,6 +5,7 @@
 #include <QJsonObject>
 #include <QDebug>
 #include <QThreadPool>
+#include <QEventLoop>
 
 DaqcClient::DaqcClient(QObject* parent) :
     Client(parent)
@@ -25,15 +26,16 @@ void DaqcClient::start()
 
 int DaqcClient::testGetApi()
 {
-    QThreadPool::globalInstance()->start(new SendTask(this, new RequestGetTest));
+    auto packet = new RequestGetTest;
+    QThreadPool::globalInstance()->start(new SendTask(this, packet));
 
-    // sendMessage(document.toJson(QJsonDocument::Compact));
+    QEventLoop* eventLoop = new QEventLoop(this);
+    m_eventLoopMap.insert({packet->getMessageId(), eventLoop});
+    eventLoop->exec();
 
-    // QEventLoop* eventLoop = new QEventLoop(this);
-    // m_eventLoopMap.insert({messageId, eventLoop});
-    // eventLoop->exec();
-
-    return 0;
+    RequestResult result = getRequestResult(packet->getMessageId());
+    if (result.valueType == "int")
+        return result.value.toInt();
 }
 
 void DaqcClient::testSetApi(bool isTest)

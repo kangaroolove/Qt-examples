@@ -38,7 +38,7 @@ signals:
     void receiveMessage(const QByteArray& msg);
 private slots:
     void readyToRead();
-private:
+protected:
     QDataStream* in;
     QMutex* m_mutex;
     // shared variables
