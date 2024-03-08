@@ -28,6 +28,7 @@ int DaqcClient::testGetApi()
     QJsonObject object;
     object["parameter"] = "testApi";
     object["requestType"] = "get";
+    
     rootObject["data"] = object;
     rootObject["messageId"] = messageId;
     QJsonDocument document(rootObject);

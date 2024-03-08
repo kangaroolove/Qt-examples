@@ -5,10 +5,13 @@
 #include <QDebug>
 #include <QUuid>
 #include <QThreadPool>
+#include <QMutexLocker>
+#include <QMutex>
 
-Client::Client(QObject* parent)
-    : QLocalSocket(parent)
-    , in(new QDataStream(this))
+Client::Client(QObject* parent) : 
+    QLocalSocket(parent), 
+    in(new QDataStream(this)),
+    m_mutex(new QMutex)
 {
     in->setVersion(QDataStream::Qt_5_12);
     connect(this, &Client::readyRead, this, &Client::readyToRead);
@@ -16,7 +19,7 @@ Client::Client(QObject* parent)
 
 Client::~Client()
 {
-
+    delete m_mutex;
 }
 
 void Client::sendMessage(const QByteArray &msg, const QString& messageId)
@@ -45,24 +48,26 @@ void Client::quitEventLoop(const QString &messageId)
     }
 }
 
-void Client::insertResult(const QString& messageId, const QVariant& value)
+void Client::insertRequestResult(const QString& messageId, const RequestResult& result)
 {
-    m_resultMap.insert({messageId, value});
+    QMutexLocker locker(m_mutex);
+    m_resultMap.insert({messageId, result});
 }
 
-QVariant Client::getResult(const QString &messageId)
+RequestResult Client::getRequestResult(const QString &messageId)
 {
-    QVariant value;
+    QMutexLocker locker(m_mutex);
+    RequestResult result;
     auto it = m_resultMap.find(messageId);
     if (it != m_resultMap.end())
     {
-        value = it->second;
+        result = it->second;
         m_resultMap.erase(it);
-        return value;
+        return result;
     }
 
     qCritical()<<"Cannot find the result";
-    return value;
+    return result;
 }
 
 void Client::readyToRead()

@@ -6,6 +6,15 @@
 
 class QDataStream;
 class QEventLoop;
+class QMutex;
+
+class RequestResult
+{
+public:
+    RequestResult() {}
+    QString valueType;
+    QVariant value;
+};
 
 class Client : public QLocalSocket
 {
@@ -22,17 +31,18 @@ public:
      */
     void sendMessage(const QByteArray& msg, const QString& messageId);
     void quitEventLoop(const QString& messageId);
-    void insertResult(const QString& messageId, const QVariant& value);
-    QVariant getResult(const QString& messageId);
+    void insertRequestResult(const QString& messageId, const RequestResult& value);
+    RequestResult getRequestResult(const QString& messageId);
 signals:
     void receiveMessage(const QByteArray& msg);
 private slots:
     void readyToRead();
 private:
     QDataStream* in;
+    QMutex* m_mutex;
     // shared variables
     // key: messageId
     std::map<QString, QEventLoop*> m_eventLoopMap;
     // key: messageId
-    std::map<QString, QVariant> m_resultMap;
+    std::map<QString, RequestResult> m_resultMap;
 };

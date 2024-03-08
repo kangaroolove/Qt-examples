@@ -35,7 +35,7 @@ TestGetApiPacket::~TestGetApiPacket()
 QJsonObject TestGetApiPacket::generateData()
 {
     QJsonObject object;
-    object["getApi"] = 20;
+    object["value"] = 20;
     object["valueType"] = "int";
     return object;
 }
