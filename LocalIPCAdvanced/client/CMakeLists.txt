@@ -16,6 +16,7 @@ find_package(Qt5 COMPONENTS Widgets network REQUIRED)
 include_directories(
 	../common/packets
 	../common/tasks
+	../common/devices
 )
 
 list(APPEND EXTRA_LIBS 
@@ -35,6 +36,8 @@ set(PROJECT_SOURCES
 	../common/tasks/HandleReceiveMessageTask.h
 	../common/tasks/DaqcClientHandleReceiveMessageTask.cpp
 	../common/tasks/DaqcClientHandleReceiveMessageTask.h
+	../common/devices/CommunicationDevice.cpp
+	../common/devices/CommunicationDevice.h
 )
 
 set(PROJECT_UIS

@@ -23,27 +23,36 @@ void DaqcClient::start()
 
 int DaqcClient::testGetApi()
 {
-    QString messageId = QUuid::createUuid().toString();
-    QJsonObject rootObject;
-    QJsonObject object;
-    object["parameter"] = "testApi";
-    object["requestType"] = "get";
-    
-    rootObject["data"] = object;
-    rootObject["messageId"] = messageId;
-    QJsonDocument document(rootObject);
-    sendMessage(document.toJson(QJsonDocument::Compact), messageId);
+
+
+
+    // QJsonObject rootObject;
+    // QJsonObject object;
+    // object["parameter"] = "testApi";
+    // object["requestType"] = "get";
+
+    // rootObject["data"] = object;
+    // rootObject["messageId"] = messageId;
+    // QJsonDocument document(rootObject);
+
+
+
+    // sendMessage(document.toJson(QJsonDocument::Compact));
+
+    // QEventLoop* eventLoop = new QEventLoop(this);
+    // m_eventLoopMap.insert({messageId, eventLoop});
+    // eventLoop->exec();
 
     return 0;
 }
 
 void DaqcClient::testSetApi(bool isTest)
 {
-    QString messageId = QUuid::createUuid().toString();
-    QJsonObject object;
-    object["api"] = "testSetApi";
-    object["value"] = 10;
-    object["type"] = "int";
-    QJsonDocument document(object);
-    sendMessage(document.toJson(QJsonDocument::Compact), messageId);
+    // QString messageId = QUuid::createUuid().toString();
+    // QJsonObject object;
+    // object["api"] = "testSetApi";
+    // object["value"] = 10;
+    // object["type"] = "int";
+    // QJsonDocument document(object);
+    // sendMessage(document.toJson(QJsonDocument::Compact));
 }

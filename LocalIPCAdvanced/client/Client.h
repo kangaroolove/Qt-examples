@@ -1,7 +1,8 @@
 #pragma once
 
+#include "CommunicationDevice.h"
 #include <QLocalSocket>
-#include <unordered_map>
+#include <map>
 #include <QString>
 
 class QDataStream;
@@ -16,7 +17,7 @@ public:
     QVariant value;
 };
 
-class Client : public QLocalSocket
+class Client : public QLocalSocket, public CommunicationDevice
 {
     Q_OBJECT
 public:
@@ -29,7 +30,7 @@ public:
      * @param msg json data
      * @param messageId uuid
      */
-    void sendMessage(const QByteArray& msg, const QString& messageId);
+    void sendMessage(const QByteArray& msg) override;
     void quitEventLoop(const QString& messageId);
     void insertRequestResult(const QString& messageId, const RequestResult& value);
     RequestResult getRequestResult(const QString& messageId);

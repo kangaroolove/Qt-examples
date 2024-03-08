@@ -17,6 +17,7 @@ include_directories(
 	../common/tasks
 	../common/packets
 	ui
+	../common/devices
 )
 
 list(APPEND EXTRA_LIBS 
@@ -44,6 +45,8 @@ set(PROJECT_SOURCES
 	../common/packets/ReplyPacket.h
 	../common/packets/RequestPacket.cpp
 	../common/packets/RequestPacket.h
+	../common/devices/CommunicationDevice.cpp
+	../common/devices/CommunicationDevice.h
 )
 
 set(PROJECT_UIS

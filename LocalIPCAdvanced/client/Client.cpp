@@ -22,7 +22,7 @@ Client::~Client()
     delete m_mutex;
 }
 
-void Client::sendMessage(const QByteArray &msg, const QString& messageId)
+void Client::sendMessage(const QByteArray &msg)
 {
     QByteArray data;
     QDataStream out(&data, QIODevice::WriteOnly);
@@ -31,10 +31,6 @@ void Client::sendMessage(const QByteArray &msg, const QString& messageId)
 
     this->write(data);
     this->flush();
-
-    QEventLoop* eventLoop = new QEventLoop(this);
-    m_eventLoopMap.insert({messageId, eventLoop});
-    eventLoop->exec();
 }
 
 void Client::quitEventLoop(const QString &messageId)
