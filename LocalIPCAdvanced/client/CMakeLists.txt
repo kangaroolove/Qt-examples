@@ -44,8 +44,8 @@ set(PROJECT_SOURCES
 	../common/tasks/DaqcClientHandleReceiveMessageTask.h
 	../common/devices/CommunicationDevice.cpp
 	../common/devices/CommunicationDevice.h
-	../common/packets/RequestSetTest.cpp
-	../common/packets/RequestSetTest.h
+	../common/packets/RequestUpdatePacket.cpp
+	../common/packets/RequestUpdatePacket.h
 )
 
 set(PROJECT_UIS

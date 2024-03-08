@@ -1,6 +1,7 @@
 #include "DaqcClient.h"
 #include "SendTask.h"
 #include "RequestGetTest.h"
+#include "RequestUpdatePacket.h"
 #include "Client.h"
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -46,11 +47,6 @@ int DaqcClient::testGetApi()
 
 void DaqcClient::testSetApi(bool isTest)
 {
-    // QString messageId = QUuid::createUuid().toString();
-    // QJsonObject object;
-    // object["api"] = "testSetApi";
-    // object["value"] = 10;
-    // object["type"] = "int";
-    // QJsonDocument document(object);
-    // sendMessage(document.toJson(QJsonDocument::Compact));
+    auto packet = new RequestUpdatePacket("test", isTest, "bool");
+    emit sendMessage(packet->toJson());
 }
