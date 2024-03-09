@@ -15,6 +15,7 @@ find_package(Qt5 COMPONENTS Widgets network REQUIRED)
 
 include_directories(
 	../common/packets
+	../common
 )
 
 list(APPEND EXTRA_LIBS 
@@ -36,6 +37,7 @@ set(PROJECT_SOURCES
 	../common/packets/RequestUpdatePacket.h
 	../common/packets/RequestGetPacket.cpp
 	../common/packets/RequestGetPacket.h
+	../common/ParameterDef.h
 )
 
 set(PROJECT_UIS
