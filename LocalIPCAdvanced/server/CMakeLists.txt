@@ -14,10 +14,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt5 COMPONENTS Widgets network REQUIRED)
 
 include_directories(
-	../common/tasks
+	tasks
 	../common/packets
 	ui
-	../common/devices
 	../common/packets/replyPackets
 )
 
@@ -32,18 +31,16 @@ set(PROJECT_SOURCES
 	Server.h
 	DaqcServer.cpp
 	DaqcServer.h
-	../common/tasks/HandleReceiveMessageTask.cpp
-	../common/tasks/HandleReceiveMessageTask.h
-	../common/tasks/SendTask.cpp
-	../common/tasks/SendTask.h
-	../common/tasks/DaqcServerHandleReceiveMessageTask.cpp
-	../common/tasks/DaqcServerHandleReceiveMessageTask.h
+	tasks/HandleReceiveMessageTask.cpp
+	tasks/HandleReceiveMessageTask.h
+	tasks/SendTask.cpp
+	tasks/SendTask.h
+	tasks/DaqcServerHandleReceiveMessageTask.cpp
+	tasks/DaqcServerHandleReceiveMessageTask.h
 	../common/packets/Packet.cpp
 	../common/packets/Packet.h
 	../common/packets/FramePacket.cpp
 	../common/packets/FramePacket.h
-	../common/devices/CommunicationDevice.cpp
-	../common/devices/CommunicationDevice.h
 	../common/packets/ReplyPackets/ReplyPacket.cpp
 	../common/packets/ReplyPackets/ReplyPacket.h
 	../common/packets/ReplyPackets/ReplyGetTest.cpp

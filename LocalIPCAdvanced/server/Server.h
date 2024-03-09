@@ -1,6 +1,5 @@
 #pragma once
 
-#include "CommunicationDevice.h"
 #include <QLocalServer>
 #include <map>
 
@@ -9,14 +8,14 @@ class QLocalSocket;
 class QDataStream;
 class HandleReceiveMessageTask;
 
-class Server : public QLocalServer, public CommunicationDevice
+class Server : public QLocalServer
 {
     Q_OBJECT
 public:
     Server(QObject* parent = nullptr);
     ~Server();
     virtual void start() = 0;
-    void sendMessage(const QByteArray& msg) override;
+    void sendMessage(const QByteArray& msg);
 signals:
     void receiveMessage(const QByteArray& msg);
 protected:

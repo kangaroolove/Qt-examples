@@ -15,8 +15,6 @@ find_package(Qt5 COMPONENTS Widgets network REQUIRED)
 
 include_directories(
 	../common/packets
-	../common/tasks
-	../common/devices
 )
 
 list(APPEND EXTRA_LIBS 
@@ -34,14 +32,6 @@ set(PROJECT_SOURCES
 	../common/packets/Packet.h
 	../common/packets/RequestPacket.cpp
 	../common/packets/RequestPacket.h
-	../common/tasks/HandleReceiveMessageTask.cpp
-	../common/tasks/HandleReceiveMessageTask.h
-	../common/tasks/SendTask.cpp
-	../common/tasks/SendTask.h
-	../common/tasks/DaqcClientHandleReceiveMessageTask.cpp
-	../common/tasks/DaqcClientHandleReceiveMessageTask.h
-	../common/devices/CommunicationDevice.cpp
-	../common/devices/CommunicationDevice.h
 	../common/packets/RequestUpdatePacket.cpp
 	../common/packets/RequestUpdatePacket.h
 	../common/packets/RequestGetPacket.cpp

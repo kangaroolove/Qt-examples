@@ -38,7 +38,7 @@ void DaqcServerHandleReceiveMessageTask::handleTask(const QString &parameter, co
 
     if (parameter == "test" && requestType == "get")
     {
-        QThreadPool::globalInstance()->start(new SendTask(m_server, new ReplyGetTest(clientMessageId)));
+        //QThreadPool::globalInstance()->start(new SendTask(m_server, new ReplyGetTest(clientMessageId)));
     }
 }
 
