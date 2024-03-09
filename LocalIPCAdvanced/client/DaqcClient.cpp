@@ -48,7 +48,7 @@ void DaqcClient::testSetApi(bool isTest)
 double DaqcClient::getRegionPhysicalDeltaX()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("regionPhysicalDeltaX");
+        return new RequestGetPacket("RegionPhysicalDeltaX");
     });
     return result.toDouble();
 }
@@ -56,234 +56,369 @@ double DaqcClient::getRegionPhysicalDeltaX()
 double DaqcClient::getRegionPhysicalDeltaY()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("regionPhysicalDeltaY");
+        return new RequestGetPacket("RegionPhysicalDeltaY");
     });
     return result.toDouble();
 }
 
 int DaqcClient::getBGain()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("BGain");
+    });
+    return result.toInt();
 }
 
 int DaqcClient::getCGain()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("CGain");
+    });
+    return result.toInt();
 }
 
 int DaqcClient::getMGain()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("MGain");
+    });
+    return result.toInt();
 }
 
 double DaqcClient::getXmlDepth()
 {
-    return 0.0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("XmlDepth");
+    });
+    return result.toDouble();
 }
 
 int DaqcClient::getDepthMm()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("DepthMm");
+    });
+    return result.toInt();
 }
 
 double DaqcClient::getDepthCm()
 {
-    return 0.0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("DepthCm");
+    });
+    return result.toDouble();
 }
 
 double DaqcClient::getBFrequency()
 {
-    return 0.0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("BFrequency");
+    });
+    return result.toDouble();
 }
 
 double DaqcClient::getBFrequency2()
 {
-    return 0.0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("BFrequency2");
+    });
+    return result.toDouble();
 }
 
 double DaqcClient::getMFrequency()
 {
-    return 0.0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("MFrequency");
+    });
+    return result.toDouble();
 }
 
 int DaqcClient::getChroma()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("Chroma");
+    });
+    return result.toInt();
 }
 
 int DaqcClient::getImgProc()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("ImgProc");
+    });
+    return result.toInt();
 }
 
 int DaqcClient::getFavg()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("Favg");
+    });
+    return result.toInt();
 }
 
 int DaqcClient::getLavg()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("Lavg");
+    });
+    return result.toInt();
 }
 
 int DaqcClient::getContrast()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("Contrast");
+    });
+    return result.toInt();
 }
 
 double DaqcClient::getCPrf()
 {
-    return 0.0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("CPrf");
+    });
+    return result.toDouble();
 }
 
 double DaqcClient::getDPrf()
 {
-    return 0.0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("DPrf");
+    });
+    return result.toDouble();
 }
 
 double DaqcClient::getCWf()
 {
-    return 0.0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("CWf");
+    });
+    return result.toDouble();
 }
 
 double DaqcClient::getDWf()
 {
-    return 0.0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("DWf");
+    });
+    return result.toDouble();
 }
 
 int DaqcClient::getSensitivity()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("Sensitivity");
+    });
+    return result.toInt();
 }
 
 int DaqcClient::getSwingAngle()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("SwingAngle");
+    });
+    return result.toInt();
 }
 
 double DaqcClient::getSv()
 {
-    return 0.0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("Sv");
+    });
+    return result.toDouble();
 }
 
 double DaqcClient::getCa()
 {
-    return 0.0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("Ca");
+    });
+    return result.toDouble();
 }
 
 int DaqcClient::getDSpeed()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("DSpeed");
+    });
+    return result.toInt();
 }
 
 int DaqcClient::getMSpeed()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("MSpeed");
+    });
+    return result.toInt();
 }
 
 int DaqcClient::getNoiseReject()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("NoiseReject");
+    });
+    return result.toInt();
 }
 
 int DaqcClient::getAudio()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("Audio");
+    });
+    return result.toInt();
 }
 
 int DaqcClient::getBaseline()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("Baseline");
+    });
+    return result.toInt();
 }
 
 int DaqcClient::getRotation()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("Rotation");
+    });
+    return result.toInt();
 }
 
 double DaqcClient::getSpacingX()
 {
-    return 0.0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("SpacingX");
+    });
+    return result.toDouble();
 }
 
 double DaqcClient::getSpacingY()
 {
-    return 0.0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("SpacingY");
+    });
+    return result.toDouble();
 }
 
 bool DaqcClient::isBb()
 {
-    return false;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("IsBb");
+    });
+    return result.toBool();
 }
 
 bool DaqcClient::isUp()
 {
-    return false;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("IsUp");
+    });
+    return result.toBool();
 }
 
 bool DaqcClient::isThi()
 {
-    return false;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("IsThi");
+    });
+    return result.toBool();
 }
 
 bool DaqcClient::isCenterLine()
 {
-    return false;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("IsCenterLine");
+    });
+    return result.toBool();
 }
 
 bool DaqcClient::isRoiSite()
 {
-    return false;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("IsRoiSite");
+    });
+    return result.toBool();
 }
 
 bool DaqcClient::isRoiSize()
 {
-    return false;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("IsRoiSize");
+    });
+    return result.toBool();
 }
 
 bool DaqcClient::isCInvert()
 {
-    return false;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("IsCInvert");
+    });
+    return result.toBool();
 }
 
 bool DaqcClient::isDInvert()
 {
-    return false;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("IsDInvert");
+    });
+    return result.toBool();
 }
 
 bool DaqcClient::isCAutoTrace()
 {
-    return false;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("IsCAutoTrace");
+    });
+    return result.toBool();
 }
 
 bool DaqcClient::isDAutoTrace()
 {
-    return false;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("IsDAutoTrace");
+    });
+    return result.toBool();
 }
 
 bool DaqcClient::isUpdate()
 {
-    return false;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("IsUpdate");
+    });
+    return result.toBool();
 }
 
 bool DaqcClient::isSynchro()
 {
-    return false;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("IsSynchro");
+    });
+    return result.toBool();
 }
 
 QPoint DaqcClient::getRoiPosition()
 {
-    return QPoint();
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("RoiPosition");
+    });
+    return result.toPoint();
 }
 
 int DaqcClient::getDualConvexOrLinearChannel()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("DualConvexOrLinearChannel");
+    });
+    return result.toInt();
 }
 
 bool DaqcClient::isDualModeOn()
 {
-    return false;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket("DualModeOn");
+    });
+    return result.toBool();
 }
 
 QVariant DaqcClient::createGetRequest(std::function<Packet*()> callback)
