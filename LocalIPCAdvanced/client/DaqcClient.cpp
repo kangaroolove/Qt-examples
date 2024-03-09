@@ -552,6 +552,114 @@ void DaqcClient::setRotation(bool increase)
     createUpdateRequest(new RequestUpdatePacket(ROTATION, boolToIncrease(increase), "int"));
 }
 
+void DaqcClient::setBGainValue(int value)
+{
+    createUpdateRequest(new RequestUpdatePacket(B_GAIN, value, "int"));
+}
+
+void DaqcClient::setDepthValue(int value)
+{
+    createUpdateRequest(new RequestUpdatePacket(DEPTH, value, "int"));
+}
+
+void DaqcClient::setBFrequencyValue(double value)
+{
+    createUpdateRequest(new RequestUpdatePacket(B_FREQUENCY, value, "double"));
+}
+
+void DaqcClient::setChromaValue(int value)
+{
+    createUpdateRequest(new RequestUpdatePacket(CHROMA, value, "int"));
+}
+
+void DaqcClient::setImgProcValue(int value, const std::vector<int> &params)
+{
+    createUpdateRequest(new RequestUpdatePacket(CHROMA, value, "vector<int>"));
+}
+
+void DaqcClient::setFavgValue(int value)
+{
+    createUpdateRequest(new RequestUpdatePacket(FAVG, value, "int"));
+}
+
+void DaqcClient::setLavgValue(int value)
+{
+    createUpdateRequest(new RequestUpdatePacket(LAVG, value, "int"));
+}
+
+void DaqcClient::setContrastValue(int value)
+{
+    createUpdateRequest(new RequestUpdatePacket(CONTRAST, value, "int"));
+}
+
+void DaqcClient::setRotationValue(int value)
+{
+    createUpdateRequest(new RequestUpdatePacket(ROTATION, value, "int"));
+}
+
+void DaqcClient::setBb(bool value)
+{
+
+}
+
+void DaqcClient::setUp(bool value)
+{
+}
+
+void DaqcClient::setThi(bool value)
+{
+}
+
+void DaqcClient::setCenterLine(bool value)
+{
+
+}
+
+void DaqcClient::setRoiSite(bool value)
+{
+    createUpdateRequest(new RequestUpdatePacket(ROI_SITE, value, "bool"));
+}
+
+void DaqcClient::setRoiSize(bool value)
+{
+    createUpdateRequest(new RequestUpdatePacket(ROI_SIZE, value, "bool"));
+}
+
+void DaqcClient::setCInvert(bool value)
+{
+    createUpdateRequest(new RequestUpdatePacket(C_INVERT, value, "bool"));
+}
+
+void DaqcClient::setDInvert(bool value)
+{
+    createUpdateRequest(new RequestUpdatePacket(D_INVERT, value, "bool"));
+}
+
+void DaqcClient::setCAutoTrace(bool value)
+{
+    createUpdateRequest(new RequestUpdatePacket(C_AUTO_TRACE, value, "bool"));
+}
+
+void DaqcClient::setDAutoTrace(bool value)
+{
+    createUpdateRequest(new RequestUpdatePacket(D_AUTO_TRACE, value, "bool"));
+}
+
+void DaqcClient::setUpdate(bool value)
+{
+    createUpdateRequest(new RequestUpdatePacket(UPDATE, value, "bool"));
+}
+
+void DaqcClient::setSynchro(bool value)
+{
+    createUpdateRequest(new RequestUpdatePacket(SYNCHRO, value, "bool"));
+}
+
+void DaqcClient::setDualMode(bool value)
+{
+    createUpdateRequest(new RequestUpdatePacket(DUAL_MODE, value, "bool"));
+}
+
 QVariant DaqcClient::createGetRequest(std::function<Packet*()> callback)
 {
     QEventLoop eventloop;

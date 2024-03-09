@@ -93,6 +93,29 @@ public:
     void setAudio(bool increase);
     void setBaseline(bool increase);
     void setRotation(bool increase);
+    // set functions
+    void setBGainValue(int value);
+    void setDepthValue(int value);
+    void setBFrequencyValue(double value);
+    void setChromaValue(int value);
+    void setImgProcValue(int value, const std::vector<int>& params);
+    void setFavgValue(int value);
+    void setLavgValue(int value);
+    void setContrastValue(int value);
+    void setRotationValue(int value);
+    void setBb(bool value);
+    void setUp(bool value);
+    void setThi(bool value);
+    void setCenterLine(bool value);
+    void setRoiSite(bool value);
+    void setRoiSize(bool value);
+    void setCInvert(bool value);
+    void setDInvert(bool value);
+    void setCAutoTrace(bool value);
+    void setDAutoTrace(bool value);
+    void setUpdate(bool value);//affects setSynchro
+    void setSynchro(bool value);//affects setUpdate
+    void setDualMode(bool value);
 signals:
     void sendMessage(const QByteArray& msg);
     void connectServer();
