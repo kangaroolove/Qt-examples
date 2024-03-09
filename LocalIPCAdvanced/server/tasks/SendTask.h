@@ -3,15 +3,15 @@
 #include <QRunnable>
 
 class Packet;
-class CommunicationDevice;
+class Server;
 
 class SendTask : public QRunnable
 {
 public:
-    SendTask(CommunicationDevice* device, Packet* packet);
+    SendTask(Server* server, Packet* packet);
     ~SendTask();
     void run() override;
 protected:
-    CommunicationDevice* m_device;
+    Server* m_server;
     Packet* m_packet;
 };

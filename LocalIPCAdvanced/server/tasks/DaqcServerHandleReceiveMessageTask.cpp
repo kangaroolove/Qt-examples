@@ -1,7 +1,6 @@
 #include "DaqcServerHandleReceiveMessageTask.h"
 #include "SendTask.h"
-#include "ReplyPacket.h"
-#include "ReplyGetTest.h"
+#include "PacketFactory.h"
 #include "Server.h"
 #include <QJsonDocument>
 #include <QJsonObject>
@@ -11,7 +10,8 @@
 
 DaqcServerHandleReceiveMessageTask::DaqcServerHandleReceiveMessageTask(Server* server, const QByteArray& data) :
     HandleReceiveMessageTask(data),
-    m_server(server)
+    m_server(server),
+    m_packetFactory(new PacketFactory(this))
 {
 
 }
@@ -36,10 +36,9 @@ void DaqcServerHandleReceiveMessageTask::handleTask(const QString &parameter, co
     qDebug()<<"requestType = "<< requestType;
     qDebug()<<"clientMessageId = "<< clientMessageId;
 
-    if (parameter == "test" && requestType == "get")
-    {
-        //QThreadPool::globalInstance()->start(new SendTask(m_server, new ReplyGetTest(clientMessageId)));
-    }
+    auto packet = m_packetFactory->createReplyPacket(parameter, requestType, clientMessageId);
+    if (!packet)
+        QThreadPool::globalInstance()->start(new SendTask(m_server, packet));
 }
 
 QString DaqcServerHandleReceiveMessageTask::getRequestType(const QJsonDocument &document)
