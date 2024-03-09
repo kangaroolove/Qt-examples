@@ -2,6 +2,7 @@
 #include "RequestGetPacket.h"
 #include "RequestUpdatePacket.h"
 #include "Client.h"
+#include "ParameterDef.h"
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDebug>
@@ -48,7 +49,7 @@ void DaqcClient::testSetApi(bool isTest)
 double DaqcClient::getRegionPhysicalDeltaX()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("RegionPhysicalDeltaX");
+        return new RequestGetPacket(REGION_PHYSICAL_DELTA_X);
     });
     return result.toDouble();
 }
@@ -56,7 +57,7 @@ double DaqcClient::getRegionPhysicalDeltaX()
 double DaqcClient::getRegionPhysicalDeltaY()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("RegionPhysicalDeltaY");
+        return new RequestGetPacket(REGION_PHYSICAL_DELTA_Y);
     });
     return result.toDouble();
 }
@@ -64,7 +65,7 @@ double DaqcClient::getRegionPhysicalDeltaY()
 int DaqcClient::getBGain()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("BGain");
+        return new RequestGetPacket(B_GAIN);
     });
     return result.toInt();
 }
@@ -72,7 +73,7 @@ int DaqcClient::getBGain()
 int DaqcClient::getCGain()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("CGain");
+        return new RequestGetPacket(C_GAIN);
     });
     return result.toInt();
 }
@@ -80,7 +81,7 @@ int DaqcClient::getCGain()
 int DaqcClient::getMGain()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("MGain");
+        return new RequestGetPacket(M_GAIN);
     });
     return result.toInt();
 }
@@ -88,7 +89,7 @@ int DaqcClient::getMGain()
 double DaqcClient::getXmlDepth()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("XmlDepth");
+        return new RequestGetPacket(XML_DEPTH);
     });
     return result.toDouble();
 }
@@ -96,7 +97,7 @@ double DaqcClient::getXmlDepth()
 int DaqcClient::getDepthMm()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("DepthMm");
+        return new RequestGetPacket(DEPTH_MM);
     });
     return result.toInt();
 }
@@ -104,7 +105,7 @@ int DaqcClient::getDepthMm()
 double DaqcClient::getDepthCm()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("DepthCm");
+        return new RequestGetPacket(DEPTH_CM);
     });
     return result.toDouble();
 }
@@ -112,7 +113,7 @@ double DaqcClient::getDepthCm()
 double DaqcClient::getBFrequency()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("BFrequency");
+        return new RequestGetPacket(B_FREQUENCY);
     });
     return result.toDouble();
 }
@@ -120,7 +121,7 @@ double DaqcClient::getBFrequency()
 double DaqcClient::getBFrequency2()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("BFrequency2");
+        return new RequestGetPacket(B_FREQUENCY_2);
     });
     return result.toDouble();
 }
@@ -128,7 +129,7 @@ double DaqcClient::getBFrequency2()
 double DaqcClient::getMFrequency()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("MFrequency");
+        return new RequestGetPacket(M_FREQUENCY);
     });
     return result.toDouble();
 }
@@ -136,7 +137,7 @@ double DaqcClient::getMFrequency()
 int DaqcClient::getChroma()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("Chroma");
+        return new RequestGetPacket(CHROMA);
     });
     return result.toInt();
 }
@@ -144,7 +145,7 @@ int DaqcClient::getChroma()
 int DaqcClient::getImgProc()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("ImgProc");
+        return new RequestGetPacket(IMG_PROC);
     });
     return result.toInt();
 }
@@ -152,7 +153,7 @@ int DaqcClient::getImgProc()
 int DaqcClient::getFavg()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("Favg");
+        return new RequestGetPacket(FAVG);
     });
     return result.toInt();
 }
@@ -160,7 +161,7 @@ int DaqcClient::getFavg()
 int DaqcClient::getLavg()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("Lavg");
+        return new RequestGetPacket(LAVG);
     });
     return result.toInt();
 }
@@ -168,7 +169,7 @@ int DaqcClient::getLavg()
 int DaqcClient::getContrast()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("Contrast");
+        return new RequestGetPacket(CONTRAST);
     });
     return result.toInt();
 }
@@ -176,7 +177,7 @@ int DaqcClient::getContrast()
 double DaqcClient::getCPrf()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("CPrf");
+        return new RequestGetPacket(C_PRF);
     });
     return result.toDouble();
 }
@@ -184,7 +185,7 @@ double DaqcClient::getCPrf()
 double DaqcClient::getDPrf()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("DPrf");
+        return new RequestGetPacket(D_PRF);
     });
     return result.toDouble();
 }
@@ -192,7 +193,7 @@ double DaqcClient::getDPrf()
 double DaqcClient::getCWf()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("CWf");
+        return new RequestGetPacket(C_WF);
     });
     return result.toDouble();
 }
@@ -200,7 +201,7 @@ double DaqcClient::getCWf()
 double DaqcClient::getDWf()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("DWf");
+        return new RequestGetPacket(D_WF);
     });
     return result.toDouble();
 }
@@ -208,7 +209,7 @@ double DaqcClient::getDWf()
 int DaqcClient::getSensitivity()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("Sensitivity");
+        return new RequestGetPacket(SENSITIVITY);
     });
     return result.toInt();
 }
@@ -216,7 +217,7 @@ int DaqcClient::getSensitivity()
 int DaqcClient::getSwingAngle()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("SwingAngle");
+        return new RequestGetPacket(SWING_ANGLE);
     });
     return result.toInt();
 }
@@ -224,7 +225,7 @@ int DaqcClient::getSwingAngle()
 double DaqcClient::getSv()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("Sv");
+        return new RequestGetPacket(SV);
     });
     return result.toDouble();
 }
@@ -232,7 +233,7 @@ double DaqcClient::getSv()
 double DaqcClient::getCa()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("Ca");
+        return new RequestGetPacket(CA);
     });
     return result.toDouble();
 }
@@ -240,7 +241,7 @@ double DaqcClient::getCa()
 int DaqcClient::getDSpeed()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("DSpeed");
+        return new RequestGetPacket(D_SPEED);
     });
     return result.toInt();
 }
@@ -248,7 +249,7 @@ int DaqcClient::getDSpeed()
 int DaqcClient::getMSpeed()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("MSpeed");
+        return new RequestGetPacket(M_SPEED);
     });
     return result.toInt();
 }
@@ -256,7 +257,7 @@ int DaqcClient::getMSpeed()
 int DaqcClient::getNoiseReject()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("NoiseReject");
+        return new RequestGetPacket(NOISE_REJECT);
     });
     return result.toInt();
 }
@@ -264,7 +265,7 @@ int DaqcClient::getNoiseReject()
 int DaqcClient::getAudio()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("Audio");
+        return new RequestGetPacket(AUDIO);
     });
     return result.toInt();
 }
@@ -272,7 +273,7 @@ int DaqcClient::getAudio()
 int DaqcClient::getBaseline()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("Baseline");
+        return new RequestGetPacket(BASELINE);
     });
     return result.toInt();
 }
@@ -280,7 +281,7 @@ int DaqcClient::getBaseline()
 int DaqcClient::getRotation()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("Rotation");
+        return new RequestGetPacket(ROTATION);
     });
     return result.toInt();
 }
@@ -288,7 +289,7 @@ int DaqcClient::getRotation()
 double DaqcClient::getSpacingX()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("SpacingX");
+        return new RequestGetPacket(SPACING_X);
     });
     return result.toDouble();
 }
@@ -296,7 +297,7 @@ double DaqcClient::getSpacingX()
 double DaqcClient::getSpacingY()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("SpacingY");
+        return new RequestGetPacket(SPACING_Y);
     });
     return result.toDouble();
 }
