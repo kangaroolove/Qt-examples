@@ -37,7 +37,7 @@ void DaqcServerHandleReceiveMessageTask::handleTask(const QString &parameter, co
     qDebug()<<"clientMessageId = "<< clientMessageId;
 
     auto packet = m_packetFactory->createReplyPacket(parameter, requestType, clientMessageId);
-    if (!packet)
+    if (packet)
         QThreadPool::globalInstance()->start(new SendTask(m_server, packet));
 }
 
