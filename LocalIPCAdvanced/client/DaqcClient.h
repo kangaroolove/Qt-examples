@@ -18,6 +18,7 @@ public:
     void start();
     int testGetApi();
     void testSetApi(bool isTest);
+    // get functions
     double getRegionPhysicalDeltaX();
     double getRegionPhysicalDeltaY();
     int getBGain();
@@ -65,6 +66,33 @@ public:
     QPoint getRoiPosition();
     int getDualConvexOrLinearChannel();
     bool isDualModeOn();
+    // increase/decrease functions
+    void setBGain(bool increase);
+    void setCGain(bool increase);
+    void setMGain(bool increase);
+    void setDepth(bool increase);
+    void setBFrequency(bool increase);
+    void setBFrequency2(bool increase);
+    void setMFrequency(bool increase);
+    void setChroma(bool increase);
+    void setImgProc(bool increase, const std::vector<int>& params);
+    void setFavg(bool increase);
+    void setLavg(bool increase);
+    void setContrast(bool increase);
+    void setCPrf(bool increase);
+    void setDPrf(bool increase);
+    void setCWf(bool increase);
+    void setDWf(bool increase);
+    void setSensitivity(bool increase);
+    void setSwingAngle(bool increase);
+    void setSv(bool increase);
+    void setCa(bool increase);
+    void setDSpeed(bool increase);
+    void setMSpeed(bool increase);
+    void setNoiseReject(bool increase);
+    void setAudio(bool increase);
+    void setBaseline(bool increase);
+    void setRotation(bool increase);
 signals:
     void sendMessage(const QByteArray& msg);
     void connectServer();
@@ -72,6 +100,7 @@ signals:
 private:
     QVariant createGetRequest(std::function<Packet*()> callback);
     void createUpdateRequest(Packet* packet);
+    int boolToIncrease(const bool& increase);
 
     QThread* m_thread;
     Client* m_client;

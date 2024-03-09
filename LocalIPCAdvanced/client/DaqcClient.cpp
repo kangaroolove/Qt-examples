@@ -421,6 +421,111 @@ bool DaqcClient::isDualModeOn()
     return result.toBool();
 }
 
+void DaqcClient::setBGain(bool increase)
+{
+    createUpdateRequest(new RequestUpdatePacket("BGain", boolToIncrease(increase), "int"));
+}
+
+void DaqcClient::setCGain(bool increase)
+{
+}
+
+void DaqcClient::setMGain(bool increase)
+{
+}
+
+void DaqcClient::setDepth(bool increase)
+{
+}
+
+void DaqcClient::setBFrequency(bool increase)
+{
+}
+
+void DaqcClient::setBFrequency2(bool increase)
+{
+}
+
+void DaqcClient::setMFrequency(bool increase)
+{
+}
+
+void DaqcClient::setChroma(bool increase)
+{
+}
+
+void DaqcClient::setImgProc(bool increase, const std::vector<int> &params)
+{
+}
+
+void DaqcClient::setFavg(bool increase)
+{
+}
+
+void DaqcClient::setLavg(bool increase)
+{
+}
+
+void DaqcClient::setContrast(bool increase)
+{
+}
+
+void DaqcClient::setCPrf(bool increase)
+{
+}
+
+void DaqcClient::setDPrf(bool increase)
+{
+}
+
+void DaqcClient::setCWf(bool increase)
+{
+}
+
+void DaqcClient::setDWf(bool increase)
+{
+}
+
+void DaqcClient::setSensitivity(bool increase)
+{
+}
+
+void DaqcClient::setSwingAngle(bool increase)
+{
+}
+
+void DaqcClient::setSv(bool increase)
+{
+}
+
+void DaqcClient::setCa(bool increase)
+{
+}
+
+void DaqcClient::setDSpeed(bool increase)
+{
+}
+
+void DaqcClient::setMSpeed(bool increase)
+{
+}
+
+void DaqcClient::setNoiseReject(bool increase)
+{
+}
+
+void DaqcClient::setAudio(bool increase)
+{
+}
+
+void DaqcClient::setBaseline(bool increase)
+{
+}
+
+void DaqcClient::setRotation(bool increase)
+{
+}
+
 QVariant DaqcClient::createGetRequest(std::function<Packet*()> callback)
 {
     QEventLoop eventloop;
@@ -439,4 +544,9 @@ void DaqcClient::createUpdateRequest(Packet *packet)
 {
     emit sendMessage(packet->toJson());
     packet->deleteLater();
+}
+
+int DaqcClient::boolToIncrease(const bool &increase)
+{
+    return increase ? 1 : -1;
 }
