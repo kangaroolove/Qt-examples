@@ -36,14 +36,11 @@ int DaqcClient::testGetApi()
     connect(m_client, &Client::quitEventloop, &eventloop, &QEventLoop::quit);
 
     auto packet = new RequestGetPacket("test");
-    //emit sendMessage(packet->toJson());
+    emit sendMessage(packet->toJson());
     eventloop.exec();
 
-    auto result = m_client->getRequestResult(packet->getMessageId());
-    if (result.valueType == "int")
-        return result.value.toInt();
-        
-    return 0;
+    RequestResult result = m_client->getRequestResult(packet->getMessageId());
+    return result.value.value<int>();
 }
 
 void DaqcClient::testSetApi(bool isTest)
