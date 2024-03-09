@@ -1,5 +1,4 @@
 #include "Client.h"
-#include "DaqcClientHandleReceiveMessageTask.h"
 #include <QDataStream>
 #include <QEventLoop>
 #include <QDebug>

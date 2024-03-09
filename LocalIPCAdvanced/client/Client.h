@@ -1,6 +1,5 @@
 #pragma once
 
-#include "CommunicationDevice.h"
 #include <QLocalSocket>
 #include <map>
 #include <QString>
@@ -17,7 +16,7 @@ public:
     QVariant value;
 };
 
-class Client : public QLocalSocket, public CommunicationDevice
+class Client : public QLocalSocket
 {
     Q_OBJECT
 public:
@@ -28,7 +27,7 @@ public:
 signals:
     void receiveMessage(const QByteArray& msg);
 public slots:
-    void sendMessage(const QByteArray& msg) override;
+    void sendMessage(const QByteArray& msg);
     void connectServer();
 private slots:
     void readyToRead();

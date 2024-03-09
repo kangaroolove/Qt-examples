@@ -1,5 +1,4 @@
 #include "DaqcClient.h"
-#include "SendTask.h"
 #include "RequestGetPacket.h"
 #include "RequestUpdatePacket.h"
 #include "Client.h"
