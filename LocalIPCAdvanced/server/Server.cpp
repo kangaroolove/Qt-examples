@@ -36,6 +36,7 @@ void Server::sendMessage(const QByteArray &msg)
 
 void Server::readyRead()
 {
+    QMutexLocker locker(m_mutex);
     QLocalSocket* socket = static_cast<QLocalSocket*>(this->sender());
     if (!socket)
         return;
@@ -50,10 +51,7 @@ void Server::readyRead()
         *(it->second) >> msg;
         qDebug()<<msg;
 
-        auto task = generateHandleRequestTask(msg);
-        QThreadPool::globalInstance()->start(task);
-
-        //emit receiveMessage(msg);
+        QThreadPool::globalInstance()->start(generateHandleRequestTask(msg));
     }
 }
 
@@ -79,6 +77,7 @@ void Server::init()
 
 void Server::newDeviceConnected()
 {
+    QMutexLocker locker(m_mutex);
     QLocalSocket* socket = this->nextPendingConnection();
     connect(socket, &QLocalSocket::readyRead, this, &Server::readyRead);
     connect(socket, &QLocalSocket::disconnected, this, &Server::clientDisconnected);
