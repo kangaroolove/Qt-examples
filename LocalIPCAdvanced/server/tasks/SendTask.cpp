@@ -11,6 +11,8 @@ SendTask::SendTask(Server* server, Packet* packet) :
 
 SendTask::~SendTask()
 {
+    if (m_packet)
+        m_packet->deleteLater();
 }
 
 void SendTask::run()
