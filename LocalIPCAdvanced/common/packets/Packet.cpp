@@ -1,7 +1,8 @@
 #include "Packet.h"
 #include <QUuid>
 
-Packet::Packet()
+Packet::Packet(QObject* parent) :
+    QObject(parent)
 {
     generateMessageId();
 }

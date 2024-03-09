@@ -1,10 +1,13 @@
 #pragma once
 
 #include <QObject>
+#include <functional>
+#include <QVariant>
 
 class QThread;
 class Client;
 class QEventLoop;
+class Packet;
 
 class DaqcClient : public QObject
 {
@@ -20,6 +23,9 @@ signals:
     void connectServer();
     void receiveMessage(const QByteArray& msg);
 private:
+    QVariant createGetRequest(std::function<Packet*()> callback);
+    void createUpdateRequest(Packet* packet);
+
     QThread* m_thread;
     Client* m_client;
 };

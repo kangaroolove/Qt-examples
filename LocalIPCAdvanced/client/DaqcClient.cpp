@@ -32,19 +32,33 @@ void DaqcClient::start()
 
 int DaqcClient::testGetApi()
 {
-    QEventLoop eventloop;
-    connect(m_client, &Client::quitEventloop, &eventloop, &QEventLoop::quit);
-
-    auto packet = new RequestGetPacket("test");
-    emit sendMessage(packet->toJson());
-    eventloop.exec();
-
-    RequestResult result = m_client->getRequestResult(packet->getMessageId());
-    return result.value.value<int>();
+    auto result = createGetRequest([]{ 
+        return new RequestGetPacket("test"); 
+    });
+    return result.toInt();
 }
 
 void DaqcClient::testSetApi(bool isTest)
 {
-    auto packet = new RequestUpdatePacket("test", isTest, "bool");
+    createUpdateRequest(new RequestUpdatePacket("test", isTest, "bool"));
+}
+
+QVariant DaqcClient::createGetRequest(std::function<Packet*()> callback)
+{
+    QEventLoop eventloop;
+    connect(m_client, &Client::quitEventloop, &eventloop, &QEventLoop::quit);
+
+    Packet* packet = callback();
     emit sendMessage(packet->toJson());
+    eventloop.exec();
+
+    RequestResult result = m_client->getRequestResult(packet->getMessageId());
+    packet->deleteLater();
+    return result.value;
+}
+
+void DaqcClient::createUpdateRequest(Packet *packet)
+{
+    emit sendMessage(packet->toJson());
+    packet->deleteLater();
 }

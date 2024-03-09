@@ -3,10 +3,12 @@
 #include <QByteArray>
 #include <QString>
 #include <QJsonObject>
-class Packet
+#include <QObject>
+class Packet : public QObject
 {
+    Q_OBJECT
 public:
-    Packet();
+    Packet(QObject* parent = nullptr);
     ~Packet();
     virtual QByteArray toJson() = 0;
     QString getMessageId();
