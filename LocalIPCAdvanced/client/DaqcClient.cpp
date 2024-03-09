@@ -417,114 +417,139 @@ int DaqcClient::getDualConvexOrLinearChannel()
 bool DaqcClient::isDualModeOn()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("DualModeOn");
+        return new RequestGetPacket("IsDualModeOn");
     });
     return result.toBool();
 }
 
 void DaqcClient::setBGain(bool increase)
 {
-    createUpdateRequest(new RequestUpdatePacket("BGain", boolToIncrease(increase), "int"));
+    createUpdateRequest(new RequestUpdatePacket(B_GAIN, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setCGain(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(C_GAIN, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setMGain(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(M_GAIN, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setDepth(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(DEPTH, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setBFrequency(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(B_FREQUENCY, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setBFrequency2(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(B_FREQUENCY_2, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setMFrequency(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(M_FREQUENCY, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setChroma(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(CHROMA, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setImgProc(bool increase, const std::vector<int> &params)
 {
+    createUpdateRequest(new RequestUpdatePacket(IMG_PROC, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setFavg(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(FAVG, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setLavg(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(LAVG, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setContrast(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(CONTRAST, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setCPrf(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(C_PRF, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setDPrf(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(D_PRF, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setCWf(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(C_WF, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setDWf(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(D_WF, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setSensitivity(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(SENSITIVITY, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setSwingAngle(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(SWING_ANGLE, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setSv(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(SV, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setCa(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(CA, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setDSpeed(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(D_SPEED, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setMSpeed(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(M_SPEED, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setNoiseReject(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(NOISE_REJECT, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setAudio(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(AUDIO, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setBaseline(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(BASELINE, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setRotation(bool increase)
 {
+    createUpdateRequest(new RequestUpdatePacket(ROTATION, boolToIncrease(increase), "int"));
 }
 
 QVariant DaqcClient::createGetRequest(std::function<Packet*()> callback)

@@ -34,3 +34,4 @@ const QString BASELINE = "BaseLine";
 const QString ROTATION = "Rotation";
 const QString SPACING_X = "SpacingX";
 const QString SPACING_Y = "SpacingY";
+const QString DEPTH = "Depth";
