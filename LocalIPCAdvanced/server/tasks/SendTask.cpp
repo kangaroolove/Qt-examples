@@ -2,8 +2,7 @@
 #include "Packet.h"
 #include "Server.h"
 
-SendTask::SendTask(Server* server, Packet* packet) :
-    m_server(server),
+SendTask::SendTask(Packet* packet) :
     m_packet(packet)
 {
 
@@ -17,5 +16,5 @@ SendTask::~SendTask()
 
 void SendTask::run()
 {
-    m_server->sendMessage(m_packet->toJson());
+    emit sendMessage(m_packet->toJson());
 }

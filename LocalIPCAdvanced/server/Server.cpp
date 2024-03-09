@@ -60,14 +60,16 @@ void Server::readyRead()
 void Server::clientDisconnected()
 {
     QMutexLocker locker(m_mutex);
-    qDebug()<<"Server::clientDisconnected";
     QLocalSocket* socket = static_cast<QLocalSocket*>(this->sender());
     if (!socket)
         return;
 
     auto it = m_clientSockets.find(socket);
     if (it != m_clientSockets.end())
+    {
         m_clientSockets.erase(it);
+        qDebug()<<"A client is disconnected";
+    }
 }
 
 void Server::init()
@@ -83,5 +85,4 @@ void Server::newDeviceConnected()
     QDataStream* dataStream = new QDataStream(socket);
     dataStream->setVersion(QDataStream::Qt_5_12);
     m_clientSockets.insert({socket, dataStream});
-    sendMessage("Hello client!");
 }

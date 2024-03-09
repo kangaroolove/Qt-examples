@@ -15,9 +15,10 @@ public:
     Server(QObject* parent = nullptr);
     ~Server();
     virtual void start() = 0;
-    void sendMessage(const QByteArray& msg);
 signals:
     void receiveMessage(const QByteArray& msg);
+public slots:
+    void sendMessage(const QByteArray& msg);
 protected:
     virtual HandleReceiveMessageTask* generateHandleRequestTask(const QByteArray& data) = 0;
 private slots:

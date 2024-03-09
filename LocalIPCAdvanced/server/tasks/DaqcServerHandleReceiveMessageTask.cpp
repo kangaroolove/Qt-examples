@@ -34,11 +34,15 @@ void DaqcServerHandleReceiveMessageTask::handleTask(const QString &parameter, co
 {
     qDebug()<<"parameter = "<< parameter;
     qDebug()<<"requestType = "<< requestType;
-    qDebug()<<"clientMessageId = "<< clientMessageId;
+    qDebug()<<"clientMessageId = "<< clientMessageId<<"\n";
 
     auto packet = m_packetFactory->createReplyPacket(parameter, requestType, clientMessageId);
     if (packet)
-        QThreadPool::globalInstance()->start(new SendTask(m_server, packet));
+    {
+        auto task = new SendTask(packet);
+        connect(task, &SendTask::sendMessage, m_server, &Server::sendMessage, Qt::QueuedConnection);
+        QThreadPool::globalInstance()->start(task);
+    }
 }
 
 QString DaqcServerHandleReceiveMessageTask::getRequestType(const QJsonDocument &document)
