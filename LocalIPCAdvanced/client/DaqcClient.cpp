@@ -13,6 +13,7 @@ DaqcClient::DaqcClient(QObject* parent) :
     m_thread(new QThread(this))
 {
     m_client->moveToThread(m_thread);
+    connect(m_thread, &QThread::finished, m_client, &Client::deleteLater);
     connect(this, &DaqcClient::sendMessage, m_client, &Client::sendMessage);
     connect(this, &DaqcClient::connectServer, m_client, &Client::connectServer);
     connect(m_client, &Client::receiveMessage, this, &DaqcClient::receiveMessage);
@@ -21,7 +22,8 @@ DaqcClient::DaqcClient(QObject* parent) :
 
 DaqcClient::~DaqcClient()
 {
-
+    m_thread->quit();
+    m_thread->wait();
 }
 
 void DaqcClient::start()
