@@ -9,10 +9,9 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
-Client::Client(QEventLoop* eventLoop, QObject* parent) : 
+Client::Client(QObject* parent) : 
     QLocalSocket(parent), 
-    m_in(new QDataStream(this)),
-    m_eventLoop(eventLoop)
+    m_in(new QDataStream(this))
 {
     m_in->setVersion(QDataStream::Qt_5_12);
     connect(this, &Client::readyRead, this, &Client::readyToRead);
@@ -75,6 +74,6 @@ void Client::readyToRead()
         result.value = document["data"].toObject()["value"].toVariant();
         result.valueType = document["data"].toObject()["valueType"].toString();
         insertRequestResult(clientMessageId, result);
-        m_eventLoop->quit();
+        emit quitEventloop();
     }
 }

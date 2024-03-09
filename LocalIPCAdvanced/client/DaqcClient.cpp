@@ -9,8 +9,7 @@
 #include <QEventLoop>
 
 DaqcClient::DaqcClient(QObject* parent) :
-    m_eventLoop(new QEventLoop(this)),
-    m_client(new Client(m_eventLoop)),
+    m_client(new Client()),
     m_thread(new QThread(this))
 {
     m_client->moveToThread(m_thread);
@@ -33,9 +32,12 @@ void DaqcClient::start()
 
 int DaqcClient::testGetApi()
 {
+    QEventLoop eventloop;
+    connect(m_client, &Client::quitEventloop, &eventloop, &QEventLoop::quit);
+
     auto packet = new RequestGetPacket("test");
-    emit sendMessage(packet->toJson());
-    m_eventLoop->exec();
+    //emit sendMessage(packet->toJson());
+    eventloop.exec();
 
     auto result = m_client->getRequestResult(packet->getMessageId());
     if (result.valueType == "int")

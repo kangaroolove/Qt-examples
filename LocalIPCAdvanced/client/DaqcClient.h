@@ -20,7 +20,6 @@ signals:
     void connectServer();
     void receiveMessage(const QByteArray& msg);
 private:
-    QEventLoop* m_eventLoop;
     QThread* m_thread;
     Client* m_client;
 };
