@@ -14,8 +14,11 @@ DaqcServer::~DaqcServer()
 
 void DaqcServer::start()
 {
-    qDebug()<<listen("Daqc");
-    qDebug()<<"Daqc server started";
+    auto result = listen("Daqc");
+    if (result)
+        qDebug()<<"Daqc server started";
+    else 
+        qCritical()<<"Daqc server started failed";
 }
 
 HandleReceiveMessageTask *DaqcServer::generateHandleRequestTask(const QByteArray& data)
