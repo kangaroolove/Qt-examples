@@ -6,9 +6,8 @@
 class Server;
 class QJsonDocument;
 
-class DaqcServerHandleReceiveMessageTask : public QObject, public HandleReceiveMessageTask
+class DaqcServerHandleReceiveMessageTask : public HandleReceiveMessageTask
 {
-    Q_OBJECT
 public:
     DaqcServerHandleReceiveMessageTask(Server* server, const QByteArray& data);
     ~DaqcServerHandleReceiveMessageTask();
