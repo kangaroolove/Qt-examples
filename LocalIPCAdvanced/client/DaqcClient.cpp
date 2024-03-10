@@ -664,6 +664,7 @@ void DaqcClient::cancelRoi()
 {
 }
 
+/*
 int DaqcClient::legacyACUI()
 {
     auto result = createGetRequest([]{
@@ -939,92 +940,132 @@ void DaqcClient::legacySetDNoiseRej(int value)
 
 double DaqcClient::legacyDPRF()
 {
-    return 0.0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(D_PRF);
+    });
+    return result.toDouble();
 }
 
 void DaqcClient::legacySetDPRF(double value)
 {
+    createUpdateRequest(new RequestUpdatePacket(D_PRF, value, "double"));
 }
 
 int DaqcClient::legacyDSoundVolum()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(D_SOUND_VOLUME);
+    });
+    return result.toInt();
 }
 
 void DaqcClient::legacySetDSoundVolum(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(D_SOUND_VOLUME, value, "int"));
 }
 
 int DaqcClient::legacyDSpeed()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(D_SPEED);
+    });
+    return result.toInt();
 }
 
 void DaqcClient::legacySetDSpeed(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(D_SPEED, value, "int"));
 }
 
 double DaqcClient::legacyDWallFilterFreq()
 {
-    return 0.0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(D_SPEED);
+    });
+    return result.toDouble();
 }
 
 void DaqcClient::legacySetDWallFilterFreq(double value)
 {
+    createUpdateRequest(new RequestUpdatePacket(D_WALL_FILTER_FREQ, value, "double"));
 }
 
 int DaqcClient::legacyDepth()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(DEPTH);
+    });
+    return result.toInt();
 }
 
 void DaqcClient::legacySetDepth(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(DEPTH, value, "int"));
 }
 
 int DaqcClient::legacyDirPwrGain()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(DIR_PWR_GAIN);
+    });
+    return result.toInt();
 }
 
 void DaqcClient::legacySetDirPwrGain(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(DIR_PWR_GAIN, value, "int"));
 }
 
 int DaqcClient::legacyDscCapture()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(DSC_CAPTURE);
+    });
+    return result.toInt();
 }
 
 void DaqcClient::legacySetDscCapture(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(DSC_CAPTURE, value, "int"));
 }
 
 int DaqcClient::legacyExamTypeID()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(EXAM_TYPE_ID);
+    });
+    return result.toInt();
 }
 
 void DaqcClient::legacySetExamTypeID(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(EXAM_TYPE_ID, value, "int"));
 }
 
 double DaqcClient::legacyFrameRelation()
 {
-    return 0.0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(FRAME_RELATION);
+    });
+    return result.toDouble();
 }
 
 void DaqcClient::legacySetFrameRelation(double value)
 {
+    createUpdateRequest(new RequestUpdatePacket(FRAME_RELATION, value, "double"));
 }
 
 double DaqcClient::legacyFreq2()
 {
-    return 0.0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(B_FREQUENCY_2);
+    });
+    return result.toDouble();
 }
 
 void DaqcClient::legacySetFreq2(double value)
 {
+    createUpdateRequest(new RequestUpdatePacket(B_FREQUENCY_2, value, "double"));
 }
 
 double DaqcClient::legacyFrequence()
@@ -1453,6 +1494,7 @@ void DaqcClient::legacyStop()
 void DaqcClient::legacyWifiEWM(const QString &fptStr, QString &htpStr)
 {
 }
+*/
 
 QVariant DaqcClient::createGetRequest(std::function<Packet*()> callback)
 {
