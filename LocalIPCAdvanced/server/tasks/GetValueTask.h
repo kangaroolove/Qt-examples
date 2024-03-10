@@ -2,12 +2,11 @@
 
 #include <QObject>
 #include <QRunnable>
+#include "ReplyPacket.h"
 
 class Server;
-
-class GetValueTask : public QObject, public QRunnable
+class GetValueTask : public QRunnable
 {
-    Q_OBJECT
 public:
     GetValueTask(Server* server, const QString& parameter, const QString& clientMessageId);
     ~GetValueTask();
