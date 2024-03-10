@@ -36,6 +36,8 @@ set(PROJECT_SOURCES
 	tasks/HandleReceiveMessageTask.h
 	tasks/SendTask.cpp
 	tasks/SendTask.h
+	tasks/UpdateValueTask.cpp
+	tasks/UpdateValueTask.h
 	tasks/DaqcServerHandleReceiveMessageTask.cpp
 	tasks/DaqcServerHandleReceiveMessageTask.h
 	../common/packets/Packet.cpp

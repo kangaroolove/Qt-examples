@@ -2,6 +2,7 @@
 #include "SendTask.h"
 #include "PacketFactory.h"
 #include "Server.h"
+#include "UpdateValueTask.h"
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDebug>
@@ -58,7 +59,11 @@ void DaqcServerHandleReceiveMessageTask::handleGetRequest(const QString &paramet
 
 void DaqcServerHandleReceiveMessageTask::handleUpdateRequest(const QString &parameter, const QString &valueType, const QVariant &value)
 {
-
+    UpdateValueInfo info;
+    info.parameter = parameter;
+    info.value = value;
+    info.valueType = valueType;
+    QThreadPool::globalInstance()->start(new UpdateValueTask(info));
 }
 
 QString DaqcServerHandleReceiveMessageTask::getRequestType(const QJsonDocument &document)
