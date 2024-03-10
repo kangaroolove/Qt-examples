@@ -34,8 +34,12 @@ QJsonObject ReplyPacket::generateData()
 
     if (m_replyPacketInfo.valueType == "int")
         object["value"] = m_replyPacketInfo.value.toInt();
+    else if (m_replyPacketInfo.valueType == "string")
+        object["value"] = m_replyPacketInfo.value.toString();
     else if (m_replyPacketInfo.valueType == "bool")
         object["value"] = m_replyPacketInfo.value.toBool();
+    else if (m_replyPacketInfo.valueType == "double")
+        object["value"] = m_replyPacketInfo.value.toDouble();
 
     return object;
 }

@@ -20,12 +20,14 @@ QJsonObject RequestUpdatePacket::generateData()
     object["parameter"] = m_parameter;
     object["requestType"] = "update";
     object["valueType"] = m_valueType;
+
     if (m_valueType == "int")
         object["value"] = m_value.toInt();
     else if (m_valueType == "string")
         object["value"] = m_value.toString();
     else if (m_valueType == "bool")
         object["value"] = m_value.toBool();
-    
+    else if (m_valueType == "double")
+        object["value"] = m_value.toDouble();
     return object;
 }

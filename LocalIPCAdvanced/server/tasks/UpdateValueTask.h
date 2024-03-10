@@ -3,6 +3,7 @@
 #include <QRunnable>
 #include <QString>
 #include <QVariant>
+#include <QReadWriteLock>
 
 class UpdateValueInfo
 {
@@ -20,4 +21,5 @@ public:
     void run() override;
 private:
     UpdateValueInfo m_updateValueInfo;
+    static QReadWriteLock m_readWriteLock;
 };
