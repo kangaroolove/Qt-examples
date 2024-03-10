@@ -27,22 +27,38 @@ void DaqcServerHandleReceiveMessageTask::analyzeJson(const QByteArray &data)
     if (document.isNull())
         return;
 
-    handleTask(getParameter(document), getRequestType(document), getClientMessageId(document));
-}
+    QString parameter = getParameter(document);
+    QString requestType = getRequestType(document);
+    QString clientMessageId = getRequestType(document);
+    QString valueType = getValueType(document);
+    QVariant value = getValue(document);
 
-void DaqcServerHandleReceiveMessageTask::handleTask(const QString &parameter, const QString &requestType, const QString &clientMessageId)
-{
     qDebug()<<"parameter = "<< parameter;
     qDebug()<<"requestType = "<< requestType;
-    qDebug()<<"clientMessageId = "<< clientMessageId<<"\n";
+    qDebug()<<"clientMessageId = "<< clientMessageId;
+    qDebug()<<"valueType = "<< valueType;
+    qDebug()<<"value = "<< value <<"\n";
+    
+    if (requestType == "get")
+        handleGetRequest(parameter, clientMessageId);
+    else if (requestType == "update")
+        handleUpdateRequest(parameter, valueType, value);
+}
 
-    auto packet = m_packetFactory->createReplyPacket(parameter, requestType, clientMessageId);
+void DaqcServerHandleReceiveMessageTask::handleGetRequest(const QString &parameter, const QString &clientMessageId)
+{
+    auto packet = m_packetFactory->createReplyPacket(parameter, clientMessageId);
     if (packet)
     {
         auto task = new SendTask(packet);
         connect(task, &SendTask::sendMessage, m_server, &Server::sendMessage, Qt::QueuedConnection);
         QThreadPool::globalInstance()->start(task);
     }
+}
+
+void DaqcServerHandleReceiveMessageTask::handleUpdateRequest(const QString &parameter, const QString &valueType, const QVariant &value)
+{
+
 }
 
 QString DaqcServerHandleReceiveMessageTask::getRequestType(const QJsonDocument &document)
@@ -58,4 +74,14 @@ QString DaqcServerHandleReceiveMessageTask::getClientMessageId(const QJsonDocume
 QString DaqcServerHandleReceiveMessageTask::getParameter(const QJsonDocument &document)
 {
     return document["data"].toObject()["parameter"].toString();
+}
+
+QString DaqcServerHandleReceiveMessageTask::getValueType(const QJsonDocument &document)
+{
+    return document["data"].toObject()["valueType"].toString();
+}
+
+QVariant DaqcServerHandleReceiveMessageTask::getValue(const QJsonDocument &document)
+{
+    return document["data"].toObject()["value"].toVariant();
 }

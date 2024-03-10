@@ -12,11 +12,8 @@ PacketFactory::~PacketFactory()
 
 }
 
-Packet *PacketFactory::createReplyPacket(const QString &parameter, const QString &requestType, const QString &clientMessageId)
+Packet *PacketFactory::createReplyPacket(const QString &parameter, const QString &clientMessageId)
 {
-    if (requestType != "get")
-        return nullptr;
-
     if (parameter == "test")
         return new ReplyGetTest(clientMessageId);
 

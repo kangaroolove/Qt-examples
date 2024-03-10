@@ -11,5 +11,5 @@ class PacketFactory : QObject
 public:
     PacketFactory(QObject* parent = nullptr);
     ~PacketFactory();
-    Packet* createReplyPacket(const QString& parameter, const QString& requestType, const QString& clientMessageId);
+    Packet* createReplyPacket(const QString& parameter, const QString& clientMessageId);
 };
