@@ -666,191 +666,275 @@ void DaqcClient::cancelRoi()
 
 int DaqcClient::legacyACUI()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(ACUI);
+    });
+    return result.toDouble();
 }
 
 void DaqcClient::legacySetACUI(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(ACUI, value, "int"));
 }
 
 int DaqcClient::legacyAPower()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(ACUI);
+    });
+    return result.toDouble();
 }
 
 void DaqcClient::legacySetAPower(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(A_POWER, value, "int"));
 }
 
 int DaqcClient::legacyAnatomyLine()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(ANATOMY_LINE);
+    });
+    return result.toInt();
 }
 
 void DaqcClient::legacySetAnatomyLine(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(ANATOMY_LINE, value, "int"));
 }
 
 int DaqcClient::legacyBCDSynChro()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(B_C_D_SYNCHRO);
+    });
+    return result.toInt();
 }
 
 void DaqcClient::legacySetBCDSynChro(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(ANATOMY_LINE, value, "int"));
 }
 
 int DaqcClient::legacyBDynamic()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(B_DYNAMIC);
+    });
+    return result.toInt();
 }
 
 void DaqcClient::legacySetBDynamic(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(B_DYNAMIC, value, "int"));
 }
 
 int DaqcClient::legacyBGain()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(B_GAIN);
+    });
+    return result.toInt();
 }
 
 void DaqcClient::legacySetBGain(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(B_GAIN, value, "int"));
 }
 
 int DaqcClient::legacyBGain2()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(B_GAIN2);
+    });
+    return result.toInt();
 }
 
 void DaqcClient::legacySetBGain2(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(B_GAIN2, value, "int"));
 }
 
 int DaqcClient::legacyBNoiseRej()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(B_NOISE_REJECTION);
+    });
+    return result.toInt();
 }
 
 void DaqcClient::legacySetBNoiseRej(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(B_NOISE_REJECTION, value, "int"));
 }
 
 int DaqcClient::legacyCBaseLine()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(C_BASE_LINE);
+    });
+    return result.toInt();
 }
 
 void DaqcClient::legacySetCBaseLine(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(C_BASE_LINE, value, "int"));
 }
 
 int DaqcClient::legacyCDynamic()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(C_DYNAMIC);
+    });
+    return result.toInt();
 }
 
 void DaqcClient::legacySetCDynamic(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(C_DYNAMIC, value, "int"));
 }
 
 double DaqcClient::legacyCFreq()
 {
-    return 0.0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(C_FREQUENCY);
+    });
+    return result.toDouble();
 }
 
 void DaqcClient::legacySetCFreq(double value)
 {
+    createUpdateRequest(new RequestUpdatePacket(C_FREQUENCY, value, "double"));
 }
 
 int DaqcClient::legacyCGain()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(C_GAIN);
+    });
+    return result.toInt();
 }
 
 void DaqcClient::legacySetCGain(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(C_GAIN, value, "int"));
 }
 
 int DaqcClient::legacyCNoiseRej()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(C_NOISE_REJECTION);
+    });
+    return result.toInt();
 }
 
 void DaqcClient::legacySetCNoiseRej(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(C_NOISE_REJECTION, value, "int"));
 }
 
 double DaqcClient::legacyCPRF()
 {
-    return 0.0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(C_PRF);
+    });
+    return result.toDouble();
 }
 
 void DaqcClient::legacySetCPRF(double value)
 {
+    createUpdateRequest(new RequestUpdatePacket(C_PRF, value, "int"));
 }
 
 double DaqcClient::legacyCWallFilterFreq()
 {
-    return 0.0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(C_WALL_FILTER_FREQ);
+    });
+    return result.toDouble();
 }
 
 void DaqcClient::legacySetCWallFilterFreq(double value)
 {
+    createUpdateRequest(new RequestUpdatePacket(C_WALL_FILTER_FREQ, value, "double"));
 }
 
 bool DaqcClient::legacyColorInvert()
 {
-    return false;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(COLOR_INVERT);
+    });
+    return result.toBool();
 }
 
 void DaqcClient::legacySetColorInvert(bool value)
 {
+    createUpdateRequest(new RequestUpdatePacket(COLOR_INVERT, value, "bool"));
 }
 
 int DaqcClient::legacyColorPrior()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(COLOR_PRIOR);
+    });
+    return result.toInt();
 }
 
 void DaqcClient::legacySetColorPrior(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(COLOR_PRIOR, value, "int"));
 }
 
 int DaqcClient::legacyCwdGain()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(CWD_GAIN);
+    });
+    return result.toInt();
 }
 
 void DaqcClient::legacySetCwdGain(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(CWD_GAIN, value, "int"));
 }
 
 int DaqcClient::legacyDBaseLine()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(CWD_GAIN);
+    });
+    return result.toInt();
 }
 
 void DaqcClient::legacySetDBaseLine(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(D_BASELINE, value, "int"));
 }
 
 int DaqcClient::legacyDDynamic()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(D_DYNAMIC);
+    });
+    return result.toInt();
 }
 
 void DaqcClient::legacySetDDynamic(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(D_DYNAMIC, value, "int"));
 }
 
 int DaqcClient::legacyDNoiseRej()
 {
-    return 0;
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(D_NOISE_REJECTION);
+    });
+    return result.toInt();
 }
 
 void DaqcClient::legacySetDNoiseRej(int value)
 {
+    createUpdateRequest(new RequestUpdatePacket(D_NOISE_REJECTION, value, "int"));
 }
 
 double DaqcClient::legacyDPRF()
