@@ -15,7 +15,6 @@ public:
 protected:
     void analyzeJson(const QByteArray& data) override;
 private:
-    void handleGetRequest(const QString& parameter, const QString& clientMessageId);
     void handleUpdateRequest(const QString& parameter, const QString& valueType, const QVariant& value);
     QString getRequestType(const QJsonDocument& document);
     QString getClientMessageId(const QJsonDocument& document);

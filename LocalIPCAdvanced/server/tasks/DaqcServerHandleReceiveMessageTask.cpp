@@ -2,6 +2,7 @@
 #include "SendTask.h"
 #include "Server.h"
 #include "UpdateValueTask.h"
+#include "GetValueTask.h"
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDebug>
@@ -28,7 +29,7 @@ void DaqcServerHandleReceiveMessageTask::analyzeJson(const QByteArray &data)
 
     QString parameter = getParameter(document);
     QString requestType = getRequestType(document);
-    QString clientMessageId = getRequestType(document);
+    QString clientMessageId = getClientMessageId(document);
     QString valueType = getValueType(document);
     QVariant value = getValue(document);
 
@@ -39,20 +40,9 @@ void DaqcServerHandleReceiveMessageTask::analyzeJson(const QByteArray &data)
     qDebug()<<"value = "<< value <<"\n";
     
     if (requestType == "get")
-        handleGetRequest(parameter, clientMessageId);
+        QThreadPool::globalInstance()->start(new GetValueTask(m_server, parameter, clientMessageId));
     else if (requestType == "update")
         handleUpdateRequest(parameter, valueType, value);
-}
-
-void DaqcServerHandleReceiveMessageTask::handleGetRequest(const QString &parameter, const QString &clientMessageId)
-{
-    // auto packet = m_packetFactory->createReplyPacket(parameter, clientMessageId);
-    // if (packet)
-    // {
-    //     auto task = new SendTask(packet);
-    //     connect(task, &SendTask::sendMessage, m_server, &Server::sendMessage, Qt::QueuedConnection);
-    //     QThreadPool::globalInstance()->start(task);
-    // }
 }
 
 void DaqcServerHandleReceiveMessageTask::handleUpdateRequest(const QString &parameter, const QString &valueType, const QVariant &value)

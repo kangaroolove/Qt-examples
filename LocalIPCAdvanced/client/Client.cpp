@@ -70,7 +70,7 @@ void Client::readyToRead()
             return;
 
         RequestResult result;
-        QString clientMessageId = document["clientMessageId"].toString();
+        QString clientMessageId = document["data"].toObject()["clientMessageId"].toString();
         result.value = document["data"].toObject()["value"].toVariant();
         result.valueType = document["data"].toObject()["valueType"].toString();
         insertRequestResult(clientMessageId, result);
