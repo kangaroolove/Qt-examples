@@ -660,6 +660,716 @@ void DaqcClient::setDualMode(bool value)
     createUpdateRequest(new RequestUpdatePacket(DUAL_MODE, value, "bool"));
 }
 
+void DaqcClient::cancelRoi()
+{
+}
+
+int DaqcClient::legacyACUI()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetACUI(int value)
+{
+}
+
+int DaqcClient::legacyAPower()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetAPower(int value)
+{
+}
+
+int DaqcClient::legacyAnatomyLine()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetAnatomyLine(int value)
+{
+}
+
+int DaqcClient::legacyBCDSynChro()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetBCDSynChro(int value)
+{
+}
+
+int DaqcClient::legacyBDynamic()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetBDynamic(int value)
+{
+}
+
+int DaqcClient::legacyBGain()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetBGain(int value)
+{
+}
+
+int DaqcClient::legacyBGain2()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetBGain2(int value)
+{
+}
+
+int DaqcClient::legacyBNoiseRej()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetBNoiseRej(int value)
+{
+}
+
+int DaqcClient::legacyCBaseLine()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetCBaseLine(int value)
+{
+}
+
+int DaqcClient::legacyCDynamic()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetCDynamic(int value)
+{
+}
+
+double DaqcClient::legacyCFreq()
+{
+    return 0.0;
+}
+
+void DaqcClient::legacySetCFreq(double value)
+{
+}
+
+int DaqcClient::legacyCGain()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetCGain(int value)
+{
+}
+
+int DaqcClient::legacyCNoiseRej()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetCNoiseRej(int value)
+{
+}
+
+double DaqcClient::legacyCPRF()
+{
+    return 0.0;
+}
+
+void DaqcClient::legacySetCPRF(double value)
+{
+}
+
+double DaqcClient::legacyCWallFilterFreq()
+{
+    return 0.0;
+}
+
+void DaqcClient::legacySetCWallFilterFreq(double value)
+{
+}
+
+bool DaqcClient::legacyColorInvert()
+{
+    return false;
+}
+
+void DaqcClient::legacySetColorInvert(bool value)
+{
+}
+
+int DaqcClient::legacyColorPrior()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetColorPrior(int value)
+{
+}
+
+int DaqcClient::legacyCwdGain()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetCwdGain(int value)
+{
+}
+
+int DaqcClient::legacyDBaseLine()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetDBaseLine(int value)
+{
+}
+
+int DaqcClient::legacyDDynamic()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetDDynamic(int value)
+{
+}
+
+int DaqcClient::legacyDNoiseRej()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetDNoiseRej(int value)
+{
+}
+
+double DaqcClient::legacyDPRF()
+{
+    return 0.0;
+}
+
+void DaqcClient::legacySetDPRF(double value)
+{
+}
+
+int DaqcClient::legacyDSoundVolum()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetDSoundVolum(int value)
+{
+}
+
+int DaqcClient::legacyDSpeed()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetDSpeed(int value)
+{
+}
+
+double DaqcClient::legacyDWallFilterFreq()
+{
+    return 0.0;
+}
+
+void DaqcClient::legacySetDWallFilterFreq(double value)
+{
+}
+
+int DaqcClient::legacyDepth()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetDepth(int value)
+{
+}
+
+int DaqcClient::legacyDirPwrGain()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetDirPwrGain(int value)
+{
+}
+
+int DaqcClient::legacyDscCapture()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetDscCapture(int value)
+{
+}
+
+int DaqcClient::legacyExamTypeID()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetExamTypeID(int value)
+{
+}
+
+double DaqcClient::legacyFrameRelation()
+{
+    return 0.0;
+}
+
+void DaqcClient::legacySetFrameRelation(double value)
+{
+}
+
+double DaqcClient::legacyFreq2()
+{
+    return 0.0;
+}
+
+void DaqcClient::legacySetFreq2(double value)
+{
+}
+
+double DaqcClient::legacyFrequence()
+{
+    return 0.0;
+}
+
+void DaqcClient::legacySetFrequence(double value)
+{
+}
+
+int DaqcClient::legacyGetDscStop()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetGetDscStop(int value)
+{
+}
+
+int DaqcClient::legacyImageProcess()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetImageProcess(int value)
+{
+}
+
+int DaqcClient::legacyLavgRelation()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetLavgRelation(int value)
+{
+}
+
+int DaqcClient::legacyLineDensity()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetLineDensity(int value)
+{
+}
+
+int DaqcClient::legacyMGain()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetMGain(int value)
+{
+}
+
+double DaqcClient::legacyMSpeed()
+{
+    return 0.0;
+}
+
+void DaqcClient::legacySetMSpeed(double value)
+{
+}
+
+int DaqcClient::legacyPWDCompress()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetPWDCompress(int value)
+{
+}
+
+double DaqcClient::legacyPWDCorrectionAngle()
+{
+    return 0.0;
+}
+
+void DaqcClient::legacySetPWDCorrectionAngle(double value)
+{
+}
+
+double DaqcClient::legacyPWDgateSize()
+{
+    return 0.0;
+}
+
+void DaqcClient::legacySetPWDgateSize(double value)
+{
+}
+
+double DaqcClient::legacyPWDsampleDepth()
+{
+    return 0.0;
+}
+
+void DaqcClient::legacySetPWDsampleDepth(double value)
+{
+}
+
+int DaqcClient::legacyPWDstartPos()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetPWDstartPos(int value)
+{
+}
+
+int DaqcClient::legacyPersistenceColor()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetPersistenceColor(int value)
+{
+}
+
+int DaqcClient::legacyProbePOS()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetProbePOS(int value)
+{
+}
+
+int DaqcClient::legacyProbeSEL()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetProbeSEL(int value)
+{
+}
+
+int DaqcClient::legacyPwdGain()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetPwdGain(int value)
+{
+}
+
+bool DaqcClient::legacyPwdInvert()
+{
+    return false;
+}
+
+void DaqcClient::legacySetPwdInvert(bool value)
+{
+}
+
+int DaqcClient::legacyPwrGain()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetPwrGain(int value)
+{
+}
+
+int DaqcClient::legacyPwrMode()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetPwrMode(int value)
+{
+}
+
+int DaqcClient::legacyROISwingAngle()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetROISwingAngle(int value)
+{
+}
+
+double DaqcClient::legacyRadium()
+{
+    return 0.0;
+}
+
+void DaqcClient::legacySetRadium(double value)
+{
+}
+
+int DaqcClient::legacyResetProbe()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetResetProbe(int value)
+{
+}
+
+int DaqcClient::legacyScanLine()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetScanLine(int value)
+{
+}
+
+int DaqcClient::legacyTHI()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetTHI(int value)
+{
+}
+
+int DaqcClient::legacyZoomImg()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetZoomImg(int value)
+{
+}
+
+int DaqcClient::legacyBFocusLch()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetBFocusLch(int value)
+{
+}
+
+int DaqcClient::legacyCAutoTrace()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetCAutoTrace(int value)
+{
+}
+
+int DaqcClient::legacyCFocusLch()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetCFocusLch(int value)
+{
+}
+
+double DaqcClient::legacyESpin()
+{
+    return 0.0;
+}
+
+void DaqcClient::legacySetESpin(double value)
+{
+}
+
+int DaqcClient::legacyImgExtend()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetImgExtend(int value)
+{
+}
+
+int DaqcClient::legacyPosNeg()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetPosNeg(int value)
+{
+}
+
+int DaqcClient::legacyPwifBuffms()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetPwifBuffms(int value)
+{
+}
+
+int DaqcClient::legacyScanFeature()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetScanFeature(int value)
+{
+}
+
+int DaqcClient::legacyScanMode()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetScanMode(int value)
+{
+}
+
+int DaqcClient::legacySmooth()
+{
+    return 0;
+}
+
+void DaqcClient::legacySetSmooth(int value)
+{
+}
+
+void DaqcClient::legacyAboutBox()
+{
+}
+
+void DaqcClient::legacyFacuiParams(int pXh, int vAcui)
+{
+}
+
+void DaqcClient::legacyGetColorDopplerROI(int startPos, int endPos, int startDepth, int endDepth)
+{
+}
+
+int DaqcClient::legacyGetDepthSf()
+{
+    return 0;
+}
+
+double DaqcClient::legacyGetFPS()
+{
+    return 0.0;
+}
+
+double DaqcClient::legacyGetParameter(int id)
+{
+    return 0.0;
+}
+
+int DaqcClient::legacyGetProbeInfo(int id)
+{
+    return 0;
+}
+
+void DaqcClient::legacyGetTGCPositions(int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8)
+{
+}
+
+void DaqcClient::legacyInit(int inum)
+{
+}
+
+void DaqcClient::legacyMode2B()
+{
+}
+
+void DaqcClient::legacyMode4B(int wid)
+{
+}
+
+void DaqcClient::legacyMoveColorROI(int LeftRight, int UpDown)
+{
+}
+
+void DaqcClient::legacyMoveROIColor(int x, int y)
+{
+}
+
+void DaqcClient::legacyPalette(int colorID, int bright, int ts)
+{
+}
+
+void DaqcClient::legacyRealtimeEn(int en)
+{
+}
+
+void DaqcClient::legacySetColorDopplerROI(int startPos, int endPos, int startDepth, int endDepth)
+{
+}
+
+void DaqcClient::legacySetFlipH(int isFlip)
+{
+}
+
+void DaqcClient::legacySetFlipV(int isFlip)
+{
+}
+
+void DaqcClient::legacySetPwdAutoTrace(int nAuto)
+{
+}
+
+void DaqcClient::legacySetTGCPositions(int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8)
+{
+}
+
+void DaqcClient::legacySetiClear(int id)
+{
+}
+
+void DaqcClient::legacyZoomColorROI(int xDirection, int yDirection)
+{
+}
+
+void DaqcClient::legacyFProbeType(int pbPort, int pbType)
+{
+}
+
+void DaqcClient::legacySaveScuInitPara()
+{
+}
+
+void DaqcClient::legacyStart()
+{
+}
+
+void DaqcClient::legacyStop()
+{
+}
+
+void DaqcClient::legacyWifiEWM(const QString &fptStr, QString &htpStr)
+{
+}
+
 QVariant DaqcClient::createGetRequest(std::function<Packet*()> callback)
 {
     QEventLoop eventloop;
