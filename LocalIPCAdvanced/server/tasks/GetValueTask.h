@@ -14,6 +14,8 @@ public:
 signals:
     void sendMessage(const QByteArray& msg);
 private:
+    ReplyPacketInfo getReplyPacketInfo();
+
     QString m_parameter;
     QString m_clientMessageId;
     Server* m_server;

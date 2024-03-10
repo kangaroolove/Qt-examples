@@ -1,5 +1,4 @@
 #include "GetValueTask.h"
-#include "ReplyPacket.h"
 #include "SendTask.h"
 #include "Server.h"
 #include <QThreadPool>
@@ -19,6 +18,15 @@ GetValueTask::~GetValueTask()
 
 void GetValueTask::run()
 {
+    ReplyPacket* packet = new ReplyPacket(getReplyPacketInfo());
+    auto task = new SendTask(packet);
+    // Since server is created by main thread, so we need to use QueuedConnection
+    QObject::connect(task, &SendTask::sendMessage, m_server, &Server::sendMessage, Qt::QueuedConnection);
+    QThreadPool::globalInstance()->start(task);
+}
+
+ReplyPacketInfo GetValueTask::getReplyPacketInfo()
+{
     ReplyPacketInfo replyPacketInfo;
     replyPacketInfo.parameter = m_parameter;
     replyPacketInfo.clientMessageId = m_clientMessageId;
@@ -30,8 +38,5 @@ void GetValueTask::run()
         replyPacketInfo.valueType = "int";
     }
 
-    ReplyPacket* packet = new ReplyPacket(replyPacketInfo);
-    auto task = new SendTask(packet);
-    QObject::connect(task, &SendTask::sendMessage, m_server, &Server::sendMessage, Qt::QueuedConnection);
-    QThreadPool::globalInstance()->start(task);
+    return replyPacketInfo;
 }
