@@ -1,6 +1,5 @@
 #include "DaqcServerHandleReceiveMessageTask.h"
 #include "SendTask.h"
-#include "PacketFactory.h"
 #include "Server.h"
 #include "UpdateValueTask.h"
 #include <QJsonDocument>
@@ -11,8 +10,7 @@
 
 DaqcServerHandleReceiveMessageTask::DaqcServerHandleReceiveMessageTask(Server* server, const QByteArray& data) :
     HandleReceiveMessageTask(data),
-    m_server(server),
-    m_packetFactory(new PacketFactory(this))
+    m_server(server)
 {
 
 }
@@ -48,13 +46,13 @@ void DaqcServerHandleReceiveMessageTask::analyzeJson(const QByteArray &data)
 
 void DaqcServerHandleReceiveMessageTask::handleGetRequest(const QString &parameter, const QString &clientMessageId)
 {
-    auto packet = m_packetFactory->createReplyPacket(parameter, clientMessageId);
-    if (packet)
-    {
-        auto task = new SendTask(packet);
-        connect(task, &SendTask::sendMessage, m_server, &Server::sendMessage, Qt::QueuedConnection);
-        QThreadPool::globalInstance()->start(task);
-    }
+    // auto packet = m_packetFactory->createReplyPacket(parameter, clientMessageId);
+    // if (packet)
+    // {
+    //     auto task = new SendTask(packet);
+    //     connect(task, &SendTask::sendMessage, m_server, &Server::sendMessage, Qt::QueuedConnection);
+    //     QThreadPool::globalInstance()->start(task);
+    // }
 }
 
 void DaqcServerHandleReceiveMessageTask::handleUpdateRequest(const QString &parameter, const QString &valueType, const QVariant &value)

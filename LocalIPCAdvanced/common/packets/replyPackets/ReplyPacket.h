@@ -3,18 +3,26 @@
 #include "Packet.h"
 #include <QJsonObject>
 #include <QString>
+#include <QVariant>
+
+class ReplyPacketInfo
+{
+public:
+    QString parameter;
+    QString requestType;
+    QString clientMessageId;
+    QString valueType;
+    QVariant value;
+};
+
 class ReplyPacket : public Packet
 {
 public:
-    ReplyPacket(const QString& parameter, const QString& requestType, const QString& clientMessageId);
+    ReplyPacket(const ReplyPacketInfo& replyPacketInfo);
     ~ReplyPacket();
     QByteArray toJson() override;
 protected:
-    virtual QVariant getValue() = 0;
-    virtual QString getValueType() = 0;
     QJsonObject generateData() override;
 
-    QString m_parameter;
-    QString m_requestType;
-    QString m_clientMessageId;
+    ReplyPacketInfo m_replyPacketInfo;
 };

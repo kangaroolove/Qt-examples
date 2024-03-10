@@ -5,7 +5,6 @@
 
 class Server;
 class QJsonDocument;
-class PacketFactory;
 
 class DaqcServerHandleReceiveMessageTask : public QObject, public HandleReceiveMessageTask
 {
@@ -25,5 +24,4 @@ private:
     QVariant getValue(const QJsonDocument& document);
 
     Server* m_server;
-    PacketFactory* m_packetFactory;
 };
