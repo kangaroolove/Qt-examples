@@ -1,8 +1,9 @@
 #pragma once
 
+#include "ReplyPacket.h"
 #include <QObject>
 #include <QRunnable>
-#include "ReplyPacket.h"
+#include <QReadWriteLock>
 
 class Server;
 class GetValueTask : public QRunnable
@@ -19,4 +20,5 @@ private:
     QString m_parameter;
     QString m_clientMessageId;
     Server* m_server;
+    static QReadWriteLock m_readWriteLock;
 };

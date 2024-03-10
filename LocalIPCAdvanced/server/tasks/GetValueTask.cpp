@@ -3,6 +3,8 @@
 #include "Server.h"
 #include <QThreadPool>
 
+QReadWriteLock GetValueTask::m_readWriteLock;
+
 GetValueTask::GetValueTask(Server* server, const QString& parameter, const QString& clientMessageId) :
     m_parameter(parameter),
     m_clientMessageId(clientMessageId),
@@ -27,6 +29,7 @@ void GetValueTask::run()
 
 ReplyPacketInfo GetValueTask::getReplyPacketInfo()
 {
+    QReadLocker locker(&m_readWriteLock);
     ReplyPacketInfo replyPacketInfo;
     replyPacketInfo.parameter = m_parameter;
     replyPacketInfo.clientMessageId = m_clientMessageId;
