@@ -45,8 +45,6 @@ void DaqcServer::frameReady()
             bmi->bmiColors[i].rgbBlue);
     image.setColorTable(colorTable);
 
-    FramePacket* packet = new FramePacket();
-
-    auto task = new SendTask();
-    QThreadPool::globalInstance()->start();
+    FramePacket* packet = new FramePacket(image);
+    QThreadPool::globalInstance()->start(new SendTask(packet));
 }
