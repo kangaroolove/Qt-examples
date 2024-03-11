@@ -6,12 +6,14 @@
 #include <QPushButton>
 #include <QDebug>
 
-ClientWidget::ClientWidget(QWidget* parent)
-    : QWidget(parent)
-    , m_receiveTextEdit(new QTextEdit(this))
-    , m_sendTextEdit(new QTextEdit(this))
-    , m_sendButton(new QPushButton("Send", this))
-    , m_client(new DaqcClient(this))
+
+ClientWidget::ClientWidget(QWidget* parent) : 
+    QWidget(parent),
+    m_receiveTextEdit(new QTextEdit(this)),
+    m_sendTextEdit(new QTextEdit(this)),
+    m_sendButton(new QPushButton("Send", this)),
+    m_client(new DaqcClient(this)),
+    m_imageLabel(new QLabel(this))
 {
     initGui();
     connect(m_sendButton, &QPushButton::clicked, this, [this]{
@@ -44,4 +46,5 @@ void ClientWidget::initGui()
     layout->addWidget(sendLabel);
     layout->addWidget(m_sendTextEdit);
     layout->addWidget(m_sendButton);
+    layout->addWidget(m_imageLabel);
 }

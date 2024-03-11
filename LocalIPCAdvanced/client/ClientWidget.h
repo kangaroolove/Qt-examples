@@ -5,6 +5,7 @@
 class QTextEdit;
 class QPushButton;
 class DaqcClient;
+class QLabel;
 
 class ClientWidget : public QWidget
 {
@@ -19,4 +20,5 @@ private:
     QTextEdit* m_sendTextEdit;
     QPushButton* m_sendButton;
     DaqcClient* m_client;
+    QLabel* m_imageLabel;
 };
