@@ -14,19 +14,10 @@
 DaqcClient::DaqcClient(QObject* parent) :
     Client(parent)
 {
-    // m_client->moveToThread(m_thread);
-    // connect(m_thread, &QThread::finished, m_client, &Client::deleteLater);
-    // connect(this, &DaqcClient::sendMessage, m_client, &Client::sendMessage);
-    // connect(this, &DaqcClient::connectServer, m_client, &Client::connectServer);
-    // connect(m_client, &Client::receiveMessage, this, &DaqcClient::receiveMessage);
-    // connect(m_client, &Client::imageReceived, this, &DaqcClient::imageReceived);
-    // m_thread->start();
 }
 
 DaqcClient::~DaqcClient()
 {
-    // m_thread->quit();
-    // m_thread->wait();
 }
 
 void DaqcClient::start()
