@@ -3,13 +3,15 @@
 #include <QDebug>
 
 DaqcServer::DaqcServer(QObject* parent) :
-    Server(parent)
+    Server(parent),
+    m_daqc(new Daqc())
 {
 
 }
 
 DaqcServer::~DaqcServer()
 {
+    delete m_daqc;
 }
 
 void DaqcServer::start()
