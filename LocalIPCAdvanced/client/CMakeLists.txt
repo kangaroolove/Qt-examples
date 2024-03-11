@@ -29,6 +29,8 @@ set(PROJECT_SOURCES
 	Client.h
 	DaqcClient.cpp
 	DaqcClient.h
+	Worker.cpp
+	Worker.h
 	../common/packets/Packet.cpp
 	../common/packets/Packet.h
 	../common/packets/FramePacket.cpp
