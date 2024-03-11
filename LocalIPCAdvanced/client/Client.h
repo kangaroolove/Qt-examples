@@ -1,13 +1,14 @@
 #pragma once
 
-#include <QLocalSocket>
+#include <QObject>
 #include <map>
 #include <QString>
 #include <QImage>
+#include <QVariant>
 
 class QDataStream;
 class QEventLoop;
-class QMutex;
+class Worker;
 
 class RequestResult
 {
@@ -17,27 +18,31 @@ public:
     QVariant value;
 };
 
-class Client : public QLocalSocket
+class Client : public QObject
 {
     Q_OBJECT
 public:
     Client(QObject* parent = nullptr);
     ~Client();
+    virtual void start() = 0;
     void insertRequestResult(const QString& messageId, const RequestResult& value);
     RequestResult getRequestResult(const QString& messageId);
 signals:
-    void receiveMessage(const QByteArray& msg);
+    void messageToWorkerSended(const QByteArray& msg);
     void quitEventloop();
     void imageReceived(QImage image);
 public slots:
     void sendMessage(const QByteArray& msg);
-    void connectServer();
-private slots:
-    void readyToRead();
-protected:
+    //void connectServer();
+protected slots:
     bool isImagePacket(const QJsonDocument& document);
+    virtual void receiverMessageFromWorker(const QByteArray& msg) = 0;
+private slots:
+    //void readyToRead();
+    //void receiverMessageFromWorker(const QString& msg);
 
-    QDataStream* m_in;
+private:
+    Worker* m_worker;
     // key: messageId
     std::map<QString, RequestResult> m_resultMap;
 };

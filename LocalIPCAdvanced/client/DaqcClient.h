@@ -1,16 +1,15 @@
 #pragma once
 
-#include <QObject>
+#include "Client.h"
 #include <functional>
 #include <QVariant>
 #include <QImage>
 
-class QThread;
 class Client;
 class QEventLoop;
 class Packet;
 
-class DaqcClient : public QObject
+class DaqcClient : public Client
 {
     Q_OBJECT
 public:
@@ -283,10 +282,11 @@ public:
     // void legacyStop();
     // void legacyWifiEWM(const QString& fptStr, QString& htpStr);
 signals:
-    void sendMessage(const QByteArray& msg);
     void connectServer();
     void receiveMessage(const QByteArray& msg);
     void imageReceived(QImage image);
+protected slots:
+    void receiverMessageFromWorker(const QByteArray& msg) override;
 private:
     QVariant createGetRequest(std::function<Packet*()> callback);
     void createUpdateRequest(Packet* packet);

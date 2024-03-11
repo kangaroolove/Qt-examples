@@ -1,4 +1,5 @@
 #include "Client.h"
+#include "Worker.h"
 #include <QDataStream>
 #include <QEventLoop>
 #include <QDebug>
@@ -11,27 +12,18 @@
 #include <QImage>
 
 Client::Client(QObject* parent) : 
-    QLocalSocket(parent), 
-    m_in(new QDataStream(this))
+    QObject(parent),
+    m_worker(new Worker)
 {
-    m_in->setVersion(QDataStream::Qt_5_12);
-    connect(this, &Client::readyRead, this, &Client::readyToRead);
+    connect(m_worker, &Worker::messageReceived, this, &Client::receiverMessageFromWorker);
+    connect(this, &Client::messageToWorkerSended, m_worker, &Worker::sendMessage);
 }
 
 Client::~Client()
 {
 }
 
-void Client::sendMessage(const QByteArray &msg)
-{
-    QByteArray data;
-    QDataStream out(&data, QIODevice::WriteOnly);
-    out.setVersion(QDataStream::Qt_5_12);
-    out << msg;
 
-    this->write(data);
-    this->flush();
-}
 
 void Client::insertRequestResult(const QString& messageId, const RequestResult& result)
 {
@@ -53,43 +45,43 @@ RequestResult Client::getRequestResult(const QString &messageId)
     return result;
 }
 
-void Client::connectServer()
+void Client::sendMessage(const QByteArray& msg)
 {
-    this->connectToServer("Daqc");
+    emit messageToWorkerSended(msg);
 }
 
-bool Client::isImagePacket(const QJsonDocument& document)
+bool Client::isImagePacket(const QJsonDocument &document)
 {
     return document["data"].toObject().contains("image");
 }
 
-void Client::readyToRead()
-{
-    if (this->bytesAvailable() > 0 && !m_in->atEnd())
-    {  
-        QByteArray msg;
-        *m_in >> msg;
-        emit receiveMessage(msg);
+// void Client::readyToRead()
+// {
+//     if (this->bytesAvailable() > 0 && !m_in->atEnd())
+//     {  
+//         QByteArray msg;
+//         *m_in >> msg;
+//         emit receiveMessage(msg);
 
-        auto document = QJsonDocument::fromJson(msg);
-        if (document.isNull())
-            return;
+//         auto document = QJsonDocument::fromJson(msg);
+//         if (document.isNull())
+//             return;
 
-        if (isImagePacket(document))
-        {
-            QByteArray imageData = document["data"].toObject()["image"].toVariant().toByteArray();
-            QImage image;
-            image.loadFromData(imageData);
-            emit imageReceived(image);
-        }
-        else 
-        {
-            RequestResult result;
-            QString clientMessageId = document["data"].toObject()["clientMessageId"].toString();
-            result.value = document["data"].toObject()["value"].toVariant();
-            result.valueType = document["data"].toObject()["valueType"].toString();
-            insertRequestResult(clientMessageId, result);
-            emit quitEventloop();
-        }
-    }
-}
+//         if (isImagePacket(document))
+//         {
+//             QByteArray imageData = document["data"].toObject()["image"].toVariant().toByteArray();
+//             QImage image;
+//             image.loadFromData(imageData);
+//             emit imageReceived(image);
+//         }
+//         else 
+//         {
+//             RequestResult result;
+//             QString clientMessageId = document["data"].toObject()["clientMessageId"].toString();
+//             result.value = document["data"].toObject()["value"].toVariant();
+//             result.valueType = document["data"].toObject()["valueType"].toString();
+//             insertRequestResult(clientMessageId, result);
+//             emit quitEventloop();
+//         }
+//     }
+// }

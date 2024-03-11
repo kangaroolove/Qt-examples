@@ -12,7 +12,7 @@ public:
     Worker(QObject* parent = nullptr);
     ~Worker();
 signals:
-    void messageReceived(const QString& msg);
+    void messageReceived(const QByteArray& msg);
 public slots:
     void sendMessage(const QByteArray &msg);
     void connectToServer(const QString& name);

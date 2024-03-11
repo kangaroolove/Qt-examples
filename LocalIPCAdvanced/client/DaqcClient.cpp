@@ -11,22 +11,21 @@
 #include <QImage>
 
 DaqcClient::DaqcClient(QObject* parent) :
-    m_client(new Client()),
-    m_thread(new QThread(this))
+    Client(parent)
 {
-    m_client->moveToThread(m_thread);
-    connect(m_thread, &QThread::finished, m_client, &Client::deleteLater);
-    connect(this, &DaqcClient::sendMessage, m_client, &Client::sendMessage);
-    connect(this, &DaqcClient::connectServer, m_client, &Client::connectServer);
-    connect(m_client, &Client::receiveMessage, this, &DaqcClient::receiveMessage);
-    connect(m_client, &Client::imageReceived, this, &DaqcClient::imageReceived);
-    m_thread->start();
+    // m_client->moveToThread(m_thread);
+    // connect(m_thread, &QThread::finished, m_client, &Client::deleteLater);
+    // connect(this, &DaqcClient::sendMessage, m_client, &Client::sendMessage);
+    // connect(this, &DaqcClient::connectServer, m_client, &Client::connectServer);
+    // connect(m_client, &Client::receiveMessage, this, &DaqcClient::receiveMessage);
+    // connect(m_client, &Client::imageReceived, this, &DaqcClient::imageReceived);
+    // m_thread->start();
 }
 
 DaqcClient::~DaqcClient()
 {
-    m_thread->quit();
-    m_thread->wait();
+    // m_thread->quit();
+    // m_thread->wait();
 }
 
 void DaqcClient::start()
@@ -1497,6 +1496,11 @@ void DaqcClient::legacyWifiEWM(const QString &fptStr, QString &htpStr)
 {
 }
 */
+
+void DaqcClient::receiverMessageFromWorker(const QByteArray& msg)
+{
+
+}
 
 QVariant DaqcClient::createGetRequest(std::function<Packet*()> callback)
 {
