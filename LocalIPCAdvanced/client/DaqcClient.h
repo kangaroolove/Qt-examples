@@ -15,7 +15,7 @@ class DaqcClient : public Client
 public:
     DaqcClient(QObject* parent = nullptr);
     ~DaqcClient();
-    void start();
+    void start() override;
     int testGetApi();
     void testSetApi(bool isTest);
     // get functions
@@ -291,7 +291,4 @@ private:
     QVariant createGetRequest(std::function<Packet*()> callback);
     void createUpdateRequest(Packet* packet);
     int boolToIncrease(const bool& increase);
-
-    QThread* m_thread;
-    Client* m_client;
 };

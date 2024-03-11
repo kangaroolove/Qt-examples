@@ -3,6 +3,7 @@
 #include "RequestUpdatePacket.h"
 #include "Client.h"
 #include "ParameterDef.h"
+#include "Worker.h"
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDebug>
@@ -30,7 +31,7 @@ DaqcClient::~DaqcClient()
 
 void DaqcClient::start()
 {
-    emit connectServer();
+    m_worker->connectToServer("Daqc");
     qDebug()<<"Connect to server";
 }
 
@@ -1504,16 +1505,18 @@ void DaqcClient::receiverMessageFromWorker(const QByteArray& msg)
 
 QVariant DaqcClient::createGetRequest(std::function<Packet*()> callback)
 {
-    QEventLoop eventloop;
-    connect(m_client, &Client::quitEventloop, &eventloop, &QEventLoop::quit);
+    // QEventLoop eventloop;
+    // connect(m_client, &Client::quitEventloop, &eventloop, &QEventLoop::quit);
 
-    Packet* packet = callback();
-    emit sendMessage(packet->toJson());
-    eventloop.exec();
+    // Packet* packet = callback();
+    // emit sendMessage(packet->toJson());
+    // eventloop.exec();
 
-    RequestResult result = m_client->getRequestResult(packet->getMessageId());
-    packet->deleteLater();
-    return result.value;
+    // RequestResult result = m_client->getRequestResult(packet->getMessageId());
+    // packet->deleteLater();
+    // return result.value;
+
+    return 0;
 }
 
 void DaqcClient::createUpdateRequest(Packet *packet)

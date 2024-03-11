@@ -9,6 +9,7 @@
 class QDataStream;
 class QEventLoop;
 class Worker;
+class QThread;
 
 class RequestResult
 {
@@ -41,8 +42,9 @@ private slots:
     //void readyToRead();
     //void receiverMessageFromWorker(const QString& msg);
 
-private:
+protected:
     Worker* m_worker;
+    QThread* m_thread;
     // key: messageId
     std::map<QString, RequestResult> m_resultMap;
 };

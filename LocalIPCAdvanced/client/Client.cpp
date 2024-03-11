@@ -13,17 +13,21 @@
 
 Client::Client(QObject* parent) : 
     QObject(parent),
-    m_worker(new Worker)
+    m_worker(new Worker),
+    m_thread(new QThread(this))
 {
+    m_worker->moveToThread(m_thread);
+    connect(m_thread, &QThread::finished, m_worker, &Worker::deleteLater);
     connect(m_worker, &Worker::messageReceived, this, &Client::receiverMessageFromWorker);
     connect(this, &Client::messageToWorkerSended, m_worker, &Worker::sendMessage);
+    m_thread->start();
 }
 
 Client::~Client()
 {
+    m_thread->quit();
+    m_thread->wait();
 }
-
-
 
 void Client::insertRequestResult(const QString& messageId, const RequestResult& result)
 {
