@@ -5,9 +5,10 @@
 class FramePacket : public Packet
 {
 public:
-    FramePacket();
+    FramePacket(const QImage& image);
     ~FramePacket();
-    QByteArray toJson() override;
 private:
+    QJsonObject generateData() override;
 
+    QImage m_image;
 };

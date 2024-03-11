@@ -1,5 +1,8 @@
 #include "DaqcServer.h"
 #include "DaqcServerHandleReceiveMessageTask.h"
+#include "SendTask.h"
+#include "FramePacket.h"
+#include <QThreadPool>
 #include <QDebug>
 
 DaqcServer::DaqcServer(QObject* parent) :
@@ -41,4 +44,9 @@ void DaqcServer::frameReady()
             bmi->bmiColors[i].rgbGreen,
             bmi->bmiColors[i].rgbBlue);
     image.setColorTable(colorTable);
+
+    FramePacket* packet = new FramePacket();
+
+    auto task = new SendTask();
+    QThreadPool::globalInstance()->start();
 }

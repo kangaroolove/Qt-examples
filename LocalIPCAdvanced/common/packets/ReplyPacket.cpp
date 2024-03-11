@@ -13,17 +13,6 @@ ReplyPacket::~ReplyPacket()
 
 }
 
-QByteArray ReplyPacket::toJson()
-{
-    QJsonObject object;
-    object["data"] = generateData();
-
-    
-    object["messageId"] = getMessageId();
-    QJsonDocument document(object);
-    return document.toJson(QJsonDocument::Compact);
-}
-
 QJsonObject ReplyPacket::generateData()
 {
     QJsonObject object;

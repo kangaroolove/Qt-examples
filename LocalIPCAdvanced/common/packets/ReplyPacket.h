@@ -20,7 +20,6 @@ class ReplyPacket : public Packet
 public:
     ReplyPacket(const ReplyPacketInfo& replyPacketInfo);
     ~ReplyPacket();
-    QByteArray toJson() override;
 protected:
     QJsonObject generateData() override;
 

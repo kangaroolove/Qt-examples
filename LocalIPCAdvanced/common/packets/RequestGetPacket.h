@@ -1,8 +1,8 @@
 #pragma once
 
-#include "RequestPacket.h"
+#include "Packet.h"
 
-class RequestGetPacket : public RequestPacket
+class RequestGetPacket : public Packet
 {
 public:
     RequestGetPacket(const QString& parameter);

@@ -1,9 +1,9 @@
 #pragma once
 
-#include "RequestPacket.h"
+#include "Packet.h"
 #include <QVariant>
 
-class RequestUpdatePacket : public RequestPacket
+class RequestUpdatePacket : public Packet
 {
 public:
     RequestUpdatePacket(const QString& parameter, const QVariant& value, const QString& valueType);

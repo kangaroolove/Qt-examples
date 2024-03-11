@@ -10,7 +10,7 @@ class Packet : public QObject
 public:
     Packet(QObject* parent = nullptr);
     ~Packet();
-    virtual QByteArray toJson() = 0;
+    QByteArray toJson();
     QString getMessageId();
 protected:
     virtual QJsonObject generateData() = 0;
