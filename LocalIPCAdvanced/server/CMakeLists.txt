@@ -11,12 +11,13 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt5 COMPONENTS Widgets network REQUIRED)
+find_package(Qt5 REQUIRED COMPONENTS Widgets Network AxContainer)
 
 include_directories(
 	tasks
 	../common/packets
 	ui
+	lib
 )
 
 list(APPEND EXTRA_LIBS 
@@ -46,6 +47,8 @@ set(PROJECT_SOURCES
 	../common/packets/FramePacket.h
 	../common/packets/ReplyPacket.cpp
 	../common/packets/ReplyPacket.h
+	lib/daqclib.cpp
+	lib/daqclib.h
 )
 
 set(PROJECT_UIS
@@ -60,4 +63,4 @@ add_executable(${PROJECT_NAME}
 	${PROJECT_RESOURCES}
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::Network ${EXTRA_LIBS})
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::AxContainer Qt5::Widgets Qt5::Network ${EXTRA_LIBS})
