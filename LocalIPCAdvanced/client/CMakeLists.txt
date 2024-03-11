@@ -31,6 +31,8 @@ set(PROJECT_SOURCES
 	DaqcClient.h
 	../common/packets/Packet.cpp
 	../common/packets/Packet.h
+	../common/packets/FramePacket.cpp
+	../common/packets/FramePacket.h
 	../common/packets/RequestUpdatePacket.cpp
 	../common/packets/RequestUpdatePacket.h
 	../common/packets/RequestGetPacket.cpp
