@@ -8,6 +8,7 @@
 #include <QDebug>
 #include <QThreadPool>
 #include <QEventLoop>
+#include <QImage>
 
 DaqcClient::DaqcClient(QObject* parent) :
     m_client(new Client()),
@@ -18,6 +19,7 @@ DaqcClient::DaqcClient(QObject* parent) :
     connect(this, &DaqcClient::sendMessage, m_client, &Client::sendMessage);
     connect(this, &DaqcClient::connectServer, m_client, &Client::connectServer);
     connect(m_client, &Client::receiveMessage, this, &DaqcClient::receiveMessage);
+    connect(m_client, &Client::imageReceived, this, &DaqcClient::imageReceived);
     m_thread->start();
 }
 

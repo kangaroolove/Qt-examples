@@ -8,6 +8,7 @@
 #include <QMutex>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QImage>
 
 Client::Client(QObject* parent) : 
     QLocalSocket(parent), 
@@ -57,6 +58,11 @@ void Client::connectServer()
     this->connectToServer("Daqc");
 }
 
+bool Client::isImagePacket(const QJsonDocument& document)
+{
+    return document["data"].toObject().contains("image");
+}
+
 void Client::readyToRead()
 {
     if (this->bytesAvailable() > 0 && !m_in->atEnd())
@@ -69,11 +75,21 @@ void Client::readyToRead()
         if (document.isNull())
             return;
 
-        RequestResult result;
-        QString clientMessageId = document["data"].toObject()["clientMessageId"].toString();
-        result.value = document["data"].toObject()["value"].toVariant();
-        result.valueType = document["data"].toObject()["valueType"].toString();
-        insertRequestResult(clientMessageId, result);
-        emit quitEventloop();
+        if (isImagePacket(document))
+        {
+            QByteArray imageData = document["data"].toObject()["image"].toVariant().toByteArray();
+            QImage image;
+            image.loadFromData(imageData);
+            emit imageReceived(image);
+        }
+        else 
+        {
+            RequestResult result;
+            QString clientMessageId = document["data"].toObject()["clientMessageId"].toString();
+            result.value = document["data"].toObject()["value"].toVariant();
+            result.valueType = document["data"].toObject()["valueType"].toString();
+            insertRequestResult(clientMessageId, result);
+            emit quitEventloop();
+        }
     }
 }

@@ -3,6 +3,7 @@
 #include <QObject>
 #include <functional>
 #include <QVariant>
+#include <QImage>
 
 class QThread;
 class Client;
@@ -285,6 +286,7 @@ signals:
     void sendMessage(const QByteArray& msg);
     void connectServer();
     void receiveMessage(const QByteArray& msg);
+    void imageReceived(QImage image);
 private:
     QVariant createGetRequest(std::function<Packet*()> callback);
     void createUpdateRequest(Packet* packet);
