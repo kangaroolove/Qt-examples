@@ -18,7 +18,7 @@ Client::Client(QObject* parent) :
 {
     m_worker->moveToThread(m_thread);
     connect(m_thread, &QThread::finished, m_worker, &Worker::deleteLater);
-    connect(m_worker, &Worker::messageReceived, this, &Client::receiverMessageFromWorker);
+    //connect(m_worker, &Worker::messageReceived, this, &Client::receiverMessageFromWorker);
     connect(this, &Client::messageToWorkerSended, m_worker, &Worker::sendMessage);
     m_thread->start();
 }
