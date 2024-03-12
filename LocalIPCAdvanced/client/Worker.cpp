@@ -1,6 +1,9 @@
 #include "Worker.h"
 #include <QLocalSocket>
 #include <QDataStream>
+#include <QJsonDocument>
+#include <QImage>
+#include <QJsonObject>
 
 Worker::Worker(QObject* parent) :
     QLocalSocket(parent),
@@ -22,6 +25,26 @@ void Worker::readyToRead()
         QByteArray msg;
         *m_in >> msg;
 
+        auto document = QJsonDocument::fromJson(msg);
+        if (document.isNull())
+            return;
+
+        if (isImagePacket(document))
+        {
+            QByteArray imageData = document["data"].toObject()["image"].toVariant().toByteArray();
+            QImage image;
+            image.loadFromData(imageData);
+            emit imageReceived(image);
+        }
+        else 
+        {
+            RequestResult result;
+            QString clientMessageId = document["data"].toObject()["clientMessageId"].toString();
+            result.value = document["data"].toObject()["value"].toVariant();
+            result.valueType = document["data"].toObject()["valueType"].toString();
+            emit requestResultInserted(clientMessageId, result);
+            emit eventLoopQuitted();
+        }
     }
 }
 
@@ -34,4 +57,9 @@ void Worker::sendMessage(const QByteArray &msg)
 
     write(data);
     flush();
+}
+
+bool Worker::isImagePacket(const QJsonDocument &document)
+{
+    return document["data"].toObject().contains("image");
 }

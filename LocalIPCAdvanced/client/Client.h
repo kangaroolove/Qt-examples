@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Worker.h"
 #include <QObject>
 #include <map>
 #include <QString>
@@ -10,14 +11,6 @@ class QDataStream;
 class QEventLoop;
 class Worker;
 class QThread;
-
-class RequestResult
-{
-public:
-    RequestResult() {}
-    QString valueType;
-    QVariant value;
-};
 
 class Client : public QObject
 {
