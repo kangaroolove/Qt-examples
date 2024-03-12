@@ -19,22 +19,15 @@ public:
     Client(QObject* parent = nullptr);
     ~Client();
     virtual void start() = 0;
-    void insertRequestResult(const QString& messageId, const RequestResult& value);
-    RequestResult getRequestResult(const QString& messageId);
 signals:
     void messageToWorkerSended(const QByteArray& msg);
-    void quitEventloop();
-    void imageReceived(QImage image);
 public slots:
     void sendMessage(const QByteArray& msg);
-    //void connectServer();
 protected slots:
-    bool isImagePacket(const QJsonDocument& document);
     virtual void receiverMessageFromWorker(const QByteArray& msg) = 0;
 private slots:
-    //void readyToRead();
-    //void receiverMessageFromWorker(const QString& msg);
-
+    void requestResultInserted(const QString& clientMessageId, const RequestResult& result);
+    RequestResult getRequestResult(const QString& messageId);
 protected:
     Worker* m_worker;
     QThread* m_thread;

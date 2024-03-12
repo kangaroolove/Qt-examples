@@ -18,7 +18,7 @@ Client::Client(QObject* parent) :
 {
     m_worker->moveToThread(m_thread);
     connect(m_thread, &QThread::finished, m_worker, &Worker::deleteLater);
-    //connect(m_worker, &Worker::messageReceived, this, &Client::receiverMessageFromWorker);
+    connect(m_worker, &Worker::requestResultInserted, this, &Client::requestResultInserted);
     connect(this, &Client::messageToWorkerSended, m_worker, &Worker::sendMessage);
     m_thread->start();
 }
@@ -27,11 +27,6 @@ Client::~Client()
 {
     m_thread->quit();
     m_thread->wait();
-}
-
-void Client::insertRequestResult(const QString& messageId, const RequestResult& result)
-{
-    m_resultMap.insert({messageId, result});
 }
 
 RequestResult Client::getRequestResult(const QString &messageId)
@@ -54,9 +49,9 @@ void Client::sendMessage(const QByteArray& msg)
     emit messageToWorkerSended(msg);
 }
 
-bool Client::isImagePacket(const QJsonDocument &document)
+void Client::requestResultInserted(const QString& clientMessageId, const RequestResult& result)
 {
-    return document["data"].toObject().contains("image");
+    m_resultMap.insert({clientMessageId, result});
 }
 
 // void Client::readyToRead()
