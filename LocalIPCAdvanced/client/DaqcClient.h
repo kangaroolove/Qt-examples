@@ -282,6 +282,5 @@ public:
     // void legacyStop();
     // void legacyWifiEWM(const QString& fptStr, QString& htpStr);
 private:
-    void createUpdateRequest(Packet* packet);
     int boolToIncrease(const bool& increase);
 };

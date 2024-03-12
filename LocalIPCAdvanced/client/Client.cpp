@@ -71,3 +71,9 @@ QVariant Client::createGetRequest(std::function<Packet*()> callback)
     packet->deleteLater();
     return result.value;
 }
+
+void Client::createUpdateRequest(Packet *packet)
+{
+    sendMessage(packet->toJson());
+    packet->deleteLater();
+}

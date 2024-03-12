@@ -27,6 +27,7 @@ public slots:
     void sendMessage(const QByteArray& msg);
 protected:
     QVariant createGetRequest(std::function<Packet *()> callback);
+    void createUpdateRequest(Packet *packet);
 
     Worker* m_worker;
     QThread* m_thread;

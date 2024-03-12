@@ -1489,12 +1489,6 @@ void DaqcClient::legacyWifiEWM(const QString &fptStr, QString &htpStr)
 }
 */
 
-void DaqcClient::createUpdateRequest(Packet *packet)
-{
-    sendMessage(packet->toJson());
-    packet->deleteLater();
-}
-
 int DaqcClient::boolToIncrease(const bool &increase)
 {
     return increase ? 1 : -1;
