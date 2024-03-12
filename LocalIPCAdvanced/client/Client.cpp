@@ -61,7 +61,7 @@ void Client::requestResultInserted(const QString& clientMessageId, const Request
 QVariant Client::createGetRequest(std::function<Packet*()> callback)
 {
     QEventLoop eventloop;
-    connect(this, &Client::requestResultInserted, &eventloop, &QEventLoop::quit);
+    connect(m_worker, &Worker::requestResultInserted, &eventloop, &QEventLoop::quit);
 
     Packet* packet = callback();
     sendMessage(packet->toJson());
