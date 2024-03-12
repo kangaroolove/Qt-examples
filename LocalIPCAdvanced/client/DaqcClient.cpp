@@ -1489,30 +1489,9 @@ void DaqcClient::legacyWifiEWM(const QString &fptStr, QString &htpStr)
 }
 */
 
-void DaqcClient::receiverMessageFromWorker(const QByteArray& msg)
-{
-
-}
-
-QVariant DaqcClient::createGetRequest(std::function<Packet*()> callback)
-{
-    // QEventLoop eventloop;
-    // connect(m_client, &Client::quitEventloop, &eventloop, &QEventLoop::quit);
-
-    // Packet* packet = callback();
-    // emit sendMessage(packet->toJson());
-    // eventloop.exec();
-
-    // RequestResult result = m_client->getRequestResult(packet->getMessageId());
-    // packet->deleteLater();
-    // return result.value;
-
-    return 0;
-}
-
 void DaqcClient::createUpdateRequest(Packet *packet)
 {
-    emit sendMessage(packet->toJson());
+    sendMessage(packet->toJson());
     packet->deleteLater();
 }
 

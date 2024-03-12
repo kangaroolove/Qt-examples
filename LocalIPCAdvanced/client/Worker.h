@@ -22,6 +22,7 @@ signals:
     void imageReceived(const QImage& image);
     void requestResultInserted(const QString& clientMessageId, const RequestResult& result);
     void eventLoopQuitted();
+    void messageReceived(const QByteArray& msg);
 public slots:
     void sendMessage(const QByteArray &msg);
 private slots:

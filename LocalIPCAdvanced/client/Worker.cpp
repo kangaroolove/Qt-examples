@@ -25,6 +25,8 @@ void Worker::readyToRead()
         QByteArray msg;
         *m_in >> msg;
 
+        emit messageReceived(msg);
+
         auto document = QJsonDocument::fromJson(msg);
         if (document.isNull())
             return;

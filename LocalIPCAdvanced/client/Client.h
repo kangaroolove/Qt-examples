@@ -11,6 +11,7 @@ class QDataStream;
 class QEventLoop;
 class Worker;
 class QThread;
+class Packet;
 
 class Client : public QObject
 {
@@ -21,16 +22,17 @@ public:
     virtual void start() = 0;
 signals:
     void messageToWorkerSended(const QByteArray& msg);
+    void messageReceived(const QByteArray& msg);
 public slots:
     void sendMessage(const QByteArray& msg);
-protected slots:
-    virtual void receiverMessageFromWorker(const QByteArray& msg) = 0;
-private slots:
-    void requestResultInserted(const QString& clientMessageId, const RequestResult& result);
-    RequestResult getRequestResult(const QString& messageId);
 protected:
+    QVariant createGetRequest(std::function<Packet *()> callback);
+
     Worker* m_worker;
     QThread* m_thread;
     // key: messageId
     std::map<QString, RequestResult> m_resultMap;
+private slots:
+    void requestResultInserted(const QString& clientMessageId, const RequestResult& result);
+    RequestResult getRequestResult(const QString& messageId);
 };

@@ -1,5 +1,6 @@
 #include "Client.h"
 #include "Worker.h"
+#include "Packet.h"
 #include <QDataStream>
 #include <QEventLoop>
 #include <QDebug>
@@ -10,6 +11,8 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QImage>
+#include <QEventLoop>
+#include <functional>
 
 Client::Client(QObject* parent) : 
     QObject(parent),
@@ -20,6 +23,7 @@ Client::Client(QObject* parent) :
     connect(m_thread, &QThread::finished, m_worker, &Worker::deleteLater);
     connect(m_worker, &Worker::requestResultInserted, this, &Client::requestResultInserted);
     connect(this, &Client::messageToWorkerSended, m_worker, &Worker::sendMessage);
+    connect(m_worker, &Worker::messageReceived, this, &Client::messageReceived);
     m_thread->start();
 }
 
@@ -54,33 +58,16 @@ void Client::requestResultInserted(const QString& clientMessageId, const Request
     m_resultMap.insert({clientMessageId, result});
 }
 
-// void Client::readyToRead()
-// {
-//     if (this->bytesAvailable() > 0 && !m_in->atEnd())
-//     {  
-//         QByteArray msg;
-//         *m_in >> msg;
-//         emit receiveMessage(msg);
+QVariant Client::createGetRequest(std::function<Packet*()> callback)
+{
+    QEventLoop eventloop;
+    connect(this, &Client::requestResultInserted, &eventloop, &QEventLoop::quit);
 
-//         auto document = QJsonDocument::fromJson(msg);
-//         if (document.isNull())
-//             return;
+    Packet* packet = callback();
+    sendMessage(packet->toJson());
+    eventloop.exec();
 
-//         if (isImagePacket(document))
-//         {
-//             QByteArray imageData = document["data"].toObject()["image"].toVariant().toByteArray();
-//             QImage image;
-//             image.loadFromData(imageData);
-//             emit imageReceived(image);
-//         }
-//         else 
-//         {
-//             RequestResult result;
-//             QString clientMessageId = document["data"].toObject()["clientMessageId"].toString();
-//             result.value = document["data"].toObject()["value"].toVariant();
-//             result.valueType = document["data"].toObject()["valueType"].toString();
-//             insertRequestResult(clientMessageId, result);
-//             emit quitEventloop();
-//         }
-//     }
-// }
+    RequestResult result = getRequestResult(packet->getMessageId());
+    packet->deleteLater();
+    return result.value;
+}

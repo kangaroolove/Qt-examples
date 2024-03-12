@@ -23,7 +23,7 @@ ClientWidget::ClientWidget(QWidget* parent) :
         //m_client->testSetApi(true);
         qDebug()<<"m_client->testGetApi() = "<<m_client->testGetApi();
     });
-    connect(m_client, &DaqcClient::receiveMessage, this, [this](const QString& msg){
+    connect(m_client, &DaqcClient::messageReceived, this, [this](const QString& msg){
         m_receiveTextEdit->append(msg);
     });
 

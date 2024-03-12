@@ -281,14 +281,7 @@ public:
     // void legacyStart();
     // void legacyStop();
     // void legacyWifiEWM(const QString& fptStr, QString& htpStr);
-signals:
-    void connectServer();
-    void receiveMessage(const QByteArray& msg);
-    void imageReceived(QImage image);
-protected slots:
-    void receiverMessageFromWorker(const QByteArray& msg) override;
 private:
-    QVariant createGetRequest(std::function<Packet*()> callback);
     void createUpdateRequest(Packet* packet);
     int boolToIncrease(const bool& increase);
 };
