@@ -77,6 +77,7 @@ void Server::init()
 
 void Server::newDeviceConnected()
 {
+    qDebug()<<"A client is connected";
     QMutexLocker locker(m_mutex);
     QLocalSocket* socket = this->nextPendingConnection();
     connect(socket, &QLocalSocket::readyRead, this, &Server::readyRead);
