@@ -2,10 +2,12 @@
 #include "Packet.h"
 #include "Server.h"
 
-SendTask::SendTask(Packet* packet) :
-    m_packet(packet)
+SendTask::SendTask(Server* server, Packet* packet) :
+    m_packet(packet),
+    m_server(server)
 {
-
+    // Since server is created by main thread, so we need to use QueuedConnection
+    connect(this, &SendTask::sendMessage, m_server, &Server::sendMessage, Qt::QueuedConnection);
 }
 
 SendTask::~SendTask()

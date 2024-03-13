@@ -21,9 +21,7 @@ GetValueTask::~GetValueTask()
 void GetValueTask::run()
 {
     ReplyPacket* packet = new ReplyPacket(getReplyPacketInfo());
-    auto task = new SendTask(packet);
-    // Since server is created by main thread, so we need to use QueuedConnection
-    QObject::connect(task, &SendTask::sendMessage, m_server, &Server::sendMessage, Qt::QueuedConnection);
+    auto task = new SendTask(m_server, packet);
     QThreadPool::globalInstance()->start(task);
 }
 

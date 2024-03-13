@@ -46,5 +46,5 @@ void DaqcServer::frameReady()
     image.setColorTable(colorTable);
 
     FramePacket* packet = new FramePacket(image);
-    QThreadPool::globalInstance()->start(new SendTask(packet));
+    QThreadPool::globalInstance()->start(new SendTask(this, packet));
 }
