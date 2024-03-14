@@ -1,7 +1,6 @@
 #include "Worker.h"
 #include "Client.h"
 #include <QLocalSocket>
-
 #include <QDataStream>
 #include <QJsonDocument>
 #include <QImage>
@@ -18,7 +17,6 @@ Worker::Worker(Client* client, QObject* parent) :
 
 Worker::~Worker()
 {
-    delete m_in;
 }
 
 void Worker::readyToRead()

@@ -12,6 +12,7 @@ class QEventLoop;
 class Worker;
 class QThread;
 class Packet;
+class QMutex;
 
 class RequestResult
 {
@@ -41,6 +42,7 @@ protected:
 
     Worker* m_worker;
     QThread* m_thread;
+    QMutex* m_mutex;
     // shared resources
     // key: clientMessageId
     std::map<QString, RequestResult> m_resultMap;
