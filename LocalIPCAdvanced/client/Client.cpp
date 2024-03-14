@@ -16,12 +16,11 @@
 
 Client::Client(QObject* parent) : 
     QObject(parent),
-    m_worker(new Worker),
+    m_worker(new Worker(this)),
     m_thread(new QThread(this))
 {
     m_worker->moveToThread(m_thread);
     connect(m_thread, &QThread::finished, m_worker, &Worker::deleteLater);
-    connect(m_worker, &Worker::requestResultInserted, this, &Client::requestResultInserted);
     connect(this, &Client::messageToWorkerSended, m_worker, &Worker::sendMessage);
     connect(m_worker, &Worker::messageReceived, this, &Client::messageReceived);
     m_thread->start();
@@ -33,10 +32,15 @@ Client::~Client()
     m_thread->wait();
 }
 
-RequestResult Client::getRequestResult(const QString &messageId)
+void Client::insertRequestResult(const QString &clientMessageId, const RequestResult &result)
+{
+    m_resultMap.insert({clientMessageId, result});
+}
+
+RequestResult Client::getRequestResult(const QString &clientMessageId)
 {
     RequestResult result;
-    auto it = m_resultMap.find(messageId);
+    auto it = m_resultMap.find(clientMessageId);
     if (it != m_resultMap.end())
     {
         result = it->second;
@@ -53,15 +57,10 @@ void Client::sendMessage(const QByteArray& msg)
     emit messageToWorkerSended(msg);
 }
 
-void Client::requestResultInserted(const QString& clientMessageId, const RequestResult& result)
-{
-    m_resultMap.insert({clientMessageId, result});
-}
-
 QVariant Client::createGetRequest(std::function<Packet*()> callback)
 {
     QEventLoop eventloop;
-    connect(m_worker, &Worker::requestResultInserted, &eventloop, &QEventLoop::quit);
+    connect(m_worker, &Worker::eventLoopQuitted, &eventloop, &QEventLoop::quit);
 
     Packet* packet = callback();
     sendMessage(packet->toJson());

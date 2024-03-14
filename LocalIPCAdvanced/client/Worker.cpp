@@ -1,12 +1,15 @@
 #include "Worker.h"
+#include "Client.h"
 #include <QLocalSocket>
+
 #include <QDataStream>
 #include <QJsonDocument>
 #include <QImage>
 #include <QJsonObject>
 
-Worker::Worker(QObject* parent) :
+Worker::Worker(Client* client, QObject* parent) :
     QLocalSocket(parent),
+    m_client(client),
     m_in(new QDataStream(this))
 {
     m_in->setVersion(QDataStream::Qt_5_12);
@@ -44,7 +47,8 @@ void Worker::readyToRead()
             QString clientMessageId = document["data"].toObject()["clientMessageId"].toString();
             result.value = document["data"].toObject()["value"].toVariant();
             result.valueType = document["data"].toObject()["valueType"].toString();
-            emit requestResultInserted(clientMessageId, result);
+
+            m_client->insertRequestResult(clientMessageId, result);
             emit eventLoopQuitted();
         }
     }
