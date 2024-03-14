@@ -22,3 +22,5 @@
 /Doxygen/.vscode
 /LocalIPCAdvanced/.vscode
 /LocalIPCAdvanced/build
+/QImageToQJsonValue/build
+/QImageToQJsonValue/.vscode
