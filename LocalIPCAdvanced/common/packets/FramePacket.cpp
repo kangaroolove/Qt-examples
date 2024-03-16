@@ -20,6 +20,6 @@ QJsonObject FramePacket::generateData()
     QByteArray data;
     QBuffer buffer(&data);
     m_image.save(&buffer, "PNG");
-    object["image"] = QJsonValue::fromVariant(data);
+    object["image"] = QJsonValue::fromVariant(buffer.data().toBase64());
     return object;
 }

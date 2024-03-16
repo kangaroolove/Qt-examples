@@ -34,9 +34,9 @@ void Worker::readyToRead()
 
         if (isImagePacket(document))
         {
-            QByteArray imageData = document["data"].toObject()["image"].toVariant().toByteArray();
+            QByteArray imageData = QByteArray::fromBase64(document["data"].toObject()["image"].toVariant().toByteArray());
             QImage image;
-            image.loadFromData(imageData);
+            image.loadFromData(imageData, "PNG");
             emit imageReceived(image);
         }
         else 
