@@ -16,6 +16,11 @@ QString CommandPacket::getCommand() const
     return m_command;
 }
 
+CommandPacket CommandPacket::fromJson(const QJsonObject &object)
+{
+     return CommandPacket(object["data"].toObject()["command"].toString());
+}
+
 QJsonObject CommandPacket::generateData()
 {
     QJsonObject object;

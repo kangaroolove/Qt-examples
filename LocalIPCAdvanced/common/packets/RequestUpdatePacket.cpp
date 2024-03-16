@@ -10,6 +10,13 @@ RequestUpdatePacket::RequestUpdatePacket(const QString& parameter, const QVarian
     m_packetType = REQUEST;
 }
 
+RequestUpdatePacket::RequestUpdatePacket(const RequestUpdatePacket &packet)
+{
+    m_value = packet.m_value;
+    m_valueType = packet.m_valueType;
+    m_parameter = packet.m_parameter;
+}
+
 RequestUpdatePacket::~RequestUpdatePacket()
 {
 
@@ -28,6 +35,14 @@ QString RequestUpdatePacket::getValueType() const
 QVariant RequestUpdatePacket::getValue() const
 {
     return m_value;
+}
+
+RequestUpdatePacket RequestUpdatePacket::fromJson(const QJsonObject &object)
+{
+    QString parameter = object["data"].toObject()["parameter"].toString();
+    QString valueType = object["data"].toObject()["valueType"].toString();
+    QVariant value = object["data"].toObject()["value"].toVariant();
+    return RequestUpdatePacket(parameter, value, valueType);
 }
 
 QJsonObject RequestUpdatePacket::generateData()

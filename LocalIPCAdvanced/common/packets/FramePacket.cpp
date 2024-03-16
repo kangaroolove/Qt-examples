@@ -10,6 +10,11 @@ FramePacket::FramePacket(const QImage& image) :
     m_packetType = FRAME;
 }
 
+FramePacket::FramePacket(const FramePacket &framePacket)
+{
+    m_image = framePacket.m_image;
+}
+
 FramePacket::~FramePacket()
 {
 
@@ -18,6 +23,14 @@ FramePacket::~FramePacket()
 QImage FramePacket::getImage() const
 {
     return m_image;
+}
+
+FramePacket FramePacket::fromJson(const QJsonObject &object)
+{
+    QImage image;
+    QByteArray imageData = QByteArray::fromBase64(object["data"].toObject()["image"].toVariant().toByteArray());
+    image.loadFromData(imageData, "PNG");
+    return FramePacket(image);
 }
 
 QJsonObject FramePacket::generateData()

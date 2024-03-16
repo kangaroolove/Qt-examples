@@ -9,6 +9,11 @@ ReplyPacket::ReplyPacket(const ReplyPacketInfo& replyPacketInfo) :
     m_packetType = REPLY;
 }
 
+ReplyPacket::ReplyPacket(const ReplyPacket &packet)
+{
+    m_replyPacketInfo = packet.m_replyPacketInfo;
+}
+
 ReplyPacket::~ReplyPacket()
 {
 
@@ -17,6 +22,18 @@ ReplyPacket::~ReplyPacket()
 ReplyPacketInfo ReplyPacket::getReplyPacketInfo() const
 {
     return m_replyPacketInfo;
+}
+
+ReplyPacket ReplyPacket::fromJson(const QJsonObject& object)
+{
+    ReplyPacketInfo info;
+    info.clientMessageId = object["data"].toObject()["clientMessageId"].toString();
+    info.parameter = object["data"].toObject()["parameter"].toString();
+    info.requestType = object["data"].toObject()["requestType"].toString();
+    info.value = object["data"].toObject()["value"].toVariant();
+    info.valueType = object["data"].toObject()["requestType"].toString();
+
+    return ReplyPacket(info);
 }
 
 QJsonObject ReplyPacket::generateData()

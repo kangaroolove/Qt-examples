@@ -9,6 +9,7 @@ public:
     ~CommandPacket();
     
     QString getCommand() const;
+    static CommandPacket fromJson(const QJsonObject& object);
 protected:
     QJsonObject generateData() override;
 private:
