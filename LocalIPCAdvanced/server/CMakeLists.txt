@@ -48,6 +48,8 @@ set(PROJECT_SOURCES
 	../common/packets/FramePacket.h
 	../common/packets/ReplyPacket.cpp
 	../common/packets/ReplyPacket.h
+	../common/packets/CommandPacket.cpp
+	../common/packets/CommandPacket.h
 	lib/daqclib.cpp
 	lib/daqclib.h
 	../common/StringDef.h
