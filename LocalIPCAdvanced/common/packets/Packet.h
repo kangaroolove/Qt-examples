@@ -11,7 +11,7 @@ public:
     Packet(QObject* parent = nullptr);
     ~Packet();
     QByteArray toJson();
-    QString getMessageId();
+    QString getMessageId() const;
 protected:
     virtual QJsonObject generateData() = 0;
 

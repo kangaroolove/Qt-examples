@@ -12,6 +12,11 @@ RequestGetPacket::~RequestGetPacket()
 
 }
 
+QString RequestGetPacket::getParameter() const
+{
+    return m_parameter;
+}
+
 QJsonObject RequestGetPacket::generateData()
 {
     QJsonObject object;

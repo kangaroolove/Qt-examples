@@ -15,6 +15,11 @@ FramePacket::~FramePacket()
 
 }
 
+QImage FramePacket::getImage() const
+{
+    return m_image;
+}
+
 QJsonObject FramePacket::generateData()
 {
     QJsonObject object;

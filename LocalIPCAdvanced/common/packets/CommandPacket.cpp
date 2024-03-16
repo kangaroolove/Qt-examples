@@ -11,6 +11,11 @@ CommandPacket::~CommandPacket()
 
 }
 
+QString CommandPacket::getCommand() const
+{   
+    return m_command;
+}
+
 QJsonObject CommandPacket::generateData()
 {
     QJsonObject object;

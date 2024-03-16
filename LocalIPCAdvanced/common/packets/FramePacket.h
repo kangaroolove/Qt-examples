@@ -8,6 +8,8 @@ class FramePacket : public Packet
 public:
     FramePacket(const QImage& image);
     ~FramePacket();
+
+    QImage getImage() const;
 private:
     QJsonObject generateData() override;
 

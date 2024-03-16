@@ -14,6 +14,11 @@ ReplyPacket::~ReplyPacket()
 
 }
 
+ReplyPacketInfo ReplyPacket::getReplyPacketInfo() const
+{
+    return m_replyPacketInfo;
+}
+
 QJsonObject ReplyPacket::generateData()
 {
     QJsonObject object;

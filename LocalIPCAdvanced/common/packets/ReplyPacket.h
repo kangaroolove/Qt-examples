@@ -20,6 +20,8 @@ class ReplyPacket : public Packet
 public:
     ReplyPacket(const ReplyPacketInfo& replyPacketInfo);
     ~ReplyPacket();
+
+    ReplyPacketInfo getReplyPacketInfo() const; 
 protected:
     QJsonObject generateData() override;
 

@@ -15,6 +15,21 @@ RequestUpdatePacket::~RequestUpdatePacket()
 
 }
 
+QString RequestUpdatePacket::getParameter() const
+{
+    return m_parameter;
+}
+
+QString RequestUpdatePacket::getValueType() const
+{
+    return m_valueType;
+}
+
+QVariant RequestUpdatePacket::getValue() const
+{
+    return m_value;
+}
+
 QJsonObject RequestUpdatePacket::generateData()
 {
     QJsonObject object;

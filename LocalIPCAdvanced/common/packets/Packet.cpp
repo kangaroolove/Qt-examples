@@ -25,7 +25,7 @@ QByteArray Packet::toJson()
     return document.toJson(QJsonDocument::Compact);
 }
 
-QString Packet::getMessageId()
+QString Packet::getMessageId() const
 {
     return m_messageId;
 }
