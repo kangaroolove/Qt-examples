@@ -1,11 +1,12 @@
 #include "ReplyPacket.h"
+#include "StringDef.h"
 #include <QJsonDocument>
 #include <QVariant>
 
 ReplyPacket::ReplyPacket(const ReplyPacketInfo& replyPacketInfo) :
     m_replyPacketInfo(replyPacketInfo)
 {
-
+    m_packetType = REPLY;
 }
 
 ReplyPacket::~ReplyPacket()

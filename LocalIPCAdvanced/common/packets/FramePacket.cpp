@@ -1,4 +1,5 @@
 #include "FramePacket.h"
+#include "StringDef.h"
 #include <QBuffer>
 #include <QJsonValue>
 #include <QVariant>
@@ -6,7 +7,7 @@
 FramePacket::FramePacket(const QImage& image) :
     m_image(image)
 {
-
+    m_packetType = FRAME;
 }
 
 FramePacket::~FramePacket()

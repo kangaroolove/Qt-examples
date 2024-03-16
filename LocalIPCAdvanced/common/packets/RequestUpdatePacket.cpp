@@ -1,4 +1,5 @@
 #include "RequestUpdatePacket.h"
+#include "StringDef.h"
 #include <QJsonObject>
 
 RequestUpdatePacket::RequestUpdatePacket(const QString& parameter, const QVariant& value, const QString& valueType) :
@@ -6,7 +7,7 @@ RequestUpdatePacket::RequestUpdatePacket(const QString& parameter, const QVarian
     m_valueType(valueType),
     m_parameter(parameter)
 {
-
+    m_packetType = REQUEST;
 }
 
 RequestUpdatePacket::~RequestUpdatePacket()

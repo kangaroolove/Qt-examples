@@ -39,7 +39,7 @@ set(PROJECT_SOURCES
 	../common/packets/RequestUpdatePacket.h
 	../common/packets/RequestGetPacket.cpp
 	../common/packets/RequestGetPacket.h
-	../common/ParameterDef.h
+	../common/StringDef.h
 )
 
 set(PROJECT_UIS

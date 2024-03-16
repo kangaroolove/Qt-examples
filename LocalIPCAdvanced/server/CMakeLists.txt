@@ -16,6 +16,7 @@ find_package(Qt5 REQUIRED COMPONENTS Widgets Network AxContainer)
 include_directories(
 	tasks
 	../common/packets
+	../common
 	ui
 	lib
 )
@@ -49,6 +50,7 @@ set(PROJECT_SOURCES
 	../common/packets/ReplyPacket.h
 	lib/daqclib.cpp
 	lib/daqclib.h
+	../common/StringDef.h
 )
 
 set(PROJECT_UIS

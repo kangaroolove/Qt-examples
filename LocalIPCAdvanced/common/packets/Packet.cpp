@@ -1,9 +1,11 @@
 #include "Packet.h"
+#include "StringDef.h"
 #include <QJsonDocument>
 #include <QUuid>
 
 Packet::Packet(QObject* parent) :
-    QObject(parent)
+    QObject(parent),
+    m_packetType(UNKNOWN_PACKET)
 {
     generateMessageId();
 }
@@ -18,6 +20,7 @@ QByteArray Packet::toJson()
     QJsonObject object;
     object["data"] = generateData();
     object["messageId"] = getMessageId();
+    object["packetType"] = m_packetType;
     QJsonDocument document(object);
     return document.toJson(QJsonDocument::Compact);
 }

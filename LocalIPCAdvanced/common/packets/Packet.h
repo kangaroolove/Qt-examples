@@ -14,6 +14,8 @@ public:
     QString getMessageId();
 protected:
     virtual QJsonObject generateData() = 0;
+
+    QString m_packetType;
 private:
     void generateMessageId();
 

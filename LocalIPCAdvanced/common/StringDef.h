@@ -2,6 +2,14 @@
 
 #include <QString>
 
+// Packet Type
+const QString UNKNOWN_PACKET = "UnknownPacket";
+const QString FRAME = "Frame";
+const QString REQUEST = "Request";
+const QString REPLY = "Reply";
+const QString COMMAND = "Command";
+
+
 const QString REGION_PHYSICAL_DELTA_X = "RegionPhysicalDeltaX";
 const QString REGION_PHYSICAL_DELTA_Y = "RegionPhysicalDeltaY";
 const QString B_GAIN = "BGain";
