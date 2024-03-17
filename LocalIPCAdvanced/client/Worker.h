@@ -20,7 +20,7 @@ public slots:
 private slots:
     void readyToRead();
 private:
-    bool isImagePacket(const QJsonDocument &document);
+    QString getPacketType(const QJsonDocument &document);
 
     QDataStream* m_in;
     Client* m_client;

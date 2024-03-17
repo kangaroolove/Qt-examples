@@ -39,6 +39,8 @@ set(PROJECT_SOURCES
 	../common/packets/RequestUpdatePacket.h
 	../common/packets/RequestGetPacket.cpp
 	../common/packets/RequestGetPacket.h
+	../common/packets/ReplyPacket.cpp
+	../common/packets/ReplyPacket.h
 	../common/StringDef.h
 )
 

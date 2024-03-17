@@ -18,6 +18,11 @@ class RequestResult
 {
 public:
     RequestResult() {}
+    ~RequestResult() {}
+    RequestResult(const QString& valueType, const QVariant& value) {
+        this->value = value;
+        this->valueType = valueType;
+    }
     QString valueType;
     QVariant value;
 };

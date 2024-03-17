@@ -1,5 +1,8 @@
 #include "Worker.h"
 #include "Client.h"
+#include "StringDef.h"
+#include "FramePacket.h"
+#include "ReplyPacket.h"
 #include <QLocalSocket>
 #include <QDataStream>
 #include <QJsonDocument>
@@ -32,21 +35,17 @@ void Worker::readyToRead()
         if (document.isNull())
             return;
 
-        if (isImagePacket(document))
+        auto packetType = getPacketType(document);
+        if (packetType == FRAME)
         {
-            QByteArray imageData = QByteArray::fromBase64(document["data"].toObject()["image"].toVariant().toByteArray());
-            QImage image;
-            image.loadFromData(imageData, "PNG");
-            emit imageReceived(image);
+            auto framePacket = FramePacket::fromJson(document.object());
+            emit imageReceived(framePacket.getImage());
         }
-        else 
+        else if (packetType == REPLY)
         {
-            RequestResult result;
-            QString clientMessageId = document["data"].toObject()["clientMessageId"].toString();
-            result.value = document["data"].toObject()["value"].toVariant();
-            result.valueType = document["data"].toObject()["valueType"].toString();
-
-            m_client->insertRequestResult(clientMessageId, result);
+            auto replyPacket = ReplyPacket::fromJson(document.object());
+            auto info = replyPacket.getReplyPacketInfo();
+            m_client->insertRequestResult(info.clientMessageId, RequestResult(info.valueType, info.value));
             emit eventLoopQuitted();
         }
     }
@@ -63,7 +62,7 @@ void Worker::sendMessage(const QByteArray &msg)
     flush();
 }
 
-bool Worker::isImagePacket(const QJsonDocument &document)
+QString Worker::getPacketType(const QJsonDocument &document)
 {
-    return document["data"].toObject().contains("image");
+    return document["packetType"].toString();
 }
