@@ -52,8 +52,8 @@ void Server::readyRead()
     {
         QByteArray msg;
         *(it->second) >> msg;
+        qDebug()<<"Server receive message";
         qDebug()<<msg;
-
         QThreadPool::globalInstance()->start(generateHandleRequestTask(msg));
     }
 }

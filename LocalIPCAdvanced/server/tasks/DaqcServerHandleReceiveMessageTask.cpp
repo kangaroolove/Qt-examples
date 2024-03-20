@@ -26,9 +26,6 @@ DaqcServerHandleReceiveMessageTask::~DaqcServerHandleReceiveMessageTask()
 
 void DaqcServerHandleReceiveMessageTask::analyzeJson(const QByteArray &data)
 {
-    qDebug()<<"Server receive message";
-    qDebug()<<data;
-
     auto document = QJsonDocument::fromJson(data);
     if (document.isNull())
         return;

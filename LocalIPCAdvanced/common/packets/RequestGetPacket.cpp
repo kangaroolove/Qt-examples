@@ -27,7 +27,7 @@ QString RequestGetPacket::getParameter() const
 RequestGetPacket RequestGetPacket::fromJson(const QJsonObject &object)
 {
     QString parameter = object["data"].toObject()["parameter"].toString();
-    QString messageId = object["data"].toObject()["messageId"].toString();
+    QString messageId = object["messageId"].toString();
     return RequestGetPacket(parameter, messageId);
 }
 
