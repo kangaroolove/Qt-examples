@@ -54,6 +54,8 @@ set(PROJECT_SOURCES
 	../common/packets/RequestGetPacket.h
 	../common/packets/RequestUpdatePacket.cpp
 	../common/packets/RequestUpdatePacket.h
+	../common/packets/FramePacket.cpp
+	../common/packets/FramePacket.h
 	lib/daqclib.cpp
 	lib/daqclib.h
 	../common/StringDef.h

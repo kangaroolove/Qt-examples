@@ -29,7 +29,8 @@ void Worker::readyToRead()
         QByteArray msg;
         *m_in >> msg;
 
-        emit messageReceived(msg);
+        qDebug()<<"Client receive message";
+        //qDebug()<<msg;
 
         auto document = QJsonDocument::fromJson(msg);
         if (document.isNull())
@@ -57,6 +58,9 @@ void Worker::sendMessage(const QByteArray &msg)
     QDataStream out(&data, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_5_12);
     out << msg;
+
+    qDebug()<<"Client send message";
+    qDebug()<<msg;
 
     write(data);
     flush();

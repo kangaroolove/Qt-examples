@@ -27,6 +27,11 @@ ClientWidget::ClientWidget(QWidget* parent) :
         m_receiveTextEdit->append(msg);
     });
 
+    connect(m_client, &DaqcClient::imageReceived, this, [this](QImage image){
+        m_imageLabel->setPixmap(QPixmap::fromImage(image));
+        qDebug()<<"thread id"<<QThread::currentThreadId();
+    });
+
     m_client->start();
 }
 

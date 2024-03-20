@@ -38,6 +38,7 @@ public:
 signals:
     void messageToWorkerSended(const QByteArray& msg);
     void messageReceived(const QByteArray& msg);
+    void imageReceived(QImage image);
 public slots:
     void sendMessage(const QByteArray& msg);
 protected:
