@@ -20,6 +20,7 @@ private:
     QString getParameter(const QJsonDocument& document);
     QString getValueType(const QJsonDocument& document);
     QVariant getValue(const QJsonDocument& document);
+    QString getPacketType(const QJsonDocument& document);
 
     Server* m_server;
 };

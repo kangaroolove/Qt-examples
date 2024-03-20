@@ -6,6 +6,7 @@ class CommandPacket : public Packet
 {
 public:
     CommandPacket(const QString& command);
+    CommandPacket(const CommandPacket& packet);
     ~CommandPacket();
     
     QString getCommand() const;

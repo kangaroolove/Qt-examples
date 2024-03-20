@@ -50,6 +50,10 @@ set(PROJECT_SOURCES
 	../common/packets/ReplyPacket.h
 	../common/packets/CommandPacket.cpp
 	../common/packets/CommandPacket.h
+	../common/packets/RequestGetPacket.cpp
+	../common/packets/RequestGetPacket.h
+	../common/packets/RequestUpdatePacket.cpp
+	../common/packets/RequestUpdatePacket.h
 	lib/daqclib.cpp
 	lib/daqclib.h
 	../common/StringDef.h

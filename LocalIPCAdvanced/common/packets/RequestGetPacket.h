@@ -4,7 +4,7 @@
 class RequestGetPacket : public Packet
 {
 public:
-    RequestGetPacket(const QString& parameter);
+    RequestGetPacket(const QString& parameter, const QString& messageId = QString());
     RequestGetPacket(const RequestGetPacket& packet);
     ~RequestGetPacket();
 

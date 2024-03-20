@@ -16,8 +16,7 @@ protected:
     virtual QJsonObject generateData() = 0;
 
     QString m_packetType;
+    QString m_messageId;
 private:
     void generateMessageId();
-
-    QString m_messageId;
 };

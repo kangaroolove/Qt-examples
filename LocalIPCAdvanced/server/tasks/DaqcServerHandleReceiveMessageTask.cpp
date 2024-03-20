@@ -3,6 +3,9 @@
 #include "Server.h"
 #include "UpdateValueTask.h"
 #include "GetValueTask.h"
+#include "RequestGetPacket.h"
+#include "StringDef.h"
+#include "RequestUpdatePacket.h"
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDebug>
@@ -23,26 +26,28 @@ DaqcServerHandleReceiveMessageTask::~DaqcServerHandleReceiveMessageTask()
 
 void DaqcServerHandleReceiveMessageTask::analyzeJson(const QByteArray &data)
 {
+    qDebug()<<"Server receive message";
+    qDebug()<<data;
+
     auto document = QJsonDocument::fromJson(data);
     if (document.isNull())
         return;
 
-    QString parameter = getParameter(document);
-    QString requestType = getRequestType(document);
-    QString clientMessageId = getClientMessageId(document);
-    QString valueType = getValueType(document);
-    QVariant value = getValue(document);
-
-    qDebug()<<"parameter = "<< parameter;
-    qDebug()<<"requestType = "<< requestType;
-    qDebug()<<"clientMessageId = "<< clientMessageId;
-    qDebug()<<"valueType = "<< valueType;
-    qDebug()<<"value = "<< value <<"\n";
-    
-    if (requestType == "get")
-        QThreadPool::globalInstance()->start(new GetValueTask(m_server, parameter, clientMessageId));
-    else if (requestType == "update")
-        handleUpdateRequest(parameter, valueType, value);
+    QString packetType = getPacketType(document);
+    if (packetType == REQUEST)
+    {
+        auto requestType = getRequestType(document);
+        if (requestType == "get")
+        {
+            auto packet = RequestGetPacket::fromJson(document.object());
+            QThreadPool::globalInstance()->start(new GetValueTask(m_server, packet.getParameter(), packet.getMessageId()));
+        }
+        else if (requestType == "update")
+        {
+            auto packet = RequestUpdatePacket::fromJson(document.object());
+            handleUpdateRequest(packet.getParameter(), packet.getValueType(), packet.getValue());
+        }
+    }
 }
 
 void DaqcServerHandleReceiveMessageTask::handleUpdateRequest(const QString &parameter, const QString &valueType, const QVariant &value)
@@ -77,4 +82,9 @@ QString DaqcServerHandleReceiveMessageTask::getValueType(const QJsonDocument &do
 QVariant DaqcServerHandleReceiveMessageTask::getValue(const QJsonDocument &document)
 {
     return document["data"].toObject()["value"].toVariant();
+}
+
+QString DaqcServerHandleReceiveMessageTask::getPacketType(const QJsonDocument &document)
+{
+    return document["packetType"].toString();
 }

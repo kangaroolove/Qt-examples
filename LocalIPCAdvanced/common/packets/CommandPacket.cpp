@@ -6,6 +6,11 @@ CommandPacket::CommandPacket(const QString& command) :
 
 }
 
+CommandPacket::CommandPacket(const CommandPacket &packet)
+{
+    m_command = packet.m_command;
+}
+
 CommandPacket::~CommandPacket()
 {
 

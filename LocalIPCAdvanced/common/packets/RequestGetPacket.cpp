@@ -1,15 +1,17 @@
 #include "RequestGetPacket.h"
 #include "StringDef.h"
 
-RequestGetPacket::RequestGetPacket(const QString& parameter) :
-    m_parameter(parameter)
-{
-    m_packetType = REQUEST;
-}
-
 RequestGetPacket::RequestGetPacket(const RequestGetPacket &packet)
 {
     m_parameter = packet.m_parameter;
+}
+
+RequestGetPacket::RequestGetPacket(const QString &parameter, const QString &messageId) :
+    m_parameter(parameter)
+{
+    m_packetType = REQUEST;
+    if (!messageId.isNull())
+        m_messageId = messageId;
 }
 
 RequestGetPacket::~RequestGetPacket()
@@ -25,7 +27,8 @@ QString RequestGetPacket::getParameter() const
 RequestGetPacket RequestGetPacket::fromJson(const QJsonObject &object)
 {
     QString parameter = object["data"].toObject()["parameter"].toString();
-    return RequestGetPacket(parameter);
+    QString messageId = object["data"].toObject()["messageId"].toString();
+    return RequestGetPacket(parameter, messageId);
 }
 
 QJsonObject RequestGetPacket::generateData()
