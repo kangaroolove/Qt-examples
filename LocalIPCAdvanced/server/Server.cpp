@@ -27,6 +27,9 @@ void Server::sendMessage(const QByteArray &msg)
 
     out << msg;
 
+    qDebug()<<"Server send message";
+    qDebug()<<msg;
+
     for (auto it = m_clientSockets.begin(); it != m_clientSockets.end(); it++)
     {
         it->first->write(data);
