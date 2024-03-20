@@ -27,7 +27,7 @@ private slots:
     void clientDisconnected();
 private:
     void init();
+    QMutex* m_mutex;
     // shared resources
     std::map<QLocalSocket*, QDataStream*> m_clientSockets;
-    QMutex* m_mutex;
 };
