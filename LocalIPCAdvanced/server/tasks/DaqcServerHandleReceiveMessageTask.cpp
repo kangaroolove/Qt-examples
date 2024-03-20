@@ -59,32 +59,12 @@ void DaqcServerHandleReceiveMessageTask::handleUpdateRequest(const QString &para
     QThreadPool::globalInstance()->start(new UpdateValueTask(info));
 }
 
-QString DaqcServerHandleReceiveMessageTask::getRequestType(const QJsonDocument &document)
+QString DaqcServerHandleReceiveMessageTask::getRequestType(const QJsonDocument &document) const
 {
     return document["data"].toObject()["requestType"].toString();
 }
 
-QString DaqcServerHandleReceiveMessageTask::getClientMessageId(const QJsonDocument &document)
-{
-    return document["messageId"].toString();
-}
-
-QString DaqcServerHandleReceiveMessageTask::getParameter(const QJsonDocument &document)
-{
-    return document["data"].toObject()["parameter"].toString();
-}
-
-QString DaqcServerHandleReceiveMessageTask::getValueType(const QJsonDocument &document)
-{
-    return document["data"].toObject()["valueType"].toString();
-}
-
-QVariant DaqcServerHandleReceiveMessageTask::getValue(const QJsonDocument &document)
-{
-    return document["data"].toObject()["value"].toVariant();
-}
-
-QString DaqcServerHandleReceiveMessageTask::getPacketType(const QJsonDocument &document)
+QString DaqcServerHandleReceiveMessageTask::getPacketType(const QJsonDocument &document) const
 {
     return document["packetType"].toString();
 }
