@@ -20,5 +20,11 @@ void UpdateValueTask::run()
     if (m_updateValueInfo.parameter == "test")
     {
         qDebug()<<m_updateValueInfo.parameter<<" has set value:10";
+        auto values = m_updateValueInfo.values.toList();
+        for (auto &value : values)
+            qDebug()<<"value = "<<value;
+        auto valueTypes = m_updateValueInfo.valueTypes.toStringList();
+        for (auto &type : valueTypes)
+            qDebug()<<"valueType = "<<type;
     }
 }

@@ -1,10 +1,11 @@
 #include "RequestUpdatePacket.h"
 #include "StringDef.h"
 #include <QJsonObject>
+#include <QJsonArray>
 
-RequestUpdatePacket::RequestUpdatePacket(const QString& parameter, const QVariant& value, const QString& valueType) :
-    m_value(value),
-    m_valueType(valueType),
+RequestUpdatePacket::RequestUpdatePacket(const QString& parameter, const QVariant& values, const QVariant& valueTypes) :
+    m_values(values),
+    m_valueTypes(valueTypes),
     m_parameter(parameter)
 {
     m_packetType = REQUEST;
@@ -12,8 +13,8 @@ RequestUpdatePacket::RequestUpdatePacket(const QString& parameter, const QVarian
 
 RequestUpdatePacket::RequestUpdatePacket(const RequestUpdatePacket &packet)
 {
-    m_value = packet.m_value;
-    m_valueType = packet.m_valueType;
+    m_values = packet.m_values;
+    m_valueTypes = packet.m_valueTypes;
     m_parameter = packet.m_parameter;
 }
 
@@ -27,14 +28,14 @@ QString RequestUpdatePacket::getParameter() const
     return m_parameter;
 }
 
-QString RequestUpdatePacket::getValueType() const
+QVariant RequestUpdatePacket::getValueTypes() const
 {
-    return m_valueType;
+    return m_valueTypes;
 }
 
-QVariant RequestUpdatePacket::getValue() const
+QVariant RequestUpdatePacket::getValues() const
 {
-    return m_value;
+    return m_values;
 }
 
 RequestUpdatePacket RequestUpdatePacket::fromJson(const QJsonObject &object)
@@ -50,15 +51,7 @@ QJsonObject RequestUpdatePacket::generateData()
     QJsonObject object;
     object["parameter"] = m_parameter;
     object["requestType"] = "update";
-    object["valueType"] = m_valueType;
-
-    if (m_valueType == "int")
-        object["value"] = m_value.toInt();
-    else if (m_valueType == "string")
-        object["value"] = m_value.toString();
-    else if (m_valueType == "bool")
-        object["value"] = m_value.toBool();
-    else if (m_valueType == "double")
-        object["value"] = m_value.toDouble();
+    object["valueType"] = QJsonArray::fromStringList(m_valueTypes.toStringList());
+    object["value"] = QJsonArray::fromVariantList(m_values.toList());
     return object;
 }

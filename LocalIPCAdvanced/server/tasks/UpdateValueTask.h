@@ -9,8 +9,8 @@ class UpdateValueInfo
 {
 public:
     QString parameter;
-    QString valueType;
-    QVariant value;
+    QVariant valueTypes;
+    QVariant values;
 };
 
 class UpdateValueTask : public QRunnable
