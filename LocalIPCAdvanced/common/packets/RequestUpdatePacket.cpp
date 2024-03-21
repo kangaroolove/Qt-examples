@@ -41,9 +41,9 @@ QVariant RequestUpdatePacket::getValues() const
 RequestUpdatePacket RequestUpdatePacket::fromJson(const QJsonObject &object)
 {
     QString parameter = object["data"].toObject()["parameter"].toString();
-    QString valueType = object["data"].toObject()["valueType"].toString();
-    QVariant value = object["data"].toObject()["value"].toVariant();
-    return RequestUpdatePacket(parameter, value, valueType);
+    QVariant valueTypes = object["data"].toObject()["valueTypes"].toVariant();
+    QVariant values = object["data"].toObject()["values"].toVariant();
+    return RequestUpdatePacket(parameter, values, valueTypes);
 }
 
 QJsonObject RequestUpdatePacket::generateData()
@@ -51,7 +51,7 @@ QJsonObject RequestUpdatePacket::generateData()
     QJsonObject object;
     object["parameter"] = m_parameter;
     object["requestType"] = "update";
-    object["valueType"] = QJsonArray::fromStringList(m_valueTypes.toStringList());
-    object["value"] = QJsonArray::fromVariantList(m_values.toList());
+    object["valueTypes"] = QJsonArray::fromStringList(m_valueTypes.toStringList());
+    object["values"] = QJsonArray::fromVariantList(m_values.toList());
     return object;
 }

@@ -36,7 +36,8 @@ int DaqcClient::testGetApi()
 
 void DaqcClient::testSetApi(bool isTest)
 {
-    createUpdateRequest(new RequestUpdatePacket("test", isTest, "bool"));
+    QVariantList values = { true };
+    createUpdateRequest(new RequestUpdatePacket("test", values, {"bool"}));
 }
 
 double DaqcClient::getRegionPhysicalDeltaX()
