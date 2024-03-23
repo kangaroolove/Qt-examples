@@ -249,7 +249,7 @@ public:
     // int legacyScanFeature();
     // void legacySetScanFeature(int value);
     // int legacyScanMode();
-    // void legacySetScanMode(int value);
+    void legacySetScanMode(int value);
     // int legacySmooth();
     // void legacySetSmooth(int value);
     // void legacyAboutBox();
@@ -267,7 +267,7 @@ public:
     // void legacyMoveColorROI(int LeftRight, int UpDown);
     // void legacyMoveROIColor(int x, int y);
     // void legacyPalette(int colorID, int bright, int ts);
-    // void legacyRealtimeEn(int en);
+    void legacyRealtimeEn(int en);
     // void legacySetColorDopplerROI(int startPos, int endPos, int startDepth, int endDepth);
     // void legacySetFlipH(int isFlip);
     // void legacySetFlipV(int isFlip);
@@ -278,7 +278,7 @@ public:
     // // F means forward
     void legacyFProbeType(int pbPort, int pbType);
     // void legacySaveScuInitPara();
-    // void legacyStart();
+    void legacyStart();
     // void legacyStop();
     // void legacyWifiEWM(const QString& fptStr, QString& htpStr);
 private:

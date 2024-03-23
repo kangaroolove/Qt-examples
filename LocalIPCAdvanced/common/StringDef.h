@@ -89,5 +89,5 @@ const QString ESPIN = "ESpin";
 const QString PWIF_BUFF_MS = "PwifBuffms";
 const QString SCAN_MODE = "ScanMode";
 const QString REALTIME_EN = "RealtimeEn";
-legacyRealtimeEn
+const QString START = "Start";
 }

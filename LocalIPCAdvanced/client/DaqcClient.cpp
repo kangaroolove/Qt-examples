@@ -1576,6 +1576,13 @@ void DaqcClient::legacyFProbeType(int pbPort, int pbType)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::F_PROBE_TYPE, values, valueTypes));
 }
 
+void DaqcClient::legacyStart()
+{
+    QVariantList values = {};
+    QStringList valueTypes = {};
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::START, values, valueTypes));
+}
+
 int DaqcClient::boolToIncrease(const bool &increase)
 {
     return increase ? 1 : -1;
