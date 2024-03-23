@@ -19,12 +19,12 @@ class RequestResult
 public:
     RequestResult() {}
     ~RequestResult() {}
-    RequestResult(const QString& valueType, const QVariant& value) {
-        this->value = value;
-        this->valueType = valueType;
+    RequestResult(const QVariant& valueType, const QVariant& value) {
+        this->values = values;
+        this->valueTypes = valueTypes;
     }
-    QString valueType;
-    QVariant value;
+    QVariant valueTypes;
+    QVariant values;
 };
 
 class Client : public QObject

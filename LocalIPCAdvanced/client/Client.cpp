@@ -74,7 +74,7 @@ QVariant Client::createGetRequest(std::function<Packet*()> callback)
 
     RequestResult result = getRequestResult(packet->getMessageId());
     packet->deleteLater();
-    return result.value;
+    return result.values;
 }
 
 void Client::createUpdateRequest(Packet *packet)
