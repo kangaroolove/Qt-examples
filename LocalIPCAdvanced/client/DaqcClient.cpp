@@ -47,15 +47,17 @@ bool DaqcClient::isConnected()
     return false;
 }
 
-#if 0
+
 
 double DaqcClient::getRegionPhysicalDeltaX()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket(REGION_PHYSICAL_DELTA_X);
+        return new RequestGetPacket(DaqcParameter::REGION_PHYSICAL_DELTA_X);
     });
     return result.toDouble();
 }
+
+#if 0
 
 double DaqcClient::getRegionPhysicalDeltaY()
 {

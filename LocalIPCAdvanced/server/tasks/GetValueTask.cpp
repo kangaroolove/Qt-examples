@@ -88,6 +88,14 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->ProbeSEL();
         replyPacketInfo.valueType = "int";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::REGION_PHYSICAL_DELTA_X)
+    {
+        double x = 0;
+        double y = 0;
+        m_daqc->GetRegionPhysicalDelta(x, y);
+        replyPacketInfo.value = x;
+        replyPacketInfo.valueType = "double";
+    }
 
     return replyPacketInfo;
 }
