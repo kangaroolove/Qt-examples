@@ -81,6 +81,10 @@ void UpdateValueTask::run()
         m_daqc->SetBDynamic(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::D_DYNAMIC)
         m_daqc->SetDDynamic(values.first().toInt());
+    else if (m_updateValueInfo.parameter == DaqcParameter::FLIP_H)
+        m_daqc->SetFlipH(values.first().toInt());
+    else if (m_updateValueInfo.parameter == DaqcParameter::FLIP_V)
+        m_daqc->SetFlipV(values.first().toInt());
 
     
 }

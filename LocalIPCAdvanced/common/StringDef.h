@@ -98,4 +98,6 @@ const QString TGC_POSITIONS = "TGCPositions";
 const QString GET_PARAMETER = "GetParameter";
 const QString PERSISTENCE_COLOR = "PersistenceColor";
 const QString PROBE_SEL = "ProbeSEL";
+const QString FLIP_H = "FlipH";
+const QString FLIP_V = "FlipV";
 }
