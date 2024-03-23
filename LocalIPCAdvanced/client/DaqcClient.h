@@ -206,7 +206,7 @@ public:
     // void legacySetPWDsampleDepth(double value);
     // int legacyPWDstartPos();
     // void legacySetPWDstartPos(int value);
-    // int legacyPersistenceColor();
+    int legacyPersistenceColor();
     void legacySetPersistenceColor(int value);
     // int legacyProbePOS();
     void legacySetProbePOS(int value);

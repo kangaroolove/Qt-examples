@@ -725,6 +725,15 @@ void DaqcClient::legacySetImageProcess(int value)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::IMAGE_PROCESS, values, valueTypes));
 }
 
+int DaqcClient::legacyPersistenceColor()
+{
+    auto result = createGetRequest([]{ 
+        return new RequestGetPacket(DaqcParameter::PERSISTENCE_COLOR); 
+    });
+
+    return result.toInt();
+}
+
 void DaqcClient::legacySetPersistenceColor(int value)
 {
     QVariantList values = { value };
