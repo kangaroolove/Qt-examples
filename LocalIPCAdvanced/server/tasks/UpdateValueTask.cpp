@@ -71,4 +71,6 @@ void UpdateValueTask::run()
         m_daqc->stop();
     else if (m_updateValueInfo.parameter == DaqcParameter::THI)
         m_daqc->SetTHI(values.first().toInt());
+    else if (m_updateValueInfo.parameter == DaqcParameter::ZOOM_COLOR_ROI)
+        m_daqc->ZoomColorROI(values.first().toInt(), values.last().toInt());
 }

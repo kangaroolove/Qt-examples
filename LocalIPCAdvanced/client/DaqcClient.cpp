@@ -1585,6 +1585,13 @@ void DaqcClient::legacyRealtimeEn(int en)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::REALTIME_EN, values, valueTypes));
 }
 
+void DaqcClient::legacyZoomColorROI(int xDirection, int yDirection)
+{
+    QVariantList values = { xDirection, yDirection };
+    QStringList valueTypes = { "int", "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::ZOOM_COLOR_ROI, values, valueTypes));
+}
+
 void DaqcClient::legacyFProbeType(int pbPort, int pbType)
 {
     QVariantList values = { pbPort,  pbType };

@@ -92,4 +92,5 @@ const QString REALTIME_EN = "RealtimeEn";
 const QString START = "Start";
 const QString STOP = "Stop";
 const QString THI = "THI";
+const QString ZOOM_COLOR_ROI = "ZoomColorROI";
 }
