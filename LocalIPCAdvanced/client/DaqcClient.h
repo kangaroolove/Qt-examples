@@ -279,7 +279,7 @@ public:
     void legacyFProbeType(int pbPort, int pbType);
     // void legacySaveScuInitPara();
     void legacyStart();
-    // void legacyStop();
+    void legacyStop();
     // void legacyWifiEWM(const QString& fptStr, QString& htpStr);
 private:
     int boolToIncrease(const bool& increase);

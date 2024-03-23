@@ -1583,6 +1583,13 @@ void DaqcClient::legacyStart()
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::START, values, valueTypes));
 }
 
+void DaqcClient::legacyStop()
+{
+    QVariantList values = {};
+    QStringList valueTypes = {};
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::STOP, values, valueTypes));
+}
+
 int DaqcClient::boolToIncrease(const bool &increase)
 {
     return increase ? 1 : -1;
