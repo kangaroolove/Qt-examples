@@ -71,14 +71,15 @@ int DaqcClient::getBGain()
     return result.toInt();
 }
 
-#if 0
 int DaqcClient::getCGain()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket(C_GAIN);
+        return new RequestGetPacket(DaqcParameter::C_GAIN);
     });
     return result.toInt();
 }
+
+#if 0
 
 int DaqcClient::getMGain()
 {
