@@ -104,6 +104,11 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = y;
         replyPacketInfo.valueType = "double";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::B_GAIN)
+    {
+        replyPacketInfo.value = m_daqc->BGain();
+        replyPacketInfo.valueType = "int";
+    }
 
     return replyPacketInfo;
 }

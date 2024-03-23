@@ -63,15 +63,15 @@ double DaqcClient::getRegionPhysicalDeltaY()
     return result.toDouble();
 }
 
-#if 0
 int DaqcClient::getBGain()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket(B_GAIN);
+        return new RequestGetPacket(DaqcParameter::B_GAIN);
     });
     return result.toInt();
 }
 
+#if 0
 int DaqcClient::getCGain()
 {
     auto result = createGetRequest([]{
