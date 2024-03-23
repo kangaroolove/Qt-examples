@@ -10,6 +10,8 @@
 #include <QEventLoop>
 #include <QImage>
 
+using namespace DaqcParameter;
+
 DaqcClient::DaqcClient(QObject* parent) :
     Client(parent)
 {

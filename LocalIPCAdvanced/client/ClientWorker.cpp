@@ -37,12 +37,12 @@ void ClientWorker::readyToRead()
             return;
 
         auto packetType = getPacketType(document);
-        if (packetType == FRAME)
+        if (packetType == PacketType::FRAME)
         {
             auto framePacket = FramePacket::fromJson(document.object());
             emit imageReceived(framePacket.getImage());
         }
-        else if (packetType == REPLY)
+        else if (packetType == PacketType::REPLY)
         {
             auto replyPacket = ReplyPacket::fromJson(document.object());
             auto info = replyPacket.getReplyPacketInfo();
