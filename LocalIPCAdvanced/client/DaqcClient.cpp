@@ -670,6 +670,15 @@ void DaqcClient::legacySetACUI(int value)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::ACUI, values, valueTypes));
 }
 
+int DaqcClient::legacyBDynamic()
+{
+    auto result = createGetRequest([]{ 
+        return new RequestGetPacket(DaqcParameter::B_DYNAMIC); 
+    });
+
+    return result.toInt();
+}
+
 void DaqcClient::legacySetBDynamic(int value)
 {
     QVariantList values = { value };
@@ -681,6 +690,15 @@ int DaqcClient::legacyCBaseLine()
 {
     auto result = createGetRequest([]{ 
         return new RequestGetPacket(DaqcParameter::C_BASE_LINE); 
+    });
+
+    return result.toInt();
+}
+
+int DaqcClient::legacyDDynamic()
+{
+    auto result = createGetRequest([]{ 
+        return new RequestGetPacket(DaqcParameter::D_DYNAMIC); 
     });
 
     return result.toInt();

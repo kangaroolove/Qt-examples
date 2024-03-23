@@ -128,7 +128,7 @@ public:
     // void legacySetAnatomyLine(int value);
     // int legacyBCDSynChro();
     // void legacySetBCDSynChro(int value);
-    // int legacyBDynamic();
+    int legacyBDynamic();
     void legacySetBDynamic(int value);
     // int legacyBGain();
     // void legacySetBGain(int value);
@@ -158,7 +158,7 @@ public:
     // void legacySetCwdGain(int value);
     // int legacyDBaseLine();
     // void legacySetDBaseLine(int value);
-    // int legacyDDynamic();
+    int legacyDDynamic();
     void legacySetDDynamic(int value);
     // int legacyDNoiseRej();
     // void legacySetDNoiseRej(int value);
