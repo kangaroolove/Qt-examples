@@ -670,6 +670,13 @@ void DaqcClient::legacySetACUI(int value)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::ACUI, values, valueTypes));
 }
 
+void DaqcClient::legacySetBDynamic(int value)
+{
+    QVariantList values = { value };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::B_DYNAMIC, values, valueTypes));
+}
+
 int DaqcClient::legacyCBaseLine()
 {
     auto result = createGetRequest([]{ 
@@ -677,6 +684,13 @@ int DaqcClient::legacyCBaseLine()
     });
 
     return result.toInt();
+}
+
+void DaqcClient::legacySetDDynamic(int value)
+{
+    QVariantList values = { value };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::D_DYNAMIC, values, valueTypes));
 }
 
 void DaqcClient::legacySetExamTypeID(int value)
