@@ -121,7 +121,7 @@ public:
 
     //all functions from daqclib.h are prepended with "legacy"
     // int legacyACUI();
-    // void legacySetACUI(int value);
+    void legacySetACUI(int value);
     // int legacyAPower();
     // void legacySetAPower(int value);
     // int legacyAnatomyLine();
@@ -245,7 +245,7 @@ public:
     // int legacyPosNeg();
     // void legacySetPosNeg(int value);
     // int legacyPwifBuffms();
-    // void legacySetPwifBuffms(int value);
+    void legacySetPwifBuffms(int value);
     // int legacyScanFeature();
     // void legacySetScanFeature(int value);
     // int legacyScanMode();

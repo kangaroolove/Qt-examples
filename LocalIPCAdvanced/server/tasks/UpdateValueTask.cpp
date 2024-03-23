@@ -57,4 +57,8 @@ void UpdateValueTask::run()
         m_daqc->setEspin(values.first().toDouble());
     else if (m_updateValueInfo.parameter == DaqcParameter::EXAM_TYPE_ID)
         m_daqc->SetExamTypeID(values.first().toInt());
+    else if (m_updateValueInfo.parameter == DaqcParameter::ACUI)
+        m_daqc->SetACUI(values.first().toInt());
+    else if (m_updateValueInfo.parameter == DaqcParameter::PWIF_BUFF_MS)
+        m_daqc->setPwifBuffms(values.first().toInt());
 }

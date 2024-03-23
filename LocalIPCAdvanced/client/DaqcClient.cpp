@@ -663,6 +663,14 @@ void DaqcClient::cancelRoi()
 }
 #endif
 
+void DaqcClient::legacySetACUI(int value)
+{
+    QVariantList values = { value };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::ACUI, values, valueTypes));
+}
+
+
 void DaqcClient::legacySetExamTypeID(int value)
 {
     QVariantList values = { value };
@@ -696,6 +704,13 @@ void DaqcClient::legacySetESpin(double value)
     QVariantList values = { value };
     QStringList valueTypes = { "double" };
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::ESPIN, values, valueTypes));
+}
+
+void DaqcClient::legacySetPwifBuffms(int value)
+{
+    QVariantList values = { value };
+    QStringList valueTypes = { "double" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::PWIF_BUFF_MS, values, valueTypes));
 }
 
 /*
