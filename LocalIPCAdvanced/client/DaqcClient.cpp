@@ -677,6 +677,13 @@ void DaqcClient::legacySetProbePOS(int value)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::PROBE_POS, values, valueTypes));
 }
 
+void DaqcClient::legacySetRadium(double value)
+{
+    QVariantList values = { value };
+    QStringList valueTypes = { "double" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::RADIUM, values, valueTypes));
+}
+
 /*
 int DaqcClient::legacyACUI()
 {

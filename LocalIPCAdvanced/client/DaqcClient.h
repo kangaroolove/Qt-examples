@@ -223,7 +223,7 @@ public:
     // int legacyROISwingAngle();
     // void legacySetROISwingAngle(int value);
     // double legacyRadium();
-    // void legacySetRadium(double value);
+    void legacySetRadium(double value);
     // int legacyResetProbe();
     // void legacySetResetProbe(int value);
     // int legacyScanLine();
