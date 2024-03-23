@@ -20,10 +20,8 @@ void UpdateValueTask::run()
 {
     QWriteLocker locker(&m_readWriteLock);
 
-
     auto values = m_updateValueInfo.values.toList();
     auto valueTypes = m_updateValueInfo.valueTypes.toStringList();
-
 
     if (m_updateValueInfo.parameter == "test")
     {
@@ -37,6 +35,6 @@ void UpdateValueTask::run()
     }
     else if (m_updateValueInfo.parameter == INIT)
     {
-
+        m_daqc->Init(values.first().toInt());
     }
 }
