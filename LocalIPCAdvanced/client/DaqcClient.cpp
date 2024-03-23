@@ -10,8 +10,6 @@
 #include <QEventLoop>
 #include <QImage>
 
-using namespace DaqcParameter;
-
 DaqcClient::DaqcClient(QObject* parent) :
     Client(parent)
 {
@@ -40,6 +38,8 @@ void DaqcClient::testSetApi(bool isTest)
     QVariantList values = { true };
     createUpdateRequest(new RequestUpdatePacket("test", values, {"bool"}));
 }
+
+#if 0
 
 double DaqcClient::getRegionPhysicalDeltaX()
 {
@@ -658,12 +658,13 @@ void DaqcClient::setDualMode(bool value)
 void DaqcClient::cancelRoi()
 {
 }
+#endif
 
 void DaqcClient::legacySetImageProcess(int value)
 {
     QVariantList values = { value };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(INIT, values, valueTypes));
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::IMAGE_PROCESS, values, valueTypes));
 }
 
 /*
@@ -1494,14 +1495,14 @@ void DaqcClient::legacyInit(int inum)
 {
     QVariantList values = { inum };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(INIT, values, valueTypes));
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::INIT, values, valueTypes));
 }
 
 void DaqcClient::legacyFProbeType(int pbPort, int pbType)
 {
     QVariantList values = { pbPort,  pbType };
     QStringList valueTypes = { "int", "int" };
-    createUpdateRequest(new RequestUpdatePacket(F_PROBE_TYPE, values, valueTypes));
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::F_PROBE_TYPE, values, valueTypes));
 }
 
 int DaqcClient::boolToIncrease(const bool &increase)
