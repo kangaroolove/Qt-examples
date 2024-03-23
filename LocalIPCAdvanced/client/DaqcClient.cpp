@@ -1578,6 +1578,13 @@ void DaqcClient::legacyInit(int inum)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::INIT, values, valueTypes));
 }
 
+void DaqcClient::legacyMoveROIColor(int x, int y)
+{
+    QVariantList values = { x, y };
+    QStringList valueTypes = { "int", "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::MOVE_ROI_COLOR, values, valueTypes));
+}
+
 void DaqcClient::legacyRealtimeEn(int en)
 {
     QVariantList values = { en };
