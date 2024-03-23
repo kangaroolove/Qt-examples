@@ -1562,6 +1562,13 @@ void DaqcClient::legacyInit(int inum)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::INIT, values, valueTypes));
 }
 
+void DaqcClient::legacyRealtimeEn(int en)
+{
+    QVariantList values = { en };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::REALTIME_EN, values, valueTypes));
+}
+
 void DaqcClient::legacyFProbeType(int pbPort, int pbType)
 {
     QVariantList values = { pbPort,  pbType };

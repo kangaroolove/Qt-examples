@@ -63,4 +63,6 @@ void UpdateValueTask::run()
         m_daqc->setPwifBuffms(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::SCAN_MODE)
         m_daqc->setScanMode(values.first().toInt());
+    else if (m_updateValueInfo.parameter == DaqcParameter::REALTIME_EN)
+        m_daqc->RealtimeEn(values.first().toInt());
 }
