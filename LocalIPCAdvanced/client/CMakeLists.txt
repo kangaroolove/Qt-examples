@@ -11,7 +11,9 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(LIB_NAME daqc_client)
+SET(CMAKE_DEBUG_POSTFIX "d")
+
+set(LIB_NAME daqc)
 
 find_package(Qt5 COMPONENTS Core Gui network REQUIRED)
 
@@ -25,20 +27,23 @@ list(APPEND EXTRA_LIBS
 
 set(PROJECT_SOURCES
 	Client.cpp
-	Client.h
 	DaqcClient.cpp
-	DaqcClient.h
 	Worker.cpp
-	Worker.h
 	../common/packets/Packet.cpp
-	../common/packets/Packet.h
 	../common/packets/FramePacket.cpp
-	../common/packets/FramePacket.h
 	../common/packets/RequestUpdatePacket.cpp
-	../common/packets/RequestUpdatePacket.h
 	../common/packets/RequestGetPacket.cpp
-	../common/packets/RequestGetPacket.h
 	../common/packets/ReplyPacket.cpp
+)
+
+set(PROJECT_HEADERS
+	Client.h
+	DaqcClient.h
+	Worker.h
+	../common/packets/Packet.h
+	../common/packets/FramePacket.h
+	../common/packets/RequestUpdatePacket.h
+	../common/packets/RequestGetPacket.h
 	../common/packets/ReplyPacket.h
 	../common/StringDef.h
 )
@@ -53,6 +58,10 @@ add_library(${LIB_NAME} STATIC
 	${PROJECT_SOURCES}
 	${PROJECT_UIS}
 	${PROJECT_RESOURCES}
+	${PROJECT_HEADERS}
 )
 
 target_link_libraries(${LIB_NAME} PRIVATE Qt5::Gui Qt5::Core Qt5::Network ${EXTRA_LIBS})
+
+install(TARGETS ${LIB_NAME} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/lib)
+install(FILES ${PROJECT_HEADERS} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/include)
