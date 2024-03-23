@@ -684,6 +684,13 @@ void DaqcClient::legacySetRadium(double value)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::RADIUM, values, valueTypes));
 }
 
+void DaqcClient::legacySetESpin(double value)
+{
+    QVariantList values = { value };
+    QStringList valueTypes = { "double" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::ESPIN, values, valueTypes));
+}
+
 /*
 int DaqcClient::legacyACUI()
 {

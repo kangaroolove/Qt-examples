@@ -239,7 +239,7 @@ public:
     // int legacyCFocusLch();
     // void legacySetCFocusLch(int value);
     // double legacyESpin();
-    // void legacySetESpin(double value);
+    void legacySetESpin(double value);
     // int legacyImgExtend();
     // void legacySetImgExtend(int value);
     // int legacyPosNeg();

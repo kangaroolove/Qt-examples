@@ -53,4 +53,6 @@ void UpdateValueTask::run()
         m_daqc->SetProbePOS(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::RADIUM)
         m_daqc->SetRadium(values.first().toDouble());
+    else if (m_updateValueInfo.parameter == DaqcParameter::ESPIN)
+        m_daqc->setEspin(values.first().toDouble());
 }

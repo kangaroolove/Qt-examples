@@ -85,4 +85,5 @@ const QString IMAGE_PROCESS = "ImageProcess";
 const QString PROBE_INFO = "ProbeInfo";
 const QString PROBE_POS = "ProbePOS";
 const QString RADIUM = "Radium";
+const QString ESPIN = "ESpin";
 }
