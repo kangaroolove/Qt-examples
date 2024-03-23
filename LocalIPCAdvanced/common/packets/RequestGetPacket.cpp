@@ -1,5 +1,6 @@
 #include "RequestGetPacket.h"
 #include "StringDef.h"
+#include <QJsonArray>
 
 RequestGetPacket::RequestGetPacket(const RequestGetPacket &packet)
 {
@@ -24,7 +25,9 @@ RequestGetPacket RequestGetPacket::fromJson(const QJsonObject &object)
 {
     QString parameter = object["data"].toObject()["parameter"].toString();
     QString messageId = object["messageId"].toString();
-    return RequestGetPacket(parameter, messageId);
+    QVariant valueTypes = object["data"].toObject()["valueTypes"].toVariant();
+    QVariant values = object["data"].toObject()["values"].toVariant();
+    return RequestGetPacket(parameter, values, valueTypes, messageId);
 }
 
 QJsonObject RequestGetPacket::generateData()
@@ -32,5 +35,12 @@ QJsonObject RequestGetPacket::generateData()
     QJsonObject object;
     object["parameter"] = m_parameter;
     object["requestType"] = "get";
+
+    if (!m_values.isNull())
+        object["values"] = QJsonArray::fromVariantList(m_values.toList());
+
+    if (!m_valueTypes.isNull())
+        object["valueTypes"] = QJsonArray::fromStringList(m_valueTypes.toStringList());
+
     return object;
 }

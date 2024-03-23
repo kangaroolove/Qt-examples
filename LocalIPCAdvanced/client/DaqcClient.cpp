@@ -28,7 +28,9 @@ void DaqcClient::start()
 int DaqcClient::testGetApi()
 {
     auto result = createGetRequest([]{ 
-        return new RequestGetPacket("test"); 
+        QVariantList values = { 50 };
+        QStringList valueTypes = { "int" };
+        return new RequestGetPacket("test", values, valueTypes); 
     });
     return result.toInt();
 }
