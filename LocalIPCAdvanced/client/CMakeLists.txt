@@ -28,7 +28,7 @@ list(APPEND EXTRA_LIBS
 set(PROJECT_SOURCES
 	Client.cpp
 	DaqcClient.cpp
-	Worker.cpp
+	ClientWorker.cpp
 	../common/packets/Packet.cpp
 	../common/packets/FramePacket.cpp
 	../common/packets/RequestUpdatePacket.cpp
@@ -39,7 +39,7 @@ set(PROJECT_SOURCES
 set(PROJECT_HEADERS
 	Client.h
 	DaqcClient.h
-	Worker.h
+	ClientWorker.h
 	../common/packets/Packet.h
 	../common/packets/FramePacket.h
 	../common/packets/RequestUpdatePacket.h

@@ -1,5 +1,5 @@
 #include "Client.h"
-#include "Worker.h"
+#include "ClientWorker.h"
 #include "Packet.h"
 #include <QDataStream>
 #include <QEventLoop>
@@ -16,15 +16,15 @@
 
 Client::Client(QObject* parent) : 
     QObject(parent),
-    m_worker(new Worker(this)),
+    m_worker(new ClientWorker(this)),
     m_thread(new QThread(this)),
     m_mutex(new QMutex)
 {
     m_worker->moveToThread(m_thread);
-    connect(m_thread, &QThread::finished, m_worker, &Worker::deleteLater);
-    connect(this, &Client::messageToWorkerSended, m_worker, &Worker::sendMessage);
-    connect(m_worker, &Worker::messageReceived, this, &Client::messageReceived);
-    connect(m_worker, &Worker::imageReceived, this, &Client::imageReceived);
+    connect(m_thread, &QThread::finished, m_worker, &ClientWorker::deleteLater);
+    connect(this, &Client::messageToWorkerSended, m_worker, &ClientWorker::sendMessage);
+    connect(m_worker, &ClientWorker::messageReceived, this, &Client::messageReceived);
+    connect(m_worker, &ClientWorker::imageReceived, this, &Client::imageReceived);
     m_thread->start();
 }
 
@@ -66,7 +66,7 @@ void Client::sendMessage(const QByteArray& msg)
 QVariant Client::createGetRequest(std::function<Packet*()> callback)
 {
     QEventLoop eventloop;
-    connect(m_worker, &Worker::eventLoopQuitted, &eventloop, &QEventLoop::quit);
+    connect(m_worker, &ClientWorker::eventLoopQuitted, &eventloop, &QEventLoop::quit);
 
     Packet* packet = callback();
     sendMessage(packet->toJson());

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Worker.h"
+#include "ClientWorker.h"
 #include <QObject>
 #include <map>
 #include <QString>
@@ -9,7 +9,7 @@
 
 class QDataStream;
 class QEventLoop;
-class Worker;
+class ClientWorker;
 class QThread;
 class Packet;
 class QMutex;
@@ -46,7 +46,7 @@ protected:
     void createUpdateRequest(Packet *packet);
     RequestResult getRequestResult(const QString& clientMessageId);
 
-    Worker* m_worker;
+    ClientWorker* m_worker;
     QThread* m_thread;
     QMutex* m_mutex;
     // shared resources

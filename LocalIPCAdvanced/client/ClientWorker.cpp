@@ -1,4 +1,4 @@
-#include "Worker.h"
+#include "ClientWorker.h"
 #include "Client.h"
 #include "StringDef.h"
 #include "FramePacket.h"
@@ -9,20 +9,20 @@
 #include <QImage>
 #include <QJsonObject>
 
-Worker::Worker(Client* client, QObject* parent) :
+ClientWorker::ClientWorker(Client* client, QObject* parent) :
     QLocalSocket(parent),
     m_client(client),
     m_in(new QDataStream(this))
 {
     m_in->setVersion(QDataStream::Qt_5_12);
-    connect(this, &Worker::readyRead, this, &Worker::readyToRead);
+    connect(this, &ClientWorker::readyRead, this, &ClientWorker::readyToRead);
 }
 
-Worker::~Worker()
+ClientWorker::~ClientWorker()
 {
 }
 
-void Worker::readyToRead()
+void ClientWorker::readyToRead()
 {
     if (bytesAvailable() > 0 && !m_in->atEnd())
     {  
@@ -52,7 +52,7 @@ void Worker::readyToRead()
     }
 }
 
-void Worker::sendMessage(const QByteArray &msg)
+void ClientWorker::sendMessage(const QByteArray &msg)
 {
     QByteArray data;
     QDataStream out(&data, QIODevice::WriteOnly);
@@ -66,7 +66,7 @@ void Worker::sendMessage(const QByteArray &msg)
     flush();
 }
 
-QString Worker::getPacketType(const QJsonDocument &document)
+QString ClientWorker::getPacketType(const QJsonDocument &document)
 {
     return document["packetType"].toString();
 }

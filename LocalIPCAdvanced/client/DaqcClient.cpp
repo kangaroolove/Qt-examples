@@ -3,7 +3,6 @@
 #include "RequestUpdatePacket.h"
 #include "Client.h"
 #include "StringDef.h"
-#include "Worker.h"
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDebug>

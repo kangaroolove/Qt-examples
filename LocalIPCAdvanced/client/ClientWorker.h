@@ -5,12 +5,12 @@
 class QDataStream;
 class Client;
 
-class Worker : public QLocalSocket
+class ClientWorker : public QLocalSocket
 {
     Q_OBJECT
 public:
-    Worker(Client* client, QObject* parent = nullptr);
-    ~Worker();
+    ClientWorker(Client* client, QObject* parent = nullptr);
+    ~ClientWorker();
 signals:
     void imageReceived(const QImage& image);
     void eventLoopQuitted();
