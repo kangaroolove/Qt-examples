@@ -209,7 +209,7 @@ public:
     // int legacyPersistenceColor();
     // void legacySetPersistenceColor(int value);
     // int legacyProbePOS();
-    // void legacySetProbePOS(int value);
+    void legacySetProbePOS(int value);
     // int legacyProbeSEL();
     // void legacySetProbeSEL(int value);
     // int legacyPwdGain();

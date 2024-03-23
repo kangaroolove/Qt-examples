@@ -49,4 +49,6 @@ void UpdateValueTask::run()
         m_daqc->Init(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::F_PROBE_TYPE)
         m_daqc->fProbeType(values.first().toInt(), values.last().toInt());
+    else if (m_updateValueInfo.parameter == DaqcParameter::PROBE_POS);
+        m_daqc->SetProbePOS(values.first().toInt());
 }

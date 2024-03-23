@@ -670,6 +670,13 @@ void DaqcClient::legacySetImageProcess(int value)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::IMAGE_PROCESS, values, valueTypes));
 }
 
+void DaqcClient::legacySetProbePOS(int value)
+{
+    QVariantList values = { value };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::PROBE_POS, values, valueTypes));
+}
+
 /*
 int DaqcClient::legacyACUI()
 {

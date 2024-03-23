@@ -83,4 +83,5 @@ const QString INIT = "Init";
 const QString F_PROBE_TYPE = "FProbeType";
 const QString IMAGE_PROCESS = "ImageProcess";
 const QString PROBE_INFO = "ProbeInfo";
+const QString PROBE_POS = "ProbePOS";
 }
