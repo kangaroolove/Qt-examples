@@ -15,7 +15,7 @@ SET(CMAKE_DEBUG_POSTFIX "d")
 
 set(LIB_NAME daqc)
 
-find_package(Qt5 COMPONENTS Core Gui network REQUIRED)
+find_package(Qt5 COMPONENTS Core Gui Network REQUIRED)
 
 include_directories(
 	../common/packets
@@ -65,3 +65,5 @@ target_link_libraries(${LIB_NAME} PRIVATE Qt5::Gui Qt5::Core Qt5::Network ${EXTR
 
 install(TARGETS ${LIB_NAME} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/lib)
 install(FILES ${PROJECT_HEADERS} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/include)
+
+add_subdirectory(ui)
