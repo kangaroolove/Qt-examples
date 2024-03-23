@@ -129,7 +129,7 @@ public:
     // int legacyBCDSynChro();
     // void legacySetBCDSynChro(int value);
     // int legacyBDynamic();
-    // void legacySetBDynamic(int value);
+    void legacySetBDynamic(int value);
     // int legacyBGain();
     // void legacySetBGain(int value);
     // int legacyBGain2();
@@ -159,7 +159,7 @@ public:
     // int legacyDBaseLine();
     // void legacySetDBaseLine(int value);
     // int legacyDDynamic();
-    // void legacySetDDynamic(int value);
+    void legacySetDDynamic(int value);
     // int legacyDNoiseRej();
     // void legacySetDNoiseRej(int value);
     // double legacyDPRF();
@@ -207,7 +207,7 @@ public:
     // int legacyPWDstartPos();
     // void legacySetPWDstartPos(int value);
     // int legacyPersistenceColor();
-    // void legacySetPersistenceColor(int value);
+    void legacySetPersistenceColor(int value);
     // int legacyProbePOS();
     void legacySetProbePOS(int value);
     // int legacyProbeSEL();

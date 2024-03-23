@@ -96,4 +96,5 @@ const QString ZOOM_COLOR_ROI = "ZoomColorROI";
 const QString MOVE_ROI_COLOR = "MoveROIColor";
 const QString TGC_POSITIONS = "TGCPositions";
 const QString GET_PARAMETER = "GetParameter";
+const QString PERSISTENCE_COLOR = "PersistenceColor";
 }

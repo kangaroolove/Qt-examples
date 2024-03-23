@@ -707,6 +707,13 @@ void DaqcClient::legacySetImageProcess(int value)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::IMAGE_PROCESS, values, valueTypes));
 }
 
+void DaqcClient::legacySetPersistenceColor(int value)
+{
+    QVariantList values = { value };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::PERSISTENCE_COLOR, values, valueTypes));
+}
+
 void DaqcClient::legacySetProbePOS(int value)
 {
     QVariantList values = { value };
