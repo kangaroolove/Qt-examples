@@ -38,7 +38,7 @@ void DaqcServerHandleReceiveMessageTask::analyzeJson(const QByteArray &data)
         if (requestType == "get")
         {
             auto packet = RequestGetPacket::fromJson(document.object());
-            QThreadPool::globalInstance()->start(new GetValueTask(m_server, packet.getParameter(), packet.getMessageId()));
+            handleGetRequest(packet.getParameter(), packet.getValueTypes(), packet.getValues(), packet.getMessageId());
         }
         else if (requestType == "update")
         {
@@ -55,6 +55,16 @@ void DaqcServerHandleReceiveMessageTask::handleUpdateRequest(const QString &para
     info.values = values;
     info.valueTypes = valueTypes;
     QThreadPool::globalInstance()->start(new UpdateValueTask(info, m_daqc));
+}
+
+void DaqcServerHandleReceiveMessageTask::handleGetRequest(const QString &parameter, const QVariant &valueTypes, const QVariant &values, const QString& messageId)
+{
+    GetValueInfo info;
+    info.parameter = parameter;
+    info.values = values;
+    info.valueTypes = valueTypes;
+    info.clientMessageId = messageId;
+    QThreadPool::globalInstance()->start(new GetValueTask(m_server, m_daqc, info));
 }
 
 QString DaqcServerHandleReceiveMessageTask::getRequestType(const QJsonDocument &document) const

@@ -2,6 +2,7 @@
 #include "StringDef.h"
 #include <QJsonDocument>
 #include <QVariant>
+#include <QJsonArray>
 
 ReplyPacket::ReplyPacket(const ReplyPacketInfo& replyPacketInfo) :
     m_replyPacketInfo(replyPacketInfo)
@@ -30,8 +31,8 @@ ReplyPacket ReplyPacket::fromJson(const QJsonObject& object)
     info.clientMessageId = object["data"].toObject()["clientMessageId"].toString();
     info.parameter = object["data"].toObject()["parameter"].toString();
     info.requestType = object["data"].toObject()["requestType"].toString();
-    info.value = object["data"].toObject()["value"].toVariant();
-    info.valueType = object["data"].toObject()["requestType"].toString();
+    info.values = object["data"].toObject()["values"].toVariant();
+    info.valueTypes = object["data"].toObject()["requestTypes"].toVariant();
 
     return ReplyPacket(info);
 }
@@ -42,16 +43,7 @@ QJsonObject ReplyPacket::generateData()
     object["parameter"] = m_replyPacketInfo.parameter;
     object["requestType"] = m_replyPacketInfo.requestType; 
     object["clientMessageId"] = m_replyPacketInfo.clientMessageId;
-    object["valueType"] = m_replyPacketInfo.valueType;
-
-    if (m_replyPacketInfo.valueType == "int")
-        object["value"] = m_replyPacketInfo.value.toInt();
-    else if (m_replyPacketInfo.valueType == "string")
-        object["value"] = m_replyPacketInfo.value.toString();
-    else if (m_replyPacketInfo.valueType == "bool")
-        object["value"] = m_replyPacketInfo.value.toBool();
-    else if (m_replyPacketInfo.valueType == "double")
-        object["value"] = m_replyPacketInfo.value.toDouble();
-
+    object["valueTypes"] = QJsonArray::fromStringList(m_replyPacketInfo.valueTypes.toStringList());
+    object["values"] = QJsonArray::fromVariantList(m_replyPacketInfo.values.toList());
     return object;
 }

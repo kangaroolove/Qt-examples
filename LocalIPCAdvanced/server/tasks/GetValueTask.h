@@ -9,10 +9,19 @@
 using Daqc = DAQCLib::DAQC;
 
 class Server;
+
+class GetValueInfo
+{
+public:
+    QString parameter;
+    QVariant valueTypes;
+    QVariant values;
+    QString clientMessageId;
+};
 class GetValueTask : public QRunnable
 {
 public:
-    GetValueTask(Server* server, Daqc* daqc, const QString& parameter, const QString& clientMessageId);
+    GetValueTask(Server* server, Daqc* daqc, const GetValueInfo& getValueInfo);
     ~GetValueTask();
     void run() override;
 signals:
@@ -20,8 +29,7 @@ signals:
 private:
     ReplyPacketInfo getReplyPacketInfo();
 
-    QString m_parameter;
-    QString m_clientMessageId;
+    GetValueInfo m_getValueInfo;
     Server* m_server;
     Daqc* m_daqc;
     static QReadWriteLock m_readWriteLock;

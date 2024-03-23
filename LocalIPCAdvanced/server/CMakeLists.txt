@@ -44,8 +44,6 @@ set(PROJECT_SOURCES
 	tasks/DaqcServerHandleReceiveMessageTask.h
 	../common/packets/Packet.cpp
 	../common/packets/Packet.h
-	../common/packets/FramePacket.cpp
-	../common/packets/FramePacket.h
 	../common/packets/ReplyPacket.cpp
 	../common/packets/ReplyPacket.h
 	../common/packets/CommandPacket.cpp
@@ -54,6 +52,8 @@ set(PROJECT_SOURCES
 	../common/packets/RequestGetPacket.h
 	../common/packets/RequestUpdatePacket.cpp
 	../common/packets/RequestUpdatePacket.h
+	../common/packets/RequestPacket.cpp
+	../common/packets/RequestPacket.h
 	../common/packets/FramePacket.cpp
 	../common/packets/FramePacket.h
 	lib/daqclib.cpp
