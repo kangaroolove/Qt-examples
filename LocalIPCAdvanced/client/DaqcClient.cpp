@@ -670,6 +670,14 @@ void DaqcClient::legacySetACUI(int value)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::ACUI, values, valueTypes));
 }
 
+int DaqcClient::legacyCBaseLine()
+{
+    auto result = createGetRequest([]{ 
+        return new RequestGetPacket(DaqcParameter::C_BASE_LINE); 
+    });
+
+    return result.toInt();
+}
 
 void DaqcClient::legacySetExamTypeID(int value)
 {
