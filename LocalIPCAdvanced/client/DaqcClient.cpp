@@ -1494,6 +1494,17 @@ void DaqcClient::legacyWifiEWM(const QString &fptStr, QString &htpStr)
 }
 */
 
+int DaqcClient::legacyGetProbeInfo(int id)
+{
+    auto result = createGetRequest([&id]{ 
+        QVariantList values = { id };
+        QStringList valueTypes = { "int" };
+        return new RequestGetPacket("test", values, valueTypes); 
+    });
+
+    return result.toInt();
+}
+
 void DaqcClient::legacyInit(int inum)
 {
     QVariantList values = { inum };

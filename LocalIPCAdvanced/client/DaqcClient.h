@@ -259,9 +259,9 @@ public:
     // double legacyGetFPS();
     // double legacyGetParameter(int id);
     // // This function is not real-time. This result will be changed only when the ultrasound machine start
-    // int legacyGetProbeInfo(int id);
+    int legacyGetProbeInfo(int id);
     // void legacyGetTGCPositions(int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8);
-     void legacyInit(int inum);
+    void legacyInit(int inum);
     // void legacyMode2B();
     // void legacyMode4B(int wid);
     // void legacyMoveColorROI(int LeftRight, int UpDown);
