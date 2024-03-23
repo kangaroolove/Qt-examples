@@ -11,8 +11,8 @@ public:
     QString parameter;
     QString requestType;
     QString clientMessageId;
-    QVariant valueTypes;
-    QVariant values;
+    QVariant valueType;
+    QVariant value;
 };
 
 class ReplyPacket : public Packet

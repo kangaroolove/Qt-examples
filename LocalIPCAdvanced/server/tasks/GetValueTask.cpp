@@ -38,19 +38,16 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
     auto values = m_getValueInfo.values.toList();
     auto valueTypes = m_getValueInfo.valueTypes.toStringList();
 
-    QVariantList replyValues;
     if (replyPacketInfo.parameter == "test")
     {   
-        replyValues.push_back(10);
-        replyPacketInfo.valueTypes = { "int" };
+        replyPacketInfo.value = 10;
+        replyPacketInfo.valueType = "int";
     }
     else if (replyPacketInfo.parameter == DaqcParameter::PROBE_INFO)
     {
-        replyPacketInfo.values = m_daqc->GetProbeInfo(values.first().toInt());
-        replyPacketInfo.valueTypes = { "int" };
+        replyPacketInfo.value = m_daqc->GetProbeInfo(values.first().toInt());
+        replyPacketInfo.valueType = "int";
     }
-
-    replyPacketInfo.values = replyValues;
 
     return replyPacketInfo;
 }

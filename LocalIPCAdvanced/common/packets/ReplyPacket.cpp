@@ -31,8 +31,8 @@ ReplyPacket ReplyPacket::fromJson(const QJsonObject& object)
     info.clientMessageId = object["data"].toObject()["clientMessageId"].toString();
     info.parameter = object["data"].toObject()["parameter"].toString();
     info.requestType = object["data"].toObject()["requestType"].toString();
-    info.values = object["data"].toObject()["values"].toVariant();
-    info.valueTypes = object["data"].toObject()["valueTypes"].toVariant();
+    info.value = object["data"].toObject()["value"].toVariant();
+    info.valueType = object["data"].toObject()["valueType"].toVariant();
     return ReplyPacket(info);
 }
 
@@ -42,7 +42,7 @@ QJsonObject ReplyPacket::generateData()
     object["parameter"] = m_replyPacketInfo.parameter;
     object["requestType"] = m_replyPacketInfo.requestType; 
     object["clientMessageId"] = m_replyPacketInfo.clientMessageId;
-    object["valueTypes"] = QJsonArray::fromStringList(m_replyPacketInfo.valueTypes.toStringList());
-    object["values"] = QJsonArray::fromVariantList(m_replyPacketInfo.values.toList());
+    object["valueType"] = QJsonValue::fromVariant(m_replyPacketInfo.valueType);
+    object["value"] = QJsonValue::fromVariant(m_replyPacketInfo.value);
     return object;
 }

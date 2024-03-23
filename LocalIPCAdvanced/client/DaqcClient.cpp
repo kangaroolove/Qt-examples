@@ -33,8 +33,7 @@ int DaqcClient::testGetApi()
         return new RequestGetPacket("test", values, valueTypes); 
     });
 
-    auto list = result.toList();
-    return list.first().toInt();
+    return result.toInt();
 }
 
 void DaqcClient::testSetApi(bool isTest)
