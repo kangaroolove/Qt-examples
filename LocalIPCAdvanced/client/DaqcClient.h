@@ -210,7 +210,7 @@ public:
     void legacySetPersistenceColor(int value);
     // int legacyProbePOS();
     void legacySetProbePOS(int value);
-    // int legacyProbeSEL();
+    int legacyProbeSEL();
     // void legacySetProbeSEL(int value);
     // int legacyPwdGain();
     // void legacySetPwdGain(int value);

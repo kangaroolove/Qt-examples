@@ -83,6 +83,11 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->PersistenceColor();
         replyPacketInfo.valueType = "int";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::PROBE_SEL)
+    {
+        replyPacketInfo.value = m_daqc->ProbeSEL();
+        replyPacketInfo.valueType = "int";
+    }
 
     return replyPacketInfo;
 }

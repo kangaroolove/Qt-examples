@@ -748,6 +748,15 @@ void DaqcClient::legacySetProbePOS(int value)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::PROBE_POS, values, valueTypes));
 }
 
+int DaqcClient::legacyProbeSEL()
+{
+    auto result = createGetRequest([]{ 
+        return new RequestGetPacket(DaqcParameter::PROBE_SEL); 
+    });
+
+    return result.toInt();
+}
+
 void DaqcClient::legacySetRadium(double value)
 {
     QVariantList values = { value };
