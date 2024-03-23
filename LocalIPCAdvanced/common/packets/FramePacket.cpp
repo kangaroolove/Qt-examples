@@ -7,7 +7,7 @@
 FramePacket::FramePacket(const QImage& image) :
     m_image(image)
 {
-    m_packetType = FRAME;
+    m_packetType = PacketType::FRAME;
 }
 
 FramePacket::FramePacket(const FramePacket &framePacket)

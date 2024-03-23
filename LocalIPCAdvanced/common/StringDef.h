@@ -2,14 +2,17 @@
 
 #include <QString>
 
-// Packet Type
+namespace PacketType
+{
 const QString UNKNOWN_PACKET = "UnknownPacket";
 const QString FRAME = "Frame";
 const QString REQUEST = "Request";
 const QString REPLY = "Reply";
 const QString COMMAND = "Command";
+}
 
-
+namespace DaqcParameter
+{
 const QString REGION_PHYSICAL_DELTA_X = "RegionPhysicalDeltaX";
 const QString REGION_PHYSICAL_DELTA_Y = "RegionPhysicalDeltaY";
 const QString B_GAIN = "BGain";
@@ -78,3 +81,5 @@ const QString EXAM_TYPE_ID = "ExamTypeID";
 const QString FRAME_RELATION = "FrameRelation";
 const QString INIT = "Init";
 const QString F_PROBE_TYPE = "FProbeType";
+const QString IMAGE_PROCESS = "ImageProcess";
+}

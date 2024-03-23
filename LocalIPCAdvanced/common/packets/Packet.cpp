@@ -5,7 +5,7 @@
 
 Packet::Packet(QObject* parent) :
     QObject(parent),
-    m_packetType(UNKNOWN_PACKET)
+    m_packetType(PacketType::UNKNOWN_PACKET)
 {
     generateMessageId();
 }

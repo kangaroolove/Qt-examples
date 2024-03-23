@@ -45,8 +45,8 @@ void UpdateValueTask::run()
         for (auto &type : valueTypes)
             qDebug()<<"valueType = "<<type;
     }
-    else if (m_updateValueInfo.parameter == INIT)
+    else if (m_updateValueInfo.parameter == DaqcParameter::INIT)
         m_daqc->Init(values.first().toInt());
-    else if (m_updateValueInfo.parameter == F_PROBE_TYPE)
+    else if (m_updateValueInfo.parameter == DaqcParameter::F_PROBE_TYPE)
         m_daqc->fProbeType(values.first().toInt(), values.last().toInt());
 }

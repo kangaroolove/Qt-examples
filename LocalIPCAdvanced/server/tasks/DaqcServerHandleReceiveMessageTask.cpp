@@ -32,7 +32,7 @@ void DaqcServerHandleReceiveMessageTask::analyzeJson(const QByteArray &data)
         return;
 
     QString packetType = getPacketType(document);
-    if (packetType == REQUEST)
+    if (packetType == PacketType::REQUEST)
     {
         auto requestType = getRequestType(document);
         if (requestType == "get")

@@ -8,7 +8,7 @@ RequestUpdatePacket::RequestUpdatePacket(const QString& parameter, const QVarian
     m_valueTypes(valueTypes),
     m_parameter(parameter)
 {
-    m_packetType = REQUEST;
+    m_packetType = PacketType::REQUEST;
 }
 
 RequestUpdatePacket::RequestUpdatePacket(const RequestUpdatePacket &packet)

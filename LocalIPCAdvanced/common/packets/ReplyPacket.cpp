@@ -6,7 +6,7 @@
 ReplyPacket::ReplyPacket(const ReplyPacketInfo& replyPacketInfo) :
     m_replyPacketInfo(replyPacketInfo)
 {
-    m_packetType = REPLY;
+    m_packetType = PacketType::REPLY;
 }
 
 ReplyPacket::ReplyPacket(const ReplyPacket &packet)

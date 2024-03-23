@@ -9,7 +9,7 @@ RequestGetPacket::RequestGetPacket(const RequestGetPacket &packet)
 RequestGetPacket::RequestGetPacket(const QString &parameter, const QString &messageId) :
     m_parameter(parameter)
 {
-    m_packetType = REQUEST;
+    m_packetType = PacketType::REQUEST;
     if (!messageId.isNull())
         m_messageId = messageId;
 }

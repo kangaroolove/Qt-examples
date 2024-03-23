@@ -657,6 +657,13 @@ void DaqcClient::cancelRoi()
 {
 }
 
+void DaqcClient::legacySetImageProcess(int value)
+{
+    QVariantList values = { value };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(INIT, values, valueTypes));
+}
+
 /*
 int DaqcClient::legacyACUI()
 {

@@ -187,7 +187,7 @@ public:
     // int legacyGetDscStop();
     // void legacySetGetDscStop(int value);
     // int legacyImageProcess();
-    // void legacySetImageProcess(int value);
+    void legacySetImageProcess(int value);
     // int legacyLavgRelation();
     // void legacySetLavgRelation(int value);
     // int legacyLineDensity();
