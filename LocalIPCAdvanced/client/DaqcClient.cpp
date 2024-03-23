@@ -1412,10 +1412,6 @@ void DaqcClient::legacyGetTGCPositions(int p1, int p2, int p3, int p4, int p5, i
 {
 }
 
-void DaqcClient::legacyInit(int inum)
-{
-}
-
 void DaqcClient::legacyMode2B()
 {
 }
@@ -1488,6 +1484,12 @@ void DaqcClient::legacyWifiEWM(const QString &fptStr, QString &htpStr)
 {
 }
 */
+
+void DaqcClient::legacyInit(int inum)
+{
+    QVariantList values = { inum };
+    createUpdateRequest(new RequestUpdatePacket(INIT, values, {"int"}));
+}
 
 int DaqcClient::boolToIncrease(const bool &increase)
 {

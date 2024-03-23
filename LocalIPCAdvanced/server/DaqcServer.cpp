@@ -28,7 +28,7 @@ void DaqcServer::start()
 
 HandleReceiveMessageTask *DaqcServer::generateHandleRequestTask(const QByteArray& data)
 {
-    return new DaqcServerHandleReceiveMessageTask(this, data);
+    return new DaqcServerHandleReceiveMessageTask(this, m_daqc, data);
 }
 
 void DaqcServer::frameReady()

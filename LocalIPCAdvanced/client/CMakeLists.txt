@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(LocalClient VERSION 0.1 LANGUAGES CXX)
+project(DaqcClientLib VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 

@@ -1,7 +1,10 @@
 #pragma once
 
 #include "HandleReceiveMessageTask.h"
+#include "daqclib.h"
 #include <QObject>
+
+using Daqc = DAQCLib::DAQC;
 
 class Server;
 class QJsonDocument;
@@ -9,7 +12,7 @@ class QJsonDocument;
 class DaqcServerHandleReceiveMessageTask : public HandleReceiveMessageTask
 {
 public:
-    DaqcServerHandleReceiveMessageTask(Server* server, const QByteArray& data);
+    DaqcServerHandleReceiveMessageTask(Server* server, Daqc* daqc, const QByteArray& data);
     ~DaqcServerHandleReceiveMessageTask();
 protected:
     void analyzeJson(const QByteArray& data) override;
@@ -19,4 +22,5 @@ private:
     QString getPacketType(const QJsonDocument& document) const;
 
     Server* m_server;
+    Daqc* m_daqc;
 };

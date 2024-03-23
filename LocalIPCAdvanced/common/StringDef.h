@@ -76,3 +76,4 @@ const QString DIR_PWR_GAIN = "DirPwrGain";
 const QString DSC_CAPTURE = "DscCapture";
 const QString EXAM_TYPE_ID = "ExamTypeID";
 const QString FRAME_RELATION = "FrameRelation";
+const QString INIT = "Init";

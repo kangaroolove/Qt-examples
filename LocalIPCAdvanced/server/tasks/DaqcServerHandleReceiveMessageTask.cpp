@@ -12,9 +12,10 @@
 #include <QUuid>
 #include <QThreadPool>
 
-DaqcServerHandleReceiveMessageTask::DaqcServerHandleReceiveMessageTask(Server* server, const QByteArray& data) :
+DaqcServerHandleReceiveMessageTask::DaqcServerHandleReceiveMessageTask(Server* server, Daqc* daqc, const QByteArray& data) :
     HandleReceiveMessageTask(data),
-    m_server(server)
+    m_server(server),
+    m_daqc(daqc)
 {
 
 }
@@ -53,7 +54,7 @@ void DaqcServerHandleReceiveMessageTask::handleUpdateRequest(const QString &para
     info.parameter = parameter;
     info.values = values;
     info.valueTypes = valueTypes;
-    QThreadPool::globalInstance()->start(new UpdateValueTask(info));
+    QThreadPool::globalInstance()->start(new UpdateValueTask(info, m_daqc));
 }
 
 QString DaqcServerHandleReceiveMessageTask::getRequestType(const QJsonDocument &document) const
