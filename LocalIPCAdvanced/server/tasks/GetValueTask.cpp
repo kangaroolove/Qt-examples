@@ -63,6 +63,11 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->scanMode();
         replyPacketInfo.valueType = "int";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::GET_PARAMETER)
+    {
+        replyPacketInfo.value = m_daqc->GetParameter(values.first().toInt());
+        replyPacketInfo.valueType = "double";
+    }
 
     return replyPacketInfo;
 }
