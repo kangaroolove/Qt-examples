@@ -136,7 +136,7 @@ public:
     // void legacySetBGain2(int value);
     // int legacyBNoiseRej();
     // void legacySetBNoiseRej(int value);
-    // int legacyCBaseLine();
+    int legacyCBaseLine();
     // void legacySetCBaseLine(int value);
     // int legacyCDynamic();
     // void legacySetCDynamic(int value);
@@ -248,7 +248,7 @@ public:
     void legacySetPwifBuffms(int value);
     // int legacyScanFeature();
     // void legacySetScanFeature(int value);
-    // int legacyScanMode();
+    int legacyScanMode();
     void legacySetScanMode(int value);
     // int legacySmooth();
     // void legacySetSmooth(int value);
@@ -265,14 +265,14 @@ public:
     // void legacyMode2B();
     // void legacyMode4B(int wid);
     // void legacyMoveColorROI(int LeftRight, int UpDown);
-    // void legacyMoveROIColor(int x, int y);
+    void legacyMoveROIColor(int x, int y);
     // void legacyPalette(int colorID, int bright, int ts);
     void legacyRealtimeEn(int en);
     // void legacySetColorDopplerROI(int startPos, int endPos, int startDepth, int endDepth);
     // void legacySetFlipH(int isFlip);
     // void legacySetFlipV(int isFlip);
     // void legacySetPwdAutoTrace(int nAuto);
-    // void legacySetTGCPositions(int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8);
+    void legacySetTGCPositions(int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8);
     // void legacySetiClear(int id);
     void legacyZoomColorROI(int xDirection, int yDirection);
     // // F means forward

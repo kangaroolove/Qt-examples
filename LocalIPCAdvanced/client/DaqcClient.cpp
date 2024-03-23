@@ -737,6 +737,15 @@ void DaqcClient::legacySetPwifBuffms(int value)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::PWIF_BUFF_MS, values, valueTypes));
 }
 
+int DaqcClient::legacyScanMode()
+{
+    auto result = createGetRequest([]{ 
+        return new RequestGetPacket(DaqcParameter::SCAN_MODE); 
+    });
+
+    return result.toInt();
+}
+
 void DaqcClient::legacySetScanMode(int value)
 {
     QVariantList values = { value };
