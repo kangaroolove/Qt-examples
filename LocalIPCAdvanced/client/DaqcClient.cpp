@@ -709,8 +709,15 @@ void DaqcClient::legacySetESpin(double value)
 void DaqcClient::legacySetPwifBuffms(int value)
 {
     QVariantList values = { value };
-    QStringList valueTypes = { "double" };
+    QStringList valueTypes = { "int" };
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::PWIF_BUFF_MS, values, valueTypes));
+}
+
+void DaqcClient::legacySetScanMode(int value)
+{
+    QVariantList values = { value };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::SCAN_MODE, values, valueTypes));
 }
 
 /*

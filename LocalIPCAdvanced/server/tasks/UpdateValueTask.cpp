@@ -61,4 +61,6 @@ void UpdateValueTask::run()
         m_daqc->SetACUI(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::PWIF_BUFF_MS)
         m_daqc->setPwifBuffms(values.first().toInt());
+    else if (m_updateValueInfo.parameter == DaqcParameter::SCAN_MODE)
+        m_daqc->setScanMode(values.first().toInt());
 }

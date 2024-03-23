@@ -87,4 +87,5 @@ const QString PROBE_POS = "ProbePOS";
 const QString RADIUM = "Radium";
 const QString ESPIN = "ESpin";
 const QString PWIF_BUFF_MS = "PwifBuffms";
+const QString SCAN_MODE = "ScanMode";
 }
