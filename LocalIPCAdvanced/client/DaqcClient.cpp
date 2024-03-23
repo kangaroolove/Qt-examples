@@ -1492,7 +1492,7 @@ void DaqcClient::legacyFProbeType(int pbPort, int pbType)
 {
     QVariantList values = { pbPort,  pbType };
     QStringList valueTypes = { "int", "int" };
-    createUpdateRequest(new RequestUpdatePacket(INIT, values, valueTypes));
+    createUpdateRequest(new RequestUpdatePacket(F_PROBE_TYPE, values, valueTypes));
 }
 
 int DaqcClient::boolToIncrease(const bool &increase)
