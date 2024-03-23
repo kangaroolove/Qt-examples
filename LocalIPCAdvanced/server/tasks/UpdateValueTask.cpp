@@ -55,4 +55,6 @@ void UpdateValueTask::run()
         m_daqc->SetRadium(values.first().toDouble());
     else if (m_updateValueInfo.parameter == DaqcParameter::ESPIN)
         m_daqc->setEspin(values.first().toDouble());
+    else if (m_updateValueInfo.parameter == DaqcParameter::EXAM_TYPE_ID)
+        m_daqc->SetExamTypeID(values.first().toInt());
 }

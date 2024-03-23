@@ -663,6 +663,13 @@ void DaqcClient::cancelRoi()
 }
 #endif
 
+void DaqcClient::legacySetExamTypeID(int value)
+{
+    QVariantList values = { value };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::EXAM_TYPE_ID, values, valueTypes));
+}
+
 void DaqcClient::legacySetImageProcess(int value)
 {
     QVariantList values = { value };

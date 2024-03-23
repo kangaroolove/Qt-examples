@@ -177,7 +177,7 @@ public:
     // int legacyDscCapture();
     // void legacySetDscCapture(int value);
     // int legacyExamTypeID();
-    // void legacySetExamTypeID(int value);
+    void legacySetExamTypeID(int value);
     // double legacyFrameRelation();
     // void legacySetFrameRelation(double value);
     // double legacyFreq2();
