@@ -19,6 +19,10 @@ public:
     int testGetApi();
     void testSetApi(bool isTest);
     // get functions
+
+    // TO CHECK
+    bool isConnected();
+
     double getRegionPhysicalDeltaX();
     double getRegionPhysicalDeltaY();
     int getBGain();
@@ -269,8 +273,8 @@ public:
     // void legacyPalette(int colorID, int bright, int ts);
     void legacyRealtimeEn(int en);
     // void legacySetColorDopplerROI(int startPos, int endPos, int startDepth, int endDepth);
-    // void legacySetFlipH(int isFlip);
-    // void legacySetFlipV(int isFlip);
+    void legacySetFlipH(int isFlip);
+    void legacySetFlipV(int isFlip);
     // void legacySetPwdAutoTrace(int nAuto);
     void legacySetTGCPositions(int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8);
     // void legacySetiClear(int id);

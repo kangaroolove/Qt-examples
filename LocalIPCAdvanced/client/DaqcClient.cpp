@@ -42,6 +42,11 @@ void DaqcClient::testSetApi(bool isTest)
     createUpdateRequest(new RequestUpdatePacket("test", values, {"bool"}));
 }
 
+bool DaqcClient::isConnected()
+{
+    return false;
+}
+
 #if 0
 
 double DaqcClient::getRegionPhysicalDeltaX()
