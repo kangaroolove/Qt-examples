@@ -11,7 +11,9 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt5 COMPONENTS Widgets network REQUIRED)
+set(LIB_NAME daqc_client)
+
+find_package(Qt5 COMPONENTS Core Gui network REQUIRED)
 
 include_directories(
 	../common/packets
@@ -22,9 +24,6 @@ list(APPEND EXTRA_LIBS
 )
 
 set(PROJECT_SOURCES
-    main.cpp
-	ClientWidget.cpp
-	ClientWidget.h
 	Client.cpp
 	Client.h
 	DaqcClient.cpp
@@ -50,10 +49,10 @@ set(PROJECT_UIS
 set(PROJECT_RESOURCES
 )
 
-add_executable(${PROJECT_NAME} 
+add_library(${LIB_NAME} STATIC
 	${PROJECT_SOURCES}
 	${PROJECT_UIS}
 	${PROJECT_RESOURCES}
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::Network ${EXTRA_LIBS})
+target_link_libraries(${LIB_NAME} PRIVATE Qt5::Gui Qt5::Core Qt5::Network ${EXTRA_LIBS})
