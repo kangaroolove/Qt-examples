@@ -91,4 +91,5 @@ const QString SCAN_MODE = "ScanMode";
 const QString REALTIME_EN = "RealtimeEn";
 const QString START = "Start";
 const QString STOP = "Stop";
+const QString THI = "THI";
 }

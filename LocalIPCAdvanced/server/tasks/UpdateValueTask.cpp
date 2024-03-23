@@ -69,4 +69,6 @@ void UpdateValueTask::run()
         m_daqc->start();
     else if (m_updateValueInfo.parameter == DaqcParameter::STOP)
         m_daqc->stop();
+    else if (m_updateValueInfo.parameter == DaqcParameter::THI)
+        m_daqc->SetTHI(values.first().toInt());
 }

@@ -48,6 +48,11 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->GetProbeInfo(values.first().toInt());
         replyPacketInfo.valueType = "int";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::THI)
+    {
+        replyPacketInfo.value = m_daqc->THI();
+        replyPacketInfo.valueType = "int";
+    }
 
     return replyPacketInfo;
 }

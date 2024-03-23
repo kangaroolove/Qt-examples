@@ -228,8 +228,8 @@ public:
     // void legacySetResetProbe(int value);
     // int legacyScanLine();
     // void legacySetScanLine(int value);
-    // int legacyTHI();
-    // void legacySetTHI(int value);
+    int legacyTHI();
+    void legacySetTHI(int value);
     // int legacyZoomImg();
     // void legacySetZoomImg(int value);
     // int legacyBFocusLch();

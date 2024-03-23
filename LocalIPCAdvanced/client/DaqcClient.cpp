@@ -699,6 +699,22 @@ void DaqcClient::legacySetRadium(double value)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::RADIUM, values, valueTypes));
 }
 
+int DaqcClient::legacyTHI()
+{
+    auto result = createGetRequest([]{ 
+        return new RequestGetPacket(DaqcParameter::THI); 
+    });
+
+    return result.toInt();
+}
+
+void DaqcClient::legacySetTHI(int value)
+{
+    QVariantList values = { value };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::ESPIN, values, valueTypes));
+}
+
 void DaqcClient::legacySetESpin(double value)
 {
     QVariantList values = { value };
