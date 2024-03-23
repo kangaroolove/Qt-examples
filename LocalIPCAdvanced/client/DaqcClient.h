@@ -276,7 +276,7 @@ public:
     // void legacySetiClear(int id);
     // void legacyZoomColorROI(int xDirection, int yDirection);
     // // F means forward
-    // void legacyFProbeType(int pbPort, int pbType);
+    void legacyFProbeType(int pbPort, int pbType);
     // void legacySaveScuInitPara();
     // void legacyStart();
     // void legacyStop();

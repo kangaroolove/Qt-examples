@@ -1464,10 +1464,6 @@ void DaqcClient::legacyZoomColorROI(int xDirection, int yDirection)
 {
 }
 
-void DaqcClient::legacyFProbeType(int pbPort, int pbType)
-{
-}
-
 void DaqcClient::legacySaveScuInitPara()
 {
 }
@@ -1488,7 +1484,15 @@ void DaqcClient::legacyWifiEWM(const QString &fptStr, QString &htpStr)
 void DaqcClient::legacyInit(int inum)
 {
     QVariantList values = { inum };
-    createUpdateRequest(new RequestUpdatePacket(INIT, values, {"int"}));
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(INIT, values, valueTypes));
+}
+
+void DaqcClient::legacyFProbeType(int pbPort, int pbType)
+{
+    QVariantList values = { pbPort,  pbType };
+    QStringList valueTypes = { "int", "int" };
+    createUpdateRequest(new RequestUpdatePacket(INIT, values, valueTypes));
 }
 
 int DaqcClient::boolToIncrease(const bool &increase)
