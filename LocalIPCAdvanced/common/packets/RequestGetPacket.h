@@ -1,17 +1,14 @@
 #pragma once
 
-#include "Packet.h"
-class RequestGetPacket : public Packet
+#include "RequestPacket.h"
+class RequestGetPacket : public RequestPacket
 {
 public:
-    RequestGetPacket(const QString& parameter, const QString& messageId = QString());
+    RequestGetPacket(const QString& parameter, const QVariant& values = QVariant(), const QVariant& valueTypes = QVariant(), const QString& messageId = QString());
     RequestGetPacket(const RequestGetPacket& packet);
     ~RequestGetPacket();
 
-    QString getParameter() const;
     static RequestGetPacket fromJson(const QJsonObject& object);
 protected:
     QJsonObject generateData() override;
-private:
-    QString m_parameter;
 };

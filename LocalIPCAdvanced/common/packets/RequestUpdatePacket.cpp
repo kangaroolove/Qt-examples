@@ -4,38 +4,18 @@
 #include <QJsonArray>
 
 RequestUpdatePacket::RequestUpdatePacket(const QString& parameter, const QVariant& values, const QVariant& valueTypes) :
-    m_values(values),
-    m_valueTypes(valueTypes),
-    m_parameter(parameter)
+    RequestPacket(parameter, values, valueTypes)
 {
-    m_packetType = PacketType::REQUEST;
 }
 
-RequestUpdatePacket::RequestUpdatePacket(const RequestUpdatePacket &packet)
+RequestUpdatePacket::RequestUpdatePacket(const RequestUpdatePacket &packet) :
+    RequestPacket(getParameter(), getValues(), getValueTypes())
 {
-    m_values = packet.m_values;
-    m_valueTypes = packet.m_valueTypes;
-    m_parameter = packet.m_parameter;
 }
 
 RequestUpdatePacket::~RequestUpdatePacket()
 {
 
-}
-
-QString RequestUpdatePacket::getParameter() const
-{
-    return m_parameter;
-}
-
-QVariant RequestUpdatePacket::getValueTypes() const
-{
-    return m_valueTypes;
-}
-
-QVariant RequestUpdatePacket::getValues() const
-{
-    return m_values;
 }
 
 RequestUpdatePacket RequestUpdatePacket::fromJson(const QJsonObject &object)

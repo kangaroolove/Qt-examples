@@ -5,10 +5,11 @@
 
 QReadWriteLock GetValueTask::m_readWriteLock;
 
-GetValueTask::GetValueTask(Server* server, const QString& parameter, const QString& clientMessageId) :
+GetValueTask::GetValueTask(Server* server, Daqc* daqc, const QString& parameter, const QString& clientMessageId) :
     m_parameter(parameter),
     m_clientMessageId(clientMessageId),
-    m_server(server)
+    m_server(server),
+    m_daqc(daqc)
 {
 
 }
@@ -37,6 +38,10 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
     {
         replyPacketInfo.value = QVariant(10);
         replyPacketInfo.valueType = "int";
+    }
+    else if (replyPacketInfo.parameter == PROBE_INFO)
+    {
+        replyPacketInfo.value = m_daqc->GetProbeInfo();
     }
 
     return replyPacketInfo;

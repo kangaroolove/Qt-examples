@@ -34,6 +34,7 @@ set(PROJECT_SOURCES
 	../common/packets/RequestUpdatePacket.cpp
 	../common/packets/RequestGetPacket.cpp
 	../common/packets/ReplyPacket.cpp
+	../common/packets/RequestPacket.cpp
 )
 
 set(PROJECT_HEADERS
@@ -46,6 +47,7 @@ set(PROJECT_HEADERS
 	../common/packets/RequestGetPacket.h
 	../common/packets/ReplyPacket.h
 	../common/StringDef.h
+	../common/packets/RequestPacket.h
 )
 
 set(PROJECT_UIS
