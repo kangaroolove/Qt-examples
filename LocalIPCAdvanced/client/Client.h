@@ -19,7 +19,7 @@ class RequestResult
 public:
     RequestResult() {}
     ~RequestResult() {}
-    RequestResult(const QVariant& valueType, const QVariant& value) {
+    RequestResult(const QVariant& valueTypes, const QVariant& values) {
         this->values = values;
         this->valueTypes = valueTypes;
     }

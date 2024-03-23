@@ -32,7 +32,9 @@ int DaqcClient::testGetApi()
         QStringList valueTypes = { "int" };
         return new RequestGetPacket("test", values, valueTypes); 
     });
-    return result.toInt();
+
+    auto list = result.toList();
+    return list.first().toInt();
 }
 
 void DaqcClient::testSetApi(bool isTest)

@@ -32,8 +32,7 @@ ReplyPacket ReplyPacket::fromJson(const QJsonObject& object)
     info.parameter = object["data"].toObject()["parameter"].toString();
     info.requestType = object["data"].toObject()["requestType"].toString();
     info.values = object["data"].toObject()["values"].toVariant();
-    info.valueTypes = object["data"].toObject()["requestTypes"].toVariant();
-
+    info.valueTypes = object["data"].toObject()["valueTypes"].toVariant();
     return ReplyPacket(info);
 }
 
