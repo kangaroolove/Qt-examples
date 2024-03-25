@@ -286,4 +286,6 @@ public:
     // void legacyWifiEWM(const QString& fptStr, QString& htpStr);
 private:
     int boolToIncrease(const bool& increase);
+    int depthHardCode(const double &value);
+    double mmToCm(const double &value);
 };

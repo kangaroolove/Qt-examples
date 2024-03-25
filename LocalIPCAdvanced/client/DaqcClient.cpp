@@ -87,23 +87,17 @@ double DaqcClient::getXmlDepth()
     return result.toDouble();
 }
 
-#if 0
-
 int DaqcClient::getDepthMm()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DEPTH_MM);
-    });
-    return result.toInt();
+    return depthHardCode(getXmlDepth());
 }
 
 double DaqcClient::getDepthCm()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DEPTH_CM);
-    });
-    return result.toDouble();
+    return mmToCm(getDepthMm());
 }
+
+#if 0
 
 double DaqcClient::getBFrequency()
 {
@@ -1728,4 +1722,15 @@ void DaqcClient::legacyStop()
 int DaqcClient::boolToIncrease(const bool &increase)
 {
     return increase ? 1 : -1;
+}
+
+int DaqcClient::depthHardCode(const double & value)
+{
+    //no idea what these numbers are, they are from old code
+    return value * 1.28 * 1000 / 130;
+}
+
+double DaqcClient::mmToCm(const double& value)
+{
+    return value / 10.;
 }
