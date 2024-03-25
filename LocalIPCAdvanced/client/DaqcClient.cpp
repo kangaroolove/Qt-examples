@@ -115,14 +115,6 @@ double DaqcClient::getBFrequency2()
 
 #if 0
 
-double DaqcClient::getMFrequency()
-{
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(M_FREQUENCY);
-    });
-    return result.toDouble();
-}
-
 int DaqcClient::getChroma()
 {
     auto result = createGetRequest([]{
