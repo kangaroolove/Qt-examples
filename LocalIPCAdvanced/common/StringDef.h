@@ -18,7 +18,6 @@ const QString REGION_PHYSICAL_DELTA_Y = "RegionPhysicalDeltaY";
 const QString B_GAIN = "BGain";
 const QString B_GAIN2 = "BGain2";
 const QString C_GAIN = "CGain";
-const QString M_GAIN = "MGain";
 const QString XML_DEPTH = "XmlDepth";
 const QString DEPTH_MM = "DepthMm";
 const QString DEPTH_CM = "DepthCm";

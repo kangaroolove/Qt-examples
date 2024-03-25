@@ -27,7 +27,6 @@ public:
     double getRegionPhysicalDeltaY();
     int getBGain();
     int getCGain();
-    int getMGain();
     double getXmlDepth();
     int getDepthMm();
     double getDepthCm();

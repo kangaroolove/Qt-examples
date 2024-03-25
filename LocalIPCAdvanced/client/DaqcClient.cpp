@@ -79,23 +79,15 @@ int DaqcClient::getCGain()
     return result.toInt();
 }
 
-#if 0
-
-int DaqcClient::getMGain()
-{
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(M_GAIN);
-    });
-    return result.toInt();
-}
-
 double DaqcClient::getXmlDepth()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket(XML_DEPTH);
+        return new RequestGetPacket(DaqcParameter::XML_DEPTH);
     });
     return result.toDouble();
 }
+
+#if 0
 
 int DaqcClient::getDepthMm()
 {
