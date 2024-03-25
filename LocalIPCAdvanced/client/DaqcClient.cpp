@@ -97,15 +97,15 @@ double DaqcClient::getDepthCm()
     return mmToCm(getDepthMm());
 }
 
-#if 0
-
 double DaqcClient::getBFrequency()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket(B_FREQUENCY);
+        return new RequestGetPacket(DaqcParameter::B_FREQUENCY);
     });
     return result.toDouble();
 }
+
+#if 0
 
 double DaqcClient::getBFrequency2()
 {
