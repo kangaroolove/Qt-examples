@@ -105,15 +105,15 @@ double DaqcClient::getBFrequency()
     return result.toDouble();
 }
 
-#if 0
-
 double DaqcClient::getBFrequency2()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket(B_FREQUENCY_2);
+        return new RequestGetPacket(DaqcParameter::B_FREQUENCY_2);
     });
     return result.toDouble();
 }
+
+#if 0
 
 double DaqcClient::getMFrequency()
 {

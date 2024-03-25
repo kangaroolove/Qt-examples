@@ -124,6 +124,11 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->Frequence();
         replyPacketInfo.valueType = "double";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::B_FREQUENCY_2)
+    {
+        replyPacketInfo.value = m_daqc->Freq2();
+        replyPacketInfo.valueType = "double";
+    }
 
     return replyPacketInfo;
 }
