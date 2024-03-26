@@ -203,6 +203,11 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->ColorInvert();
         replyPacketInfo.valueType = "bool";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::D_INVERT)
+    {
+        replyPacketInfo.value = m_daqc->PwdInvert();
+        replyPacketInfo.valueType = "bool";
+    }
 
     return replyPacketInfo;
 }

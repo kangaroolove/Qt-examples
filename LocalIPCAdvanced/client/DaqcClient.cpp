@@ -280,15 +280,15 @@ bool DaqcClient::isCInvert()
     return legacyColorInvert();
 }
 
-#if 0
-
 bool DaqcClient::isDInvert()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("IsDInvert");
+        return new RequestGetPacket(DaqcParameter::D_INVERT);
     });
     return result.toBool();
 }
+
+#if 0
 
 bool DaqcClient::isCAutoTrace()
 {
