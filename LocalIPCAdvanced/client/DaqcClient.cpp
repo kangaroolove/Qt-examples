@@ -214,20 +214,10 @@ int DaqcClient::getDSpeed()
     return result.toInt();
 }
 
-#if 0
-
-int DaqcClient::getMSpeed()
-{
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(M_SPEED);
-    });
-    return result.toInt();
-}
-
 int DaqcClient::getNoiseReject()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket(NOISE_REJECT);
+        return new RequestGetPacket(DaqcParameter::NOISE_REJECT);
     });
     return result.toInt();
 }
@@ -235,10 +225,12 @@ int DaqcClient::getNoiseReject()
 int DaqcClient::getAudio()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket(AUDIO);
+        return new RequestGetPacket(DaqcParameter::AUDIO);
     });
     return result.toInt();
 }
+
+#if 0
 
 int DaqcClient::getBaseline()
 {

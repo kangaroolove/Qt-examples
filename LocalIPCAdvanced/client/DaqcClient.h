@@ -48,7 +48,6 @@ public:
     double getSv();
     double getCa();
     int getDSpeed();
-    int getMSpeed();
     int getNoiseReject();
     int getAudio();
     int getBaseline();
