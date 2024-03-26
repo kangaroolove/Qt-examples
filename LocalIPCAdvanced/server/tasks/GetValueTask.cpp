@@ -134,6 +134,11 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->FrameRelation();
         replyPacketInfo.valueType = "double";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::LAVG)
+    {
+        replyPacketInfo.value = m_daqc->LavgRelation();
+        replyPacketInfo.valueType = "int";
+    }
 
     return replyPacketInfo;
 }

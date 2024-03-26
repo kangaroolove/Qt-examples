@@ -125,21 +125,22 @@ int DaqcClient::getImgProc()
 
 int DaqcClient::getFavg()
 {
+    // original interface return double
     auto result = createGetRequest([]{
         return new RequestGetPacket(DaqcParameter::FAVG);
     });
     return result.toInt();
 }
 
-#if 0
-
 int DaqcClient::getLavg()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket(LAVG);
+        return new RequestGetPacket(DaqcParameter::LAVG);
     });
     return result.toInt();
 }
+
+#if 0
 
 int DaqcClient::getContrast()
 {
