@@ -182,15 +182,15 @@ int DaqcClient::getSensitivity()
     return result.toInt();
 }
 
-#if 0
-
 int DaqcClient::getSwingAngle()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket(SWING_ANGLE);
+        return new RequestGetPacket(DaqcParameter::SWING_ANGLE);
     });
     return result.toInt();
 }
+
+#if 0
 
 double DaqcClient::getSv()
 {

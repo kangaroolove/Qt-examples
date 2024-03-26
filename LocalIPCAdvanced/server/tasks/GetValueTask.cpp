@@ -164,6 +164,11 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->ColorPrior();
         replyPacketInfo.valueType = "int";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::SWING_ANGLE)
+    {
+        replyPacketInfo.value = m_daqc->ROISwingAngle();
+        replyPacketInfo.valueType = "int";
+    }
 
     return replyPacketInfo;
 }
