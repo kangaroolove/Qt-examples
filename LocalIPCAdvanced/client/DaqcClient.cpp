@@ -140,23 +140,17 @@ int DaqcClient::getLavg()
     return result.toInt();
 }
 
-#if 0
-
 int DaqcClient::getContrast()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(CONTRAST);
-    });
-    return result.toInt();
+    return legacyBDynamic();
 }
 
 double DaqcClient::getCPrf()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(C_PRF);
-    });
-    return result.toDouble();
+    return legacyCPRF();
 }
+
+#if 0
 
 double DaqcClient::getDPrf()
 {
@@ -671,6 +665,15 @@ int DaqcClient::legacyCBaseLine()
     });
 
     return result.toInt();
+}
+
+double DaqcClient::legacyCPRF()
+{
+    auto result = createGetRequest([]{ 
+        return new RequestGetPacket(DaqcParameter::C_PRF); 
+    });
+
+    return result.toDouble();
 }
 
 int DaqcClient::legacyDDynamic()

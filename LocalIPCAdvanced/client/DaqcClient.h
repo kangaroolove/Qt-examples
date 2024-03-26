@@ -35,6 +35,7 @@ public:
         // TO CHECK
     int getChroma();
     int getImgProc();
+
     int getFavg();
     int getLavg();
     int getContrast();
@@ -149,7 +150,7 @@ public:
     // void legacySetCGain(int value);
     // int legacyCNoiseRej();
     // void legacySetCNoiseRej(int value);
-    // double legacyCPRF();
+    double legacyCPRF();
     // void legacySetCPRF(double value);
     // double legacyCWallFilterFreq();
     // void legacySetCWallFilterFreq(double value);
