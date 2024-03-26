@@ -174,6 +174,15 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->PWDgateSize();
         replyPacketInfo.valueType = "double";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::CA)
+    {
+        double ca = m_daqc->PWDCorrectionAngle();
+        if (ca > 180)
+            ca -= 180;
+        ca = 90 - ca;
+        replyPacketInfo.value = ca;
+        replyPacketInfo.valueType = "double";
+    }
 
     return replyPacketInfo;
 }

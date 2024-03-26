@@ -198,14 +198,15 @@ double DaqcClient::getSv()
     return result.toDouble();
 }
 
-#if 0
 double DaqcClient::getCa()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket(CA);
+        return new RequestGetPacket(DaqcParameter::CA);
     });
     return result.toDouble();
 }
+
+#if 0
 
 int DaqcClient::getDSpeed()
 {
