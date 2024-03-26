@@ -159,6 +159,11 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->DWallFilterFreq();
         replyPacketInfo.valueType = "double";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::SENSITIVITY)
+    {
+        replyPacketInfo.value = m_daqc->ColorPrior();
+        replyPacketInfo.valueType = "int";
+    }
 
     return replyPacketInfo;
 }

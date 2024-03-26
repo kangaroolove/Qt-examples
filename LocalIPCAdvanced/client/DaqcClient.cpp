@@ -174,14 +174,15 @@ double DaqcClient::getDWf()
     return result.toDouble();
 }
 
-#if 0
 int DaqcClient::getSensitivity()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket(SENSITIVITY);
+        return new RequestGetPacket(DaqcParameter::SENSITIVITY);
     });
     return result.toInt();
 }
+
+#if 0
 
 int DaqcClient::getSwingAngle()
 {
