@@ -208,6 +208,11 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->PwdInvert();
         replyPacketInfo.valueType = "bool";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::C_AUTO_TRACE)
+    {
+        replyPacketInfo.value = m_daqc->cAutoTrace();
+        replyPacketInfo.valueType = "int";
+    }
 
     return replyPacketInfo;
 }

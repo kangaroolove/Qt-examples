@@ -288,15 +288,12 @@ bool DaqcClient::isDInvert()
     return result.toBool();
 }
 
-#if 0
-
 bool DaqcClient::isCAutoTrace()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket("IsCAutoTrace");
-    });
-    return result.toBool();
+    return legacyCAutoTrace() == 1;
 }
+
+#if 0
 
 bool DaqcClient::isDAutoTrace()
 {
@@ -731,6 +728,14 @@ void DaqcClient::legacySetTHI(int value)
     QVariantList values = { value };
     QStringList valueTypes = { "int" };
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::ESPIN, values, valueTypes));
+}
+
+int DaqcClient::legacyCAutoTrace()
+{
+    auto result = createGetRequest([]{
+        return new RequestGetPacket(DaqcParameter::C_AUTO_TRACE);
+    });
+    return result.toInt();
 }
 
 void DaqcClient::legacySetESpin(double value)

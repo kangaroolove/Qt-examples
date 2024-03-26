@@ -242,7 +242,7 @@ public:
     // void legacySetZoomImg(int value);
     // int legacyBFocusLch();
     // void legacySetBFocusLch(int value);
-    // int legacyCAutoTrace();
+    int legacyCAutoTrace();
     // void legacySetCAutoTrace(int value);
     // int legacyCFocusLch();
     // void legacySetCFocusLch(int value);
