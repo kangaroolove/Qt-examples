@@ -129,6 +129,11 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->Freq2();
         replyPacketInfo.valueType = "double";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::FAVG)
+    {
+        replyPacketInfo.value = m_daqc->FrameRelation();
+        replyPacketInfo.valueType = "double";
+    }
 
     return replyPacketInfo;
 }

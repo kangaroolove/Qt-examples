@@ -113,31 +113,25 @@ double DaqcClient::getBFrequency2()
     return result.toDouble();
 }
 
-#if 0
-
 int DaqcClient::getChroma()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(CHROMA);
-    });
-    return result.toInt();
+    return 0;
 }
 
 int DaqcClient::getImgProc()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(IMG_PROC);
-    });
-    return result.toInt();
+    return 0;
 }
 
 int DaqcClient::getFavg()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket(FAVG);
+        return new RequestGetPacket(DaqcParameter::FAVG);
     });
     return result.toInt();
 }
+
+#if 0
 
 int DaqcClient::getLavg()
 {

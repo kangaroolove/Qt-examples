@@ -32,6 +32,7 @@ public:
     double getDepthCm();
     double getBFrequency();
     double getBFrequency2();
+        // TO CHECK
     int getChroma();
     int getImgProc();
     int getFavg();
