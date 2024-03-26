@@ -149,6 +149,16 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->DPRF();
         replyPacketInfo.valueType = "double";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::C_WF)
+    {
+        replyPacketInfo.value = m_daqc->CWallFilterFreq();
+        replyPacketInfo.valueType = "double";
+    }
+    else if (replyPacketInfo.parameter == DaqcParameter::D_WF)
+    {
+        replyPacketInfo.value = m_daqc->DWallFilterFreq();
+        replyPacketInfo.valueType = "double";
+    }
 
     return replyPacketInfo;
 }

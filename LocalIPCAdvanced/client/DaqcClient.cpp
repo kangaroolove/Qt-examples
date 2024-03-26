@@ -158,12 +158,10 @@ double DaqcClient::getDPrf()
     return result.toDouble();
 }
 
-#if 0
-
 double DaqcClient::getCWf()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket(C_WF);
+        return new RequestGetPacket(DaqcParameter::C_WF);
     });
     return result.toDouble();
 }
@@ -171,11 +169,12 @@ double DaqcClient::getCWf()
 double DaqcClient::getDWf()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket(D_WF);
+        return new RequestGetPacket(DaqcParameter::D_WF);
     });
     return result.toDouble();
 }
 
+#if 0
 int DaqcClient::getSensitivity()
 {
     auto result = createGetRequest([]{
