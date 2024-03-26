@@ -293,31 +293,22 @@ bool DaqcClient::isCAutoTrace()
     return legacyCAutoTrace() == 1;
 }
 
-#if 0
-
 bool DaqcClient::isDAutoTrace()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket("IsDAutoTrace");
-    });
-    return result.toBool();
+    return false;
 }
 
 bool DaqcClient::isUpdate()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket("IsUpdate");
-    });
-    return result.toBool();
+    return legacyBCDSynChro() == (int)BcdSynchro::UPDATE;
 }
 
 bool DaqcClient::isSynchro()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket("IsSynchro");
-    });
-    return result.toBool();
+    return legacyBCDSynChro() == (int)BcdSynchro::SYNCHRO;
 }
+
+#if 0
 
 QPoint DaqcClient::getRoiPosition()
 {
@@ -591,6 +582,15 @@ void DaqcClient::legacySetACUI(int value)
     QVariantList values = { value };
     QStringList valueTypes = { "int" };
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::ACUI, values, valueTypes));
+}
+
+int DaqcClient::legacyBCDSynChro()
+{
+    auto result = createGetRequest([]{ 
+        return new RequestGetPacket(DaqcParameter::B_C_D_SYNCHRO); 
+    });
+
+    return result.toInt();
 }
 
 int DaqcClient::legacyBDynamic()

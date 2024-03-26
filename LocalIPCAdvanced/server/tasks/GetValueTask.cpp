@@ -213,6 +213,11 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->cAutoTrace();
         replyPacketInfo.valueType = "int";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::B_C_D_SYNCHRO)
+    {
+        replyPacketInfo.value = m_daqc->BCDSynChro();
+        replyPacketInfo.valueType = "int";
+    }
 
     return replyPacketInfo;
 }

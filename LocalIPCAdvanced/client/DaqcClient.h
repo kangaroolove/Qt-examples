@@ -9,6 +9,13 @@ class Client;
 class QEventLoop;
 class Packet;
 
+enum class BcdSynchro : int
+{
+    OFF = -1,
+    SYNCHRO = 1,
+    UPDATE = 2
+};
+
 class DaqcClient : public Client
 {
     Q_OBJECT
@@ -68,6 +75,7 @@ public:
     bool isCInvert();
     bool isDInvert();
     bool isCAutoTrace();
+    // TO CHECK
     bool isDAutoTrace();
     bool isUpdate();
     bool isSynchro();
@@ -134,7 +142,7 @@ public:
     // void legacySetAPower(int value);
     // int legacyAnatomyLine();
     // void legacySetAnatomyLine(int value);
-    // int legacyBCDSynChro();
+    int legacyBCDSynChro();
     // void legacySetBCDSynChro(int value);
     int legacyBDynamic();
     void legacySetBDynamic(int value);
