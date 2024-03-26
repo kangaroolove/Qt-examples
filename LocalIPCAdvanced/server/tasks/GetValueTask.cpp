@@ -183,6 +183,11 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = ca;
         replyPacketInfo.valueType = "double";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::D_SPEED)
+    {
+        replyPacketInfo.value = m_daqc->DSpeed();
+        replyPacketInfo.valueType = "int";
+    }
 
     return replyPacketInfo;
 }

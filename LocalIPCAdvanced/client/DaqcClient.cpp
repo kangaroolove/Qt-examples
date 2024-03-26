@@ -206,15 +206,15 @@ double DaqcClient::getCa()
     return result.toDouble();
 }
 
-#if 0
-
 int DaqcClient::getDSpeed()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket(D_SPEED);
+        return new RequestGetPacket(DaqcParameter::D_SPEED);
     });
     return result.toInt();
 }
+
+#if 0
 
 int DaqcClient::getMSpeed()
 {
