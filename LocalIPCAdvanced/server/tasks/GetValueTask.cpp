@@ -218,6 +218,11 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->BCDSynChro();
         replyPacketInfo.valueType = "int";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::DUAL_CONVEX_OR_LINEAR_CHANNEL)
+    {
+        replyPacketInfo.value = m_daqc->GetParameter((int)WelldParameterId::CURRENT_IMAGE_BUFFER);
+        replyPacketInfo.valueType = "int";
+    }
 
     return replyPacketInfo;
 }

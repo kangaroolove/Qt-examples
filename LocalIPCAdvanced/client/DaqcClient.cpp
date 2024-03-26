@@ -308,23 +308,20 @@ bool DaqcClient::isSynchro()
     return legacyBCDSynChro() == (int)BcdSynchro::SYNCHRO;
 }
 
-#if 0
-
 QPoint DaqcClient::getRoiPosition()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket("RoiPosition");
-    });
-    return result.toPoint();
+    return QPoint(0, 0);
 }
 
 int DaqcClient::getDualConvexOrLinearChannel()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("DualConvexOrLinearChannel");
+        return new RequestGetPacket(DaqcParameter::DUAL_CONVEX_OR_LINEAR_CHANNEL);
     });
     return result.toInt();
 }
+
+#if 0
 
 bool DaqcClient::isDualModeOn()
 {

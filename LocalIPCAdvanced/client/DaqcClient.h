@@ -16,6 +16,8 @@ enum class BcdSynchro : int
     UPDATE = 2
 };
 
+
+
 class DaqcClient : public Client
 {
     Q_OBJECT
@@ -77,8 +79,10 @@ public:
     bool isCAutoTrace();
     // TO CHECK
     bool isDAutoTrace();
+
     bool isUpdate();
     bool isSynchro();
+        // TO CHECK
     QPoint getRoiPosition();
     int getDualConvexOrLinearChannel();
     bool isDualModeOn();

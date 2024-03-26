@@ -91,4 +91,24 @@ const QString PERSISTENCE_COLOR = "PersistenceColor";
 const QString PROBE_SEL = "ProbeSEL";
 const QString FLIP_H = "FlipH";
 const QString FLIP_V = "FlipV";
+const QString ROI_POSITION = "RoiPosition";
+const QString DUAL_CONVEX_OR_LINEAR_CHANNEL = "DualConvexOrLinearChannel";
 }
+
+enum class WelldParameterId : unsigned int
+{
+    C_ROI_X = 9,
+    C_ROI_Y = 10,
+    D_ROI_X = 11,
+    Y_ROI_Y = 12,
+    CURRENT_IMAGE_BUFFER = 98,
+};
+
+enum class ScanMode : unsigned int
+{
+    B_MODE = 0,
+    C_MODE, 
+    C_D_MODE,
+    D_MODE,
+    M_MODE
+};
