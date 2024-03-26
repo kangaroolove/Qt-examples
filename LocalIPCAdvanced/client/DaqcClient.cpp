@@ -321,15 +321,15 @@ int DaqcClient::getDualConvexOrLinearChannel()
     return result.toInt();
 }
 
-#if 0
-
 bool DaqcClient::isDualModeOn()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket("IsDualModeOn");
+        return new RequestGetPacket(DaqcParameter::DUAL_MODE);
     });
     return result.toBool();
 }
+
+#if 0
 
 void DaqcClient::setBGain(bool increase)
 {

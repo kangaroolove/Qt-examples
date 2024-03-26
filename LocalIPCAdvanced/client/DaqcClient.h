@@ -82,7 +82,7 @@ public:
 
     bool isUpdate();
     bool isSynchro();
-        // TO CHECK
+    // TO CHECK
     QPoint getRoiPosition();
     int getDualConvexOrLinearChannel();
     bool isDualModeOn();

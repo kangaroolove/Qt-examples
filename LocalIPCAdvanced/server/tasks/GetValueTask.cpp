@@ -223,6 +223,11 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->GetParameter((int)WelldParameterId::CURRENT_IMAGE_BUFFER);
         replyPacketInfo.valueType = "int";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::DUAL_MODE)
+    {
+        replyPacketInfo.value = m_daqc->GetParameter((int)WelldParameterId::REALTIME_EN);
+        replyPacketInfo.valueType = "double";
+    }
 
     return replyPacketInfo;
 }

@@ -102,6 +102,7 @@ enum class WelldParameterId : unsigned int
     D_ROI_X = 11,
     Y_ROI_Y = 12,
     CURRENT_IMAGE_BUFFER = 98,
+    REALTIME_EN = 120
 };
 
 enum class ScanMode : unsigned int
