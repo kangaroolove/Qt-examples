@@ -190,16 +190,15 @@ int DaqcClient::getSwingAngle()
     return result.toInt();
 }
 
-#if 0
-
 double DaqcClient::getSv()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket(SV);
+        return new RequestGetPacket(DaqcParameter::SV);
     });
     return result.toDouble();
 }
 
+#if 0
 double DaqcClient::getCa()
 {
     auto result = createGetRequest([]{

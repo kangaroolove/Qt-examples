@@ -169,6 +169,11 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->ROISwingAngle();
         replyPacketInfo.valueType = "int";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::SV)
+    {
+        replyPacketInfo.value = m_daqc->PWDgateSize();
+        replyPacketInfo.valueType = "double";
+    }
 
     return replyPacketInfo;
 }
