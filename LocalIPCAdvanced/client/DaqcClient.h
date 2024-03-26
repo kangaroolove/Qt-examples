@@ -166,7 +166,7 @@ public:
     void legacySetDDynamic(int value);
     // int legacyDNoiseRej();
     // void legacySetDNoiseRej(int value);
-    // double legacyDPRF();
+    double legacyDPRF();
     // void legacySetDPRF(double value);
     // int legacyDSoundVolum();
     // void legacySetDSoundVolum(int value);

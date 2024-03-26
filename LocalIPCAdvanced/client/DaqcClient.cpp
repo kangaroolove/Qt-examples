@@ -150,15 +150,15 @@ double DaqcClient::getCPrf()
     return legacyCPRF();
 }
 
-#if 0
-
 double DaqcClient::getDPrf()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket(D_PRF);
+        return new RequestGetPacket(DaqcParameter::D_PRF);
     });
     return result.toDouble();
 }
+
+#if 0
 
 double DaqcClient::getCWf()
 {
@@ -690,6 +690,15 @@ void DaqcClient::legacySetDDynamic(int value)
     QVariantList values = { value };
     QStringList valueTypes = { "int" };
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::D_DYNAMIC, values, valueTypes));
+}
+
+double DaqcClient::legacyDPRF()
+{
+    auto result = createGetRequest([]{ 
+        return new RequestGetPacket(DaqcParameter::D_PRF); 
+    });
+
+    return result.toDouble();
 }
 
 void DaqcClient::legacySetExamTypeID(int value)

@@ -144,6 +144,11 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->CPRF();
         replyPacketInfo.valueType = "double";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::D_PRF)
+    {
+        replyPacketInfo.value = m_daqc->DPRF();
+        replyPacketInfo.valueType = "double";
+    }
 
     return replyPacketInfo;
 }
