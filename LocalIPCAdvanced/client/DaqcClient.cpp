@@ -230,39 +230,22 @@ int DaqcClient::getAudio()
     return result.toInt();
 }
 
-#if 0
-
-int DaqcClient::getBaseline()
-{
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(BASELINE);
-    });
-    return result.toInt();
-}
-
 int DaqcClient::getRotation()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(ROTATION);
-    });
-    return result.toInt();
+    return 0;
 }
 
 double DaqcClient::getSpacingX()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(SPACING_X);
-    });
-    return result.toDouble();
+    return legacyGetParameter(102);
 }
 
 double DaqcClient::getSpacingY()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(SPACING_Y);
-    });
-    return result.toDouble();
+    return legacyGetParameter(103);
 }
+
+#if 0
 
 bool DaqcClient::isBb()
 {

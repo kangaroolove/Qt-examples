@@ -32,7 +32,7 @@ public:
     double getDepthCm();
     double getBFrequency();
     double getBFrequency2();
-        // TO CHECK
+    // TO CHECK
     int getChroma();
     int getImgProc();
 
@@ -50,8 +50,9 @@ public:
     int getDSpeed();
     int getNoiseReject();
     int getAudio();
-    int getBaseline();
+    // TO CHECK
     int getRotation();
+    
     double getSpacingX();
     double getSpacingY();
     bool isBb();

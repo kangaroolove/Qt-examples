@@ -198,6 +198,7 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->DSoundVolum();
         replyPacketInfo.valueType = "int";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::)
 
     return replyPacketInfo;
 }
