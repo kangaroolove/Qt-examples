@@ -198,7 +198,11 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->DSoundVolum();
         replyPacketInfo.valueType = "int";
     }
-    else if (replyPacketInfo.parameter == DaqcParameter::)
+    else if (replyPacketInfo.parameter == DaqcParameter::COLOR_INVERT)
+    {
+        replyPacketInfo.value = m_daqc->ColorInvert();
+        replyPacketInfo.valueType = "bool";
+    }
 
     return replyPacketInfo;
 }

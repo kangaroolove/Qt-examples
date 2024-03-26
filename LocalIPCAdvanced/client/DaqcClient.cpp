@@ -245,63 +245,42 @@ double DaqcClient::getSpacingY()
     return legacyGetParameter(103);
 }
 
-#if 0
-
 bool DaqcClient::isBb()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket("IsBb");
-    });
-    return result.toBool();
+    return false;
 }
 
 bool DaqcClient::isUp()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket("IsUp");
-    });
-    return result.toBool();
+    return false;
 }
 
 bool DaqcClient::isThi()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket("IsThi");
-    });
-    return result.toBool();
+    return legacyTHI() == 1;
 }
 
 bool DaqcClient::isCenterLine()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket("IsCenterLine");
-    });
-    return result.toBool();
+    return false;
 }
 
 bool DaqcClient::isRoiSite()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket("IsRoiSite");
-    });
-    return result.toBool();
+    return false;
 }
 
 bool DaqcClient::isRoiSize()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket("IsRoiSize");
-    });
-    return result.toBool();
+    return false;
 }
 
 bool DaqcClient::isCInvert()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket("IsCInvert");
-    });
-    return result.toBool();
+    return legacyColorInvert();
 }
+
+#if 0
 
 bool DaqcClient::isDInvert()
 {
@@ -649,6 +628,15 @@ double DaqcClient::legacyCPRF()
     });
 
     return result.toDouble();
+}
+
+bool DaqcClient::legacyColorInvert()
+{
+    auto result = createGetRequest([]{ 
+        return new RequestGetPacket(DaqcParameter::COLOR_INVERT); 
+    });
+
+    return result.toBool();
 }
 
 int DaqcClient::legacyDDynamic()

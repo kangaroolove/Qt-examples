@@ -52,15 +52,19 @@ public:
     int getAudio();
     // TO CHECK
     int getRotation();
-    
+
     double getSpacingX();
     double getSpacingY();
+    // TO CHECK
     bool isBb();
     bool isUp();
+
     bool isThi();
+    // TO CHECK
     bool isCenterLine();
     bool isRoiSite();
     bool isRoiSize();
+
     bool isCInvert();
     bool isDInvert();
     bool isCAutoTrace();
@@ -154,7 +158,7 @@ public:
     // void legacySetCPRF(double value);
     // double legacyCWallFilterFreq();
     // void legacySetCWallFilterFreq(double value);
-    // bool legacyColorInvert();
+    bool legacyColorInvert();
     // void legacySetColorInvert(bool value);
     // int legacyColorPrior();
     // void legacySetColorPrior(int value);
