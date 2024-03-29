@@ -537,17 +537,19 @@ void DaqcClient::setDAutoTrace(bool value)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::D_AUTO_TRACE, values, valueTypes));
 }
 
-#if 0
-
 void DaqcClient::setUpdate(bool value)
 {
-    createUpdateRequest(new RequestUpdatePacket(UPDATE, value, "bool"));
+    int parameter = value ? (int)BcdSynchro::UPDATE : (int)BcdSynchro::OFF;
+    legacySetBCDSynChro(parameter);
 }
 
 void DaqcClient::setSynchro(bool value)
 {
-    createUpdateRequest(new RequestUpdatePacket(SYNCHRO, value, "bool"));
+    int parameter = value ? (int)BcdSynchro::SYNCHRO : (int)BcdSynchro::OFF;
+    legacySetBCDSynChro(parameter);
 }
+
+#if 0
 
 void DaqcClient::setDualMode(bool value)
 {
@@ -573,6 +575,13 @@ int DaqcClient::legacyBCDSynChro()
     });
 
     return result.toInt();
+}
+
+void DaqcClient::legacySetBCDSynChro(int value)
+{
+    QVariantList values = { value };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::B_C_D_SYNCHRO, values, valueTypes));
 }
 
 int DaqcClient::legacyBDynamic()

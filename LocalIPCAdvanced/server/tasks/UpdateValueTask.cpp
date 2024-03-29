@@ -138,4 +138,6 @@ void UpdateValueTask::run()
         m_daqc->setCAutoTrace(values.first().toBool());
     else if (m_updateValueInfo.parameter == DaqcParameter::D_AUTO_TRACE)
         m_daqc->SetPwdAutoTrace(values.first().toBool());
+    else if (m_updateValueInfo.parameter == DaqcParameter::B_C_D_SYNCHRO)
+        m_daqc->SetBCDSynChro(values.first().toInt());
 }

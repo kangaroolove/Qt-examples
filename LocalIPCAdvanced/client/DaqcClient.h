@@ -145,7 +145,7 @@ public:
     // int legacyAnatomyLine();
     // void legacySetAnatomyLine(int value);
     int legacyBCDSynChro();
-    // void legacySetBCDSynChro(int value);
+    void legacySetBCDSynChro(int value);
     int legacyBDynamic();
     void legacySetBDynamic(int value);
     // int legacyBGain();
