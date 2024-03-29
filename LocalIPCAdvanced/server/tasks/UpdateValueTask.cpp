@@ -106,7 +106,11 @@ void UpdateValueTask::run()
         m_daqc->SetFrameRelation(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::LAVG)
         m_daqc->SetLineDensity(values.first().toInt());
-
-
+    else if (m_updateValueInfo.parameter == DaqcParameter::CONTRAST)
+        ;
+    else if (m_updateValueInfo.parameter == DaqcParameter::C_PRF)
+        m_daqc->SetCPRF(values.first().toInt());
+    else if (m_updateValueInfo.parameter == DaqcParameter::D_PRF)
+        m_daqc->SetDPRF(values.first().toInt());
     
 }

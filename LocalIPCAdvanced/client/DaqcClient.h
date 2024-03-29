@@ -100,7 +100,11 @@ public:
 
     void setFavg(bool increase);
     void setLavg(bool increase);
+
+    // TO CHECK
     void setContrast(bool increase);
+
+    
     void setCPrf(bool increase);
     void setDPrf(bool increase);
     void setCWf(bool increase);

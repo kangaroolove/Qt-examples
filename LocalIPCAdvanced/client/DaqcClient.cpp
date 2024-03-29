@@ -390,22 +390,28 @@ void DaqcClient::setLavg(bool increase)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::LAVG, values, valueTypes));
 }
 
-#if 0
-
 void DaqcClient::setContrast(bool increase)
 {
-    createUpdateRequest(new RequestUpdatePacket(CONTRAST, boolToIncrease(increase), "int"));
+    // QVariantList values = { boolToIncrease(increase) };
+    // QStringList valueTypes = { "int" };
+    // createUpdateRequest(new RequestUpdatePacket(DaqcParameter::CONTRAST, values, valueTypes));
 }
 
 void DaqcClient::setCPrf(bool increase)
 {
-    createUpdateRequest(new RequestUpdatePacket(C_PRF, boolToIncrease(increase), "int"));
+    QVariantList values = { boolToIncrease(increase) };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::C_PRF, values, valueTypes));
 }
 
 void DaqcClient::setDPrf(bool increase)
 {
-    createUpdateRequest(new RequestUpdatePacket(D_PRF, boolToIncrease(increase), "int"));
+    QVariantList values = { boolToIncrease(increase) };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::D_PRF, values, valueTypes));
 }
+
+#if 0
 
 void DaqcClient::setCWf(bool increase)
 {
