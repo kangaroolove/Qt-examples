@@ -549,17 +549,14 @@ void DaqcClient::setSynchro(bool value)
     legacySetBCDSynChro(parameter);
 }
 
-#if 0
-
 void DaqcClient::setDualMode(bool value)
 {
-    createUpdateRequest(new RequestUpdatePacket(DUAL_MODE, value, "bool"));
+    legacyRealtimeEn(value);
 }
 
 void DaqcClient::cancelRoi()
 {
 }
-#endif
 
 void DaqcClient::legacySetACUI(int value)
 {

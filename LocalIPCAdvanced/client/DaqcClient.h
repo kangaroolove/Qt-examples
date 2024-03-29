@@ -135,6 +135,8 @@ public:
     void setSynchro(bool value);//affects setUpdate
     void setDualMode(bool value);
     //other functions
+
+    // TO CHECK
     void cancelRoi();
 
     //all functions from daqclib.h are prepended with "legacy"
