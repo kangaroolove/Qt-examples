@@ -411,17 +411,21 @@ void DaqcClient::setDPrf(bool increase)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::D_PRF, values, valueTypes));
 }
 
-#if 0
-
 void DaqcClient::setCWf(bool increase)
 {
-    createUpdateRequest(new RequestUpdatePacket(C_WF, boolToIncrease(increase), "int"));
+    QVariantList values = { boolToIncrease(increase) };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::C_WF, values, valueTypes));
 }
 
 void DaqcClient::setDWf(bool increase)
 {
-    createUpdateRequest(new RequestUpdatePacket(D_WF, boolToIncrease(increase), "int"));
+    QVariantList values = { boolToIncrease(increase) };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::D_WF, values, valueTypes));
 }
+
+#if 0
 
 void DaqcClient::setSensitivity(bool increase)
 {

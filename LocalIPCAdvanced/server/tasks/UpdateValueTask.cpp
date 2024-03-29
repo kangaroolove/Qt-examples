@@ -112,5 +112,9 @@ void UpdateValueTask::run()
         m_daqc->SetCPRF(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::D_PRF)
         m_daqc->SetDPRF(values.first().toInt());
+    else if (m_updateValueInfo.parameter == DaqcParameter::C_WF)
+        m_daqc->SetCWallFilterFreq(values.first().toInt());
+    else if (m_updateValueInfo.parameter == DaqcParameter::D_WF)
+        m_daqc->SetDWallFilterFreq(values.first().toInt());
     
 }
