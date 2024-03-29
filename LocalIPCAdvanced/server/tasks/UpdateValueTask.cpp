@@ -126,4 +126,6 @@ void UpdateValueTask::run()
         m_daqc->SetPWDCorrectionAngle(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::D_SPEED)
         m_daqc->SetDSpeed(values.first().toInt());
+    else if (m_updateValueInfo.parameter == DaqcParameter::D_NOISE_REJECT)
+        m_daqc->SetDNoiseRej(values.first().toInt());
 }

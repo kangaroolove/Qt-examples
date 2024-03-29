@@ -462,7 +462,9 @@ void DaqcClient::setDSpeed(bool increase)
 
 void DaqcClient::setNoiseReject(bool increase)
 {
-    createUpdateRequest(new RequestUpdatePacket(NOISE_REJECT, boolToIncrease(increase), "int"));
+    QVariantList values = { boolToIncrease(increase) };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::D_NOISE_REJECT, values, valueTypes));
 }
 
 #if 0
