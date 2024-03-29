@@ -342,17 +342,15 @@ void DaqcClient::setCGain(bool increase)
     QStringList valueTypes = { "int" };
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::C_GAIN, values, valueTypes));
 }
-#if 0
-
-void DaqcClient::setMGain(bool increase)
-{
-    createUpdateRequest(new RequestUpdatePacket(M_GAIN, boolToIncrease(increase), "int"));
-}
 
 void DaqcClient::setDepth(bool increase)
 {
-    createUpdateRequest(new RequestUpdatePacket(DEPTH, boolToIncrease(increase), "int"));
+    QVariantList values = { boolToIncrease(increase) };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::DEPTH, values, valueTypes));
 }
+
+#if 0
 
 void DaqcClient::setBFrequency(bool increase)
 {

@@ -89,7 +89,6 @@ public:
     // increase/decrease functions
     void setBGain(bool increase);
     void setCGain(bool increase);
-    void setMGain(bool increase);
     void setDepth(bool increase);
     void setBFrequency(bool increase);
     void setBFrequency2(bool increase);

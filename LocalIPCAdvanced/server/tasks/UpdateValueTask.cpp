@@ -89,6 +89,8 @@ void UpdateValueTask::run()
         m_daqc->SetBGain(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::C_GAIN)
         m_daqc->SetCGain(values.first().toInt());
+    else if (m_updateValueInfo.parameter == DaqcParameter::DEPTH)
+        m_daqc->SetDepth(values.first().toInt());
 
     
 }
