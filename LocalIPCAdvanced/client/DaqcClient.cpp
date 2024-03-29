@@ -516,12 +516,14 @@ void DaqcClient::setCInvert(bool value)
     legacySetColorInvert(value);
 }
 
-#if 0
-
 void DaqcClient::setDInvert(bool value)
 {
-    createUpdateRequest(new RequestUpdatePacket(D_INVERT, value, "bool"));
+    QVariantList values = { value };
+    QStringList valueTypes = { "bool" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::D_INVERT, values, valueTypes));
 }
+
+#if 0
 
 void DaqcClient::setCAutoTrace(bool value)
 {
