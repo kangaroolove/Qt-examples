@@ -104,7 +104,7 @@ public:
     // TO CHECK
     void setContrast(bool increase);
 
-    
+
     void setCPrf(bool increase);
     void setDPrf(bool increase);
     void setCWf(bool increase);
@@ -114,7 +114,6 @@ public:
     void setSv(bool increase);
     void setCa(bool increase);
     void setDSpeed(bool increase);
-    void setMSpeed(bool increase);
     void setNoiseReject(bool increase);
     void setAudio(bool increase);
     void setBaseline(bool increase);

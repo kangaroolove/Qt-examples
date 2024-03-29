@@ -453,22 +453,19 @@ void DaqcClient::setCa(bool increase)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::CA, values, valueTypes));
 }
 
-#if 0
-
 void DaqcClient::setDSpeed(bool increase)
 {
-    createUpdateRequest(new RequestUpdatePacket(D_SPEED, boolToIncrease(increase), "int"));
-}
-
-void DaqcClient::setMSpeed(bool increase)
-{
-    createUpdateRequest(new RequestUpdatePacket(M_SPEED, boolToIncrease(increase), "int"));
+    QVariantList values = { boolToIncrease(increase) };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::D_SPEED, values, valueTypes));
 }
 
 void DaqcClient::setNoiseReject(bool increase)
 {
     createUpdateRequest(new RequestUpdatePacket(NOISE_REJECT, boolToIncrease(increase), "int"));
 }
+
+#if 0
 
 void DaqcClient::setAudio(bool increase)
 {
