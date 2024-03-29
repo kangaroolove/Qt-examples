@@ -116,5 +116,6 @@ void UpdateValueTask::run()
         m_daqc->SetCWallFilterFreq(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::D_WF)
         m_daqc->SetDWallFilterFreq(values.first().toInt());
-    
+    else if (m_updateValueInfo.parameter == DaqcParameter::SENSITIVITY)
+        m_daqc->SetColorPrior(values.first().toInt());
 }
