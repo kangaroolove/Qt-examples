@@ -439,17 +439,21 @@ void DaqcClient::setSwingAngle(bool increase)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::SWING_ANGLE, values, valueTypes));
 }
 
-#if 0
-
 void DaqcClient::setSv(bool increase)
 {
-    createUpdateRequest(new RequestUpdatePacket(SV, boolToIncrease(increase), "int"));
+    QVariantList values = { boolToIncrease(increase) };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::SV, values, valueTypes));
 }
 
 void DaqcClient::setCa(bool increase)
 {
-    createUpdateRequest(new RequestUpdatePacket(CA, boolToIncrease(increase), "int"));
+    QVariantList values = { boolToIncrease(increase) };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::CA, values, valueTypes));
 }
+
+#if 0
 
 void DaqcClient::setDSpeed(bool increase)
 {
