@@ -329,17 +329,20 @@ bool DaqcClient::isDualModeOn()
     return result.toBool();
 }
 
-#if 0
-
 void DaqcClient::setBGain(bool increase)
 {
-    createUpdateRequest(new RequestUpdatePacket(B_GAIN, boolToIncrease(increase), "int"));
+    QVariantList values = { boolToIncrease(increase) };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::B_GAIN, values, valueTypes));
 }
 
 void DaqcClient::setCGain(bool increase)
 {
-    createUpdateRequest(new RequestUpdatePacket(C_GAIN, boolToIncrease(increase), "int"));
+    QVariantList values = { boolToIncrease(increase) };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::C_GAIN, values, valueTypes));
 }
+#if 0
 
 void DaqcClient::setMGain(bool increase)
 {

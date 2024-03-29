@@ -85,6 +85,10 @@ void UpdateValueTask::run()
         m_daqc->SetFlipH(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::FLIP_V)
         m_daqc->SetFlipV(values.first().toInt());
+    else if (m_updateValueInfo.parameter == DaqcParameter::B_GAIN)
+        m_daqc->SetBGain(values.first().toInt());
+    else if (m_updateValueInfo.parameter == DaqcParameter::C_GAIN)
+        m_daqc->SetCGain(values.first().toInt());
 
     
 }
