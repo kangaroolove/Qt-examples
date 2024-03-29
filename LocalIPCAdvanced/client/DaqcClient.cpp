@@ -350,17 +350,21 @@ void DaqcClient::setDepth(bool increase)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::DEPTH, values, valueTypes));
 }
 
-#if 0
-
 void DaqcClient::setBFrequency(bool increase)
 {
-    createUpdateRequest(new RequestUpdatePacket(B_FREQUENCY, boolToIncrease(increase), "int"));
+    QVariantList values = { boolToIncrease(increase) };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::B_FREQUENCY, values, valueTypes));
 }
 
 void DaqcClient::setBFrequency2(bool increase)
 {
-    createUpdateRequest(new RequestUpdatePacket(B_FREQUENCY_2, boolToIncrease(increase), "int"));
+    QVariantList values = { boolToIncrease(increase) };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::B_FREQUENCY_2, values, valueTypes));
 }
+
+#if 0
 
 void DaqcClient::setMFrequency(bool increase)
 {

@@ -91,6 +91,10 @@ void UpdateValueTask::run()
         m_daqc->SetCGain(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::DEPTH)
         m_daqc->SetDepth(values.first().toInt());
+    else if (m_updateValueInfo.parameter == DaqcParameter::B_FREQUENCY)
+        m_daqc->SetFrequence(values.first().toInt());
+    else if (m_updateValueInfo.parameter == DaqcParameter::B_FREQUENCY_2)
+        m_daqc->SetFreq2(values.first().toInt());
 
     
 }
