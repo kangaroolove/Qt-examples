@@ -118,4 +118,6 @@ void UpdateValueTask::run()
         m_daqc->SetDWallFilterFreq(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::SENSITIVITY)
         m_daqc->SetColorPrior(values.first().toInt());
+    else if (m_updateValueInfo.parameter == DaqcParameter::SWING_ANGLE)
+        m_daqc->SetROISwingAngle(values.first().toInt());
 }

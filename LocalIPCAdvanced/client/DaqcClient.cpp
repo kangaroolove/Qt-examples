@@ -432,12 +432,14 @@ void DaqcClient::setSensitivity(bool increase)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::SENSITIVITY, values, valueTypes));
 }
 
-#if 0
-
 void DaqcClient::setSwingAngle(bool increase)
 {
-    createUpdateRequest(new RequestUpdatePacket(SWING_ANGLE, boolToIncrease(increase), "int"));
+    QVariantList values = { boolToIncrease(increase) };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::SWING_ANGLE, values, valueTypes));
 }
+
+#if 0
 
 void DaqcClient::setSv(bool increase)
 {
