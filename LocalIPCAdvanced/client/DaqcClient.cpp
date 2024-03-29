@@ -217,7 +217,7 @@ int DaqcClient::getDSpeed()
 int DaqcClient::getNoiseReject()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::NOISE_REJECT);
+        return new RequestGetPacket(DaqcParameter::D_NOISE_REJECT);
     });
     return result.toInt();
 }
@@ -225,7 +225,7 @@ int DaqcClient::getNoiseReject()
 int DaqcClient::getAudio()
 {
     auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::AUDIO);
+        return new RequestGetPacket(DaqcParameter::D_SOUND_VOLUME);
     });
     return result.toInt();
 }
@@ -467,12 +467,14 @@ void DaqcClient::setNoiseReject(bool increase)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::D_NOISE_REJECT, values, valueTypes));
 }
 
-#if 0
-
 void DaqcClient::setAudio(bool increase)
 {
-    createUpdateRequest(new RequestUpdatePacket(AUDIO, boolToIncrease(increase), "int"));
+    QVariantList values = { boolToIncrease(increase) };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::D_SOUND_VOLUME, values, valueTypes));
 }
+
+#if 0
 
 void DaqcClient::setBaseline(bool increase)
 {

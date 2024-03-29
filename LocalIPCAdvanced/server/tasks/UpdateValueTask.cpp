@@ -128,4 +128,6 @@ void UpdateValueTask::run()
         m_daqc->SetDSpeed(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::D_NOISE_REJECT)
         m_daqc->SetDNoiseRej(values.first().toInt());
+    else if (m_updateValueInfo.parameter == DaqcParameter::D_SOUND_VOLUME)
+        m_daqc->SetDSoundVolum(values.first().toInt());
 }

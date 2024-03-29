@@ -188,12 +188,12 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->DSpeed();
         replyPacketInfo.valueType = "int";
     }
-    else if (replyPacketInfo.parameter == DaqcParameter::NOISE_REJECT)
+    else if (replyPacketInfo.parameter == DaqcParameter::D_NOISE_REJECT)
     {
         replyPacketInfo.value = m_daqc->DNoiseRej();
         replyPacketInfo.valueType = "int";
     }
-    else if (replyPacketInfo.parameter == DaqcParameter::AUDIO)
+    else if (replyPacketInfo.parameter == DaqcParameter::D_SOUND_VOLUME)
     {
         replyPacketInfo.value = m_daqc->DSoundVolum();
         replyPacketInfo.valueType = "int";
