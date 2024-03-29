@@ -530,12 +530,14 @@ void DaqcClient::setCAutoTrace(bool value)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::C_AUTO_TRACE, values, valueTypes));
 }
 
-#if 0
-
 void DaqcClient::setDAutoTrace(bool value)
 {
-    createUpdateRequest(new RequestUpdatePacket(D_AUTO_TRACE, value, "bool"));
+    QVariantList values = { value };
+    QStringList valueTypes = { "bool" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::D_AUTO_TRACE, values, valueTypes));
 }
+
+#if 0
 
 void DaqcClient::setUpdate(bool value)
 {

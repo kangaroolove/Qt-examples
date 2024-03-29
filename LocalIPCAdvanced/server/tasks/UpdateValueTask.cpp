@@ -136,4 +136,6 @@ void UpdateValueTask::run()
         m_daqc->SetPwdInvert(values.first().toBool());
     else if (m_updateValueInfo.parameter == DaqcParameter::C_AUTO_TRACE)
         m_daqc->setCAutoTrace(values.first().toBool());
+    else if (m_updateValueInfo.parameter == DaqcParameter::D_AUTO_TRACE)
+        m_daqc->SetPwdAutoTrace(values.first().toBool());
 }
