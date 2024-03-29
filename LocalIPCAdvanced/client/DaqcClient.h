@@ -16,8 +16,6 @@ enum class BcdSynchro : int
     UPDATE = 2
 };
 
-
-
 class DaqcClient : public Client
 {
     Q_OBJECT
@@ -116,18 +114,13 @@ public:
     void setDSpeed(bool increase);
     void setNoiseReject(bool increase);
     void setAudio(bool increase);
+
+    // TO CHECK
     void setBaseline(bool increase);
     void setRotation(bool increase);
+
+
     // set functions
-    void setBGainValue(int value);
-    void setDepthValue(int value);
-    void setBFrequencyValue(double value);
-    void setChromaValue(int value);
-    void setImgProcValue(int value, const std::vector<int>& params);
-    void setFavgValue(int value);
-    void setLavgValue(int value);
-    void setContrastValue(int value);
-    void setRotationValue(int value);
     void setBb(bool value);
     void setUp(bool value);
     void setThi(bool value);
@@ -176,7 +169,7 @@ public:
     // double legacyCWallFilterFreq();
     // void legacySetCWallFilterFreq(double value);
     bool legacyColorInvert();
-    // void legacySetColorInvert(bool value);
+    void legacySetColorInvert(bool value);
     // int legacyColorPrior();
     // void legacySetColorPrior(int value);
     // int legacyCwdGain();

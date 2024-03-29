@@ -474,61 +474,14 @@ void DaqcClient::setAudio(bool increase)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::D_SOUND_VOLUME, values, valueTypes));
 }
 
-#if 0
-
 void DaqcClient::setBaseline(bool increase)
 {
-    createUpdateRequest(new RequestUpdatePacket(BASELINE, boolToIncrease(increase), "int"));
+    //createUpdateRequest(new RequestUpdatePacket(DaqcParameter::BASELINE, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setRotation(bool increase)
 {
-    createUpdateRequest(new RequestUpdatePacket(ROTATION, boolToIncrease(increase), "int"));
-}
 
-void DaqcClient::setBGainValue(int value)
-{
-    createUpdateRequest(new RequestUpdatePacket(B_GAIN, value, "int"));
-}
-
-void DaqcClient::setDepthValue(int value)
-{
-    createUpdateRequest(new RequestUpdatePacket(DEPTH, value, "int"));
-}
-
-void DaqcClient::setBFrequencyValue(double value)
-{
-    createUpdateRequest(new RequestUpdatePacket(B_FREQUENCY, value, "double"));
-}
-
-void DaqcClient::setChromaValue(int value)
-{
-    createUpdateRequest(new RequestUpdatePacket(CHROMA, value, "int"));
-}
-
-void DaqcClient::setImgProcValue(int value, const std::vector<int> &params)
-{
-    createUpdateRequest(new RequestUpdatePacket(CHROMA, value, "vector<int>"));
-}
-
-void DaqcClient::setFavgValue(int value)
-{
-    createUpdateRequest(new RequestUpdatePacket(FAVG, value, "int"));
-}
-
-void DaqcClient::setLavgValue(int value)
-{
-    createUpdateRequest(new RequestUpdatePacket(LAVG, value, "int"));
-}
-
-void DaqcClient::setContrastValue(int value)
-{
-    createUpdateRequest(new RequestUpdatePacket(CONTRAST, value, "int"));
-}
-
-void DaqcClient::setRotationValue(int value)
-{
-    createUpdateRequest(new RequestUpdatePacket(ROTATION, value, "int"));
 }
 
 void DaqcClient::setBb(bool value)
@@ -551,18 +504,19 @@ void DaqcClient::setCenterLine(bool value)
 
 void DaqcClient::setRoiSite(bool value)
 {
-    createUpdateRequest(new RequestUpdatePacket(ROI_SITE, value, "bool"));
 }
 
 void DaqcClient::setRoiSize(bool value)
 {
-    createUpdateRequest(new RequestUpdatePacket(ROI_SIZE, value, "bool"));
+    //createUpdateRequest(new RequestUpdatePacket(ROI_SIZE, value, "bool"));
 }
 
 void DaqcClient::setCInvert(bool value)
 {
-    createUpdateRequest(new RequestUpdatePacket(C_INVERT, value, "bool"));
+    legacySetColorInvert(value);
 }
+
+#if 0
 
 void DaqcClient::setDInvert(bool value)
 {
@@ -656,6 +610,13 @@ bool DaqcClient::legacyColorInvert()
     });
 
     return result.toBool();
+}
+
+void DaqcClient::legacySetColorInvert(bool value)
+{
+    QVariantList values = { value };
+    QStringList valueTypes = { "bool" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::COLOR_INVERT, values, valueTypes));
 }
 
 int DaqcClient::legacyDDynamic()
