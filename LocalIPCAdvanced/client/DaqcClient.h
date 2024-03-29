@@ -92,9 +92,12 @@ public:
     void setDepth(bool increase);
     void setBFrequency(bool increase);
     void setBFrequency2(bool increase);
-    void setMFrequency(bool increase);
+
+    // TO CHECK
     void setChroma(bool increase);
     void setImgProc(bool increase, const std::vector<int>& params);
+
+
     void setFavg(bool increase);
     void setLavg(bool increase);
     void setContrast(bool increase);
@@ -285,7 +288,7 @@ public:
     // void legacyMode4B(int wid);
     // void legacyMoveColorROI(int LeftRight, int UpDown);
     void legacyMoveROIColor(int x, int y);
-    // void legacyPalette(int colorID, int bright, int ts);
+    void legacyPalette(int colorID, int bright, int ts);
     void legacyRealtimeEn(int en);
     // void legacySetColorDopplerROI(int startPos, int endPos, int startDepth, int endDepth);
     void legacySetFlipH(int isFlip);

@@ -95,6 +95,18 @@ void UpdateValueTask::run()
         m_daqc->SetFrequence(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::B_FREQUENCY_2)
         m_daqc->SetFreq2(values.first().toInt());
+    else if (m_updateValueInfo.parameter == DaqcParameter::CHROMA)
+        ;
+    else if (m_updateValueInfo.parameter == DaqcParameter::PALETTE)
+    {
+        QPalette palette;
+        m_daqc->setPalette(palette);
+    }
+    else if (m_updateValueInfo.parameter == DaqcParameter::FAVG)
+        m_daqc->SetFrameRelation(values.first().toInt());
+    else if (m_updateValueInfo.parameter == DaqcParameter::LAVG)
+        m_daqc->SetLineDensity(values.first().toInt());
+
 
     
 }

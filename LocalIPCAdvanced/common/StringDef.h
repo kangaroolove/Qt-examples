@@ -93,6 +93,7 @@ const QString FLIP_H = "FlipH";
 const QString FLIP_V = "FlipV";
 const QString ROI_POSITION = "RoiPosition";
 const QString DUAL_CONVEX_OR_LINEAR_CHANNEL = "DualConvexOrLinearChannel";
+const QString PALETTE = "Palette";
 }
 
 enum class WelldParameterId : unsigned int

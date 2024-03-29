@@ -364,32 +364,33 @@ void DaqcClient::setBFrequency2(bool increase)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::B_FREQUENCY_2, values, valueTypes));
 }
 
-#if 0
-
-void DaqcClient::setMFrequency(bool increase)
-{
-    createUpdateRequest(new RequestUpdatePacket(M_FREQUENCY, boolToIncrease(increase), "int"));
-}
-
 void DaqcClient::setChroma(bool increase)
 {
-    createUpdateRequest(new RequestUpdatePacket(CHROMA, boolToIncrease(increase), "int"));
+    QVariantList values = { boolToIncrease(increase) };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::CHROMA, values, valueTypes));
 }
 
 void DaqcClient::setImgProc(bool increase, const std::vector<int> &params)
 {
-    createUpdateRequest(new RequestUpdatePacket(IMG_PROC, boolToIncrease(increase), "int"));
+    //createUpdateRequest(new RequestUpdatePacket(IMG_PROC, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setFavg(bool increase)
 {
-    createUpdateRequest(new RequestUpdatePacket(FAVG, boolToIncrease(increase), "int"));
+    QVariantList values = { boolToIncrease(increase) };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::FAVG, values, valueTypes));
 }
 
 void DaqcClient::setLavg(bool increase)
 {
-    createUpdateRequest(new RequestUpdatePacket(LAVG, boolToIncrease(increase), "int"));
+    QVariantList values = { boolToIncrease(increase) };
+    QStringList valueTypes = { "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::LAVG, values, valueTypes));
 }
+
+#if 0
 
 void DaqcClient::setContrast(bool increase)
 {
@@ -1628,6 +1629,13 @@ void DaqcClient::legacyMoveROIColor(int x, int y)
     QVariantList values = { x, y };
     QStringList valueTypes = { "int", "int" };
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::MOVE_ROI_COLOR, values, valueTypes));
+}
+
+void DaqcClient::legacyPalette(int colorID, int bright, int ts)
+{
+    QVariantList values = { colorID, bright, ts };
+    QStringList valueTypes = { "int", "int", "int" };
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::PALETTE, values, valueTypes));
 }
 
 void DaqcClient::legacyRealtimeEn(int en)
