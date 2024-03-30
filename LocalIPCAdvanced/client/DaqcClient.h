@@ -59,6 +59,7 @@ public:
     int getAudio();
     // TO CHECK
     int getRotation();
+    int getNextAcuiIndex();
 
     double getSpacingX();
     double getSpacingY();
@@ -134,10 +135,14 @@ public:
     void setUpdate(bool value);//affects setSynchro
     void setSynchro(bool value);//affects setUpdate
     void setDualMode(bool value);
+    void setImgProcValue(int index, const std::vector<int>& params);
     //other functions
 
     // TO CHECK
     void cancelRoi();
+
+    //
+
 
     //all functions from daqclib.h are prepended with "legacy"
     void legacySetACUI(int value);

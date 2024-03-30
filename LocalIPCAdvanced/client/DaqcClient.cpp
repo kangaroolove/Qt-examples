@@ -235,6 +235,18 @@ int DaqcClient::getRotation()
     return 0;
 }
 
+int DaqcClient::getNextAcuiIndex()
+{
+    const int INDEX_MIN = 1;
+    const int INDEX_MAX = 4;
+    int index = legacyACUI();
+    ++index;
+    if (index > INDEX_MAX)
+        index = INDEX_MIN;
+
+    return index;
+}
+
 double DaqcClient::getSpacingX()
 {
     return legacyGetParameter(102);
@@ -552,6 +564,16 @@ void DaqcClient::setSynchro(bool value)
 void DaqcClient::setDualMode(bool value)
 {
     legacyRealtimeEn(value);
+}
+
+void DaqcClient::setImgProcValue(int index, const std::vector<int> &params)
+{
+    if (params.size() < 27)
+        return;
+    
+    for (int i = 0; i < 27; i++)
+        legacyFacuiParams(i + 3, params.at(i));
+    legacySetACUI(index);
 }
 
 void DaqcClient::cancelRoi()
