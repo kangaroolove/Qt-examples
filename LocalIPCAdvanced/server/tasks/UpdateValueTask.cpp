@@ -142,4 +142,7 @@ void UpdateValueTask::run()
         m_daqc->SetBCDSynChro(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::ACUI_PARAMETER)
         m_daqc->FacuiParams(values.first().toInt(), values.last().toInt());
+    else if (m_updateValueInfo.parameter == DaqcParameter::IMAGE_PROCESS)
+        m_daqc->SetImageProcess(values.first().toInt());
+
 }
