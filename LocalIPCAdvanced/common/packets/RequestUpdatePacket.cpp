@@ -1,5 +1,5 @@
 #include "RequestUpdatePacket.h"
-#include "StringDef.h"
+#include "DaqcClientDef.h"
 #include <QJsonObject>
 #include <QJsonArray>
 

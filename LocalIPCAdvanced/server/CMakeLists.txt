@@ -58,7 +58,7 @@ set(PROJECT_SOURCES
 	../common/packets/FramePacket.h
 	lib/daqclib.cpp
 	lib/daqclib.h
-	../common/StringDef.h
+	../common/DaqcClientDef.h
 )
 
 set(PROJECT_UIS

@@ -1,5 +1,5 @@
 #include "ReplyPacket.h"
-#include "StringDef.h"
+#include "DaqcClientDef.h"
 #include <QJsonDocument>
 #include <QVariant>
 #include <QJsonArray>

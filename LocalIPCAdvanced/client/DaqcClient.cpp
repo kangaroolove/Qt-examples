@@ -2,7 +2,7 @@
 #include "RequestGetPacket.h"
 #include "RequestUpdatePacket.h"
 #include "Client.h"
-#include "StringDef.h"
+#include "DaqcClientDef.h"
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDebug>

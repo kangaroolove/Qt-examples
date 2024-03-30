@@ -1,5 +1,5 @@
 #include "RequestGetPacket.h"
-#include "StringDef.h"
+#include "DaqcClientDef.h"
 #include <QJsonArray>
 
 RequestGetPacket::RequestGetPacket(const RequestGetPacket &packet)

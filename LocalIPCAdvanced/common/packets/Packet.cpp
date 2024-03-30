@@ -1,5 +1,5 @@
 #include "Packet.h"
-#include "StringDef.h"
+#include "DaqcClientDef.h"
 #include <QJsonDocument>
 #include <QUuid>
 

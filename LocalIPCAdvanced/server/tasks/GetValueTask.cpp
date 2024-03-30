@@ -1,7 +1,7 @@
 #include "GetValueTask.h"
 #include "SendTask.h"
 #include "Server.h"
-#include "StringDef.h"
+#include "DaqcClientDef.h"
 #include <QThreadPool>
 
 QReadWriteLock GetValueTask::m_readWriteLock;

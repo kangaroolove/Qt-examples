@@ -46,7 +46,7 @@ set(PROJECT_HEADERS
 	../common/packets/RequestUpdatePacket.h
 	../common/packets/RequestGetPacket.h
 	../common/packets/ReplyPacket.h
-	../common/StringDef.h
+	../common/DaqcClientDef.h
 	../common/packets/RequestPacket.h
 )
 

@@ -4,7 +4,7 @@
 #include "UpdateValueTask.h"
 #include "GetValueTask.h"
 #include "RequestGetPacket.h"
-#include "StringDef.h"
+#include "DaqcClientDef.h"
 #include "RequestUpdatePacket.h"
 #include <QJsonDocument>
 #include <QJsonObject>

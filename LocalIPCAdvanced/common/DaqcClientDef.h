@@ -99,7 +99,7 @@ enum class WelldParameterId : unsigned int
     C_ROI_X = 9,
     C_ROI_Y = 10,
     D_ROI_X = 11,
-    Y_ROI_Y = 12,
+    D_ROI_Y = 12,
     CURRENT_IMAGE_BUFFER = 98,
     REALTIME_EN = 120
 };

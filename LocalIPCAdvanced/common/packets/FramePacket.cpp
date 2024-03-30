@@ -1,5 +1,5 @@
 #include "FramePacket.h"
-#include "StringDef.h"
+#include "DaqcClientDef.h"
 #include <QBuffer>
 #include <QJsonValue>
 #include <QVariant>

@@ -1,5 +1,5 @@
 #include "RequestPacket.h"
-#include "StringDef.h"
+#include "DaqcClientDef.h"
 
 RequestPacket::RequestPacket()
 {

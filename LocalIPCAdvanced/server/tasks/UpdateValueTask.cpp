@@ -1,5 +1,5 @@
 #include "UpdateValueTask.h"
-#include "StringDef.h"
+#include "DaqcClientDef.h"
 #include <QDebug>
 
 QReadWriteLock UpdateValueTask::m_readWriteLock;
