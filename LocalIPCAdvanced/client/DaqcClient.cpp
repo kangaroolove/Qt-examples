@@ -565,6 +565,15 @@ void DaqcClient::legacySetACUI(int value)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::ACUI, values, valueTypes));
 }
 
+int DaqcClient::legacyACUI()
+{
+    auto result = createGetRequest([]{ 
+        return new RequestGetPacket(DaqcParameter::ACUI); 
+    });
+
+    return result.toInt();
+}
+
 void DaqcClient::legacyFacuiParams(int index, int value)
 {
     QVariantList values = { index, value};

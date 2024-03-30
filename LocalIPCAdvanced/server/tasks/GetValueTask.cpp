@@ -233,6 +233,11 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->DBaseLine();
         replyPacketInfo.valueType = "int";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::ACUI)
+    {
+        replyPacketInfo.value = m_daqc->ACUI();
+        replyPacketInfo.valueType = "int";
+    }
 
     return replyPacketInfo;
 }
