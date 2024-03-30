@@ -14,13 +14,6 @@ Widget::Widget(QWidget * parent)
     connect(button, &QPushButton::clicked, this, [this]{
         QString filePath = QCoreApplication::applicationDirPath() + "/testApplication.exe";
         QProcess *process = new QProcess(this);
-
-
-
-        // connect(process, &QProcess::started, this, [&process](){
-        //     qDebug()<<process->errorString();
-        //     qDebug()<<"Starting testApplication is successful";
-        // });
         process->start(filePath);
         if (process->waitForStarted())
             qDebug()<<"Starting testApplication is successful";
