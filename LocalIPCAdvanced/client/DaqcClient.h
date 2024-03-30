@@ -41,7 +41,6 @@ public:
     double getBFrequency2();
     // TO CHECK
     int getChroma();
-    int getImgProc();
 
     int getFavg();
     int getLavg();
@@ -59,7 +58,6 @@ public:
     int getAudio();
     // TO CHECK
     int getRotation();
-    int getNextAcuiIndex();
 
     double getSpacingX();
     double getSpacingY();
@@ -94,8 +92,6 @@ public:
 
     // TO CHECK
     void setChroma(bool increase);
-    void setImgProc(bool increase, const std::vector<int>& params);
-
 
     void setFavg(bool increase);
     void setLavg(bool increase);

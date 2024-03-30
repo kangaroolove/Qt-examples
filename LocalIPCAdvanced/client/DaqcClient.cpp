@@ -118,11 +118,6 @@ int DaqcClient::getChroma()
     return 0;
 }
 
-int DaqcClient::getImgProc()
-{
-    return 0;
-}
-
 int DaqcClient::getFavg()
 {
     // original interface return double
@@ -233,18 +228,6 @@ int DaqcClient::getAudio()
 int DaqcClient::getRotation()
 {
     return 0;
-}
-
-int DaqcClient::getNextAcuiIndex()
-{
-    const int INDEX_MIN = 1;
-    const int INDEX_MAX = 4;
-    int index = legacyACUI();
-    ++index;
-    if (index > INDEX_MAX)
-        index = INDEX_MIN;
-
-    return index;
 }
 
 double DaqcClient::getSpacingX()
@@ -381,11 +364,6 @@ void DaqcClient::setChroma(bool increase)
     QVariantList values = { boolToIncrease(increase) };
     QStringList valueTypes = { "int" };
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::CHROMA, values, valueTypes));
-}
-
-void DaqcClient::setImgProc(bool increase, const std::vector<int> &params)
-{
-    //createUpdateRequest(new RequestUpdatePacket(IMG_PROC, boolToIncrease(increase), "int"));
 }
 
 void DaqcClient::setFavg(bool increase)
