@@ -13,7 +13,7 @@ class Server : public QLocalServer
     Q_OBJECT
 public:
     Server(QObject* parent = nullptr);
-    ~Server();
+    virtual ~Server();
     virtual void start() = 0;
 signals:
     void receiveMessage(const QByteArray& msg);

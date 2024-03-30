@@ -1,5 +1,6 @@
 #include "Server.h"
 #include "HandleReceiveMessageTask.h"
+#include <QCoreApplication>
 #include <QLocalSocket>
 #include <QDataStream>
 #include <QDebug>
@@ -70,6 +71,12 @@ void Server::clientDisconnected()
     {
         m_clientSockets.erase(it);
         qDebug()<<"A client is disconnected";
+    }
+
+    if (m_clientSockets.empty())
+    {
+        qDebug()<<"Since client list is empty, server will be closed";
+        QCoreApplication::quit();
     }
 }
 
