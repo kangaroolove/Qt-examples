@@ -47,6 +47,7 @@ const QString C_AUTO_TRACE = "CAutoTrace";
 const QString D_AUTO_TRACE = "DAutoTrace";
 const QString DUAL_MODE = "DualMode";
 const QString ACUI = "Acui";
+const QString ACUI_PARAMETER = "AcuiParameter";
 const QString A_POWER = "APower";
 const QString ANATOMY_LINE = "AnatomyLine";
 const QString B_C_D_SYNCHRO = "BCDSynChro";

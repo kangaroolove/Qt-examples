@@ -141,6 +141,8 @@ public:
 
     //all functions from daqclib.h are prepended with "legacy"
     void legacySetACUI(int value);
+
+    void legacyFacuiParams(int index, int value);
     int legacyBCDSynChro();
     void legacySetBCDSynChro(int value);
     int legacyBDynamic();
