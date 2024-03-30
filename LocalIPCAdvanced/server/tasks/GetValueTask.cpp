@@ -228,6 +228,11 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->GetParameter((int)WelldParameterId::REALTIME_EN);
         replyPacketInfo.valueType = "double";
     }
+    else if (replyPacketInfo.parameter == DaqcParameter::D_BASELINE)
+    {
+        replyPacketInfo.value = m_daqc->DBaseLine();
+        replyPacketInfo.valueType = "int";
+    }
 
     return replyPacketInfo;
 }

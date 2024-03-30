@@ -631,6 +631,15 @@ void DaqcClient::legacySetColorInvert(bool value)
     createUpdateRequest(new RequestUpdatePacket(DaqcParameter::COLOR_INVERT, values, valueTypes));
 }
 
+int DaqcClient::legacyDBaseLine()
+{
+    auto result = createGetRequest([]{ 
+        return new RequestGetPacket(DaqcParameter::D_BASELINE); 
+    });
+
+    return result.toInt();
+}
+
 int DaqcClient::legacyDDynamic()
 {
     auto result = createGetRequest([]{ 

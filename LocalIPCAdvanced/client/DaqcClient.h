@@ -176,7 +176,7 @@ public:
     // void legacySetColorPrior(int value);
     // int legacyCwdGain();
     // void legacySetCwdGain(int value);
-    // int legacyDBaseLine();
+    int legacyDBaseLine();
     // void legacySetDBaseLine(int value);
     int legacyDDynamic();
     void legacySetDDynamic(int value);
