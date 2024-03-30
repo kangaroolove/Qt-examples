@@ -31,7 +31,7 @@ ClientWidget::ClientWidget(QWidget* parent) :
         m_imageLabel->setPixmap(QPixmap::fromImage(image));
     });
 
-    m_client->start();
+    m_client->connectToServer();
 }
 
 ClientWidget::~ClientWidget()

@@ -19,7 +19,7 @@ DaqcClient::~DaqcClient()
 {
 }
 
-void DaqcClient::start()
+void DaqcClient::connectToServer()
 {
     m_worker->connectToServer("Daqc");
     qDebug()<<"Connect to server";

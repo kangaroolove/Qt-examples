@@ -22,7 +22,7 @@ class DaqcClient : public Client
 public:
     DaqcClient(QObject* parent = nullptr);
     ~DaqcClient();
-    void start() override;
+    void connectToServer() override;
     int testGetApi();
     void testSetApi(bool isTest);
     // get functions

@@ -33,7 +33,7 @@ class Client : public QObject
 public:
     Client(QObject* parent = nullptr);
     ~Client();
-    virtual void start() = 0;
+    virtual void connectToServer() = 0;
     void insertRequestResult(const QString& clientMessageId, const RequestResult& result);
 signals:
     void messageToWorkerSended(const QByteArray& msg);
