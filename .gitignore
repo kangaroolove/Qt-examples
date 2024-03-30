@@ -24,3 +24,5 @@
 /LocalIPCAdvanced/build
 /QImageToQJsonValue/build
 /QImageToQJsonValue/.vscode
+/ExternalCall/.vscode
+/ExternalCall/build
