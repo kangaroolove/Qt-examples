@@ -35,7 +35,7 @@ void initializeRootLogger()
     logger->addAppender(fileAppender);
 
     // Set level to info
-    logger->setLevel(Log4Qt::Level::DEBUG_INT);
+    logger->setLevel(Log4Qt::Level::INFO_INT);
     Log4Qt::LogManager::setHandleQtMessages(true);
 }
 
