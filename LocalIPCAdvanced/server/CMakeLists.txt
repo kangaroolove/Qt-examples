@@ -21,8 +21,9 @@ include_directories(
 	lib/Daqc
 )
 
-list(APPEND EXTRA_LIBS 
-)
+list(APPEND EXTRA_LIBS debug ${PROJECT_SOURCE_DIR}/lib/Log4Qt/lib/log4qt_d.lib)
+list(APPEND EXTRA_LIBS optimized ${PROJECT_SOURCE_DIR}/lib/Log4Qt/lib/log4qt.lib)
+list(APPEND EXTRA_INCLUDES "${PROJECT_SOURCE_DIR}/lib/Log4Qt/include")
 
 set(PROJECT_SOURCES
     main.cpp
@@ -74,3 +75,4 @@ add_executable(${PROJECT_NAME}
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::AxContainer Qt5::Widgets Qt5::Network ${EXTRA_LIBS})
+target_include_directories(${PROJECT_NAME} PUBLIC ${EXTRA_INCLUDES})
