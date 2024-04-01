@@ -31,6 +31,10 @@ ClientWidget::ClientWidget(QWidget* parent) :
         m_imageLabel->setPixmap(QPixmap::fromImage(image));
     });
 
+    connect(m_client, &DaqcClient::connected, this, []{
+        qDebug()<<"trigger connect";
+    });
+
     m_client->connectToServer();
 }
 

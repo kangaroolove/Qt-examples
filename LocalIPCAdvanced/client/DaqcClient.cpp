@@ -21,8 +21,8 @@ DaqcClient::~DaqcClient()
 
 void DaqcClient::connectToServer()
 {
-    m_worker->connectToServer("Daqc");
     qDebug()<<"Connect to server";
+    m_worker->connectToServer("Daqc");
 }
 
 int DaqcClient::testGetApi()
