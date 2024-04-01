@@ -7,15 +7,61 @@
 #include <QDebug>
 
 
+
 ClientWidget::ClientWidget(QWidget* parent) : 
     QWidget(parent),
     m_receiveTextEdit(new QTextEdit(this)),
     m_sendTextEdit(new QTextEdit(this)),
     m_sendButton(new QPushButton("Send", this)),
     m_client(new DaqcClient(this)),
-    m_imageLabel(new QLabel(this))
+    m_imageLabel(new QLabel(this)),
+    m_initButton(new QPushButton("Init", this))
 {
     initGui();
+    bindConnections();
+    m_client->connectToServer();
+}
+
+ClientWidget::~ClientWidget()
+{
+
+}
+
+void ClientWidget::onInitButtonClicked()
+{
+    std::vector<int> probeList = {};
+    int currentPort = 0;
+    int currentExamId = 10;
+
+    m_client->legacyInit(0);
+
+    for (int i = 0; i < probeList.size(); ++i)
+        m_client->legacyFProbeType(i, probeList.at(i));
+    m_client->legacySetImageProcess(1);
+    m_client->legacySetProbePOS(currentPort);
+    m_client->legacySetExamTypeID(currentExamId);
+    m_client->legacySetPwifBuffms(0);
+    m_client->legacySetScanMode(0);
+    m_client->legacyStart();
+}
+
+void ClientWidget::initGui()
+{
+    QVBoxLayout *layout = new QVBoxLayout(this);
+    QLabel* receiveLabel = new QLabel("Receive:", this);
+    QLabel* sendLabel = new QLabel("Send:", this);
+
+    layout->addWidget(receiveLabel);
+    layout->addWidget(m_receiveTextEdit);
+    layout->addWidget(sendLabel);
+    layout->addWidget(m_sendTextEdit);
+    layout->addWidget(m_sendButton);
+    layout->addWidget(m_initButton);
+    layout->addWidget(m_imageLabel);
+}
+
+void ClientWidget::bindConnections()
+{
     connect(m_sendButton, &QPushButton::clicked, this, [this]{
         //m_client->sendMessage(m_sendTextEdit->toPlainText());
         //m_sendTextEdit->clear();
@@ -35,24 +81,5 @@ ClientWidget::ClientWidget(QWidget* parent) :
         qDebug()<<"trigger connect";
     });
 
-    m_client->connectToServer();
-}
-
-ClientWidget::~ClientWidget()
-{
-
-}
-
-void ClientWidget::initGui()
-{
-    QVBoxLayout *layout = new QVBoxLayout(this);
-    QLabel* receiveLabel = new QLabel("Receive:", this);
-    QLabel* sendLabel = new QLabel("Send:", this);
-
-    layout->addWidget(receiveLabel);
-    layout->addWidget(m_receiveTextEdit);
-    layout->addWidget(sendLabel);
-    layout->addWidget(m_sendTextEdit);
-    layout->addWidget(m_sendButton);
-    layout->addWidget(m_imageLabel);
+    connect(m_initButton, &QPushButton::clicked, this, &ClientWidget::onInitButtonClicked);
 }
