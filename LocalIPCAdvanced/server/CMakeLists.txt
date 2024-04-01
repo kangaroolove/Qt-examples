@@ -18,7 +18,7 @@ include_directories(
 	../common/packets
 	../common
 	ui
-	lib
+	lib/Daqc
 )
 
 list(APPEND EXTRA_LIBS 
@@ -56,8 +56,8 @@ set(PROJECT_SOURCES
 	../common/packets/RequestPacket.h
 	../common/packets/FramePacket.cpp
 	../common/packets/FramePacket.h
-	lib/daqclib.cpp
-	lib/daqclib.h
+	lib/Daqc/daqclib.cpp
+	lib/Daqc/daqclib.h
 	../common/DaqcClientDef.h
 )
 
