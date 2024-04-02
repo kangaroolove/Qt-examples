@@ -13,6 +13,7 @@ const QString COMMAND = "Command";
 
 namespace DaqcParameter
 {
+const QString TEST = "Test";
 const QString REGION_PHYSICAL_DELTA_X = "RegionPhysicalDeltaX";
 const QString REGION_PHYSICAL_DELTA_Y = "RegionPhysicalDeltaY";
 const QString B_GAIN = "BGain";

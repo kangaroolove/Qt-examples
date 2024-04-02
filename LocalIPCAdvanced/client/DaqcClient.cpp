@@ -30,7 +30,7 @@ int DaqcClient::testGetApi()
     auto result = createGetRequest([]{ 
         QVariantList values = { 50 };
         QStringList valueTypes = { "int" };
-        return new RequestGetPacket("test", values, valueTypes); 
+        return new RequestGetPacket(DaqcParameter::TEST, values, valueTypes); 
     });
 
     return result.toInt();
@@ -39,7 +39,7 @@ int DaqcClient::testGetApi()
 void DaqcClient::testSetApi(bool isTest)
 {
     QVariantList values = { true };
-    createUpdateRequest(new RequestUpdatePacket("test", values, {"bool"}));
+    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::TEST, values, {"bool"}));
 }
 
 bool DaqcClient::isConnected()
@@ -804,7 +804,7 @@ int DaqcClient::legacyGetProbeInfo(int id)
     auto result = createGetRequest([&id]{ 
         QVariantList values = { id };
         QStringList valueTypes = { "int" };
-        return new RequestGetPacket("test", values, valueTypes); 
+        return new RequestGetPacket(DaqcParameter::PROBE_INFO, values, valueTypes); 
     });
 
     return result.toInt();
