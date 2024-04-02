@@ -38,7 +38,7 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
     auto values = m_getValueInfo.values.toList();
     auto valueTypes = m_getValueInfo.valueTypes.toStringList();
 
-    if (replyPacketInfo.parameter == "test")
+    if (replyPacketInfo.parameter == DaqcParameter::TEST)
     {   
         replyPacketInfo.value = 10;
         replyPacketInfo.valueType = "int";

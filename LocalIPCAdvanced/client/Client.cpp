@@ -11,6 +11,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QImage>
+#include <QReadWriteLock>
 #include <QEventLoop>
 #include <functional>
 
@@ -18,7 +19,7 @@ Client::Client(QObject* parent) :
     QObject(parent),
     m_worker(new ClientWorker(this)),
     m_thread(new QThread(this)),
-    m_mutex(new QMutex)
+    m_locker(new QReadWriteLock)
 {
     m_worker->moveToThread(m_thread);
     connect(m_thread, &QThread::finished, m_worker, &ClientWorker::deleteLater);
@@ -35,29 +36,13 @@ Client::~Client()
     m_thread->quit();
     m_thread->wait();
 
-    delete m_mutex;
+    delete m_locker;
 }
 
-void Client::insertRequestResult(const QString &clientMessageId, const RequestResult &result)
+void Client::updateResult(const QString &parameter, const QVariant& result)
 {
-    QMutexLocker locker(m_mutex);
-    m_resultMap.insert({clientMessageId, result});
-}
-
-RequestResult Client::getRequestResult(const QString &clientMessageId)
-{
-    QMutexLocker locker(m_mutex);
-    RequestResult result;
-    auto it = m_resultMap.find(clientMessageId);
-    if (it != m_resultMap.end())
-    {
-        result = it->second;
-        m_resultMap.erase(it);
-        return result;
-    }
-
-    qCritical()<<"Cannot find the result";
-    return result;
+    QWriteLocker locker(m_locker);
+    m_parametersMap[parameter] = result;
 }
 
 void Client::sendMessage(const QByteArray& msg)
@@ -67,6 +52,7 @@ void Client::sendMessage(const QByteArray& msg)
 
 QVariant Client::createGetRequest(std::function<Packet*()> callback)
 {
+    #if 0
     QEventLoop eventloop;
     connect(m_worker, &ClientWorker::eventLoopQuitted, &eventloop, &QEventLoop::quit);
 
@@ -77,10 +63,24 @@ QVariant Client::createGetRequest(std::function<Packet*()> callback)
     RequestResult result = getRequestResult(packet->getMessageId());
     packet->deleteLater();
     return result.values;
+    #endif
+
+    return QVariant();
 }
 
-void Client::createUpdateRequest(Packet *packet)
+void Client::createRequest(Packet *packet)
 {
     sendMessage(packet->toJson());
     packet->deleteLater();
+}
+
+QVariant Client::getResult(const QString &parameter) const
+{
+    QReadLocker locker(m_locker);
+    auto it = m_parametersMap.find(parameter);
+    if (it != m_parametersMap.end())
+        return it->second;
+
+    qCritical()<<"Client::getResult ---- Cannot find the result";
+    return QVariant();
 }

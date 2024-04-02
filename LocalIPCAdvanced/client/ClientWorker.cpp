@@ -46,8 +46,8 @@ void ClientWorker::readyToRead()
         {
             auto replyPacket = ReplyPacket::fromJson(document.object());
             auto info = replyPacket.getReplyPacketInfo();
-            m_client->insertRequestResult(info.clientMessageId, RequestResult(info.valueType, info.value));
-            emit eventLoopQuitted();
+            qDebug()<<info.value;
+            m_client->updateResult(info.parameter, info.value);
         }
     }
 }

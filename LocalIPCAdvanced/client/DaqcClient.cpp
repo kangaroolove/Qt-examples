@@ -9,10 +9,18 @@
 #include <QThreadPool>
 #include <QEventLoop>
 #include <QImage>
+#include <QTimer>
 
 DaqcClient::DaqcClient(QObject* parent) :
-    Client(parent)
+    Client(parent),
+    m_requestParameterTimer(new QTimer(this))
 {
+    m_requestParameterTimer->setInterval(400);
+
+    connect(m_requestParameterTimer, &QTimer::timeout, this, &DaqcClient::requestGetParameters);
+    connect(this, &DaqcClient::connected, this, [this]{
+        m_requestParameterTimer->start();
+    });
 }
 
 DaqcClient::~DaqcClient()
@@ -27,19 +35,21 @@ void DaqcClient::connectToServer()
 
 int DaqcClient::testGetApi()
 {
-    auto result = createGetRequest([]{ 
-        QVariantList values = { 50 };
-        QStringList valueTypes = { "int" };
-        return new RequestGetPacket(DaqcParameter::TEST, values, valueTypes); 
-    });
+    // auto result = createGetRequest([]{ 
+    //     QVariantList values = { 50 };
+    //     QStringList valueTypes = { "int" };
+    //     return new RequestGetPacket(DaqcParameter::TEST, values, valueTypes); 
+    // });
 
-    return result.toInt();
+    // return result.toInt();
+
+    return getResult(DaqcParameter::TEST).toInt();
 }
 
 void DaqcClient::testSetApi(bool isTest)
 {
     QVariantList values = { true };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::TEST, values, {"bool"}));
+    createRequest(new RequestUpdatePacket(DaqcParameter::TEST, values, {"bool"}));
 }
 
 bool DaqcClient::isConnected()
@@ -328,56 +338,56 @@ void DaqcClient::setBGain(bool increase)
 {
     QVariantList values = { boolToIncrease(increase) };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::B_GAIN, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::B_GAIN, values, valueTypes));
 }
 
 void DaqcClient::setCGain(bool increase)
 {
     QVariantList values = { boolToIncrease(increase) };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::C_GAIN, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::C_GAIN, values, valueTypes));
 }
 
 void DaqcClient::setDepth(bool increase)
 {
     QVariantList values = { boolToIncrease(increase) };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::DEPTH, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::DEPTH, values, valueTypes));
 }
 
 void DaqcClient::setBFrequency(bool increase)
 {
     QVariantList values = { boolToIncrease(increase) };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::B_FREQUENCY, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::B_FREQUENCY, values, valueTypes));
 }
 
 void DaqcClient::setBFrequency2(bool increase)
 {
     QVariantList values = { boolToIncrease(increase) };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::B_FREQUENCY_2, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::B_FREQUENCY_2, values, valueTypes));
 }
 
 void DaqcClient::setChroma(bool increase)
 {
     QVariantList values = { boolToIncrease(increase) };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::CHROMA, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::CHROMA, values, valueTypes));
 }
 
 void DaqcClient::setFavg(bool increase)
 {
     QVariantList values = { boolToIncrease(increase) };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::FAVG, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::FAVG, values, valueTypes));
 }
 
 void DaqcClient::setLavg(bool increase)
 {
     QVariantList values = { boolToIncrease(increase) };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::LAVG, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::LAVG, values, valueTypes));
 }
 
 void DaqcClient::setContrast(bool increase)
@@ -391,77 +401,77 @@ void DaqcClient::setCPrf(bool increase)
 {
     QVariantList values = { boolToIncrease(increase) };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::C_PRF, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::C_PRF, values, valueTypes));
 }
 
 void DaqcClient::setDPrf(bool increase)
 {
     QVariantList values = { boolToIncrease(increase) };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::D_PRF, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::D_PRF, values, valueTypes));
 }
 
 void DaqcClient::setCWf(bool increase)
 {
     QVariantList values = { boolToIncrease(increase) };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::C_WF, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::C_WF, values, valueTypes));
 }
 
 void DaqcClient::setDWf(bool increase)
 {
     QVariantList values = { boolToIncrease(increase) };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::D_WF, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::D_WF, values, valueTypes));
 }
 
 void DaqcClient::setSensitivity(bool increase)
 {
     QVariantList values = { boolToIncrease(increase) };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::SENSITIVITY, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::SENSITIVITY, values, valueTypes));
 }
 
 void DaqcClient::setSwingAngle(bool increase)
 {
     QVariantList values = { boolToIncrease(increase) };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::SWING_ANGLE, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::SWING_ANGLE, values, valueTypes));
 }
 
 void DaqcClient::setSv(bool increase)
 {
     QVariantList values = { boolToIncrease(increase) };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::SV, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::SV, values, valueTypes));
 }
 
 void DaqcClient::setCa(bool increase)
 {
     QVariantList values = { boolToIncrease(increase) };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::CA, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::CA, values, valueTypes));
 }
 
 void DaqcClient::setDSpeed(bool increase)
 {
     QVariantList values = { boolToIncrease(increase) };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::D_SPEED, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::D_SPEED, values, valueTypes));
 }
 
 void DaqcClient::setNoiseReject(bool increase)
 {
     QVariantList values = { boolToIncrease(increase) };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::D_NOISE_REJECT, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::D_NOISE_REJECT, values, valueTypes));
 }
 
 void DaqcClient::setAudio(bool increase)
 {
     QVariantList values = { boolToIncrease(increase) };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::D_SOUND_VOLUME, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::D_SOUND_VOLUME, values, valueTypes));
 }
 
 void DaqcClient::setBaseline(bool increase)
@@ -510,21 +520,21 @@ void DaqcClient::setDInvert(bool value)
 {
     QVariantList values = { value };
     QStringList valueTypes = { "bool" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::D_INVERT, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::D_INVERT, values, valueTypes));
 }
 
 void DaqcClient::setCAutoTrace(bool value)
 {
     QVariantList values = { value };
     QStringList valueTypes = { "bool" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::C_AUTO_TRACE, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::C_AUTO_TRACE, values, valueTypes));
 }
 
 void DaqcClient::setDAutoTrace(bool value)
 {
     QVariantList values = { value };
     QStringList valueTypes = { "bool" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::D_AUTO_TRACE, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::D_AUTO_TRACE, values, valueTypes));
 }
 
 void DaqcClient::setUpdate(bool value)
@@ -562,7 +572,7 @@ void DaqcClient::legacySetACUI(int value)
 {
     QVariantList values = { value };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::ACUI, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::ACUI, values, valueTypes));
 }
 
 int DaqcClient::legacyACUI()
@@ -578,7 +588,7 @@ void DaqcClient::legacyFacuiParams(int index, int value)
 {
     QVariantList values = { index, value};
     QStringList valueTypes = { "int", "int"};
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::ACUI_PARAMETER, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::ACUI_PARAMETER, values, valueTypes));
 }
 
 int DaqcClient::legacyBCDSynChro()
@@ -594,7 +604,7 @@ void DaqcClient::legacySetBCDSynChro(int value)
 {
     QVariantList values = { value };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::B_C_D_SYNCHRO, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::B_C_D_SYNCHRO, values, valueTypes));
 }
 
 int DaqcClient::legacyBDynamic()
@@ -610,7 +620,7 @@ void DaqcClient::legacySetBDynamic(int value)
 {
     QVariantList values = { value };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::B_DYNAMIC, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::B_DYNAMIC, values, valueTypes));
 }
 
 int DaqcClient::legacyCBaseLine()
@@ -644,7 +654,7 @@ void DaqcClient::legacySetColorInvert(bool value)
 {
     QVariantList values = { value };
     QStringList valueTypes = { "bool" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::COLOR_INVERT, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::COLOR_INVERT, values, valueTypes));
 }
 
 int DaqcClient::legacyDBaseLine()
@@ -669,7 +679,7 @@ void DaqcClient::legacySetDDynamic(int value)
 {
     QVariantList values = { value };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::D_DYNAMIC, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::D_DYNAMIC, values, valueTypes));
 }
 
 double DaqcClient::legacyDPRF()
@@ -685,14 +695,14 @@ void DaqcClient::legacySetExamTypeID(int value)
 {
     QVariantList values = { value };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::EXAM_TYPE_ID, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::EXAM_TYPE_ID, values, valueTypes));
 }
 
 void DaqcClient::legacySetImageProcess(int value)
 {
     QVariantList values = { value };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::IMAGE_PROCESS, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::IMAGE_PROCESS, values, valueTypes));
 }
 
 int DaqcClient::legacyPersistenceColor()
@@ -708,14 +718,14 @@ void DaqcClient::legacySetPersistenceColor(int value)
 {
     QVariantList values = { value };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::PERSISTENCE_COLOR, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::PERSISTENCE_COLOR, values, valueTypes));
 }
 
 void DaqcClient::legacySetProbePOS(int value)
 {
     QVariantList values = { value };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::PROBE_POS, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::PROBE_POS, values, valueTypes));
 }
 
 int DaqcClient::legacyProbeSEL()
@@ -731,7 +741,7 @@ void DaqcClient::legacySetRadium(double value)
 {
     QVariantList values = { value };
     QStringList valueTypes = { "double" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::RADIUM, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::RADIUM, values, valueTypes));
 }
 
 int DaqcClient::legacyTHI()
@@ -747,7 +757,7 @@ void DaqcClient::legacySetTHI(int value)
 {
     QVariantList values = { value };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::ESPIN, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::ESPIN, values, valueTypes));
 }
 
 int DaqcClient::legacyCAutoTrace()
@@ -762,14 +772,14 @@ void DaqcClient::legacySetESpin(double value)
 {
     QVariantList values = { value };
     QStringList valueTypes = { "double" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::ESPIN, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::ESPIN, values, valueTypes));
 }
 
 void DaqcClient::legacySetPwifBuffms(int value)
 {
     QVariantList values = { value };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::PWIF_BUFF_MS, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::PWIF_BUFF_MS, values, valueTypes));
 }
 
 int DaqcClient::legacyScanMode()
@@ -785,7 +795,7 @@ void DaqcClient::legacySetScanMode(int value)
 {
     QVariantList values = { value };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::SCAN_MODE, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::SCAN_MODE, values, valueTypes));
 }
 
 double DaqcClient::legacyGetParameter(int id)
@@ -814,42 +824,42 @@ void DaqcClient::legacyInit(int inum)
 {
     QVariantList values = { inum };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::INIT, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::INIT, values, valueTypes));
 }
 
 void DaqcClient::legacyMoveROIColor(int x, int y)
 {
     QVariantList values = { x, y };
     QStringList valueTypes = { "int", "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::MOVE_ROI_COLOR, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::MOVE_ROI_COLOR, values, valueTypes));
 }
 
 void DaqcClient::legacyPalette(int colorID, int bright, int ts)
 {
     QVariantList values = { colorID, bright, ts };
     QStringList valueTypes = { "int", "int", "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::PALETTE, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::PALETTE, values, valueTypes));
 }
 
 void DaqcClient::legacyRealtimeEn(int en)
 {
     QVariantList values = { en };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::REALTIME_EN, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::REALTIME_EN, values, valueTypes));
 }
 
 void DaqcClient::legacySetFlipH(int isFlip)
 {
     QVariantList values = { isFlip };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::FLIP_H, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::FLIP_H, values, valueTypes));
 }
 
 void DaqcClient::legacySetFlipV(int isFlip)
 {
     QVariantList values = { isFlip };
     QStringList valueTypes = { "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::FLIP_V, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::FLIP_V, values, valueTypes));
 }
 
 void DaqcClient::legacySetTGCPositions(int p1, int p2, int p3, int p4, int p5, int p6, int p7, int p8)
@@ -858,35 +868,40 @@ void DaqcClient::legacySetTGCPositions(int p1, int p2, int p3, int p4, int p5, i
     QStringList valueTypes;
     for (int i = 0; i < 8; i++)
         valueTypes.push_back("int");
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::TGC_POSITIONS, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::TGC_POSITIONS, values, valueTypes));
 }
 
 void DaqcClient::legacyZoomColorROI(int xDirection, int yDirection)
 {
     QVariantList values = { xDirection, yDirection };
     QStringList valueTypes = { "int", "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::ZOOM_COLOR_ROI, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::ZOOM_COLOR_ROI, values, valueTypes));
 }
 
 void DaqcClient::legacyFProbeType(int pbPort, int pbType)
 {
     QVariantList values = { pbPort,  pbType };
     QStringList valueTypes = { "int", "int" };
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::F_PROBE_TYPE, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::F_PROBE_TYPE, values, valueTypes));
 }
 
 void DaqcClient::legacyStart()
 {
     QVariantList values = {};
     QStringList valueTypes = {};
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::START, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::START, values, valueTypes));
 }
 
 void DaqcClient::legacyStop()
 {
     QVariantList values = {};
     QStringList valueTypes = {};
-    createUpdateRequest(new RequestUpdatePacket(DaqcParameter::STOP, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::STOP, values, valueTypes));
+}
+
+void DaqcClient::requestGetParameters()
+{
+    requestTest();
 }
 
 int DaqcClient::boolToIncrease(const bool &increase)
@@ -903,4 +918,11 @@ int DaqcClient::depthHardCode(const double & value)
 double DaqcClient::mmToCm(const double& value)
 {
     return value / 10.;
+}
+
+void DaqcClient::requestTest()
+{
+    QVariantList values = { 50 };
+    QStringList valueTypes = { "int" };
+    createRequest(new RequestGetPacket(DaqcParameter::TEST, values, valueTypes));
 }

@@ -6,13 +6,14 @@
 #include <QString>
 #include <QImage>
 #include <QVariant>
+#include <QReadWriteLock>
 
 class QDataStream;
 class QEventLoop;
 class ClientWorker;
 class QThread;
 class Packet;
-class QMutex;
+class QReadWriteLock;
 
 class RequestResult
 {
@@ -34,7 +35,7 @@ public:
     Client(QObject* parent = nullptr);
     ~Client();
     virtual void connectToServer() = 0;
-    void insertRequestResult(const QString& clientMessageId, const RequestResult& result);
+    void updateResult(const QString& parameter, const QVariant& result);
 signals:
     void messageToWorkerSended(const QByteArray& msg);
     void messageReceived(const QByteArray& msg);
@@ -45,13 +46,14 @@ public slots:
     void sendMessage(const QByteArray& msg);
 protected:
     QVariant createGetRequest(std::function<Packet *()> callback);
-    void createUpdateRequest(Packet *packet);
-    RequestResult getRequestResult(const QString& clientMessageId);
+    void createRequest(Packet *packet);
+    QVariant getResult(const QString& parameter) const;
 
     ClientWorker* m_worker;
     QThread* m_thread;
-    QMutex* m_mutex;
+    QReadWriteLock* m_locker;
     // shared resources
     // key: clientMessageId
     std::map<QString, RequestResult> m_resultMap;
+    std::map<QString, QVariant> m_parametersMap;
 };

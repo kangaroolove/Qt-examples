@@ -8,6 +8,7 @@
 class Client;
 class QEventLoop;
 class Packet;
+class QTimer;
 
 enum class BcdSynchro : int
 {
@@ -185,8 +186,15 @@ public:
     void legacyFProbeType(int pbPort, int pbType);
     void legacyStart();
     void legacyStop();
+private slots:
+    void requestGetParameters();
 private:
     int boolToIncrease(const bool& increase);
     int depthHardCode(const double &value);
     double mmToCm(const double &value);
+
+    void requestTest();
+
+
+    QTimer* m_requestParameterTimer;
 };
