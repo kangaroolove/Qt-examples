@@ -148,42 +148,27 @@ int DaqcClient::getSwingAngle()
 
 double DaqcClient::getSv()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::SV);
-    });
-    return result.toDouble();
+    return getResult(DaqcParameter::SV).toDouble();
 }
 
 double DaqcClient::getCa()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::CA);
-    });
-    return result.toDouble();
+    return getResult(DaqcParameter::CA).toDouble();
 }
 
 int DaqcClient::getDSpeed()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::D_SPEED);
-    });
-    return result.toInt();
+    return getResult(DaqcParameter::D_SPEED).toInt();
 }
 
 int DaqcClient::getNoiseReject()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::D_NOISE_REJECT);
-    });
-    return result.toInt();
+    return getResult(DaqcParameter::D_NOISE_REJECT).toInt();
 }
 
 int DaqcClient::getAudio()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::D_SOUND_VOLUME);
-    });
-    return result.toInt();
+    return getResult(DaqcParameter::D_SOUND_VOLUME).toInt();
 }
 
 int DaqcClient::getRotation()
@@ -238,10 +223,7 @@ bool DaqcClient::isCInvert()
 
 bool DaqcClient::isDInvert()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::D_INVERT);
-    });
-    return result.toBool();
+    return getResult(DaqcParameter::D_INVERT).toBool();
 }
 
 bool DaqcClient::isCAutoTrace()
@@ -271,18 +253,12 @@ QPoint DaqcClient::getRoiPosition()
 
 int DaqcClient::getDualConvexOrLinearChannel()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::DUAL_CONVEX_OR_LINEAR_CHANNEL);
-    });
-    return result.toInt();
+    return getResult(DaqcParameter::D_INVERT).toInt();
 }
 
 bool DaqcClient::isDualModeOn()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::DUAL_MODE);
-    });
-    return result.toBool();
+    return getResult(DaqcParameter::DUAL_MODE).toBool();
 }
 
 void DaqcClient::setBGain(bool increase)
@@ -946,4 +922,43 @@ void DaqcClient::requestSensitivity()
 void DaqcClient::requestSwingAngle()
 {
     createRequest(new RequestGetPacket(DaqcParameter::SWING_ANGLE));
+}
+
+void DaqcClient::requestSv()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::SV));
+}
+
+void DaqcClient::requestCa()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::CA));
+}
+
+void DaqcClient::requestDSpeed()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::D_SPEED));
+}
+
+void DaqcClient::requestNoiseReject()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::D_NOISE_REJECT));
+}
+
+void DaqcClient::requestAudio()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::D_SOUND_VOLUME));
+}
+
+void DaqcClient::requestIsDInvert()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::D_INVERT));
+}
+
+void DaqcClient::requestDualConvexOrLinearChannel()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::DUAL_CONVEX_OR_LINEAR_CHANNEL));
+}
+
+void DaqcClient::requestIsDualModeOn()
+{
 }

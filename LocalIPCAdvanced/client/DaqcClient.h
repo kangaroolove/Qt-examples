@@ -208,7 +208,14 @@ private:
     void requestDWf();
     void requestSensitivity();
     void requestSwingAngle();
-
+    void requestSv();
+    void requestCa();
+    void requestDSpeed();
+    void requestNoiseReject();
+    void requestAudio();
+    void requestIsDInvert();
+    void requestDualConvexOrLinearChannel();
+    void requestIsDualModeOn();
 
     QTimer* m_requestParameterTimer;
 };
