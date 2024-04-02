@@ -504,11 +504,7 @@ void DaqcClient::legacySetACUI(int value)
 
 int DaqcClient::legacyACUI()
 {
-    auto result = createGetRequest([]{ 
-        return new RequestGetPacket(DaqcParameter::ACUI); 
-    });
-
-    return result.toInt();
+    return getResult(DaqcParameter::ACUI).toInt();
 }
 
 void DaqcClient::legacyFacuiParams(int index, int value)
@@ -520,11 +516,7 @@ void DaqcClient::legacyFacuiParams(int index, int value)
 
 int DaqcClient::legacyBCDSynChro()
 {
-    auto result = createGetRequest([]{ 
-        return new RequestGetPacket(DaqcParameter::B_C_D_SYNCHRO); 
-    });
-
-    return result.toInt();
+    return getResult(DaqcParameter::B_C_D_SYNCHRO).toInt();
 }
 
 void DaqcClient::legacySetBCDSynChro(int value)
@@ -536,11 +528,7 @@ void DaqcClient::legacySetBCDSynChro(int value)
 
 int DaqcClient::legacyBDynamic()
 {
-    auto result = createGetRequest([]{ 
-        return new RequestGetPacket(DaqcParameter::B_DYNAMIC); 
-    });
-
-    return result.toInt();
+    return getResult(DaqcParameter::B_DYNAMIC).toInt();
 }
 
 void DaqcClient::legacySetBDynamic(int value)
@@ -552,29 +540,17 @@ void DaqcClient::legacySetBDynamic(int value)
 
 int DaqcClient::legacyCBaseLine()
 {
-    auto result = createGetRequest([]{ 
-        return new RequestGetPacket(DaqcParameter::C_BASE_LINE); 
-    });
-
-    return result.toInt();
+    return getResult(DaqcParameter::C_BASE_LINE).toInt();
 }
 
 double DaqcClient::legacyCPRF()
 {
-    auto result = createGetRequest([]{ 
-        return new RequestGetPacket(DaqcParameter::C_PRF); 
-    });
-
-    return result.toDouble();
+    return getResult(DaqcParameter::C_PRF).toDouble();
 }
 
 bool DaqcClient::legacyColorInvert()
 {
-    auto result = createGetRequest([]{ 
-        return new RequestGetPacket(DaqcParameter::COLOR_INVERT); 
-    });
-
-    return result.toBool();
+    return getResult(DaqcParameter::COLOR_INVERT).toBool();
 }
 
 void DaqcClient::legacySetColorInvert(bool value)
@@ -586,20 +562,12 @@ void DaqcClient::legacySetColorInvert(bool value)
 
 int DaqcClient::legacyDBaseLine()
 {
-    auto result = createGetRequest([]{ 
-        return new RequestGetPacket(DaqcParameter::D_BASELINE); 
-    });
-
-    return result.toInt();
+    return getResult(DaqcParameter::D_BASELINE).toInt();
 }
 
 int DaqcClient::legacyDDynamic()
 {
-    auto result = createGetRequest([]{ 
-        return new RequestGetPacket(DaqcParameter::D_DYNAMIC); 
-    });
-
-    return result.toInt();
+    return getResult(DaqcParameter::D_DYNAMIC).toInt();
 }
 
 void DaqcClient::legacySetDDynamic(int value)
@@ -611,11 +579,7 @@ void DaqcClient::legacySetDDynamic(int value)
 
 double DaqcClient::legacyDPRF()
 {
-    auto result = createGetRequest([]{ 
-        return new RequestGetPacket(DaqcParameter::D_PRF); 
-    });
-
-    return result.toDouble();
+    return getResult(DaqcParameter::D_PRF).toDouble();
 }
 
 void DaqcClient::legacySetExamTypeID(int value)
@@ -634,11 +598,7 @@ void DaqcClient::legacySetImageProcess(int value)
 
 int DaqcClient::legacyPersistenceColor()
 {
-    auto result = createGetRequest([]{ 
-        return new RequestGetPacket(DaqcParameter::PERSISTENCE_COLOR); 
-    });
-
-    return result.toInt();
+    return getResult(DaqcParameter::PERSISTENCE_COLOR).toInt();
 }
 
 void DaqcClient::legacySetPersistenceColor(int value)
@@ -657,11 +617,7 @@ void DaqcClient::legacySetProbePOS(int value)
 
 int DaqcClient::legacyProbeSEL()
 {
-    auto result = createGetRequest([]{ 
-        return new RequestGetPacket(DaqcParameter::PROBE_SEL); 
-    });
-
-    return result.toInt();
+    return getResult(DaqcParameter::PROBE_SEL).toInt();
 }
 
 void DaqcClient::legacySetRadium(double value)
@@ -673,11 +629,7 @@ void DaqcClient::legacySetRadium(double value)
 
 int DaqcClient::legacyTHI()
 {
-    auto result = createGetRequest([]{ 
-        return new RequestGetPacket(DaqcParameter::THI); 
-    });
-
-    return result.toInt();
+    return getResult(DaqcParameter::THI).toInt();
 }
 
 void DaqcClient::legacySetTHI(int value)
@@ -689,10 +641,7 @@ void DaqcClient::legacySetTHI(int value)
 
 int DaqcClient::legacyCAutoTrace()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::C_AUTO_TRACE);
-    });
-    return result.toInt();
+    return getResult(DaqcParameter::C_AUTO_TRACE).toInt();
 }
 
 void DaqcClient::legacySetESpin(double value)
@@ -711,11 +660,7 @@ void DaqcClient::legacySetPwifBuffms(int value)
 
 int DaqcClient::legacyScanMode()
 {
-    auto result = createGetRequest([]{ 
-        return new RequestGetPacket(DaqcParameter::SCAN_MODE); 
-    });
-
-    return result.toInt();
+    return getResult(DaqcParameter::SCAN_MODE).toInt();
 }
 
 void DaqcClient::legacySetScanMode(int value)
@@ -727,24 +672,12 @@ void DaqcClient::legacySetScanMode(int value)
 
 double DaqcClient::legacyGetParameter(int id)
 {
-    auto result = createGetRequest([&id]{ 
-        QVariantList values = { id };
-        QStringList valueTypes = { "int" };
-        return new RequestGetPacket(DaqcParameter::GET_PARAMETER, values, valueTypes); 
-    });
-
-    return result.toDouble();
+    return getResult(DaqcParameter::GET_PARAMETER + QString::number(id)).toDouble();
 }
 
-int DaqcClient::legacyGetProbeInfo(int id)
+int DaqcClient::legacyGetProbeInfo(int port)
 {
-    auto result = createGetRequest([&id]{ 
-        QVariantList values = { id };
-        QStringList valueTypes = { "int" };
-        return new RequestGetPacket(DaqcParameter::PROBE_INFO, values, valueTypes); 
-    });
-
-    return result.toInt();
+    return getResult(DaqcParameter::PROBE_INFO + QString::number(port)).toInt();
 }
 
 void DaqcClient::legacyInit(int inum)
@@ -961,4 +894,87 @@ void DaqcClient::requestDualConvexOrLinearChannel()
 
 void DaqcClient::requestIsDualModeOn()
 {
+    createRequest(new RequestGetPacket(DaqcParameter::DUAL_MODE));
+}
+
+void DaqcClient::requestLegacyACUI()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::ACUI));
+}
+
+void DaqcClient::requestLegacyBCDSynChro()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::B_C_D_SYNCHRO));
+}
+
+void DaqcClient::requestLegacyBDynamic()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::B_DYNAMIC));
+}
+
+void DaqcClient::requestLegacyCBaseLine()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::C_BASE_LINE));
+}
+
+void DaqcClient::requestLegacyCPRF()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::C_PRF));
+}
+
+void DaqcClient::requestLegacyColorInvert()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::COLOR_INVERT));
+}
+
+void DaqcClient::requestLegacyDBaseLine()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::D_BASELINE));
+}
+
+void DaqcClient::requestLegacyDDynamic()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::D_DYNAMIC));
+}
+
+void DaqcClient::requestLegacyDPRF()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::D_PRF));
+}
+
+void DaqcClient::requestLegacyPersistenceColor()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::PERSISTENCE_COLOR));
+}
+
+void DaqcClient::requestLegacyProbeSEL()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::PROBE_SEL));
+}
+
+void DaqcClient::requestLegacyTHI()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::THI));
+}
+
+void DaqcClient::requestLegacyCAutoTrace()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::C_AUTO_TRACE));
+}
+
+void DaqcClient::requestLegacyScanMode()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::SCAN_MODE));
+}
+
+void DaqcClient::requestLegacyGetParameter(const int &id)
+{
+    createRequest(new RequestGetPacket(DaqcParameter::GET_PARAMETER + QString::number(id)));
+}
+
+void DaqcClient::requestLegacyGetProbeInfo(const int &port)
+{
+    QVariantList values = { port };
+    QStringList valueTypes = { "int" };
+    createRequest(new RequestGetPacket(DaqcParameter::PROBE_INFO + QString::number(port), values, valueTypes));
 }

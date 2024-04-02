@@ -173,7 +173,7 @@ public:
     void legacySetScanMode(int value);
     double legacyGetParameter(int id);
     // This function is not real-time. This result will be changed only when the ultrasound machine start
-    int legacyGetProbeInfo(int id);
+    int legacyGetProbeInfo(int port);
     void legacyInit(int inum);
     void legacyMoveROIColor(int x, int y);
     void legacyPalette(int colorID, int bright, int ts);
@@ -216,6 +216,22 @@ private:
     void requestIsDInvert();
     void requestDualConvexOrLinearChannel();
     void requestIsDualModeOn();
+    void requestLegacyACUI();
+    void requestLegacyBCDSynChro();
+    void requestLegacyBDynamic();
+    void requestLegacyCBaseLine();
+    void requestLegacyCPRF();
+    void requestLegacyColorInvert();
+    void requestLegacyDBaseLine();
+    void requestLegacyDDynamic();
+    void requestLegacyDPRF();
+    void requestLegacyPersistenceColor();
+    void requestLegacyProbeSEL();
+    void requestLegacyTHI();
+    void requestLegacyCAutoTrace();
+    void requestLegacyScanMode();
+    void requestLegacyGetParameter(const int& id);
+    void requestLegacyGetProbeInfo(const int& port);
 
     QTimer* m_requestParameterTimer;
 };
