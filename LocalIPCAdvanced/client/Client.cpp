@@ -42,7 +42,15 @@ Client::~Client()
 void Client::updateResult(const QString &parameter, const QVariant& result)
 {
     QWriteLocker locker(m_locker);
-    m_parametersMap[parameter] = result;
+    bool exist = m_parametersMap.count(parameter) > 0;
+    if (!exist)
+    {
+        m_parametersMap.insert({parameter, result});
+        return;
+    }
+
+    if (m_parametersMap.at(parameter) != result)
+        m_parametersMap[parameter] = result;
 }
 
 void Client::sendMessage(const QByteArray& msg)

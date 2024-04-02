@@ -58,7 +58,7 @@ void ClientWorker::sendMessage(const QByteArray &msg)
     out.setVersion(QDataStream::Qt_5_12);
     out << msg;
 
-    qDebug()<<"Client send message";
+    //qDebug()<<"Client send message";
     //qDebug()<<msg;
 
     write(data);

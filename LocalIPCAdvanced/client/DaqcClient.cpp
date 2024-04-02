@@ -35,21 +35,14 @@ void DaqcClient::connectToServer()
 
 int DaqcClient::testGetApi()
 {
-    // auto result = createGetRequest([]{ 
-    //     QVariantList values = { 50 };
-    //     QStringList valueTypes = { "int" };
-    //     return new RequestGetPacket(DaqcParameter::TEST, values, valueTypes); 
-    // });
-
-    // return result.toInt();
-
     return getResult(DaqcParameter::TEST).toInt();
 }
 
-void DaqcClient::testSetApi(bool isTest)
+void DaqcClient::testSetApi(int value)
 {
-    QVariantList values = { true };
-    createRequest(new RequestUpdatePacket(DaqcParameter::TEST, values, {"bool"}));
+    QVariantList values = { value };
+    QStringList valueTypes = { "int" };
+    createRequest(new RequestUpdatePacket(DaqcParameter::TEST, values, valueTypes));
 }
 
 bool DaqcClient::isConnected()
@@ -902,6 +895,15 @@ void DaqcClient::legacyStop()
 void DaqcClient::requestGetParameters()
 {
     requestTest();
+    static int i = 0;
+    if (i < 10)
+    {
+        ++i;
+    }
+    else 
+        i = 0;
+
+    testSetApi(i);
 }
 
 int DaqcClient::boolToIncrease(const bool &increase)

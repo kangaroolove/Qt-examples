@@ -35,17 +35,7 @@ void UpdateValueTask::run()
         return;
     }
 
-    if (m_updateValueInfo.parameter == "test")
-    {
-        qDebug()<<m_updateValueInfo.parameter<<" has set value:10";
-
-        for (auto &value : values)
-            qDebug()<<"value = "<<value;
-
-        for (auto &type : valueTypes)
-            qDebug()<<"valueType = "<<type;
-    }
-    else if (m_updateValueInfo.parameter == DaqcParameter::INIT)
+    if (m_updateValueInfo.parameter == DaqcParameter::INIT)
         m_daqc->Init(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::F_PROBE_TYPE)
         m_daqc->fProbeType(values.first().toInt(), values.last().toInt());

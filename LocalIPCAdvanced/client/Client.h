@@ -15,19 +15,6 @@ class QThread;
 class Packet;
 class QReadWriteLock;
 
-class RequestResult
-{
-public:
-    RequestResult() {}
-    ~RequestResult() {}
-    RequestResult(const QVariant& valueTypes, const QVariant& values) {
-        this->values = values;
-        this->valueTypes = valueTypes;
-    }
-    QVariant valueTypes;
-    QVariant values;
-};
-
 class Client : public QObject
 {
     Q_OBJECT
@@ -53,7 +40,6 @@ protected:
     QThread* m_thread;
     QReadWriteLock* m_locker;
     // shared resources
-    // key: clientMessageId
-    std::map<QString, RequestResult> m_resultMap;
+    // key: parameter name
     std::map<QString, QVariant> m_parametersMap;
 };

@@ -25,7 +25,7 @@ public:
     ~DaqcClient();
     void connectToServer() override;
     int testGetApi();
-    void testSetApi(bool isTest);
+    void testSetApi(int value);
     // get functions
 
     // TO CHECK
