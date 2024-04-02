@@ -29,7 +29,7 @@ void Server::sendMessage(const QByteArray &msg)
     out << msg;
 
     qDebug()<<"Server send message";
-    qDebug()<<msg;
+    //qDebug()<<msg;
 
     for (auto it = m_clientSockets.begin(); it != m_clientSockets.end(); it++)
     {
@@ -70,12 +70,12 @@ void Server::clientDisconnected()
     if (it != m_clientSockets.end())
     {
         m_clientSockets.erase(it);
-        qDebug()<<"A client is disconnected";
+        qInfo()<<"A client is disconnected";
     }
 
     if (m_clientSockets.empty())
     {
-        qDebug()<<"Since client list is empty, server will be closed";
+        qInfo()<<"Since client list is empty, server will be closed";
         QCoreApplication::quit();
     }
 }
@@ -87,7 +87,7 @@ void Server::init()
 
 void Server::newDeviceConnected()
 {
-    qDebug()<<"A client is connected";
+    qInfo()<<"A client is connected";
     QMutexLocker locker(m_mutex);
     QLocalSocket* socket = this->nextPendingConnection();
     connect(socket, &QLocalSocket::readyRead, this, &Server::readyRead);

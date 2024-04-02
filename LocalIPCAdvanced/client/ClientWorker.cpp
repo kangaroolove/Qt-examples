@@ -29,7 +29,7 @@ void ClientWorker::readyToRead()
         QByteArray msg;
         *m_in >> msg;
 
-        qDebug()<<"Client receive message";
+        //qDebug()<<"Client receive message";
         //qDebug()<<msg;
 
         auto document = QJsonDocument::fromJson(msg);
@@ -60,7 +60,7 @@ void ClientWorker::sendMessage(const QByteArray &msg)
     out << msg;
 
     qDebug()<<"Client send message";
-    qDebug()<<msg;
+    //qDebug()<<msg;
 
     write(data);
     flush();

@@ -29,7 +29,7 @@ ClientWidget::~ClientWidget()
 
 void ClientWidget::onInitButtonClicked()
 {
-    std::vector<int> probeList = {};
+    std::vector<int> probeList = { 11, 12, 15, 8};
     int currentPort = 0;
     int currentExamId = 10;
 

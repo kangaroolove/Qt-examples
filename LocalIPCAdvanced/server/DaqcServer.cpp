@@ -21,7 +21,7 @@ void DaqcServer::start()
 {
     auto result = listen("Daqc");
     if (result)
-        qDebug()<<"Daqc server started";
+        qInfo()<<"Daqc server started";
     else 
         qCritical()<<"Daqc server started failed";
 }
