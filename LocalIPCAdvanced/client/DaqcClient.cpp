@@ -103,18 +103,12 @@ int DaqcClient::getChroma()
 int DaqcClient::getFavg()
 {
     // original interface return double
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::FAVG);
-    });
-    return result.toInt();
+    return getResult(DaqcParameter::FAVG).toInt();
 }
 
 int DaqcClient::getLavg()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::LAVG);
-    });
-    return result.toInt();
+    return getResult(DaqcParameter::LAVG).toInt();
 }
 
 int DaqcClient::getContrast()
@@ -129,42 +123,27 @@ double DaqcClient::getCPrf()
 
 double DaqcClient::getDPrf()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::D_PRF);
-    });
-    return result.toDouble();
+    return getResult(DaqcParameter::D_PRF).toDouble();
 }
 
 double DaqcClient::getCWf()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::C_WF);
-    });
-    return result.toDouble();
+    return getResult(DaqcParameter::C_WF).toDouble();
 }
 
 double DaqcClient::getDWf()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::D_WF);
-    });
-    return result.toDouble();
+    return getResult(DaqcParameter::D_WF).toDouble();
 }
 
 int DaqcClient::getSensitivity()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::SENSITIVITY);
-    });
-    return result.toInt();
+    return getResult(DaqcParameter::SENSITIVITY).toInt();
 }
 
 int DaqcClient::getSwingAngle()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::SWING_ANGLE);
-    });
-    return result.toInt();
+    return getResult(DaqcParameter::SWING_ANGLE).toInt();
 }
 
 double DaqcClient::getSv()
@@ -932,4 +911,39 @@ void DaqcClient::requestBFrequency()
 void DaqcClient::requestBFrequency2()
 {
     createRequest(new RequestGetPacket(DaqcParameter::B_FREQUENCY_2));
+}
+
+void DaqcClient::requestFavg()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::FAVG));
+}
+
+void DaqcClient::requestLavg()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::LAVG));
+}
+
+void DaqcClient::requestDPrf()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::D_PRF));
+}
+
+void DaqcClient::requestCWf()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::C_WF));
+}
+
+void DaqcClient::requestDWf()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::D_WF));
+}
+
+void DaqcClient::requestSensitivity()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::SENSITIVITY));
+}
+
+void DaqcClient::requestSwingAngle()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::SWING_ANGLE));
 }

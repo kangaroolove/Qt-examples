@@ -201,6 +201,13 @@ private:
     void requestXmlDepth();
     void requestBFrequency();
     void requestBFrequency2();
+    void requestFavg();
+    void requestLavg();
+    void requestDPrf();
+    void requestCWf();
+    void requestDWf();
+    void requestSensitivity();
+    void requestSwingAngle();
 
 
     QTimer* m_requestParameterTimer;
