@@ -103,6 +103,8 @@ enum class WelldParameterId : unsigned int
     D_ROI_X = 11,
     D_ROI_Y = 12,
     CURRENT_IMAGE_BUFFER = 98,
+    SPACING_X = 102,
+    SPACING_Y = 103,
     REALTIME_EN = 120
 };
 

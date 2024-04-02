@@ -178,12 +178,12 @@ int DaqcClient::getRotation()
 
 double DaqcClient::getSpacingX()
 {
-    return legacyGetParameter(102);
+    return legacyGetParameter((int)WelldParameterId::SPACING_X);
 }
 
 double DaqcClient::getSpacingY()
 {
-    return legacyGetParameter(103);
+    return legacyGetParameter((int)WelldParameterId::SPACING_Y);
 }
 
 bool DaqcClient::isBb()
