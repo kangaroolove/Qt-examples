@@ -63,11 +63,6 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->scanMode();
         replyPacketInfo.valueType = "int";
     }
-    else if (replyPacketInfo.parameter == DaqcParameter::GET_PARAMETER + QString::number())
-    {
-        replyPacketInfo.value = m_daqc->GetParameter(values.first().toInt());
-        replyPacketInfo.valueType = "double";
-    }
     else if (replyPacketInfo.parameter == DaqcParameter::B_DYNAMIC)
     {
         replyPacketInfo.value = m_daqc->BDynamic();
@@ -218,16 +213,6 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
         replyPacketInfo.value = m_daqc->BCDSynChro();
         replyPacketInfo.valueType = "int";
     }
-    else if (replyPacketInfo.parameter == DaqcParameter::DUAL_CONVEX_OR_LINEAR_CHANNEL)
-    {
-        replyPacketInfo.value = m_daqc->GetParameter((int)WelldParameterId::CURRENT_IMAGE_BUFFER);
-        replyPacketInfo.valueType = "int";
-    }
-    else if (replyPacketInfo.parameter == DaqcParameter::DUAL_MODE)
-    {
-        replyPacketInfo.value = m_daqc->GetParameter((int)WelldParameterId::REALTIME_EN);
-        replyPacketInfo.valueType = "double";
-    }
     else if (replyPacketInfo.parameter == DaqcParameter::D_BASELINE)
     {
         replyPacketInfo.value = m_daqc->DBaseLine();
@@ -237,6 +222,11 @@ ReplyPacketInfo GetValueTask::getReplyPacketInfo()
     {
         replyPacketInfo.value = m_daqc->ACUI();
         replyPacketInfo.valueType = "int";
+    }
+    else if (replyPacketInfo.parameter.contains(DaqcParameter::GET_PARAMETER))
+    {
+        replyPacketInfo.value = m_daqc->GetParameter(values.first().toInt());
+        replyPacketInfo.valueType = "double";
     }
 
     return replyPacketInfo;

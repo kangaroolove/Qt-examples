@@ -969,7 +969,9 @@ void DaqcClient::requestLegacyScanMode()
 
 void DaqcClient::requestLegacyGetParameter(const int &id)
 {
-    createRequest(new RequestGetPacket(DaqcParameter::GET_PARAMETER + QString::number(id)));
+    QVariantList values = { id };
+    QStringList valueTypes = { "int" };
+    createRequest(new RequestGetPacket(DaqcParameter::GET_PARAMETER + QString::number(id), values, valueTypes));
 }
 
 void DaqcClient::requestLegacyGetProbeInfo(const int &port)
