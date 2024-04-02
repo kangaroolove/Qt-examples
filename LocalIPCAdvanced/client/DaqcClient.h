@@ -82,7 +82,7 @@ public:
     bool isSynchro();
     // TO CHECK
     QPoint getRoiPosition();
-    int getDualConvexOrLinearChannel();
+    int getImageCurrentChannel();
     bool isDualModeOn();
     // increase/decrease functions
     void setBGain(bool increase);

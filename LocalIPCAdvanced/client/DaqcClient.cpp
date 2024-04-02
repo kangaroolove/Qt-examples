@@ -251,14 +251,14 @@ QPoint DaqcClient::getRoiPosition()
     return QPoint(0, 0);
 }
 
-int DaqcClient::getDualConvexOrLinearChannel()
+int DaqcClient::getImageCurrentChannel()
 {
-    return getResult(DaqcParameter::D_INVERT).toInt();
+    return getResult(DaqcParameter::GET_PARAMETER + QString::number((int)WelldParameterId::IMAGE_CURRENT_CHANNEL)).toInt();
 }
 
 bool DaqcClient::isDualModeOn()
 {
-    return getResult(DaqcParameter::DUAL_MODE).toBool();
+    return getResult(DaqcParameter::GET_PARAMETER + QString::number((int)WelldParameterId::REALTIME_EN)).toBool();
 }
 
 void DaqcClient::setBGain(bool increase)
@@ -889,12 +889,12 @@ void DaqcClient::requestIsDInvert()
 
 void DaqcClient::requestDualConvexOrLinearChannel()
 {
-    createRequest(new RequestGetPacket(DaqcParameter::DUAL_CONVEX_OR_LINEAR_CHANNEL));
+    legacyGetParameter((int)WelldParameterId::IMAGE_CURRENT_CHANNEL);
 }
 
 void DaqcClient::requestIsDualModeOn()
 {
-    createRequest(new RequestGetPacket(DaqcParameter::DUAL_MODE));
+    legacyGetParameter((int)WelldParameterId::REALTIME_EN);
 }
 
 void DaqcClient::requestLegacyACUI()

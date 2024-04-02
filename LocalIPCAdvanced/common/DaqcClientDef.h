@@ -46,7 +46,6 @@ const QString ROI_SITE = "RoiSite";
 const QString ROI_SIZE = "RoiSize";
 const QString C_AUTO_TRACE = "CAutoTrace";
 const QString D_AUTO_TRACE = "DAutoTrace";
-const QString DUAL_MODE = "DualMode";
 const QString ACUI = "Acui";
 const QString ACUI_PARAMETER = "AcuiParameter";
 const QString A_POWER = "APower";
@@ -92,7 +91,6 @@ const QString PROBE_SEL = "ProbeSEL";
 const QString FLIP_H = "FlipH";
 const QString FLIP_V = "FlipV";
 const QString ROI_POSITION = "RoiPosition";
-const QString DUAL_CONVEX_OR_LINEAR_CHANNEL = "DualConvexOrLinearChannel";
 const QString PALETTE = "Palette";
 }
 
@@ -102,7 +100,7 @@ enum class WelldParameterId : unsigned int
     C_ROI_Y = 10,
     D_ROI_X = 11,
     D_ROI_Y = 12,
-    CURRENT_IMAGE_BUFFER = 98,
+    IMAGE_CURRENT_CHANNEL = 98,
     SPACING_X = 102,
     SPACING_Y = 103,
     REALTIME_EN = 120
