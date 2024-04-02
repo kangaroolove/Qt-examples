@@ -46,7 +46,6 @@ void ClientWorker::readyToRead()
         {
             auto replyPacket = ReplyPacket::fromJson(document.object());
             auto info = replyPacket.getReplyPacketInfo();
-            qDebug()<<info.value;
             m_client->updateResult(info.parameter, info.value);
         }
     }
