@@ -52,42 +52,27 @@ bool DaqcClient::isConnected()
 
 double DaqcClient::getRegionPhysicalDeltaX()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::REGION_PHYSICAL_DELTA_X);
-    });
-    return result.toDouble();
+    return getResult(DaqcParameter::REGION_PHYSICAL_DELTA_X).toDouble();
 }
 
 double DaqcClient::getRegionPhysicalDeltaY()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::REGION_PHYSICAL_DELTA_Y);
-    });
-    return result.toDouble();
+    return getResult(DaqcParameter::REGION_PHYSICAL_DELTA_Y).toDouble();
 }
 
 int DaqcClient::getBGain()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::B_GAIN);
-    });
-    return result.toInt();
+    return getResult(DaqcParameter::B_GAIN).toInt();
 }
 
 int DaqcClient::getCGain()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::C_GAIN);
-    });
-    return result.toInt();
+    return getResult(DaqcParameter::C_GAIN).toInt();
 }
 
 double DaqcClient::getXmlDepth()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::XML_DEPTH);
-    });
-    return result.toDouble();
+    return getResult(DaqcParameter::XML_DEPTH).toDouble();
 }
 
 int DaqcClient::getDepthMm()
@@ -102,18 +87,12 @@ double DaqcClient::getDepthCm()
 
 double DaqcClient::getBFrequency()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::B_FREQUENCY);
-    });
-    return result.toDouble();
+    return getResult(DaqcParameter::B_FREQUENCY).toDouble();
 }
 
 double DaqcClient::getBFrequency2()
 {
-    auto result = createGetRequest([]{
-        return new RequestGetPacket(DaqcParameter::B_FREQUENCY_2);
-    });
-    return result.toDouble();
+    return getResult(DaqcParameter::B_FREQUENCY_2).toDouble();
 }
 
 int DaqcClient::getChroma()
@@ -895,15 +874,6 @@ void DaqcClient::legacyStop()
 void DaqcClient::requestGetParameters()
 {
     requestTest();
-    static int i = 0;
-    if (i < 10)
-    {
-        ++i;
-    }
-    else 
-        i = 0;
-
-    testSetApi(i);
 }
 
 int DaqcClient::boolToIncrease(const bool &increase)
@@ -927,4 +897,39 @@ void DaqcClient::requestTest()
     QVariantList values = { 50 };
     QStringList valueTypes = { "int" };
     createRequest(new RequestGetPacket(DaqcParameter::TEST, values, valueTypes));
+}
+
+void DaqcClient::requestRegionPhysicalDeltaX()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::REGION_PHYSICAL_DELTA_X));
+}
+
+void DaqcClient::requestRegionPhysicalDeltaY()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::REGION_PHYSICAL_DELTA_Y));
+}
+
+void DaqcClient::requestBGain()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::B_GAIN));
+}
+
+void DaqcClient::requestCGain()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::C_GAIN));
+}
+
+void DaqcClient::requestXmlDepth()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::XML_DEPTH));
+}
+
+void DaqcClient::requestBFrequency()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::B_FREQUENCY));
+}
+
+void DaqcClient::requestBFrequency2()
+{
+    createRequest(new RequestGetPacket(DaqcParameter::B_FREQUENCY_2));
 }

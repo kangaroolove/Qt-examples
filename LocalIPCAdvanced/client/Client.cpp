@@ -58,24 +58,6 @@ void Client::sendMessage(const QByteArray& msg)
     emit messageToWorkerSended(msg);
 }
 
-QVariant Client::createGetRequest(std::function<Packet*()> callback)
-{
-    #if 0
-    QEventLoop eventloop;
-    connect(m_worker, &ClientWorker::eventLoopQuitted, &eventloop, &QEventLoop::quit);
-
-    Packet* packet = callback();
-    sendMessage(packet->toJson());
-    eventloop.exec();
-
-    RequestResult result = getRequestResult(packet->getMessageId());
-    packet->deleteLater();
-    return result.values;
-    #endif
-
-    return QVariant();
-}
-
 void Client::createRequest(Packet *packet)
 {
     sendMessage(packet->toJson());

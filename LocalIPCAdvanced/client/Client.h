@@ -32,7 +32,6 @@ signals:
 public slots:
     void sendMessage(const QByteArray& msg);
 protected:
-    QVariant createGetRequest(std::function<Packet *()> callback);
     void createRequest(Packet *packet);
     QVariant getResult(const QString& parameter) const;
 

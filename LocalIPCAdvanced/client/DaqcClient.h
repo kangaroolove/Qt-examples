@@ -194,6 +194,13 @@ private:
     double mmToCm(const double &value);
 
     void requestTest();
+    void requestRegionPhysicalDeltaX();
+    void requestRegionPhysicalDeltaY();
+    void requestBGain();
+    void requestCGain();
+    void requestXmlDepth();
+    void requestBFrequency();
+    void requestBFrequency2();
 
 
     QTimer* m_requestParameterTimer;
