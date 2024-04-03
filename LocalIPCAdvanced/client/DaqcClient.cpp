@@ -253,12 +253,12 @@ QPoint DaqcClient::getRoiPosition()
 
 int DaqcClient::getImageCurrentChannel()
 {
-    return getResult(DaqcParameter::GET_PARAMETER + QString::number((int)WelldParameterId::IMAGE_CURRENT_CHANNEL)).toInt();
+    return getResult(DaqcParameter::IMAGE_CURRENT_CHANNEL).toInt();
 }
 
 bool DaqcClient::isDualModeOn()
 {
-    return getResult(DaqcParameter::GET_PARAMETER + QString::number((int)WelldParameterId::REALTIME_EN)).toBool();
+    return getResult(DaqcParameter::DUAL_MODE).toBool();
 }
 
 void DaqcClient::setBGain(bool increase)

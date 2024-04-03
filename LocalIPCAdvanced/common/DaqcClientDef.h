@@ -105,6 +105,7 @@ const QString FLIP_V = "FlipV";
 const QString ROI_POSITION = "RoiPosition";
 const QString PALETTE = "Palette";
 const QString IMAGE_CURRENT_CHANNEL = GET_PARAMETER + QString::number((int)WelldParameterId::IMAGE_CURRENT_CHANNEL);
+const QString DUAL_MODE = GET_PARAMETER + QString::number((int)WelldParameterId::REALTIME_EN);
 }
 
 enum class ScanMode : unsigned int
