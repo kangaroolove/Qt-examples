@@ -17,7 +17,7 @@ DaqcClient::DaqcClient(QObject* parent) :
 {
     m_requestParameterTimer->setInterval(400);
 
-    connect(m_requestParameterTimer, &QTimer::timeout, this, &DaqcClient::requestGetParameters);
+    //connect(m_requestParameterTimer, &QTimer::timeout, this, &DaqcClient::requestGetParameters);
     connect(this, &DaqcClient::connected, this, [this]{
         m_requestParameterTimer->start();
     });
