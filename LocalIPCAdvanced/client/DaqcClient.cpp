@@ -763,6 +763,12 @@ void DaqcClient::requestGetParameters()
 {
     requestSpacingX();
     requestSpacingY();
+    requestLegacyGetParameter(6);
+    requestLegacyGetParameter(7);
+    requestLegacyGetParameter(8);
+    requestLegacyGetParameter(50);
+    requestIsDualModeOn();
+    requestBGain();
 }
 
 int DaqcClient::boolToIncrease(const bool &increase)
