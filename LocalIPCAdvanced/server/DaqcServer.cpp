@@ -2,6 +2,8 @@
 #include "DaqcServerHandleReceiveMessageTask.h"
 #include "SendTask.h"
 #include "FramePacket.h"
+#include "ReplyPacket.h"
+#include "DaqcClientDef.h"
 #include <QThreadPool>
 #include <QDebug>
 
@@ -31,7 +33,18 @@ HandleReceiveMessageTask *DaqcServer::generateHandleRequestTask(const QByteArray
     return new DaqcServerHandleReceiveMessageTask(this, m_daqc, data);
 }
 
-void DaqcServer::frameReady()
+void DaqcServer::sendImageCurrentChannel()
+{
+    ReplyPacketInfo info;
+    info.parameter = DaqcParameter::IMAGE_CURRENT_CHANNEL;
+    info.value = (int)m_daqc->GetParameter((int)WelldParameterId::IMAGE_CURRENT_CHANNEL);
+    info.valueType = "int";
+    info.requestType = "get";
+    ReplyPacket* packet = new ReplyPacket(info);
+    QThreadPool::globalInstance()->start(new SendTask(this, packet));
+}
+
+void DaqcServer::sendFrame()
 {
     BITMAPINFO* bmi = (BITMAPINFO*)m_daqc->GetpBMIInfo();
     int width = bmi->bmiHeader.biWidth;
@@ -47,4 +60,10 @@ void DaqcServer::frameReady()
 
     FramePacket* packet = new FramePacket(image);
     QThreadPool::globalInstance()->start(new SendTask(this, packet));
+}
+
+void DaqcServer::frameReady()
+{
+    sendFrame();
+    sendImageCurrentChannel();
 }

@@ -11,6 +11,18 @@ const QString REPLY = "Reply";
 const QString COMMAND = "Command";
 }
 
+enum class WelldParameterId : unsigned int
+{
+    C_ROI_X = 9,
+    C_ROI_Y = 10,
+    D_ROI_X = 11,
+    D_ROI_Y = 12,
+    IMAGE_CURRENT_CHANNEL = 98,
+    SPACING_X = 102,
+    SPACING_Y = 103,
+    REALTIME_EN = 120
+};
+
 namespace DaqcParameter
 {
 const QString TEST = "Test";
@@ -92,19 +104,8 @@ const QString FLIP_H = "FlipH";
 const QString FLIP_V = "FlipV";
 const QString ROI_POSITION = "RoiPosition";
 const QString PALETTE = "Palette";
+const QString IMAGE_CURRENT_CHANNEL = GET_PARAMETER + QString::number((int)WelldParameterId::IMAGE_CURRENT_CHANNEL);
 }
-
-enum class WelldParameterId : unsigned int
-{
-    C_ROI_X = 9,
-    C_ROI_Y = 10,
-    D_ROI_X = 11,
-    D_ROI_Y = 12,
-    IMAGE_CURRENT_CHANNEL = 98,
-    SPACING_X = 102,
-    SPACING_Y = 103,
-    REALTIME_EN = 120
-};
 
 enum class ScanMode : unsigned int
 {

@@ -42,5 +42,8 @@ protected:
 private slots:
     void frameReady();
 private:
+    void sendImageCurrentChannel();
+    void sendFrame();
+
     Daqc* m_daqc;
 };
