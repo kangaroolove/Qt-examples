@@ -232,6 +232,8 @@ private:
     void requestLegacyScanMode();
     void requestLegacyGetParameter(const int& id);
     void requestLegacyGetProbeInfo(const int& port);
+    void requestSpacingX();
+    void requestSpacingY();
 
     QTimer* m_requestParameterTimer;
 };

@@ -178,12 +178,12 @@ int DaqcClient::getRotation()
 
 double DaqcClient::getSpacingX()
 {
-    return legacyGetParameter((int)WelldParameterId::SPACING_X);
+    return getResult(DaqcParameter::SPACING_X).toDouble();
 }
 
 double DaqcClient::getSpacingY()
 {
-    return legacyGetParameter((int)WelldParameterId::SPACING_Y);
+    return getResult(DaqcParameter::SPACING_Y).toDouble();
 }
 
 bool DaqcClient::isBb()
@@ -761,7 +761,8 @@ void DaqcClient::legacyStop()
 
 void DaqcClient::requestGetParameters()
 {
-    requestTest();
+    requestSpacingX();
+    requestSpacingY();
 }
 
 int DaqcClient::boolToIncrease(const bool &increase)
@@ -979,4 +980,14 @@ void DaqcClient::requestLegacyGetProbeInfo(const int &port)
     QVariantList values = { port };
     QStringList valueTypes = { "int" };
     createRequest(new RequestGetPacket(DaqcParameter::PROBE_INFO + QString::number(port), values, valueTypes));
+}
+
+void DaqcClient::requestSpacingX()
+{
+    legacyGetParameter((int)WelldParameterId::SPACING_X);
+}
+
+void DaqcClient::requestSpacingY()
+{
+    legacyGetParameter((int)WelldParameterId::SPACING_Y);
 }
