@@ -29,7 +29,7 @@ void Server::sendMessage(const QByteArray &msg)
     out << msg;
 
     qDebug()<<"Server send message";
-    //qDebug()<<msg;
+    qDebug()<<msg;
 
     for (auto it = m_clientSockets.begin(); it != m_clientSockets.end(); it++)
     {
@@ -53,8 +53,8 @@ void Server::readyRead()
     {
         QByteArray msg;
         *(it->second) >> msg;
-        qInfo()<<"Server receive message";
-        qInfo()<<msg;
+        qDebug()<<"Server receive message";
+        qDebug()<<msg;
         QThreadPool::globalInstance()->start(generateHandleRequestTask(msg));
     }
 }

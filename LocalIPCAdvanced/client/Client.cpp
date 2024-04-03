@@ -71,6 +71,6 @@ QVariant Client::getResult(const QString &parameter) const
     if (it != m_parametersMap.end())
         return it->second;
 
-    qCritical()<<"Client::getResult ---- Cannot find the result";
+    qCritical()<<"Client::getResult --- get "<<parameter<<" Cannot find the result";
     return QVariant();
 }

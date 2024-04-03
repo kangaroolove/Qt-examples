@@ -896,12 +896,12 @@ void DaqcClient::requestIsDInvert()
 
 void DaqcClient::requestDualConvexOrLinearChannel()
 {
-    legacyGetParameter((int)WelldParameterId::IMAGE_CURRENT_CHANNEL);
+    requestLegacyGetParameter((int)WelldParameterId::IMAGE_CURRENT_CHANNEL);
 }
 
 void DaqcClient::requestIsDualModeOn()
 {
-    legacyGetParameter((int)WelldParameterId::REALTIME_EN);
+    requestLegacyGetParameter((int)WelldParameterId::REALTIME_EN);
 }
 
 void DaqcClient::requestLegacyACUI()
@@ -990,10 +990,10 @@ void DaqcClient::requestLegacyGetProbeInfo(const int &port)
 
 void DaqcClient::requestSpacingX()
 {
-    legacyGetParameter((int)WelldParameterId::SPACING_X);
+    requestLegacyGetParameter((int)WelldParameterId::SPACING_X);
 }
 
 void DaqcClient::requestSpacingY()
 {
-    legacyGetParameter((int)WelldParameterId::SPACING_Y);
+    requestLegacyGetParameter((int)WelldParameterId::SPACING_Y);
 }
