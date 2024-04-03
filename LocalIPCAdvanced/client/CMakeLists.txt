@@ -29,6 +29,7 @@ set(PROJECT_SOURCES
 	Client.cpp
 	DaqcClient.cpp
 	ClientWorker.cpp
+	UpdateInfoWorker.cpp
 	../common/packets/Packet.cpp
 	../common/packets/FramePacket.cpp
 	../common/packets/RequestUpdatePacket.cpp
@@ -41,6 +42,7 @@ set(PROJECT_HEADERS
 	Client.h
 	DaqcClient.h
 	ClientWorker.h
+	UpdateInfoWorker.h
 	../common/packets/Packet.h
 	../common/packets/FramePacket.h
 	../common/packets/RequestUpdatePacket.h

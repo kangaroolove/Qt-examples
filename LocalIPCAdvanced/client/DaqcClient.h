@@ -17,6 +17,8 @@ enum class BcdSynchro : int
     UPDATE = 2
 };
 
+class UpdateInfoWorker;
+
 class DaqcClient : public Client
 {
     Q_OBJECT
@@ -186,12 +188,6 @@ public:
     void legacyFProbeType(int pbPort, int pbType);
     void legacyStart();
     void legacyStop();
-private slots:
-    void requestGetParameters();
-private:
-    int boolToIncrease(const bool& increase);
-    int depthHardCode(const double &value);
-    double mmToCm(const double &value);
 
     void requestTest();
     void requestRegionPhysicalDeltaX();
@@ -234,6 +230,11 @@ private:
     void requestLegacyGetProbeInfo(const int& port);
     void requestSpacingX();
     void requestSpacingY();
+private:
+    int boolToIncrease(const bool& increase);
+    int depthHardCode(const double &value);
+    double mmToCm(const double &value);
 
-    QTimer* m_requestParameterTimer;
+    QThread* m_updateThread;
+    UpdateInfoWorker* m_updateInfoWorker;
 };

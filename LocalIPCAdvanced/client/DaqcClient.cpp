@@ -3,6 +3,7 @@
 #include "RequestUpdatePacket.h"
 #include "Client.h"
 #include "DaqcClientDef.h"
+#include "UpdateInfoWorker.h"
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDebug>
@@ -13,18 +14,19 @@
 
 DaqcClient::DaqcClient(QObject* parent) :
     Client(parent),
-    m_requestParameterTimer(new QTimer(this))
+    m_updateInfoWorker(new UpdateInfoWorker(this)),
+    m_updateThread(new QThread(this))
 {
-    m_requestParameterTimer->setInterval(400);
-
-    //connect(m_requestParameterTimer, &QTimer::timeout, this, &DaqcClient::requestGetParameters);
-    connect(this, &DaqcClient::connected, this, [this]{
-        m_requestParameterTimer->start();
-    });
+    m_updateInfoWorker->moveToThread(m_updateThread);
+    connect(this, &DaqcClient::connected, m_updateInfoWorker, &UpdateInfoWorker::startUpdate);
+    connect(m_updateThread, &QThread::finished, m_updateInfoWorker, &UpdateInfoWorker::deleteLater);
+    m_updateThread->start();
 }
 
 DaqcClient::~DaqcClient()
 {
+    m_updateThread->quit();
+    m_updateThread->wait();
 }
 
 void DaqcClient::connectToServer()
@@ -757,18 +759,6 @@ void DaqcClient::legacyStop()
     QVariantList values = {};
     QStringList valueTypes = {};
     createRequest(new RequestUpdatePacket(DaqcParameter::STOP, values, valueTypes));
-}
-
-void DaqcClient::requestGetParameters()
-{
-    requestSpacingX();
-    requestSpacingY();
-    requestLegacyGetParameter(6);
-    requestLegacyGetParameter(7);
-    requestLegacyGetParameter(8);
-    requestLegacyGetParameter(50);
-    requestIsDualModeOn();
-    requestBGain();
 }
 
 int DaqcClient::boolToIncrease(const bool &increase)
