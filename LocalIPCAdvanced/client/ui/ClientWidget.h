@@ -14,15 +14,17 @@ public:
     ~ClientWidget();
 private slots:
     void onInitButtonClicked();
+    void onAcuiButtonClicked();
 
 private:
     void initGui();
     void bindConnections();
 
-    QTextEdit* m_receiveTextEdit;
-    QTextEdit* m_sendTextEdit;
     QPushButton* m_sendButton;
     QPushButton* m_initButton;
+    QPushButton* m_acuiButton;
+    QLabel* m_acuiLabel;
     DaqcClient* m_client;
     QLabel* m_imageLabel;
+    QLabel* m_imageLabel2;
 };
