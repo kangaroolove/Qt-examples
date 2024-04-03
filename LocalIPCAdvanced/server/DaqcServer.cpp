@@ -65,5 +65,5 @@ void DaqcServer::sendFrame()
 void DaqcServer::frameReady()
 {
     sendFrame();
-    //sendImageCurrentChannel();
+    sendImageCurrentChannel();
 }
