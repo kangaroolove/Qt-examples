@@ -18,6 +18,7 @@ QByteArray GetPacket::toBinary()
     if (!m_image.isNull())
     {
         QDataStream stream(&data, QIODevice::WriteOnly | QIODevice::Append);
+        stream.setVersion(QDataStream::Qt_5_12);
         stream << m_image;
     }
 

@@ -35,6 +35,7 @@ QByteArray Packet::toBinary()
 {
     QByteArray data;
     QDataStream stream(&data, QIODevice::WriteOnly);
+    stream.setVersion(QDataStream::Qt_5_12);
     stream << toJson();
     return data;
 }

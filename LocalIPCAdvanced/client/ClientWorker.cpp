@@ -27,41 +27,38 @@ void ClientWorker::readyToRead()
     if (bytesAvailable() > 0 && !m_in->atEnd())
     {  
         QByteArray msg;
+        QImage image;
         *m_in >> msg;
+        *m_in >> image;
 
-        //qDebug()<<"Client receive message";
-        //qDebug()<<msg;
+        qDebug()<<"Client receive message";
+        qDebug()<<msg;
 
         auto document = QJsonDocument::fromJson(msg);
         if (document.isNull())
             return;
 
-        auto packetType = getPacketType(document);
-        if (packetType == PacketType::FRAME)
-        {
-            auto framePacket = FramePacket::fromJson(document.object());
-            emit imageReceived(framePacket.getImage());
-        }
-        else if (packetType == PacketType::REPLY)
-        {
-            auto replyPacket = ReplyPacket::fromJson(document.object());
-            auto info = replyPacket.getReplyPacketInfo();
-            m_client->updateResult(info.parameter, info.value);
-        }
+        // auto packetType = getPacketType(document);
+        // if (packetType == PacketType::FRAME)
+        // {
+        //     auto framePacket = FramePacket::fromJson(document.object());
+        //     emit imageReceived(framePacket.getImage());
+        // }
+        // else if (packetType == PacketType::REPLY)
+        // {
+        //     auto replyPacket = ReplyPacket::fromJson(document.object());
+        //     auto info = replyPacket.getReplyPacketInfo();
+        //     m_client->updateResult(info.parameter, info.value);
+        // }
     }
 }
 
 void ClientWorker::sendMessage(const QByteArray &msg)
 {
-    QByteArray data;
-    QDataStream out(&data, QIODevice::WriteOnly);
-    out.setVersion(QDataStream::Qt_5_12);
-    out << msg;
-
     qDebug()<<"Client send message";
     qDebug()<<msg;
 
-    write(data);
+    write(msg);
     flush();
 }
 

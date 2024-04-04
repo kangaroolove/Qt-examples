@@ -17,16 +17,16 @@ DaqcClient::DaqcClient(QObject* parent) :
     m_updateInfoWorker(new UpdateInfoWorker(this)),
     m_updateThread(new QThread(this))
 {
-    m_updateInfoWorker->moveToThread(m_updateThread);
-    connect(this, &DaqcClient::connected, m_updateInfoWorker, &UpdateInfoWorker::startUpdate);
-    connect(m_updateThread, &QThread::finished, m_updateInfoWorker, &UpdateInfoWorker::deleteLater);
-    m_updateThread->start();
+    //m_updateInfoWorker->moveToThread(m_updateThread);
+    //connect(this, &DaqcClient::connected, m_updateInfoWorker, &UpdateInfoWorker::startUpdate);
+    //connect(m_updateThread, &QThread::finished, m_updateInfoWorker, &UpdateInfoWorker::deleteLater);
+    //m_updateThread->start();
 }
 
 DaqcClient::~DaqcClient()
 {
-    m_updateThread->quit();
-    m_updateThread->wait();
+    //m_updateThread->quit();
+    //m_updateThread->wait();
 }
 
 void DaqcClient::connectToServer()
