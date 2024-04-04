@@ -16,7 +16,7 @@ DaqcServer::DaqcServer(QObject* parent) :
     connect(m_daqc, SIGNAL(FrameReady()), this, SLOT(frameReady()));
 
     QTimer* timer = new QTimer(this);
-    timer->setInterval(3000);
+    timer->setInterval(33);
     connect(timer, &QTimer::timeout, this, [this]{
         QImage image("D:/2.png");
         QJsonObject object;
