@@ -22,18 +22,13 @@ Server::~Server()
 void Server::sendMessage(const QByteArray &msg)
 {
     QMutexLocker locker(m_mutex);
-    QByteArray data;
-    QDataStream out(&data, QIODevice::WriteOnly);
-    out.setVersion(QDataStream::Qt_5_12);
-
-    out << msg;
 
     qDebug()<<"Server send message";
     qDebug()<<msg;
 
     for (auto it = m_clientSockets.begin(); it != m_clientSockets.end(); it++)
     {
-        it->first->write(data);
+        it->first->write(msg);
         it->first->flush();
     }
 }

@@ -6,6 +6,7 @@
 #include "DaqcClientDef.h"
 #include <QThreadPool>
 #include <QDebug>
+#include <QTimer>
 
 DaqcServer::DaqcServer(QObject* parent) :
     Server(parent),
@@ -65,5 +66,4 @@ void DaqcServer::sendFrame()
 void DaqcServer::frameReady()
 {
     sendFrame();
-    sendImageCurrentChannel();
 }
