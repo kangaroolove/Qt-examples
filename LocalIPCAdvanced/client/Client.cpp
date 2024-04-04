@@ -24,7 +24,6 @@ Client::Client(QObject* parent) :
     m_worker->moveToThread(m_thread);
     connect(m_thread, &QThread::finished, m_worker, &ClientWorker::deleteLater);
     connect(this, &Client::messageToWorkerSended, m_worker, &ClientWorker::sendMessage);
-    connect(m_worker, &ClientWorker::messageReceived, this, &Client::messageReceived);
     connect(m_worker, &ClientWorker::imageReceived, this, &Client::imageReceived);
     connect(m_worker, &ClientWorker::connected, this, &Client::connected);
     connect(m_worker, &ClientWorker::disconnected, this, &Client::disconnected);

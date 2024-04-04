@@ -13,8 +13,6 @@ public:
     ~ClientWorker();
 signals:
     void imageReceived(const QImage& image);
-    void eventLoopQuitted();
-    void messageReceived(const QByteArray& msg);
 public slots:
     void sendMessage(const QByteArray &msg);
 private slots:

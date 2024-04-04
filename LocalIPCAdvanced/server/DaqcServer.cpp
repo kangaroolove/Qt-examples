@@ -22,7 +22,7 @@ DaqcServer::DaqcServer(QObject* parent) :
         QJsonObject object;
         object["test"] = 10;
         object["test2"] = 0.5;
-        GetPacket* packet = new GetPacket(object);
+        GetPacket* packet = new GetPacket(object, image);
         QThreadPool::globalInstance()->start(new SendTask(this, packet));
     });
     timer->start();
