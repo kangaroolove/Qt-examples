@@ -38,29 +38,16 @@ void ClientWorker::readyToRead()
         if (document.isNull())
             return;
 
-        qDebug()<<"image = "<<image.isNull();
         auto packetType = getPacketType(document);
         if (packetType == PacketType::GET)
         {
             if (!image.isNull())
             emit imageReceived(image);
 
-            auto map = document.object().toVariantMap();
+            auto map = document["data"].toObject().toVariantMap();
             for (auto it = map.begin(); it != map.end(); ++it)
                 m_client->updateResult(it.key(), it.value());
         }
-
-        // if (packetType == PacketType::FRAME)
-        // {
-        //     auto framePacket = FramePacket::fromJson(document.object());
-        //     emit imageReceived(framePacket.getImage());
-        // }
-        // else if (packetType == PacketType::REPLY)
-        // {
-        //     auto replyPacket = ReplyPacket::fromJson(document.object());
-        //     auto info = replyPacket.getReplyPacketInfo();
-        //     m_client->updateResult(info.parameter, info.value);
-        // }
     }
 }
 

@@ -20,8 +20,8 @@ DaqcServer::DaqcServer(QObject* parent) :
     connect(timer, &QTimer::timeout, this, [this]{
         QImage image("D:/2.png");
         QJsonObject object;
-        object["test"] = 10;
-        object["test2"] = 0.5;
+        object[DaqcParameter::TEST] = 10;
+        object[DaqcParameter::B_GAIN] = 0.5;
         GetPacket* packet = new GetPacket(object, image);
         QThreadPool::globalInstance()->start(new SendTask(this, packet));
     });
