@@ -1,10 +1,11 @@
 #include "GetPacket.h"
+#include "DaqcClientDef.h"
 
 GetPacket::GetPacket(const QJsonObject& object, const QImage& image) : 
     m_image(image),
     m_object(object)
 {
-
+    m_packetType = PacketType::GET;
 }
 
 GetPacket::~GetPacket()

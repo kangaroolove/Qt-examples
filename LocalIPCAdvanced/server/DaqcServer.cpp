@@ -4,6 +4,7 @@
 #include "FramePacket.h"
 #include "ReplyPacket.h"
 #include "DaqcClientDef.h"
+#include "GetPacket.h"
 #include <QThreadPool>
 #include <QDebug>
 #include <QTimer>
@@ -13,6 +14,18 @@ DaqcServer::DaqcServer(QObject* parent) :
     m_daqc(new Daqc())
 {
     connect(m_daqc, SIGNAL(FrameReady()), this, SLOT(frameReady()));
+
+    QTimer* timer = new QTimer(this);
+    timer->setInterval(3000);
+    connect(timer, &QTimer::timeout, this, [this]{
+        QImage image("D:/2.png");
+        QJsonObject object;
+        object["test"] = 10;
+        object["test2"] = 0.5;
+        GetPacket* packet = new GetPacket(object);
+        QThreadPool::globalInstance()->start(new SendTask(this, packet));
+    });
+    timer->start();
 }
 
 DaqcServer::~DaqcServer()

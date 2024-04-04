@@ -18,5 +18,5 @@ SendTask::~SendTask()
 
 void SendTask::run()
 {
-    emit sendMessage(m_packet->toJson());
+    emit sendMessage(m_packet->toBinary());
 }
