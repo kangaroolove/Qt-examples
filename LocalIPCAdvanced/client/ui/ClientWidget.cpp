@@ -66,8 +66,8 @@ void ClientWidget::initGui()
 void ClientWidget::bindConnections()
 {
     connect(m_sendButton, &QPushButton::clicked, this, [this]{
-        //m_client->testSetApi(true);
-        qDebug()<<"m_client->testGetApi() = "<<m_client->testGetApi();
+        m_client->testSetApi(true);
+        //qDebug()<<"m_client->testGetApi() = "<<m_client->testGetApi();
     });
 
     connect(m_client, &DaqcClient::imageReceived, this, [this](QImage image){

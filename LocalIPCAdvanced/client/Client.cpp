@@ -60,7 +60,7 @@ void Client::sendMessage(const QByteArray& msg)
 
 void Client::createRequest(Packet *packet)
 {
-    sendMessage(packet->toJson());
+    sendMessage(packet->toBinary());
     packet->deleteLater();
 }
 

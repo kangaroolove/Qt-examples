@@ -30,3 +30,5 @@
 /LocalIPCAdvanced/vscode-build-server
 /LocalIPCAdvanced/vscode-build-client
 /LocalIPCAdvanced/client/.vscode
+/LocalIPCAdvanced/client/build
+/LocalIPCAdvanced/server/build
