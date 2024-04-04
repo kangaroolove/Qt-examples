@@ -2,6 +2,7 @@
 #include "DaqcClientDef.h"
 #include <QJsonDocument>
 #include <QUuid>
+#include <QDataStream>
 
 Packet::Packet(QObject* parent) :
     QObject(parent),
@@ -28,6 +29,14 @@ QByteArray Packet::toJson()
 QString Packet::getMessageId() const
 {
     return m_messageId;
+}
+
+QByteArray Packet::toBinary()
+{
+    QByteArray data;
+    QDataStream stream(&data, QIODevice::WriteOnly);
+    stream << toJson();
+    return data;
 }
 
 void Packet::generateMessageId()

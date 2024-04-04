@@ -36,6 +36,7 @@ set(PROJECT_SOURCES
 	../common/packets/RequestGetPacket.cpp
 	../common/packets/ReplyPacket.cpp
 	../common/packets/RequestPacket.cpp
+	../common/packets/GetPacket.cpp
 )
 
 set(PROJECT_HEADERS
@@ -50,6 +51,7 @@ set(PROJECT_HEADERS
 	../common/packets/ReplyPacket.h
 	../common/DaqcClientDef.h
 	../common/packets/RequestPacket.h
+	../common/packets/GetPacket.h
 )
 
 set(PROJECT_UIS

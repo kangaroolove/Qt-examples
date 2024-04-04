@@ -12,6 +12,7 @@ public:
     ~Packet();
     QByteArray toJson();
     QString getMessageId() const;
+    virtual QByteArray toBinary();
 protected:
     virtual QJsonObject generateData() = 0;
 

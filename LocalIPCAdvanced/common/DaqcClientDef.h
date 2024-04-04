@@ -9,6 +9,7 @@ const QString FRAME = "Frame";
 const QString REQUEST = "Request";
 const QString REPLY = "Reply";
 const QString COMMAND = "Command";
+const QString GET = "Get";
 }
 
 enum class WelldParameterId : unsigned int
