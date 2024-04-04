@@ -1,8 +1,6 @@
 #include "ClientWorker.h"
 #include "Client.h"
 #include "DaqcClientDef.h"
-#include "FramePacket.h"
-#include "ReplyPacket.h"
 #include <QLocalSocket>
 #include <QDataStream>
 #include <QJsonDocument>

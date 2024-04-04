@@ -30,10 +30,7 @@ set(PROJECT_SOURCES
 	DaqcClient.cpp
 	ClientWorker.cpp
 	../common/packets/Packet.cpp
-	../common/packets/FramePacket.cpp
 	../common/packets/RequestUpdatePacket.cpp
-	../common/packets/RequestGetPacket.cpp
-	../common/packets/ReplyPacket.cpp
 	../common/packets/RequestPacket.cpp
 	../common/packets/GetPacket.cpp
 )
@@ -43,10 +40,7 @@ set(PROJECT_HEADERS
 	DaqcClient.h
 	ClientWorker.h
 	../common/packets/Packet.h
-	../common/packets/FramePacket.h
 	../common/packets/RequestUpdatePacket.h
-	../common/packets/RequestGetPacket.h
-	../common/packets/ReplyPacket.h
 	../common/DaqcClientDef.h
 	../common/packets/RequestPacket.h
 	../common/packets/GetPacket.h
