@@ -43,7 +43,7 @@ private slots:
     void frameReady();
 private:
     void sendImageCurrentChannel();
-    void sendFrame();
+    QJsonObject getDaqcInfo();
 
     Daqc* m_daqc;
 };
