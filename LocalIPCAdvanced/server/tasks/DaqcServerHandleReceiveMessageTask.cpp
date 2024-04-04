@@ -2,7 +2,6 @@
 #include "SendTask.h"
 #include "Server.h"
 #include "UpdateValueTask.h"
-#include "GetValueTask.h"
 #include "RequestGetPacket.h"
 #include "DaqcClientDef.h"
 #include "RequestUpdatePacket.h"
@@ -35,12 +34,7 @@ void DaqcServerHandleReceiveMessageTask::analyzeJson(const QByteArray &data)
     if (packetType == PacketType::REQUEST)
     {
         auto requestType = getRequestType(document);
-        if (requestType == "get")
-        {
-            auto packet = RequestGetPacket::fromJson(document.object());
-            handleGetRequest(packet.getParameter(), packet.getValueTypes(), packet.getValues(), packet.getMessageId());
-        }
-        else if (requestType == "update")
+        if (requestType == "update")
         {
             auto packet = RequestUpdatePacket::fromJson(document.object());
             handleUpdateRequest(packet.getParameter(), packet.getValueTypes(), packet.getValues());
@@ -55,16 +49,6 @@ void DaqcServerHandleReceiveMessageTask::handleUpdateRequest(const QString &para
     info.values = values;
     info.valueTypes = valueTypes;
     QThreadPool::globalInstance()->start(new UpdateValueTask(info, m_daqc));
-}
-
-void DaqcServerHandleReceiveMessageTask::handleGetRequest(const QString &parameter, const QVariant &valueTypes, const QVariant &values, const QString& messageId)
-{
-    GetValueInfo info;
-    info.parameter = parameter;
-    info.values = values;
-    info.valueTypes = valueTypes;
-    info.clientMessageId = messageId;
-    QThreadPool::globalInstance()->start(new GetValueTask(m_server, m_daqc, info));
 }
 
 QString DaqcServerHandleReceiveMessageTask::getRequestType(const QJsonDocument &document) const
