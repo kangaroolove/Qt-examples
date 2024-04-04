@@ -234,7 +234,4 @@ private:
     int boolToIncrease(const bool& increase);
     int depthHardCode(const double &value);
     double mmToCm(const double &value);
-
-    QThread* m_updateThread;
-    UpdateInfoWorker* m_updateInfoWorker;
 };

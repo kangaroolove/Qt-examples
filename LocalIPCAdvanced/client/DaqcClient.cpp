@@ -3,7 +3,6 @@
 #include "RequestUpdatePacket.h"
 #include "Client.h"
 #include "DaqcClientDef.h"
-#include "UpdateInfoWorker.h"
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDebug>
@@ -13,20 +12,12 @@
 #include <QTimer>
 
 DaqcClient::DaqcClient(QObject* parent) :
-    Client(parent),
-    m_updateInfoWorker(new UpdateInfoWorker(this)),
-    m_updateThread(new QThread(this))
+    Client(parent)
 {
-    //m_updateInfoWorker->moveToThread(m_updateThread);
-    //connect(this, &DaqcClient::connected, m_updateInfoWorker, &UpdateInfoWorker::startUpdate);
-    //connect(m_updateThread, &QThread::finished, m_updateInfoWorker, &UpdateInfoWorker::deleteLater);
-    //m_updateThread->start();
 }
 
 DaqcClient::~DaqcClient()
 {
-    //m_updateThread->quit();
-    //m_updateThread->wait();
 }
 
 void DaqcClient::connectToServer()
