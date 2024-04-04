@@ -2,7 +2,6 @@
 #include "SendTask.h"
 #include "Server.h"
 #include "UpdateValueTask.h"
-#include "RequestGetPacket.h"
 #include "DaqcClientDef.h"
 #include "RequestUpdatePacket.h"
 #include <QJsonDocument>

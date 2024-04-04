@@ -42,7 +42,6 @@ protected:
 private slots:
     void frameReady();
 private:
-    void sendImageCurrentChannel();
     QJsonObject getDaqcInfo();
 
     Daqc* m_daqc;
