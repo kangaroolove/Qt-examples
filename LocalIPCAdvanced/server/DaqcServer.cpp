@@ -75,7 +75,6 @@ QJsonObject DaqcServer::getDaqcInfo()
     object[DaqcParameter::REGION_PHYSICAL_DELTA_Y] = regionPhysicalDeltaY;
     object[DaqcParameter::B_GAIN] = m_daqc->BGain();
     object[DaqcParameter::C_GAIN] = m_daqc->CGain();
-    object[DaqcParameter::XML_DEPTH] = m_daqc->GetParameter(50);
     object[DaqcParameter::B_FREQUENCY] = m_daqc->Frequence();
     object[DaqcParameter::B_FREQUENCY_2] = m_daqc->Freq2();
     object[DaqcParameter::FAVG] = m_daqc->FrameRelation();
@@ -107,6 +106,7 @@ QJsonObject DaqcServer::getDaqcInfo()
     object[DaqcParameter::SPACING_X] = m_daqc->GetParameter((int)WelldParameterId::SPACING_X);
     object[DaqcParameter::SPACING_Y] = m_daqc->GetParameter((int)WelldParameterId::SPACING_Y);
     object[DaqcParameter::IMAGE_CURRENT_CHANNEL] = m_daqc->GetParameter((int)WelldParameterId::IMAGE_CURRENT_CHANNEL);
+    object[DaqcParameter::XML_DEPTH] = m_daqc->GetParameter((int)WelldParameterId::XML_DEPTH);
 
     return object;
 }

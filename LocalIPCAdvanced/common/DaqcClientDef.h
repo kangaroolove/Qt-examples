@@ -18,6 +18,7 @@ enum class WelldParameterId : unsigned int
     C_ROI_Y = 10,
     D_ROI_X = 11,
     D_ROI_Y = 12,
+    XML_DEPTH = 50,
     IMAGE_CURRENT_CHANNEL = 98,
     SPACING_X = 102,
     SPACING_Y = 103,
@@ -32,7 +33,6 @@ const QString REGION_PHYSICAL_DELTA_Y = "RegionPhysicalDeltaY";
 const QString B_GAIN = "BGain";
 const QString B_GAIN2 = "BGain2";
 const QString C_GAIN = "CGain";
-const QString XML_DEPTH = "XmlDepth";
 const QString DEPTH_MM = "DepthMm";
 const QString DEPTH_CM = "DepthCm";
 const QString B_FREQUENCY = "BFrequency";
@@ -109,6 +109,7 @@ const QString IMAGE_CURRENT_CHANNEL = GET_PARAMETER + QString::number((int)Welld
 const QString DUAL_MODE = GET_PARAMETER + QString::number((int)WelldParameterId::REALTIME_EN);
 const QString SPACING_X = GET_PARAMETER + QString::number((int)WelldParameterId::SPACING_X);
 const QString SPACING_Y = GET_PARAMETER + QString::number((int)WelldParameterId::SPACING_Y);
+const QString XML_DEPTH = GET_PARAMETER + QString::number((int)WelldParameterId::XML_DEPTH);
 }
 
 enum class ScanMode : unsigned int
