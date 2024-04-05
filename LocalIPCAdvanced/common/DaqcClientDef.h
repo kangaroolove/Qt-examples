@@ -105,6 +105,7 @@ const QString FLIP_H = "FlipH";
 const QString FLIP_V = "FlipV";
 const QString ROI_POSITION = "RoiPosition";
 const QString PALETTE = "Palette";
+const QString MODE_2B = "Mode2b";
 const QString IMAGE_CURRENT_CHANNEL = GET_PARAMETER + QString::number((int)WelldParameterId::IMAGE_CURRENT_CHANNEL);
 const QString DUAL_MODE = GET_PARAMETER + QString::number((int)WelldParameterId::REALTIME_EN);
 const QString SPACING_X = GET_PARAMETER + QString::number((int)WelldParameterId::SPACING_X);

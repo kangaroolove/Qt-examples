@@ -13,7 +13,8 @@
 DaqcClient::DaqcClient(QObject* parent) :
     Client(parent),
     m_chroma(0),
-    m_rotation(0)
+    m_rotation(0),
+    m_bb(false)
 {
 }
 
@@ -180,9 +181,9 @@ double DaqcClient::getSpacingY()
     return getResult(DaqcParameter::SPACING_Y).toDouble();
 }
 
-bool DaqcClient::isBb()
+bool DaqcClient::isBb() const
 {
-    return false;
+    return m_bb;
 }
 
 bool DaqcClient::isUp()
@@ -420,7 +421,19 @@ void DaqcClient::setRotation(bool increase)
 
 void DaqcClient::setBb(bool value)
 {
+    m_bb = value;
+    emit bbUpdated(value);
 
+    QVariantList values = { };
+    QStringList valueTypes = { };
+    if (m_bb)
+        createRequest(new RequestUpdatePacket(DaqcParameter::MODE_2B, values, valueTypes));
+    else 
+    {
+        values.push_back(legacyScanMode());
+        valueTypes.push_back("int");
+        createRequest(new RequestUpdatePacket(DaqcParameter::SCAN_MODE, values, valueTypes));
+    }
 }
 
 void DaqcClient::setUp(bool value)
@@ -672,6 +685,9 @@ int DaqcClient::legacyScanMode()
 
 void DaqcClient::legacySetScanMode(int value)
 {
+    if (m_bb)
+        m_bb = false;
+
     QVariantList values = { value };
     QStringList valueTypes = { "int" };
     createRequest(new RequestUpdatePacket(DaqcParameter::SCAN_MODE, values, valueTypes));

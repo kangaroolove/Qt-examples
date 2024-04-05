@@ -59,7 +59,7 @@ public:
     double getSpacingX();
     double getSpacingY();
     // TO CHECK
-    bool isBb();
+    bool isBb() const;
     bool isUp();
 
     bool isThi();
@@ -182,6 +182,7 @@ public:
     void legacyStop();
 signals:
     void rotationUpdated(int rotation);
+    void bbUpdated(bool isBb);
 private:
     int boolToIncrease(const bool& increase);
     int depthHardCode(const double &value);
@@ -189,4 +190,5 @@ private:
 
     int m_chroma;
     int m_rotation;
+    bool m_bb;
 };
