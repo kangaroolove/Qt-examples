@@ -83,11 +83,13 @@ void ClientWidget::bindConnections()
 
     connect(m_client, &DaqcClient::imageReceived, this, [this](QImage image){
         auto channel = m_client->getImageCurrentChannel();
+        qDebug()<<"channel ="<<channel;
+
         if (channel == 0)
             m_imageLabel->setPixmap(QPixmap::fromImage(image));
         else if (channel == 1)
             m_imageLabel2->setPixmap(QPixmap::fromImage(image));
-    });
+    }, Qt::QueuedConnection);
 
     connect(m_client, &DaqcClient::connected, this, []{
         qDebug()<<"trigger connect";

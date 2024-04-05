@@ -93,6 +93,9 @@ QJsonObject DaqcServer::getDaqcInfo()
     object[DaqcParameter::SPACING_X] = m_daqc->GetParameter((int)WelldParameterId::SPACING_X);
     object[DaqcParameter::SPACING_Y] = m_daqc->GetParameter((int)WelldParameterId::SPACING_Y);
     object[DaqcParameter::IMAGE_CURRENT_CHANNEL] = m_daqc->GetParameter((int)WelldParameterId::IMAGE_CURRENT_CHANNEL);
+
+    qInfo()<<"Image_current_channel = "<<m_daqc->GetParameter((int)WelldParameterId::IMAGE_CURRENT_CHANNEL);
+
     object[DaqcParameter::XML_DEPTH] = m_daqc->GetParameter((int)WelldParameterId::XML_DEPTH);
 
     return object;
