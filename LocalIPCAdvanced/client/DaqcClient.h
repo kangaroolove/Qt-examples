@@ -39,9 +39,7 @@ public:
     double getDepthCm();
     double getBFrequency();
     double getBFrequency2();
-    // TO CHECK
-    int getChroma();
-
+    int getChroma() const;
     int getFavg();
     int getLavg();
     int getContrast();
@@ -89,8 +87,6 @@ public:
     void setDepth(bool increase);
     void setBFrequency(bool increase);
     void setBFrequency2(bool increase);
-
-    // TO CHECK
     void setChroma(bool increase);
 
     void setFavg(bool increase);
@@ -189,4 +185,6 @@ private:
     int boolToIncrease(const bool& increase);
     int depthHardCode(const double &value);
     double mmToCm(const double &value);
+
+    int m_chroma;
 };

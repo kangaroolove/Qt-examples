@@ -11,7 +11,8 @@
 #include <QTimer>
 
 DaqcClient::DaqcClient(QObject* parent) :
-    Client(parent)
+    Client(parent),
+    m_chroma(0)
 {
 }
 
@@ -87,9 +88,9 @@ double DaqcClient::getBFrequency2()
     return getResult(DaqcParameter::B_FREQUENCY_2).toDouble();
 }
 
-int DaqcClient::getChroma()
+int DaqcClient::getChroma() const
 {
-    return 0;
+    return m_chroma;
 }
 
 int DaqcClient::getFavg()
@@ -290,7 +291,10 @@ void DaqcClient::setBFrequency2(bool increase)
 
 void DaqcClient::setChroma(bool increase)
 {
-    QVariantList values = { boolToIncrease(increase) };
+    static const int MAX = 10;
+    m_chroma = (m_chroma + (increase ? 1 : MAX)) % (MAX + 1);
+
+    QVariantList values = { m_chroma };
     QStringList valueTypes = { "int" };
     createRequest(new RequestUpdatePacket(DaqcParameter::CHROMA, values, valueTypes));
 }
