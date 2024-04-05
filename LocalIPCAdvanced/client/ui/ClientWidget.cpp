@@ -14,7 +14,8 @@ ClientWidget::ClientWidget(QWidget* parent) :
     m_imageLabel(new QLabel(this)),
     m_initButton(new QPushButton("Init", this)),
     m_acuiButton(new QPushButton(("ACUI"), this)),
-    m_acuiLabel(new QLabel("1", this)),
+    m_acuiLabel(new QLabel(this)),
+    m_imageLabel2(new QLabel(this)),
     m_dualModeButton(new QPushButton("Dual Mode", this))
 {
     initGui();
@@ -66,6 +67,7 @@ void ClientWidget::initGui()
     layout->addWidget(m_dualModeButton);
     layout->addLayout(acuiLayout);
     layout->addWidget(m_imageLabel);
+    layout->addWidget(m_imageLabel2);
 
     m_dualModeButton->setCheckable(true);
 
@@ -80,9 +82,7 @@ void ClientWidget::bindConnections()
     });
 
     connect(m_client, &DaqcClient::imageReceived, this, [this](QImage image){
-        qDebug()<<"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";
         auto channel = m_client->getImageCurrentChannel();
-        qDebug()<<"BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB";
         if (channel == 0)
             m_imageLabel->setPixmap(QPixmap::fromImage(image));
         else if (channel == 1)
