@@ -15,11 +15,12 @@
 #include <QEventLoop>
 #include <functional>
 
+QReadWriteLock Client::m_locker;
+
 Client::Client(QObject* parent) : 
     QObject(parent),
     m_worker(new ClientWorker(this)),
     m_thread(new QThread(this)),
-    m_locker(new QReadWriteLock),
     m_connected(false)
 {
     m_worker->moveToThread(m_thread);
@@ -35,13 +36,11 @@ Client::~Client()
 {
     m_thread->quit();
     m_thread->wait();
-
-    delete m_locker;
 }
 
 void Client::updateResult(const QString &parameter, const QVariant& result)
 {
-    QWriteLocker locker(m_locker);
+    QWriteLocker locker(&m_locker);
     bool exist = m_parametersMap.count(parameter) > 0;
     if (!exist)
     {
@@ -83,7 +82,7 @@ void Client::createRequest(Packet *packet)
 
 QVariant Client::getResult(const QString &parameter) const
 {
-    QReadLocker locker(m_locker);
+    QReadLocker locker(&m_locker);
     auto it = m_parametersMap.find(parameter);
     if (it != m_parametersMap.end())
         return it->second;
