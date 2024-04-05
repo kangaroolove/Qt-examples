@@ -23,6 +23,7 @@ public:
     ~Client();
     virtual void connectToServer() = 0;
     void updateResult(const QString& parameter, const QVariant& result);
+    bool isConnected() const;
 signals:
     void messageToWorkerSended(const QByteArray& msg);
     void messageReceived(const QByteArray& msg);
@@ -31,6 +32,9 @@ signals:
     void disconnected();
 public slots:
     void sendMessage(const QByteArray& msg);
+private slots:
+    void onConnected();
+    void onDisconnected();
 protected:
     void createRequest(Packet *packet);
     QVariant getResult(const QString& parameter) const;
@@ -38,6 +42,7 @@ protected:
     ClientWorker* m_worker;
     QThread* m_thread;
     QReadWriteLock* m_locker;
+    bool m_connected;
     // shared resources
     // key: parameter name
     std::map<QString, QVariant> m_parametersMap;

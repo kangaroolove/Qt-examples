@@ -19,14 +19,15 @@ Client::Client(QObject* parent) :
     QObject(parent),
     m_worker(new ClientWorker(this)),
     m_thread(new QThread(this)),
-    m_locker(new QReadWriteLock)
+    m_locker(new QReadWriteLock),
+    m_connected(false)
 {
     m_worker->moveToThread(m_thread);
     connect(m_thread, &QThread::finished, m_worker, &ClientWorker::deleteLater);
     connect(this, &Client::messageToWorkerSended, m_worker, &ClientWorker::sendMessage);
     connect(m_worker, &ClientWorker::imageReceived, this, &Client::imageReceived);
-    connect(m_worker, &ClientWorker::connected, this, &Client::connected);
-    connect(m_worker, &ClientWorker::disconnected, this, &Client::disconnected);
+    connect(m_worker, &ClientWorker::connected, this, &Client::onConnected);
+    connect(m_worker, &ClientWorker::disconnected, this, &Client::onDisconnected);
     m_thread->start();
 }
 
@@ -52,9 +53,26 @@ void Client::updateResult(const QString &parameter, const QVariant& result)
         m_parametersMap[parameter] = result;
 }
 
+bool Client::isConnected() const
+{
+    return m_connected;
+}
+
 void Client::sendMessage(const QByteArray& msg)
 {
     emit messageToWorkerSended(msg);
+}
+
+void Client::onConnected()
+{
+    m_connected = true;
+    emit connected();
+}
+
+void Client::onDisconnected()
+{
+    m_connected = false;
+    emit disconnected();
 }
 
 void Client::createRequest(Packet *packet)

@@ -28,11 +28,8 @@ public:
     void connectToServer() override;
     int testGetApi();
     void testSetApi(int value);
-    // get functions
-
-    // TO CHECK
     bool isConnected();
-
+    // get functions
     double getRegionPhysicalDeltaX();
     double getRegionPhysicalDeltaY();
     int getBGain();
