@@ -54,8 +54,7 @@ public:
     int getDSpeed();
     int getNoiseReject();
     int getAudio();
-    // TO CHECK
-    int getRotation();
+    int getRotation() const;
 
     double getSpacingX();
     double getSpacingY();
@@ -181,10 +180,13 @@ public:
     void legacyFProbeType(int pbPort, int pbType);
     void legacyStart();
     void legacyStop();
+signals:
+    void rotationUpdated(int rotation);
 private:
     int boolToIncrease(const bool& increase);
     int depthHardCode(const double &value);
     double mmToCm(const double &value);
 
     int m_chroma;
+    int m_rotation;
 };

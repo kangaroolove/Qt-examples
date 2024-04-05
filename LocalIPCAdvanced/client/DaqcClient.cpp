@@ -12,7 +12,8 @@
 
 DaqcClient::DaqcClient(QObject* parent) :
     Client(parent),
-    m_chroma(0)
+    m_chroma(0),
+    m_rotation(0)
 {
 }
 
@@ -164,7 +165,7 @@ int DaqcClient::getAudio()
     return getResult(DaqcParameter::D_SOUND_VOLUME).toInt();
 }
 
-int DaqcClient::getRotation()
+int DaqcClient::getRotation() const
 {
     return 0;
 }
@@ -404,7 +405,17 @@ void DaqcClient::setBaseline(bool increase)
 
 void DaqcClient::setRotation(bool increase)
 {
-
+    static const int MAX = 270;
+    static const int MIN = 0;
+    static const int STEP = 90;
+    int value = m_rotation;
+    value += (increase ? STEP : -STEP);
+    if (value > MAX)
+        value = MIN;
+    else if (value < MIN)
+        value = MAX;
+    m_rotation = value;
+    emit rotationUpdated(m_rotation);
 }
 
 void DaqcClient::setBb(bool value)
