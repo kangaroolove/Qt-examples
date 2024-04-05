@@ -42,7 +42,7 @@ protected:
 
     ClientWorker* m_worker;
     QThread* m_thread;
-    static QReadWriteLock m_locker;
+    QReadWriteLock* m_locker;
     bool m_connected;
     // shared resources
     // key: parameter name
