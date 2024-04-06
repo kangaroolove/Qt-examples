@@ -7,7 +7,7 @@
 #include <QImage>
 #include <QJsonObject>
 
-const int ClientWorker::m_COMMUNICATION_JAM_THRESHOLD = 200000;
+const int ClientWorker::m_COMMUNICATION_JAM_THRESHOLD = 400000;
 
 ClientWorker::ClientWorker(Client* client, QObject* parent) :
     QLocalSocket(parent),
