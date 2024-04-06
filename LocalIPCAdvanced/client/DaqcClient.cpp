@@ -44,32 +44,32 @@ void DaqcClient::testSetApi(int value)
     createRequest(new RequestUpdatePacket(DaqcParameter::TEST, values, valueTypes));
 }
 
-bool DaqcClient::isConnected()
+bool DaqcClient::isConnected() const
 {
-    return false;
+    return m_connected;
 }
 
-double DaqcClient::getRegionPhysicalDeltaX()
+double DaqcClient::getRegionPhysicalDeltaX() const
 {
     return getResult(DaqcParameter::REGION_PHYSICAL_DELTA_X).toDouble();
 }
 
-double DaqcClient::getRegionPhysicalDeltaY()
+double DaqcClient::getRegionPhysicalDeltaY() const
 {
     return getResult(DaqcParameter::REGION_PHYSICAL_DELTA_Y).toDouble();
 }
 
-int DaqcClient::getBGain()
+int DaqcClient::getBGain() const
 {
     return getResult(DaqcParameter::B_GAIN).toInt();
 }
 
-int DaqcClient::getCGain()
+int DaqcClient::getCGain() const
 {
     return getResult(DaqcParameter::C_GAIN).toInt();
 }
 
-double DaqcClient::getXmlDepth()
+double DaqcClient::getXmlDepth() const
 {
     return getResult(DaqcParameter::XML_DEPTH).toDouble();
 }
@@ -84,12 +84,12 @@ double DaqcClient::getDepthCm()
     return mmToCm(getDepthMm());
 }
 
-double DaqcClient::getBFrequency()
+double DaqcClient::getBFrequency() const
 {
     return getResult(DaqcParameter::B_FREQUENCY).toDouble();
 }
 
-double DaqcClient::getBFrequency2()
+double DaqcClient::getBFrequency2() const
 {
     return getResult(DaqcParameter::B_FREQUENCY_2).toDouble();
 }
@@ -99,13 +99,13 @@ int DaqcClient::getChroma() const
     return m_chroma;
 }
 
-int DaqcClient::getFavg()
+int DaqcClient::getFavg() const
 {
     // original interface return double
     return getResult(DaqcParameter::FAVG).toInt();
 }
 
-int DaqcClient::getLavg()
+int DaqcClient::getLavg() const
 {
     return getResult(DaqcParameter::LAVG).toInt();
 }
@@ -120,52 +120,52 @@ double DaqcClient::getCPrf()
     return legacyCPRF();
 }
 
-double DaqcClient::getDPrf()
+double DaqcClient::getDPrf() const
 {
     return getResult(DaqcParameter::D_PRF).toDouble();
 }
 
-double DaqcClient::getCWf()
+double DaqcClient::getCWf() const
 {
     return getResult(DaqcParameter::C_WF).toDouble();
 }
 
-double DaqcClient::getDWf()
+double DaqcClient::getDWf() const
 {
     return getResult(DaqcParameter::D_WF).toDouble();
 }
 
-int DaqcClient::getSensitivity()
+int DaqcClient::getSensitivity() const
 {
     return getResult(DaqcParameter::SENSITIVITY).toInt();
 }
 
-int DaqcClient::getSwingAngle()
+int DaqcClient::getSwingAngle() const
 {
     return getResult(DaqcParameter::SWING_ANGLE).toInt();
 }
 
-double DaqcClient::getSv()
+double DaqcClient::getSv() const
 {
     return getResult(DaqcParameter::SV).toDouble();
 }
 
-double DaqcClient::getCa()
+double DaqcClient::getCa() const
 {
     return getResult(DaqcParameter::CA).toDouble();
 }
 
-int DaqcClient::getDSpeed()
+int DaqcClient::getDSpeed() const
 {
     return getResult(DaqcParameter::D_SPEED).toInt();
 }
 
-int DaqcClient::getNoiseReject()
+int DaqcClient::getNoiseReject() const
 {
     return getResult(DaqcParameter::D_NOISE_REJECT).toInt();
 }
 
-int DaqcClient::getAudio()
+int DaqcClient::getAudio() const
 {
     return getResult(DaqcParameter::D_SOUND_VOLUME).toInt();
 }
@@ -175,12 +175,12 @@ int DaqcClient::getRotation() const
     return 0;
 }
 
-double DaqcClient::getSpacingX()
+double DaqcClient::getSpacingX() const
 {
     return getResult(DaqcParameter::SPACING_X).toDouble();
 }
 
-double DaqcClient::getSpacingY()
+double DaqcClient::getSpacingY() const
 {
     return getResult(DaqcParameter::SPACING_Y).toDouble();
 }
@@ -220,7 +220,7 @@ bool DaqcClient::isCInvert()
     return legacyColorInvert();
 }
 
-bool DaqcClient::isDInvert()
+bool DaqcClient::isDInvert() const
 {
     return getResult(DaqcParameter::D_INVERT).toBool();
 }
@@ -245,17 +245,17 @@ bool DaqcClient::isSynchro()
     return legacyBCDSynChro() == (int)BcdSynchro::SYNCHRO;
 }
 
-QPoint DaqcClient::getRoiPosition()
+QPoint DaqcClient::getRoiPosition() const
 {
     return QPoint(getResult(DaqcParameter::ROI_POSITION_X).toInt(), getResult(DaqcParameter::ROI_POSITION_Y).toInt());
 }
 
-int DaqcClient::getImageCurrentChannel()
+int DaqcClient::getImageCurrentChannel() const
 {
     return getResult(DaqcParameter::IMAGE_CURRENT_CHANNEL).toInt();
 }
 
-bool DaqcClient::isDualModeOn()
+bool DaqcClient::isDualModeOn() const
 {
     return getResult(DaqcParameter::DUAL_MODE).toBool();
 }

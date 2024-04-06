@@ -29,35 +29,36 @@ public:
     void connectToServer() override;
     int testGetApi();
     void testSetApi(int value);
-    bool isConnected();
+    bool isConnected() const;
     // get functions
-    double getRegionPhysicalDeltaX();
-    double getRegionPhysicalDeltaY();
-    int getBGain();
-    int getCGain();
-    double getXmlDepth();
+    double getRegionPhysicalDeltaX() const;
+    double getRegionPhysicalDeltaY() const;
+    int getBGain() const;
+    int getCGain() const;
+    double getXmlDepth() const;
     int getDepthMm();
     double getDepthCm();
-    double getBFrequency();
-    double getBFrequency2();
+    double getBFrequency() const;
+    double getBFrequency2() const;
     int getChroma() const;
-    int getFavg();
-    int getLavg();
+    int getFavg() const;
+    int getLavg() const;
     int getContrast();
     double getCPrf();
-    double getDPrf();
-    double getCWf();
-    double getDWf();
-    int getSensitivity();
-    int getSwingAngle();//same value for c and d mode
-    double getSv();
-    double getCa();
-    int getDSpeed();
-    int getNoiseReject();
-    int getAudio();
+    double getDPrf() const;
+    double getCWf() const;
+    double getDWf() const;
+    int getSensitivity() const;
+    // same value for c and d mode
+    int getSwingAngle() const;
+    double getSv() const;
+    double getCa() const;
+    int getDSpeed() const;
+    int getNoiseReject() const;
+    int getAudio() const;
     int getRotation() const;
-    double getSpacingX();
-    double getSpacingY();
+    double getSpacingX() const;
+    double getSpacingY() const;
     bool isBb() const;
     bool isUp() const;
     bool isThi();
@@ -65,14 +66,14 @@ public:
     bool isRoiSite() const;
     bool isRoiSize() const;
     bool isCInvert();
-    bool isDInvert();
+    bool isDInvert() const;
     bool isCAutoTrace();
     bool isDAutoTrace() const;
     bool isUpdate();
     bool isSynchro();
-    QPoint getRoiPosition();
-    int getImageCurrentChannel();
-    bool isDualModeOn();
+    QPoint getRoiPosition() const;
+    int getImageCurrentChannel() const;
+    bool isDualModeOn() const;
     // increase/decrease functions
     void setBGain(bool increase);
     void setCGain(bool increase);
@@ -166,7 +167,7 @@ signals:
     void bbUpdated(bool isBb);
     void upUpdated(bool isUp);
     void centerLineUpdated(bool isCenterLine);
-    //roi signal split into 3 to avoid casting enum to int param, could change back if better
+    // roi signal split into 3 to avoid casting enum to int param, could change back if better
     void roiSiteOn();
     void roiSizeOn();
     void roiCancelled();
