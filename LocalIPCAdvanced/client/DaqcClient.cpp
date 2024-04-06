@@ -16,7 +16,8 @@ DaqcClient::DaqcClient(QObject* parent) :
     m_rotation(0),
     m_bb(false),
     m_isUp(false),
-    m_centerLine(false)
+    m_centerLine(false),
+    m_roi(RoiState::OFF)
 {
 }
 
@@ -203,14 +204,14 @@ bool DaqcClient::isCenterLine() const
     return m_centerLine;
 }
 
-bool DaqcClient::isRoiSite()
+bool DaqcClient::isRoiSite() const
 {
-    return false;
+    return m_roi == RoiState::SITE;
 }
 
-bool DaqcClient::isRoiSize()
+bool DaqcClient::isRoiSize() const
 {
-    return false;
+    return m_roi == RoiState::SIZE;
 }
 
 bool DaqcClient::isCInvert()
@@ -460,11 +461,18 @@ void DaqcClient::setCenterLine(bool value)
 
 void DaqcClient::setRoiSite(bool value)
 {
+    if (!value)
+        return cancelRoi();
+    m_roi = RoiState::SITE;
+    emit roiSiteOn();
 }
 
 void DaqcClient::setRoiSize(bool value)
 {
-    //createUpdateRequest(new RequestUpdatePacket(ROI_SIZE, value, "bool"));
+    if (!value)
+        return cancelRoi();
+    m_roi = RoiState::SIZE;
+    emit roiSizeOn();
 }
 
 void DaqcClient::setCInvert(bool value)
@@ -522,6 +530,8 @@ void DaqcClient::setImgProcValue(int index, const std::vector<int> &params)
 
 void DaqcClient::cancelRoi()
 {
+    m_roi = RoiState::OFF;
+    emit roiCancelled();
 }
 
 void DaqcClient::legacySetACUI(int value)

@@ -25,6 +25,12 @@ enum class WelldParameterId : unsigned int
     REALTIME_EN = 120
 };
 
+enum class RoiState : unsigned int
+{
+    OFF,
+    SITE,
+    SIZE
+};
 namespace DaqcParameter
 {
 const QString TEST = "Test";

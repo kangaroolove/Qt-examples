@@ -17,6 +17,7 @@ enum class BcdSynchro : int
     UPDATE = 2
 };
 
+enum class RoiState : unsigned int;
 class UpdateInfoWorker;
 
 class DaqcClient : public Client
@@ -61,10 +62,8 @@ public:
     bool isUp() const;
     bool isThi();
     bool isCenterLine() const;
-    // TO CHECK
-    bool isRoiSite();
-    bool isRoiSize();
-
+    bool isRoiSite() const;
+    bool isRoiSize() const;
     bool isCInvert();
     bool isDInvert();
     bool isCAutoTrace();
@@ -178,6 +177,10 @@ signals:
     void bbUpdated(bool isBb);
     void upUpdated(bool isUp);
     void centerLineUpdated(bool isCenterLine);
+    //roi signal split into 3 to avoid casting enum to int param, could change back if better
+    void roiSiteOn();
+    void roiSizeOn();
+    void roiCancelled();
 private:
     int boolToIncrease(const bool& increase);
     int depthHardCode(const double &value);
@@ -188,4 +191,5 @@ private:
     bool m_bb;
     bool m_isUp;
     bool m_centerLine;
+    RoiState m_roi;
 };
