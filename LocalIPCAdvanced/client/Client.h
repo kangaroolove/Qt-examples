@@ -27,7 +27,6 @@ public:
 signals:
     void messageToWorkerSended(const QByteArray& msg);
     void messageReceived(const QByteArray& msg);
-    // Please use the Qt::QueuedConnection to connect this signal
     void imageReceived(QImage image);
     void connected();
     void disconnected();
