@@ -452,6 +452,14 @@ void DaqcClient::setUp(bool value)
 
 void DaqcClient::setThi(bool value)
 {
+    bool thi = isThi();
+    if (thi == value)
+        return;
+
+    bool on = isDualModeOn();
+    legacySetTHI(boolToIncrease(value));
+    if (value && on)
+        legacyRealtimeEn(on);
 }
 
 void DaqcClient::setCenterLine(bool value)
@@ -683,7 +691,7 @@ void DaqcClient::legacySetTHI(int value)
 {
     QVariantList values = { value };
     QStringList valueTypes = { "int" };
-    createRequest(new RequestUpdatePacket(DaqcParameter::ESPIN, values, valueTypes));
+    createRequest(new RequestUpdatePacket(DaqcParameter::THI, values, valueTypes));
 }
 
 int DaqcClient::legacyCAutoTrace()

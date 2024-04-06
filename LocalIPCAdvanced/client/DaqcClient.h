@@ -97,7 +97,6 @@ public:
     void setNoiseReject(bool increase);
     void setAudio(bool increase);
     void setDBaseline(bool increase);
-    // TO CHECK
     void setRotation(bool increase);
 
     // set functions
