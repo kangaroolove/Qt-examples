@@ -13,22 +13,21 @@ DaqcServer::DaqcServer(QObject* parent) :
 {
     connect(m_daqc, SIGNAL(FrameReady()), this, SLOT(frameReady()));
 
-    QTimer* timer = new QTimer(this);
-    timer->setInterval(33);
-    connect(timer, &QTimer::timeout, this, [this]{
+    // QTimer* timer = new QTimer(this);
+    // timer->setInterval(33);
+    // connect(timer, &QTimer::timeout, this, [this]{
+    //     QImage image;
+    //     static bool isFirst = true;
+    //     if (isFirst)
+    //         image = QImage("D:/1.png");
+    //     else 
+    //         image = QImage("D:/2.png");
 
-        QImage image;
-        static bool isFirst = true;
-        if (isFirst)
-            image = QImage("D:/1.png");
-        else 
-            image = QImage("D:/2.png");
-
-        isFirst = !isFirst;
-        GetPacket* packet = new GetPacket(getDaqcInfo(), image);
-        QThreadPool::globalInstance()->start(new SendTask(this, packet));
-    });
-    timer->start();
+    //     isFirst = !isFirst;
+    //     GetPacket* packet = new GetPacket(getDaqcInfo(), image);
+    //     QThreadPool::globalInstance()->start(new SendTask(this, packet));
+    // });
+    // timer->start();
 }
 
 DaqcServer::~DaqcServer()
@@ -103,8 +102,7 @@ QJsonObject DaqcServer::getDaqcInfo()
     object[DaqcParameter::SPACING_Y] = m_daqc->GetParameter((int)WelldParameterId::SPACING_Y);
     object[DaqcParameter::IMAGE_CURRENT_CHANNEL] = m_daqc->GetParameter((int)WelldParameterId::IMAGE_CURRENT_CHANNEL);
     object[DaqcParameter::XML_DEPTH] = m_daqc->GetParameter((int)WelldParameterId::XML_DEPTH);
-    #endif
-
+    #else
     static int channel = 0;
     object[DaqcParameter::IMAGE_CURRENT_CHANNEL] = channel;
     if (channel == 0)
@@ -115,6 +113,7 @@ QJsonObject DaqcServer::getDaqcInfo()
     {
         channel = 0;
     }
+    #endif
 
     return object;
 }

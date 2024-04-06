@@ -44,7 +44,9 @@ void Server::readyRead()
     if (it == m_clientSockets.end())
         return;
 
-    if (socket->bytesAvailable() > 0 && !it->second->atEnd())
+    // In a RTC application, handling message is slower than receiving message sometimes.
+    // So we need to use while rather than if here
+    while (socket->bytesAvailable() > 0 && !it->second->atEnd())
     {
         QByteArray msg;
         *(it->second) >> msg;
