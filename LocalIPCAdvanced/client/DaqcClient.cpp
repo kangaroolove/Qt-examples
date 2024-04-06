@@ -17,7 +17,8 @@ DaqcClient::DaqcClient(QObject* parent) :
     m_bb(false),
     m_isUp(false),
     m_centerLine(false),
-    m_roi(RoiState::OFF)
+    m_roi(RoiState::OFF),
+    m_dAutoTrace(false)
 {
 }
 
@@ -229,9 +230,9 @@ bool DaqcClient::isCAutoTrace()
     return legacyCAutoTrace() == 1;
 }
 
-bool DaqcClient::isDAutoTrace()
+bool DaqcClient::isDAutoTrace() const
 {
-    return false;
+    return m_dAutoTrace;
 }
 
 bool DaqcClient::isUpdate()
@@ -496,7 +497,12 @@ void DaqcClient::setCAutoTrace(bool value)
 
 void DaqcClient::setDAutoTrace(bool value)
 {
-    QVariantList values = { value };
+    if (m_dAutoTrace == value)
+        return;
+
+    m_dAutoTrace = value;
+    //toggles instead of only setting on
+    QVariantList values = { true };
     QStringList valueTypes = { "bool" };
     createRequest(new RequestUpdatePacket(DaqcParameter::D_AUTO_TRACE, values, valueTypes));
 }

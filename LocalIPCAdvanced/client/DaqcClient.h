@@ -67,9 +67,7 @@ public:
     bool isCInvert();
     bool isDInvert();
     bool isCAutoTrace();
-    // TO CHECK
-    bool isDAutoTrace();
-
+    bool isDAutoTrace() const;
     bool isUpdate();
     bool isSynchro();
     // TO CHECK
@@ -123,8 +121,6 @@ public:
     void setDualMode(bool value);
     void setImgProcValue(int index, const std::vector<int>& params);
     //other functions
-
-    // TO CHECK
     void cancelRoi();
 
     //all functions from daqclib.h are prepended with "legacy"
@@ -192,4 +188,5 @@ private:
     bool m_isUp;
     bool m_centerLine;
     RoiState m_roi;
+    bool m_dAutoTrace;
 };
