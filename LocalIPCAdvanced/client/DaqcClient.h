@@ -55,11 +55,10 @@ public:
     int getNoiseReject();
     int getAudio();
     int getRotation() const;
-
     double getSpacingX();
     double getSpacingY();
-    // TO CHECK
     bool isBb() const;
+    // TO CHECK
     bool isUp();
 
     bool isThi();
