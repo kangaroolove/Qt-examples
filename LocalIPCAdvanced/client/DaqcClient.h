@@ -58,9 +58,7 @@ public:
     double getSpacingX();
     double getSpacingY();
     bool isBb() const;
-    // TO CHECK
-    bool isUp();
-
+    bool isUp() const;
     bool isThi();
     // TO CHECK
     bool isCenterLine();
@@ -93,7 +91,6 @@ public:
     // TO CHECK
     void setContrast(bool increase);
 
-
     void setCPrf(bool increase);
     void setDPrf(bool increase);
     void setCWf(bool increase);
@@ -109,7 +106,6 @@ public:
     // TO CHECK
     void setBaseline(bool increase);
     void setRotation(bool increase);
-
 
     // set functions
     void setBb(bool value);
@@ -130,9 +126,6 @@ public:
 
     // TO CHECK
     void cancelRoi();
-
-    //
-
 
     //all functions from daqclib.h are prepended with "legacy"
     void legacySetACUI(int value);
@@ -182,6 +175,7 @@ public:
 signals:
     void rotationUpdated(int rotation);
     void bbUpdated(bool isBb);
+    void upUpdated(bool isUp);
 private:
     int boolToIncrease(const bool& increase);
     int depthHardCode(const double &value);
@@ -190,4 +184,5 @@ private:
     int m_chroma;
     int m_rotation;
     bool m_bb;
+    bool m_isUp;
 };

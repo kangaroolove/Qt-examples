@@ -14,7 +14,8 @@ DaqcClient::DaqcClient(QObject* parent) :
     Client(parent),
     m_chroma(0),
     m_rotation(0),
-    m_bb(false)
+    m_bb(false),
+    m_isUp(false)
 {
 }
 
@@ -186,9 +187,9 @@ bool DaqcClient::isBb() const
     return m_bb;
 }
 
-bool DaqcClient::isUp()
+bool DaqcClient::isUp() const
 {
-    return false;
+    return m_isUp;
 }
 
 bool DaqcClient::isThi()
@@ -438,6 +439,10 @@ void DaqcClient::setBb(bool value)
 
 void DaqcClient::setUp(bool value)
 {
+    if (m_isUp == value)
+        return;
+    m_isUp = value;
+    emit upUpdated(value);
 }
 
 void DaqcClient::setThi(bool value)
