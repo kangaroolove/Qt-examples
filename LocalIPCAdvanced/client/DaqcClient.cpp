@@ -247,7 +247,7 @@ bool DaqcClient::isSynchro()
 
 QPoint DaqcClient::getRoiPosition()
 {
-    return QPoint(0, 0);
+    return QPoint(getResult(DaqcParameter::ROI_POSITION_X).toInt(), getResult(DaqcParameter::ROI_POSITION_Y).toInt());
 }
 
 int DaqcClient::getImageCurrentChannel()
