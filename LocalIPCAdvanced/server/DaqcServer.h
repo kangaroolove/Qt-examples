@@ -30,6 +30,8 @@ struct BITMAPINFO {
     BITMAPINFOHEADER bmiHeader;
     RGBQUAD          bmiColors[256];
 };
+
+class QTimer;
 class DaqcServer : public Server
 {
     Q_OBJECT
@@ -37,12 +39,16 @@ public:
     DaqcServer(QObject* parent = nullptr);
     ~DaqcServer();
     void start() override;
+public slots:
+    void setUpdateInfoTimerStatus(bool start);
 protected:
     HandleReceiveMessageTask* generateHandleRequestTask(const QByteArray& data) override;
 private slots:
     void frameReady();
+    void updateTimerTimeout();
 private:
     QJsonObject getDaqcInfo();
 
     Daqc* m_daqc;
+    QTimer* m_DaqcInfoUpdateTimer;
 };

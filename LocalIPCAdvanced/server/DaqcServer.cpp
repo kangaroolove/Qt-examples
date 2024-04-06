@@ -9,8 +9,12 @@
 
 DaqcServer::DaqcServer(QObject* parent) :
     Server(parent),
-    m_daqc(new Daqc())
+    m_daqc(new Daqc()),
+    m_DaqcInfoUpdateTimer(new QTimer(this))
 {
+    m_DaqcInfoUpdateTimer->setInterval(400);
+    connect(m_DaqcInfoUpdateTimer, &QTimer::timeout, this, &DaqcServer::updateTimerTimeout);
+
     connect(m_daqc, SIGNAL(FrameReady()), this, SLOT(frameReady()));
 
     // QTimer* timer = new QTimer(this);
@@ -44,9 +48,20 @@ void DaqcServer::start()
         qCritical()<<"Daqc server started failed";
 }
 
+void DaqcServer::setUpdateInfoTimerStatus(bool start)
+{
+    start ? m_DaqcInfoUpdateTimer->start() : m_DaqcInfoUpdateTimer->stop();
+}
+
 HandleReceiveMessageTask *DaqcServer::generateHandleRequestTask(const QByteArray& data)
 {
     return new DaqcServerHandleReceiveMessageTask(this, m_daqc, data);
+}
+
+void DaqcServer::updateTimerTimeout()
+{
+    GetPacket* packet = new GetPacket(getDaqcInfo());
+    QThreadPool::globalInstance()->start(new SendTask(this, packet));
 }
 
 QJsonObject DaqcServer::getDaqcInfo()
