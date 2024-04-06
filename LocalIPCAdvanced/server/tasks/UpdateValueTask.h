@@ -16,12 +16,15 @@ public:
     QVariant values;
 };
 
-class UpdateValueTask : public QRunnable
+class UpdateValueTask : public QObject, public QRunnable
 {
+    Q_OBJECT
 public:
     UpdateValueTask(const UpdateValueInfo& updateValueInfo, Daqc* daqc);
     ~UpdateValueTask();
     void run() override;
+signals:
+    void stopSendFrame(bool stop);
 private:
     UpdateValueInfo m_updateValueInfo;
     static QReadWriteLock m_readWriteLock;

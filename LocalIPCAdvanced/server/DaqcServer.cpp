@@ -55,7 +55,9 @@ void DaqcServer::setUpdateInfoTimerStatus(bool start)
 
 HandleReceiveMessageTask *DaqcServer::generateHandleRequestTask(const QByteArray& data)
 {
-    return new DaqcServerHandleReceiveMessageTask(this, m_daqc, data);
+    auto task = new DaqcServerHandleReceiveMessageTask(m_daqc, data);
+    connect(task, &DaqcServerHandleReceiveMessageTask::stopSendFrame, this, &DaqcServer::setUpdateInfoTimerStatus);
+    return task;
 }
 
 void DaqcServer::updateTimerTimeout()

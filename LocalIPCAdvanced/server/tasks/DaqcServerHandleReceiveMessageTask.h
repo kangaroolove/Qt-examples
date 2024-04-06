@@ -9,11 +9,14 @@ using Daqc = DAQCLib::DAQC;
 class Server;
 class QJsonDocument;
 
-class DaqcServerHandleReceiveMessageTask : public HandleReceiveMessageTask
+class DaqcServerHandleReceiveMessageTask : public QObject, public HandleReceiveMessageTask
 {
+    Q_OBJECT
 public:
-    DaqcServerHandleReceiveMessageTask(Server* server, Daqc* daqc, const QByteArray& data);
+    DaqcServerHandleReceiveMessageTask(Daqc* daqc, const QByteArray& data);
     ~DaqcServerHandleReceiveMessageTask();
+signals:
+    void stopSendFrame(bool stop);
 protected:
     void analyzeJson(const QByteArray& data) override;
 private:
@@ -21,6 +24,5 @@ private:
     QString getRequestType(const QJsonDocument& document) const;
     QString getPacketType(const QJsonDocument& document) const;
 
-    Server* m_server;
     Daqc* m_daqc;
 };

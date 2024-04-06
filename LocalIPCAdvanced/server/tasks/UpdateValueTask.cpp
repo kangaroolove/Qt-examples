@@ -58,9 +58,15 @@ void UpdateValueTask::run()
     else if (m_updateValueInfo.parameter == DaqcParameter::REALTIME_EN)
         m_daqc->RealtimeEn(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::START)
+    {
+        emit stopSendFrame(false);
         m_daqc->start();
+    }
     else if (m_updateValueInfo.parameter == DaqcParameter::STOP)
+    {        
+        emit stopSendFrame(true);
         m_daqc->stop();
+    }
     else if (m_updateValueInfo.parameter == DaqcParameter::THI)
         m_daqc->SetTHI(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::ZOOM_COLOR_ROI)
