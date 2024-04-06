@@ -102,7 +102,6 @@ public:
     // set functions
     void setBb(bool value);
     void setUp(bool value);
-    // TO CHECK
     void setThi(bool value);
     void setCenterLine(bool value);
     void setRoiSite(bool value);
@@ -111,8 +110,10 @@ public:
     void setDInvert(bool value);
     void setCAutoTrace(bool value);
     void setDAutoTrace(bool value);
-    void setUpdate(bool value);//affects setSynchro
-    void setSynchro(bool value);//affects setUpdate
+    // affects setSynchro
+    void setUpdate(bool value);
+    // affects setUpdate
+    void setSynchro(bool value);
     void setDualMode(bool value);
     void setImgProcValue(int index, const std::vector<int>& params);
     //other functions

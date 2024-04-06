@@ -99,7 +99,7 @@ void UpdateValueTask::run()
     else if (m_updateValueInfo.parameter == DaqcParameter::LAVG)
         m_daqc->SetLineDensity(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::CONTRAST)
-        ;
+        m_daqc->SetBDynamic(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::C_PRF)
         m_daqc->SetCPRF(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::D_PRF)

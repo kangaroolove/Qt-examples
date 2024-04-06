@@ -321,9 +321,19 @@ void DaqcClient::setLavg(bool increase)
 
 void DaqcClient::setContrast(bool increase)
 {
-    // QVariantList values = { boolToIncrease(increase) };
-    // QStringList valueTypes = { "int" };
-    // createUpdateRequest(new RequestUpdatePacket(DaqcParameter::CONTRAST, values, valueTypes));
+    static const int MAX = 75;
+    static const int MIN = 30;
+    static const int STEP = 5;
+    int contrast = getContrast();
+    contrast += (increase ? STEP : -STEP);
+    if (contrast > MAX)
+        contrast = MIN;
+    else if (contrast < MIN)
+        contrast = MAX;
+
+    QVariantList values = { contrast };
+    QStringList valueTypes = { "int" };
+    createRequest(new RequestUpdatePacket(DaqcParameter::CONTRAST, values, valueTypes));
 }
 
 void DaqcClient::setCPrf(bool increase)
