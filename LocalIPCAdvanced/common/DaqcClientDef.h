@@ -43,7 +43,6 @@ const QString DEPTH_MM = "DepthMm";
 const QString DEPTH_CM = "DepthCm";
 const QString B_FREQUENCY = "BFrequency";
 const QString B_FREQUENCY_2 = "BFrequency2";
-const QString CHROMA = "Chroma";
 const QString IMG_PROC = "ImgProc";
 const QString FAVG = "Favg";
 const QString LAVG = "Lavg";

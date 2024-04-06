@@ -82,9 +82,7 @@ public:
     void setChroma(bool increase);
     void setFavg(bool increase);
     void setLavg(bool increase);
-    // TO CHECK
     void setContrast(bool increase);
-
     void setCPrf(bool increase);
     void setDPrf(bool increase);
     void setCWf(bool increase);
@@ -98,7 +96,6 @@ public:
     void setAudio(bool increase);
     void setDBaseline(bool increase);
     void setRotation(bool increase);
-
     // set functions
     void setBb(bool value);
     void setUp(bool value);

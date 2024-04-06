@@ -299,10 +299,7 @@ void DaqcClient::setChroma(bool increase)
 {
     static const int MAX = 10;
     m_chroma = (m_chroma + (increase ? 1 : MAX)) % (MAX + 1);
-
-    QVariantList values = { m_chroma };
-    QStringList valueTypes = { "int" };
-    createRequest(new RequestUpdatePacket(DaqcParameter::CHROMA, values, valueTypes));
+    legacyPalette(m_chroma, 0, 0);
 }
 
 void DaqcClient::setFavg(bool increase)
