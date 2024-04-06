@@ -15,7 +15,8 @@ DaqcClient::DaqcClient(QObject* parent) :
     m_chroma(0),
     m_rotation(0),
     m_bb(false),
-    m_isUp(false)
+    m_isUp(false),
+    m_centerLine(false)
 {
 }
 
@@ -197,9 +198,9 @@ bool DaqcClient::isThi()
     return legacyTHI() == 1;
 }
 
-bool DaqcClient::isCenterLine()
+bool DaqcClient::isCenterLine() const
 {
-    return false;
+    return m_centerLine;
 }
 
 bool DaqcClient::isRoiSite()
@@ -451,7 +452,10 @@ void DaqcClient::setThi(bool value)
 
 void DaqcClient::setCenterLine(bool value)
 {
-
+    if (m_centerLine == value)
+        return;
+    m_centerLine = value;
+    emit centerLineUpdated(value);
 }
 
 void DaqcClient::setRoiSite(bool value)

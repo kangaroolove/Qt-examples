@@ -60,8 +60,8 @@ public:
     bool isBb() const;
     bool isUp() const;
     bool isThi();
+    bool isCenterLine() const;
     // TO CHECK
-    bool isCenterLine();
     bool isRoiSite();
     bool isRoiSize();
 
@@ -110,6 +110,7 @@ public:
     // set functions
     void setBb(bool value);
     void setUp(bool value);
+    // TO CHECK
     void setThi(bool value);
     void setCenterLine(bool value);
     void setRoiSite(bool value);
@@ -176,6 +177,7 @@ signals:
     void rotationUpdated(int rotation);
     void bbUpdated(bool isBb);
     void upUpdated(bool isUp);
+    void centerLineUpdated(bool isCenterLine);
 private:
     int boolToIncrease(const bool& increase);
     int depthHardCode(const double &value);
@@ -185,4 +187,5 @@ private:
     int m_rotation;
     bool m_bb;
     bool m_isUp;
+    bool m_centerLine;
 };
