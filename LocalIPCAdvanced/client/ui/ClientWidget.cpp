@@ -87,7 +87,7 @@ void ClientWidget::bindConnections()
             m_imageLabel->setPixmap(QPixmap::fromImage(image));
         else if (channel == 1)
             m_imageLabel2->setPixmap(QPixmap::fromImage(image));
-    }, Qt::QueuedConnection);
+    });
 
     connect(m_client, &DaqcClient::connected, this, []{
         qDebug()<<"trigger connect";

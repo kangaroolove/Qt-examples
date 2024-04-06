@@ -7,6 +7,8 @@
 #include <QImage>
 #include <QJsonObject>
 
+const int ClientWorker::m_COMMUNICATION_JAM_THRESHOLD = 200000;
+
 ClientWorker::ClientWorker(Client* client, QObject* parent) :
     QLocalSocket(parent),
     m_client(client),
@@ -22,10 +24,16 @@ ClientWorker::~ClientWorker()
 
 void ClientWorker::readyToRead()
 {
-    if (bytesAvailable() > 0 && !m_in->atEnd())
+    // In a RTC application, handling message is slower than receiving message sometimes.
+    // So we need to use while rather than if here
+    while (bytesAvailable() > 0 && !m_in->atEnd())
     {  
+        if (bytesAvailable() > m_COMMUNICATION_JAM_THRESHOLD)
+            qCritical()<<"There is a communication jam in ClientWorker";
+
         QByteArray msg;
         QImage image;
+
         *m_in >> msg;
         *m_in >> image;
 
@@ -40,7 +48,7 @@ void ClientWorker::readyToRead()
         if (packetType == PacketType::GET)
         {
             if (!image.isNull())
-            emit imageReceived(image);
+                emit imageReceived(image);
 
             auto map = document["data"].toObject().toVariantMap();
             for (auto it = map.begin(); it != map.end(); ++it)
