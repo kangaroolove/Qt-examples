@@ -70,7 +70,6 @@ public:
     bool isDAutoTrace() const;
     bool isUpdate();
     bool isSynchro();
-    // TO CHECK
     QPoint getRoiPosition();
     int getImageCurrentChannel();
     bool isDualModeOn();
@@ -81,10 +80,8 @@ public:
     void setBFrequency(bool increase);
     void setBFrequency2(bool increase);
     void setChroma(bool increase);
-
     void setFavg(bool increase);
     void setLavg(bool increase);
-
     // TO CHECK
     void setContrast(bool increase);
 
@@ -99,9 +96,8 @@ public:
     void setDSpeed(bool increase);
     void setNoiseReject(bool increase);
     void setAudio(bool increase);
-
+    void setDBaseline(bool increase);
     // TO CHECK
-    void setBaseline(bool increase);
     void setRotation(bool increase);
 
     // set functions

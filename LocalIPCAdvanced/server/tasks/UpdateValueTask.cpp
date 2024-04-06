@@ -138,4 +138,6 @@ void UpdateValueTask::run()
         m_daqc->SetImageProcess(values.first().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::MODE_2B)
         m_daqc->Mode2B();
+    else if (m_updateValueInfo.parameter == DaqcParameter::D_BASELINE)
+        m_daqc->SetDBaseLine(values.first().toInt());
 }

@@ -403,9 +403,11 @@ void DaqcClient::setAudio(bool increase)
     createRequest(new RequestUpdatePacket(DaqcParameter::D_SOUND_VOLUME, values, valueTypes));
 }
 
-void DaqcClient::setBaseline(bool increase)
+void DaqcClient::setDBaseline(bool increase)
 {
-    //createUpdateRequest(new RequestUpdatePacket(DaqcParameter::BASELINE, boolToIncrease(increase), "int"));
+    QVariantList values = { boolToIncrease(increase) };
+    QStringList valueTypes = { "int" };
+    createRequest(new RequestUpdatePacket(DaqcParameter::D_BASELINE, values, valueTypes));
 }
 
 void DaqcClient::setRotation(bool increase)
