@@ -32,3 +32,5 @@
 /LocalIPCAdvanced/client/.vscode
 /LocalIPCAdvanced/client/build
 /LocalIPCAdvanced/server/build
+/BinarySerialization/build
+/BinarySerialization/.vscode
