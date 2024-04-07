@@ -18,7 +18,7 @@ void initializeRootLogger()
     // Hide preFixing
     layout->setCategoryPrefixing(false);
     // Hide thread printing
-    layout->setThreadPrinting(false);
+    //layout->setThreadPrinting(false);
     layout->activateOptions();
     // Create a console appender
     auto consoleAppender = new Log4Qt::ConsoleAppender(layout, Log4Qt::ConsoleAppender::STDOUT_TARGET);
