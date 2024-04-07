@@ -49,9 +49,18 @@ void shutDownRootLogger()
 void print()
 {
     auto logger = Log4Qt::Logger::rootLogger();
+
+    logger->trace("I am trace");
+
     logger->debug("I am using logger to print");
 
     qDebug()<<"I am using qDebug to print";
+
+    qInfo()<< "I am qInfo";
+
+    qWarning()<< "I am qWarning";
+
+    qCritical() << "I am qCritical";
 }
 
 int main(int argc, char *argv[])
