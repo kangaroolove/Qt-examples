@@ -59,8 +59,8 @@ void ClientWorker::readyToRead()
 
 void ClientWorker::sendMessage(const QByteArray &msg)
 {
-    qDebug()<<"Client send message";
-    qDebug()<<msg;
+    // qDebug()<<"Client send message";
+    // qDebug()<<msg;
 
     write(msg);
     flush();

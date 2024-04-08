@@ -12,7 +12,7 @@ public:
     ClientWorker(Client* client, QObject* parent = nullptr);
     ~ClientWorker();
 signals:
-    void imageReceived(const QImage& image);
+    void imageReceived(QImage image);
 public slots:
     void sendMessage(const QByteArray &msg);
 private slots:

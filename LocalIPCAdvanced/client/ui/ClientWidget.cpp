@@ -108,7 +108,11 @@ QGroupBox *ClientWidget::getSwitchProbeGroupBox()
             QPushButton* button = static_cast<QPushButton*>(sender());
             int port = button->property("port").toInt();
             if (m_currentPort != port)
+            {
+                m_currentPort = port;
                 switchProbe(port);
+            }
+
         });
         layout->addWidget(button);
         buttonGroup->addButton(button);
