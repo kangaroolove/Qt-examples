@@ -23,12 +23,6 @@ void UpdateValueTask::run()
     auto values = m_updateValueInfo.values.toList();
     auto valueTypes = m_updateValueInfo.valueTypes.toStringList();
 
-    if (values.isEmpty())
-    {
-        qCritical()<<"values is empty";
-        return;
-    }
-
     if (values.size() != valueTypes.size())
     {
         qCritical()<<"values and valueTypes size are not matched";
