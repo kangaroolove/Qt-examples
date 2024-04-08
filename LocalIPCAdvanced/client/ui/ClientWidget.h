@@ -27,6 +27,8 @@ private:
     QPushButton* m_testButton;
     QPushButton* m_initButton;
     QPushButton* m_dualModeButton;
+    QPushButton* m_startButton;
+    QPushButton* m_stopButton;
     DaqcClient* m_client;
     QLabel* m_imageLabel;
     QLabel* m_imageLabel2;

@@ -17,6 +17,8 @@ ClientWidget::ClientWidget(QWidget* parent) :
     m_initButton(new QPushButton("Init", this)),
     m_imageLabel2(new QLabel(this)),
     m_dualModeButton(new QPushButton("Dual Mode", this)),
+    m_startButton(new QPushButton("Start")),
+    m_stopButton(new QPushButton("Stop")),
     m_probeList{11, 12, 15, 8},
     m_currentPort(0)
 {
@@ -48,6 +50,8 @@ void ClientWidget::initGui()
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
     layout->addWidget(m_testButton);
+    layout->addWidget(m_stopButton);
+    layout->addWidget(m_startButton);
     layout->addWidget(m_initButton);
     layout->addWidget(m_dualModeButton);
     layout->addWidget(getSwitchProbeGroupBox());
@@ -72,6 +76,14 @@ void ClientWidget::bindConnections()
             m_imageLabel->setPixmap(QPixmap::fromImage(image));
         else if (channel == 1)
             m_imageLabel2->setPixmap(QPixmap::fromImage(image));
+    });
+
+    connect(m_startButton, &QPushButton::clicked, this, [this]{
+        m_client->legacyStart();
+    });
+
+    connect(m_stopButton, &QPushButton::clicked, this, [this]{
+        m_client->legacyStop();
     });
 
     connect(m_initButton, &QPushButton::clicked, this, &ClientWidget::onInitButtonClicked);
