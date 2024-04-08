@@ -46,6 +46,7 @@ private slots:
     void updateTimerTimeout();
 private:
     QJsonObject getDaqcInfo();
+    QJsonObject getImageCurrentChannel();
 
     Daqc* m_daqc;
     QTimer* m_DaqcInfoUpdateTimer;

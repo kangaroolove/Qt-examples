@@ -17,6 +17,8 @@ DaqcServer::DaqcServer(QObject* parent) :
 
     connect(m_daqc, SIGNAL(FrameReady()), this, SLOT(frameReady()));
 
+    m_DaqcInfoUpdateTimer->start();
+
     // QTimer* timer = new QTimer(this);
     // timer->setInterval(33);
     // connect(timer, &QTimer::timeout, this, [this]{
@@ -133,6 +135,13 @@ QJsonObject DaqcServer::getDaqcInfo()
     return object;
 }
 
+QJsonObject DaqcServer::getImageCurrentChannel()
+{
+    QJsonObject object;
+    object[DaqcParameter::IMAGE_CURRENT_CHANNEL] = m_daqc->GetParameter((int)WelldParameterId::IMAGE_CURRENT_CHANNEL);
+    return object;
+}
+
 void DaqcServer::frameReady()
 {
     BITMAPINFO* bmi = (BITMAPINFO*)m_daqc->GetpBMIInfo();
@@ -147,6 +156,6 @@ void DaqcServer::frameReady()
             bmi->bmiColors[i].rgbBlue);
     image.setColorTable(colorTable);
 
-    GetPacket* packet = new GetPacket(getDaqcInfo(), image);
+    GetPacket* packet = new GetPacket(getImageCurrentChannel(), image);
     QThreadPool::globalInstance()->start(new SendTask(this, packet));
 }
