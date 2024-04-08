@@ -2,6 +2,8 @@
 #include "DaqcClientDef.h"
 #include <QDebug>
 
+bool UpdateValueTask::m_initialized = false;
+
 QReadWriteLock UpdateValueTask::m_readWriteLock;
 
 UpdateValueTask::UpdateValueTask(const UpdateValueInfo& updateValueInfo, Daqc* daqc) :
@@ -18,6 +20,9 @@ UpdateValueTask::~UpdateValueTask()
 
 void UpdateValueTask::run()
 {
+    if (!m_initialized)
+        return;
+    
     QWriteLocker locker(&m_readWriteLock);
 
     auto values = m_updateValueInfo.values.toList();
@@ -32,7 +37,10 @@ void UpdateValueTask::run()
     if (m_updateValueInfo.parameter == DaqcParameter::TEST)
         qInfo("Update Test");
     if (m_updateValueInfo.parameter == DaqcParameter::INIT)
+    {
+        m_initialized = true;
         m_daqc->Init(values.first().toInt());
+    }
     else if (m_updateValueInfo.parameter == DaqcParameter::F_PROBE_TYPE)
         m_daqc->fProbeType(values.first().toInt(), values.last().toInt());
     else if (m_updateValueInfo.parameter == DaqcParameter::PROBE_POS)

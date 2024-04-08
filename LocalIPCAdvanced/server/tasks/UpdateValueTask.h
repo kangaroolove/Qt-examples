@@ -26,4 +26,5 @@ private:
     UpdateValueInfo m_updateValueInfo;
     static QReadWriteLock m_readWriteLock;
     Daqc* m_daqc;
+    static bool m_initialized;
 };
