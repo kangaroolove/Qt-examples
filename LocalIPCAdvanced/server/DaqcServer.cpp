@@ -76,6 +76,7 @@ QJsonObject DaqcServer::getDaqcInfo()
     object[DaqcParameter::SENSITIVITY] = m_daqc->ColorPrior();
     object[DaqcParameter::SWING_ANGLE] = m_daqc->ROISwingAngle();
     object[DaqcParameter::SV] = m_daqc->PWDgateSize();
+    object[DaqcParameter::FPS] = m_daqc->GetFPS();
 
     double ca = m_daqc->PWDCorrectionAngle();
     if (ca > 180)

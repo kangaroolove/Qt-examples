@@ -113,6 +113,7 @@ const QString ROI_POSITION_X = "RoiPositionX";
 const QString ROI_POSITION_Y = "RoiPositionY";
 const QString PALETTE = "Palette";
 const QString MODE_2B = "Mode2b";
+const QString FPS = "Fps";
 const QString IMAGE_CURRENT_CHANNEL = GET_PARAMETER + QString::number((int)WelldParameterId::IMAGE_CURRENT_CHANNEL);
 const QString DUAL_MODE = GET_PARAMETER + QString::number((int)WelldParameterId::REALTIME_EN);
 const QString SPACING_X = GET_PARAMETER + QString::number((int)WelldParameterId::SPACING_X);

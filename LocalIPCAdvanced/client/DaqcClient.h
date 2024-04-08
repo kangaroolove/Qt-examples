@@ -74,6 +74,7 @@ public:
     QPoint getRoiPosition() const;
     int getImageCurrentChannel() const;
     bool isDualModeOn() const;
+    double getFps() const;
     // increase/decrease functions
     void setBGain(bool increase);
     void setCGain(bool increase);

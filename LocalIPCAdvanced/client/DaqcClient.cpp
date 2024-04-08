@@ -260,6 +260,11 @@ bool DaqcClient::isDualModeOn() const
     return getResult(DaqcParameter::DUAL_MODE).toBool();
 }
 
+double DaqcClient::getFps() const
+{
+    return getResult(DaqcParameter::FPS).toDouble();
+}
+
 void DaqcClient::setBGain(bool increase)
 {
     QVariantList values = { boolToIncrease(increase) };
