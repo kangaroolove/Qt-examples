@@ -20,7 +20,8 @@ UpdateValueTask::~UpdateValueTask()
 
 void UpdateValueTask::run()
 {
-    if (!m_initialized)
+    // Before initialization, the server shouldn't do anything
+    if (!m_initialized && m_updateValueInfo.parameter != DaqcParameter::INIT)
         return;
     
     QWriteLocker locker(&m_readWriteLock);
