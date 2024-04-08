@@ -48,16 +48,9 @@ void DaqcServer::start()
         qCritical()<<"Daqc server started failed";
 }
 
-void DaqcServer::setUpdateInfoTimerStatus(bool start)
-{
-    start ? m_DaqcInfoUpdateTimer->start() : m_DaqcInfoUpdateTimer->stop();
-}
-
 HandleReceiveMessageTask *DaqcServer::generateHandleRequestTask(const QByteArray& data)
 {
-    auto task = new DaqcServerHandleReceiveMessageTask(m_daqc, data);
-    connect(task, &DaqcServerHandleReceiveMessageTask::stopSendFrame, this, &DaqcServer::setUpdateInfoTimerStatus);
-    return task;
+    return new DaqcServerHandleReceiveMessageTask(m_daqc, data);
 }
 
 void DaqcServer::updateTimerTimeout()

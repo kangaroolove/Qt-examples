@@ -39,8 +39,6 @@ public:
     DaqcServer(QObject* parent = nullptr);
     ~DaqcServer();
     void start() override;
-public slots:
-    void setUpdateInfoTimerStatus(bool start);
 protected:
     HandleReceiveMessageTask* generateHandleRequestTask(const QByteArray& data) override;
 private slots:

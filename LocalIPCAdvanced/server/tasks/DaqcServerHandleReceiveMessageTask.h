@@ -9,9 +9,8 @@ using Daqc = DAQCLib::DAQC;
 class Server;
 class QJsonDocument;
 
-class DaqcServerHandleReceiveMessageTask : public QObject, public HandleReceiveMessageTask
+class DaqcServerHandleReceiveMessageTask : public HandleReceiveMessageTask
 {
-    Q_OBJECT
 public:
     DaqcServerHandleReceiveMessageTask(Daqc* daqc, const QByteArray& data);
     ~DaqcServerHandleReceiveMessageTask();

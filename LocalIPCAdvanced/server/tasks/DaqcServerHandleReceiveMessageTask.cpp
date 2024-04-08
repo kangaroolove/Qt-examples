@@ -46,9 +46,7 @@ void DaqcServerHandleReceiveMessageTask::handleUpdateRequest(const QString &para
     info.parameter = parameter;
     info.values = values;
     info.valueTypes = valueTypes;
-    auto task = new UpdateValueTask(info, m_daqc);
-    connect(task, &UpdateValueTask::stopSendFrame, this, &DaqcServerHandleReceiveMessageTask::stopSendFrame);
-    QThreadPool::globalInstance()->start(task);
+    QThreadPool::globalInstance()->start(new UpdateValueTask(info, m_daqc));
 }
 
 QString DaqcServerHandleReceiveMessageTask::getRequestType(const QJsonDocument &document) const
