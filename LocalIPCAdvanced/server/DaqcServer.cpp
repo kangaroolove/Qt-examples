@@ -14,26 +14,9 @@ DaqcServer::DaqcServer(QObject* parent) :
 {
     m_DaqcInfoUpdateTimer->setInterval(400);
     connect(m_DaqcInfoUpdateTimer, &QTimer::timeout, this, &DaqcServer::updateTimerTimeout);
-
     connect(m_daqc, SIGNAL(FrameReady()), this, SLOT(frameReady()));
 
     m_DaqcInfoUpdateTimer->start();
-
-    // QTimer* timer = new QTimer(this);
-    // timer->setInterval(33);
-    // connect(timer, &QTimer::timeout, this, [this]{
-    //     QImage image;
-    //     static bool isFirst = true;
-    //     if (isFirst)
-    //         image = QImage("D:/1.png");
-    //     else 
-    //         image = QImage("D:/2.png");
-
-    //     isFirst = !isFirst;
-    //     GetPacket* packet = new GetPacket(getDaqcInfo(), image);
-    //     QThreadPool::globalInstance()->start(new SendTask(this, packet));
-    // });
-    // timer->start();
 }
 
 DaqcServer::~DaqcServer()
@@ -65,7 +48,7 @@ QJsonObject DaqcServer::getDaqcInfo()
 {
     QJsonObject object;
     object[DaqcParameter::TEST] = 10;
-    #if 1
+
     object[DaqcParameter::THI] = m_daqc->THI();
     object[DaqcParameter::C_BASE_LINE] = m_daqc->CBaseLine();
     object[DaqcParameter::SCAN_MODE] = m_daqc->scanMode();
@@ -114,23 +97,12 @@ QJsonObject DaqcServer::getDaqcInfo()
     object[DaqcParameter::SPACING_Y] = m_daqc->GetParameter((int)WelldParameterId::SPACING_Y);
     object[DaqcParameter::IMAGE_CURRENT_CHANNEL] = m_daqc->GetParameter((int)WelldParameterId::IMAGE_CURRENT_CHANNEL);
     object[DaqcParameter::XML_DEPTH] = m_daqc->GetParameter((int)WelldParameterId::XML_DEPTH);
+    object[DaqcParameter::PARAMETER_SIX] = m_daqc->GetParameter((int)WelldParameterId::PARAMETER_SIX);
 
     // offset for x axis of ROI for CD, D, M mode from Welld
     const int ROI_X_OFFSET = 180;
     object[DaqcParameter::ROI_POSITION_X] = m_daqc->scanMode() == (int)ScanMode::C_MODE ? m_daqc->GetParameter((int)WelldParameterId::C_ROI_X) : m_daqc->GetParameter((int)WelldParameterId::D_ROI_X) + ROI_X_OFFSET;
     object[DaqcParameter::ROI_POSITION_Y] = m_daqc->scanMode() == (int)ScanMode::C_MODE ? m_daqc->GetParameter((int)WelldParameterId::C_ROI_Y) : m_daqc->GetParameter((int)WelldParameterId::D_ROI_Y);
-    #else
-    static int channel = 0;
-    object[DaqcParameter::IMAGE_CURRENT_CHANNEL] = channel;
-    if (channel == 0)
-    {
-        channel = 1;
-    }
-    else 
-    {
-        channel = 0;
-    }
-    #endif
 
     return object;
 }
