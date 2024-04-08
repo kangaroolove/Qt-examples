@@ -128,9 +128,6 @@ void DaqcServer::frameReady()
             bmi->bmiColors[i].rgbBlue);
     image.setColorTable(colorTable);
 
-    if (image.isNull())
-        qCritical()<< "image is wrong";
-
     GetPacket* packet = new GetPacket(getImageCurrentChannel(), image);
     QThreadPool::globalInstance()->start(new SendTask(this, packet));
 }
