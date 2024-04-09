@@ -19,6 +19,8 @@ ClientWidget::ClientWidget(QWidget* parent) :
     m_dualModeButton(new QPushButton("Dual Mode", this)),
     m_startButton(new QPushButton("Start")),
     m_stopButton(new QPushButton("Stop")),
+    m_increaseBGainButton(new QPushButton("+", this)),
+    m_decreaseBGainButton(new QPushButton("-", this)),
     m_probeList{11, 12, 15, 8},
     m_currentPort(0)
 {
@@ -55,6 +57,7 @@ void ClientWidget::initGui()
     layout->addWidget(m_initButton);
     layout->addWidget(m_dualModeButton);
     layout->addWidget(getSwitchProbeGroupBox());
+    layout->addWidget(getBGainGroupBox());
     layout->addWidget(m_imageLabel);
     layout->addWidget(m_imageLabel2);
 
@@ -88,6 +91,12 @@ void ClientWidget::bindConnections()
 
     connect(m_initButton, &QPushButton::clicked, this, &ClientWidget::onInitButtonClicked);
     connect(m_dualModeButton, &QPushButton::clicked, this, &ClientWidget::onDualModeButtonClicked);
+    connect(m_increaseBGainButton, &QPushButton::clicked, this, [this]{
+        m_client->setBGain(true);
+    });
+    connect(m_decreaseBGainButton, &QPushButton::clicked, this, [this]{
+        m_client->setBGain(false);
+    });
 }
 
 int ClientWidget::getExamTypeId(const int &probeId)
@@ -131,6 +140,15 @@ QGroupBox *ClientWidget::getSwitchProbeGroupBox()
     }
 
     return groupBox;
+}
+
+QGroupBox *ClientWidget::getBGainGroupBox()
+{
+    QGroupBox* box = new QGroupBox("BGain");
+    QHBoxLayout* layout = new QHBoxLayout(box);
+    layout->addWidget(m_increaseBGainButton);
+    layout->addWidget(m_decreaseBGainButton);
+    return box;
 }
 
 void ClientWidget::switchProbe(const int &port)

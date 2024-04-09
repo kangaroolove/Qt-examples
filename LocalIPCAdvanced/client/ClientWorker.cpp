@@ -37,8 +37,8 @@ void ClientWorker::readyToRead()
         *m_in >> msg;
         *m_in >> image;
 
-        // qDebug()<<"Client receive message";
-        // qDebug()<<msg;
+        qDebug()<<"Client receive message";
+        qDebug()<<msg;
 
         auto document = QJsonDocument::fromJson(msg);
         if (document.isNull())

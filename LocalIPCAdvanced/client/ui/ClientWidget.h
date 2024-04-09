@@ -23,12 +23,15 @@ private:
     void bindConnections();
     int getExamTypeId(const int& probeId);
     QGroupBox* getSwitchProbeGroupBox();
+    QGroupBox* getBGainGroupBox();
 
     QPushButton* m_testButton;
     QPushButton* m_initButton;
     QPushButton* m_dualModeButton;
     QPushButton* m_startButton;
     QPushButton* m_stopButton;
+    QPushButton* m_increaseBGainButton;
+    QPushButton* m_decreaseBGainButton;
     DaqcClient* m_client;
     QLabel* m_imageLabel;
     QLabel* m_imageLabel2;

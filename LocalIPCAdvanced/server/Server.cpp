@@ -22,12 +22,11 @@ Server::~Server()
 void Server::sendMessage(const QByteArray &msg)
 {
     QMutexLocker locker(m_mutex);
-
-    qDebug()<<"Server send message";
-    qDebug()<<msg;
-
     for (auto it = m_clientSockets.begin(); it != m_clientSockets.end(); it++)
     {
+        qInfo()<<"Server send message";
+        qInfo()<<msg;
+        
         it->first->write(msg);
         it->first->flush();
     }
@@ -50,8 +49,8 @@ void Server::readyRead()
     {
         QByteArray msg;
         *(it->second) >> msg;
-        qInfo()<<"Server receive message";
-		qInfo()<<msg;
+        //qInfo()<<"Server receive message";
+		//qInfo()<<msg;
         QThreadPool::globalInstance()->start(generateHandleRequestTask(msg));
     }
 }
