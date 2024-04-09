@@ -38,11 +38,13 @@ void ClientWorker::readyToRead()
         *m_in >> image;
 
         qDebug()<<"Client receive message";
-        qDebug()<<msg;
+        qDebug()<<"image.isNull() = "<<image.isNull();
 
         auto document = QJsonDocument::fromJson(msg);
         if (document.isNull())
             return;
+
+        qDebug()<<msg;
 
         auto packetType = getPacketType(document);
         if (packetType == PacketType::GET)
