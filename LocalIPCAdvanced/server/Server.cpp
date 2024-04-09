@@ -28,7 +28,7 @@ void Server::sendMessage(const QByteArray &msg)
         // qInfo()<<msg;
 
         it->first->write(msg);
-        it->first->flush();
+        //it->first->flush();
     }
 }
 

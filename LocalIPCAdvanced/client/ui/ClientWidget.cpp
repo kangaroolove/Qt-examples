@@ -8,6 +8,7 @@
 #include <QHBoxLayout>
 #include <QGroupBox>
 #include <QButtonGroup>
+#include <QTimer>
 
 ClientWidget::ClientWidget(QWidget* parent) : 
     QWidget(parent),
@@ -21,6 +22,8 @@ ClientWidget::ClientWidget(QWidget* parent) :
     m_stopButton(new QPushButton("Stop")),
     m_increaseBGainButton(new QPushButton("+", this)),
     m_decreaseBGainButton(new QPushButton("-", this)),
+    m_timer(new QTimer(this)),
+    m_fpsLabel(new QLabel(this)),
     m_probeList{11, 12, 15, 8},
     m_currentPort(0)
 {
@@ -30,6 +33,9 @@ ClientWidget::ClientWidget(QWidget* parent) :
     initGui();
     bindConnections();
     m_client->connectToServer();
+
+    m_timer->setInterval(400);
+    m_timer->start();
 }
 
 ClientWidget::~ClientWidget()
@@ -56,6 +62,7 @@ void ClientWidget::initGui()
     layout->addWidget(m_startButton);
     layout->addWidget(m_initButton);
     layout->addWidget(m_dualModeButton);
+    layout->addWidget(m_fpsLabel);
     layout->addWidget(getSwitchProbeGroupBox());
     layout->addWidget(getBGainGroupBox());
     layout->addWidget(m_imageLabel);
@@ -97,6 +104,7 @@ void ClientWidget::bindConnections()
     connect(m_decreaseBGainButton, &QPushButton::clicked, this, [this]{
         m_client->setBGain(false);
     });
+    connect(m_timer, &QTimer::timeout, this, &ClientWidget::timeout);
 }
 
 int ClientWidget::getExamTypeId(const int &probeId)
@@ -161,4 +169,9 @@ void ClientWidget::switchProbe(const int &port)
     m_client->legacySetScanMode(0);
     m_client->legacySetExamTypeID(getExamTypeId(m_probeList.at(port)));
     m_client->legacyStart();
+}
+
+void ClientWidget::timeout()
+{
+    m_fpsLabel->setText(QString("fps:%1").arg(m_client->getFps()));
 }

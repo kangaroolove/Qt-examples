@@ -18,6 +18,7 @@ private slots:
     void onInitButtonClicked();
     void onDualModeButtonClicked(bool clicked);
     void switchProbe(const int& port);
+    void timeout();
 private:
     void initGui();
     void bindConnections();
@@ -35,8 +36,10 @@ private:
     DaqcClient* m_client;
     QLabel* m_imageLabel;
     QLabel* m_imageLabel2;
+    QLabel* m_fpsLabel;
     std::vector<int> m_probeList;
     int m_currentPort;
     // probeId, examTypeId
     std::map<int, int> m_examTypeMap;
+    QTimer* m_timer;
 };
