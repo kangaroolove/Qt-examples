@@ -18,7 +18,8 @@ DaqcClient::DaqcClient(QObject* parent) :
     m_isUp(false),
     m_centerLine(false),
     m_roi(RoiState::OFF),
-    m_dAutoTrace(false)
+    m_dAutoTrace(false),
+    m_imgProcIndex(1)
 {
 }
 
@@ -263,6 +264,11 @@ bool DaqcClient::isDualModeOn() const
 double DaqcClient::getFps() const
 {
     return getResult(DaqcParameter::FPS).toDouble();
+}
+
+int DaqcClient::getImgProcIndex() const
+{
+    return m_imgProcIndex;
 }
 
 void DaqcClient::setBGain(bool increase)
@@ -554,6 +560,7 @@ void DaqcClient::setImgProcValue(int index, const std::vector<int> &params)
     for (int i = 0; i < 27; i++)
         legacyFacuiParams(i + 3, params.at(i));
     legacySetACUI(index);
+    m_imgProcIndex = index;
 }
 
 void DaqcClient::cancelRoi()

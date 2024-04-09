@@ -75,6 +75,7 @@ public:
     int getImageCurrentChannel() const;
     bool isDualModeOn() const;
     double getFps() const;
+    int getImgProcIndex() const;
     // increase/decrease functions
     void setBGain(bool increase);
     void setCGain(bool increase);
@@ -184,4 +185,5 @@ private:
     bool m_centerLine;
     RoiState m_roi;
     bool m_dAutoTrace;
+    int m_imgProcIndex;
 };
