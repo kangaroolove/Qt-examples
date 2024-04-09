@@ -29,10 +29,17 @@ set(PROJECT_UIS
 set(PROJECT_RESOURCES
 )
 
+message(${PROJECT_SOURCE_DIR})
+
+list(APPEND EXTRA_LIBS debug ${PROJECT_SOURCE_DIR}/../lib/Log4Qt/lib/log4qt_d.lib)
+list(APPEND EXTRA_LIBS optimized ${PROJECT_SOURCE_DIR}/../lib/Log4Qt/lib/log4qt.lib)
+list(APPEND EXTRA_INCLUDES "${PROJECT_SOURCE_DIR}/../lib/Log4Qt/include")
+
 add_executable(${PROJECT_NAME}
 	${PROJECT_SOURCES}
 	${PROJECT_UIS}
 	${PROJECT_RESOURCES}
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE daqc Qt5::Widgets Qt5::Network)
+target_link_libraries(${PROJECT_NAME} PRIVATE daqc Qt5::Widgets Qt5::Network ${EXTRA_LIBS})
+target_include_directories(${PROJECT_NAME} PUBLIC ${EXTRA_INCLUDES})

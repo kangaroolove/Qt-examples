@@ -22,8 +22,7 @@ include_directories(
 	../common
 )
 
-list(APPEND EXTRA_LIBS 
-)
+
 
 set(PROJECT_SOURCES
 	Client.cpp
