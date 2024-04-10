@@ -25,6 +25,7 @@ private:
     int getExamTypeId(const int& probeId);
     QGroupBox* getSwitchProbeGroupBox();
     QGroupBox* getBGainGroupBox();
+    void startServer();
 
     QPushButton* m_testButton;
     QPushButton* m_initButton;

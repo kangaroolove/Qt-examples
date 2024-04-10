@@ -12,7 +12,7 @@ DaqcServer::DaqcServer(QObject* parent) :
     m_daqc(new Daqc()),
     m_DaqcInfoUpdateTimer(new QTimer(this))
 {
-    m_DaqcInfoUpdateTimer->setInterval(16);
+    m_DaqcInfoUpdateTimer->setInterval(1000);
     connect(m_DaqcInfoUpdateTimer, &QTimer::timeout, this, &DaqcServer::updateTimerTimeout);
     connect(m_daqc, SIGNAL(FrameReady()), this, SLOT(frameReady()));
 

@@ -9,6 +9,7 @@
 #include <QGroupBox>
 #include <QButtonGroup>
 #include <QTimer>
+#include <QProcess>
 
 ClientWidget::ClientWidget(QWidget* parent) : 
     QWidget(parent),
@@ -27,6 +28,7 @@ ClientWidget::ClientWidget(QWidget* parent) :
     m_probeList{11, 12, 15, 8},
     m_currentPort(0)
 {
+    startServer();
     m_examTypeMap = {
         {11, 10}
     };
@@ -157,6 +159,18 @@ QGroupBox *ClientWidget::getBGainGroupBox()
     layout->addWidget(m_increaseBGainButton);
     layout->addWidget(m_decreaseBGainButton);
     return box;
+}
+
+void ClientWidget::startServer()
+{
+    QProcess* process = new QProcess(this);
+    QString serverFilePath = "D:/work/Qt-examples/LocalIPCAdvanced/server/build/Release/LocalServer.exe";
+    process->setProgram(serverFilePath);
+    process->start(QIODevice::NotOpen);
+    if (process->waitForStarted())
+        qInfo()<<"Starting server is successful";
+    else 
+        qInfo()<<"Starting server is failed";
 }
 
 void ClientWidget::switchProbe(const int &port)
