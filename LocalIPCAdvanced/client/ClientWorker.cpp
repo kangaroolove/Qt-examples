@@ -26,6 +26,7 @@ void ClientWorker::readyToRead()
     //qDebug()<<"Client receive message";
 
     QDataStream stream(this->readAll());
+    stream.setVersion(QDataStream::Qt_5_12);
     while (!stream.atEnd())
     {  
         QByteArray msg;
