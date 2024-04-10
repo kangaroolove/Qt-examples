@@ -26,7 +26,7 @@ DaqcServer::~DaqcServer()
 
 void DaqcServer::start()
 {
-    auto result = listen("Daqc");
+    auto result = listen("cms/daqc");
     if (result)
         qInfo()<<"Daqc server started";
     else 

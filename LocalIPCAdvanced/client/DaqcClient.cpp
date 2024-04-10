@@ -30,7 +30,7 @@ DaqcClient::~DaqcClient()
 void DaqcClient::connectToServer()
 {
     qDebug()<<"Connect to server";
-    m_worker->connectToServer("Daqc");
+    m_worker->connectToServer("cms/daqc");
 }
 
 int DaqcClient::testGetApi()
