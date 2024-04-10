@@ -42,7 +42,6 @@ ClientWidget::ClientWidget(QWidget* parent) :
 
 ClientWidget::~ClientWidget()
 {
-
 }
 
 void ClientWidget::onDualModeButtonClicked(bool clicked)
@@ -163,11 +162,11 @@ QGroupBox *ClientWidget::getBGainGroupBox()
 
 void ClientWidget::startServer()
 {
-    QProcess* process = new QProcess;
     QString serverFilePath = "D:/work/Qt-examples/LocalIPCAdvanced/server/build/Release/LocalServer.exe";
+    QProcess* process = new QProcess(this);
     process->setProgram(serverFilePath);
-    process->start(QIODevice::NotOpen);
-    if (process->waitForStarted())
+    process->start(QIODevice::ReadOnly);
+    if (process->waitForReadyRead())
         qInfo()<<"Starting server is successful";
     else 
         qInfo()<<"Starting server is failed";

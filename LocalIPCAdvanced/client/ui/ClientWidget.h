@@ -7,7 +7,6 @@ class QPushButton;
 class DaqcClient;
 class QLabel;
 class QGroupBox;
-
 class ClientWidget : public QWidget
 {
     Q_OBJECT
