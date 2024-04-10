@@ -45,14 +45,14 @@ void Server::readyRead()
     if (socket->bytesAvailable() <= 0) 
         return;
 
+    qInfo()<<"Server receive message";
     QDataStream stream(socket->readAll());
     stream.setVersion(QDataStream::Qt_5_12);
     while (!stream.atEnd())
     {
         QByteArray msg;
         stream >> msg;
-        //qInfo()<<"Server receive message";
-		//qInfo()<<msg;
+		qInfo()<<msg;
         QThreadPool::globalInstance()->start(generateHandleRequestTask(msg));
     }
 }
