@@ -176,7 +176,7 @@ int DaqcClient::getAudio() const
 
 int DaqcClient::getRotation() const
 {
-    return 0;
+    return m_rotation;
 }
 
 double DaqcClient::getSpacingX() const
