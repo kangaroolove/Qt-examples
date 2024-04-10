@@ -7,14 +7,10 @@
 #include <QImage>
 #include <QJsonObject>
 
-const int ClientWorker::m_COMMUNICATION_JAM_THRESHOLD = 400000;
-
 ClientWorker::ClientWorker(Client* client, QObject* parent) :
     QLocalSocket(parent),
-    m_client(client),
-    m_in(new QDataStream(this))
+    m_client(client)
 {
-    m_in->setVersion(QDataStream::Qt_5_12);
     connect(this, &ClientWorker::readyRead, this, &ClientWorker::readyToRead);
 }
 
@@ -24,27 +20,25 @@ ClientWorker::~ClientWorker()
 
 void ClientWorker::readyToRead()
 {
-    // In a RTC application, handling message is slower than receiving message sometimes.
-    // So we need to use while rather than if here
-    while (bytesAvailable() > 0 && !m_in->atEnd())
-    {  
-        if (bytesAvailable() > m_COMMUNICATION_JAM_THRESHOLD)
-            qCritical()<<"There is a communication jam in ClientWorker";
+    if (bytesAvailable() < 0)
+        return;
 
+    //qDebug()<<"Client receive message";
+
+    QDataStream stream(this->readAll());
+    while (!stream.atEnd())
+    {  
         QByteArray msg;
         QImage image;
 
-        *m_in >> msg;
-        *m_in >> image;
-
-        qDebug()<<"Client receive message";
-        qDebug()<<"image.isNull() = "<<image.isNull();
+        stream >> msg;
+        stream >> image;
 
         auto document = QJsonDocument::fromJson(msg);
         if (document.isNull())
             return;
 
-        qDebug()<<msg;
+        //qDebug()<<msg;
 
         auto packetType = getPacketType(document);
         if (packetType == PacketType::GET)

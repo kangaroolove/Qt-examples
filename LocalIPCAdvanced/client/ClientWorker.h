@@ -20,7 +20,5 @@ private slots:
 private:
     QString getPacketType(const QJsonDocument &document);
 
-    QDataStream* m_in;
     Client* m_client;
-    static const int m_COMMUNICATION_JAM_THRESHOLD;
 };

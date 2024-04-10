@@ -28,11 +28,11 @@ void initializeRootLogger()
     logger->addAppender(consoleAppender);
 
     // Create a file appender
-    auto fileAppender = new Log4Qt::FileAppender(layout, QCoreApplication::applicationDirPath() + "/logs/" + QDateTime::currentDateTime().toString("yyyyMMddhhmmss") + ".txt", true);
-    fileAppender->setName("My file appender");
-    fileAppender->activateOptions();
+    // auto fileAppender = new Log4Qt::FileAppender(layout, QCoreApplication::applicationDirPath() + "/logs/" + QDateTime::currentDateTime().toString("yyyyMMddhhmmss") + ".txt", true);
+    // fileAppender->setName("My file appender");
+    // fileAppender->activateOptions();
 
-    logger->addAppender(fileAppender);
+    // logger->addAppender(fileAppender);
 
     // Set level to info
     logger->setLevel(Log4Qt::Level::DEBUG_INT);
