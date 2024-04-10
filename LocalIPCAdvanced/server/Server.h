@@ -29,5 +29,5 @@ private:
     void init();
     QMutex* m_mutex;
     // shared resources
-    std::map<QLocalSocket*, QDataStream*> m_clientSockets;
+    std::vector<QLocalSocket*> m_clientSockets;
 };

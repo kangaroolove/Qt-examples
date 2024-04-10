@@ -26,9 +26,8 @@ void Server::sendMessage(const QByteArray &msg)
     {
         // qInfo()<<"Server send message";
         // qInfo()<<msg;
-
-        it->first->write(msg);
-        //it->first->flush();
+        (*it)->write(msg);
+        (*it)->flush();
     }
 }
 
@@ -39,16 +38,18 @@ void Server::readyRead()
     if (!socket)
         return;
 
-    auto it = m_clientSockets.find(socket);
+    auto it = std::find(m_clientSockets.begin(), m_clientSockets.end(), socket);
     if (it == m_clientSockets.end())
         return;
 
-    // In a RTC application, handling message is slower than receiving message sometimes.
-    // So we need to use while rather than if here
-    while (socket->bytesAvailable() > 0 && !it->second->atEnd())
+    if (socket->bytesAvailable() <= 0) 
+        return;
+
+    QDataStream stream(socket->readAll());
+    while (!stream.atEnd())
     {
         QByteArray msg;
-        *(it->second) >> msg;
+        stream >> msg;
         //qInfo()<<"Server receive message";
 		//qInfo()<<msg;
         QThreadPool::globalInstance()->start(generateHandleRequestTask(msg));
@@ -62,7 +63,7 @@ void Server::clientDisconnected()
     if (!socket)
         return;
 
-    auto it = m_clientSockets.find(socket);
+    auto it = std::find(m_clientSockets.begin(), m_clientSockets.end(), socket);
     if (it != m_clientSockets.end())
     {
         m_clientSockets.erase(it);
@@ -88,7 +89,5 @@ void Server::newDeviceConnected()
     QLocalSocket* socket = this->nextPendingConnection();
     connect(socket, &QLocalSocket::readyRead, this, &Server::readyRead);
     connect(socket, &QLocalSocket::disconnected, this, &Server::clientDisconnected);
-    QDataStream* dataStream = new QDataStream(socket);
-    dataStream->setVersion(QDataStream::Qt_5_12);
-    m_clientSockets.insert({socket, dataStream});
+    m_clientSockets.push_back(socket);
 }
