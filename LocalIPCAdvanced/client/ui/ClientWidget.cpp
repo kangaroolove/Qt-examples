@@ -163,7 +163,7 @@ QGroupBox *ClientWidget::getBGainGroupBox()
 
 void ClientWidget::startServer()
 {
-    QProcess* process = new QProcess(this);
+    QProcess* process = new QProcess;
     QString serverFilePath = "D:/work/Qt-examples/LocalIPCAdvanced/server/build/Release/LocalServer.exe";
     process->setProgram(serverFilePath);
     process->start(QIODevice::NotOpen);
