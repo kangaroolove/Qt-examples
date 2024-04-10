@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QLocalServer>
-#include <map>
+#include <vector>
 
 class QLocalSocket;
 class QDataStream;
@@ -21,7 +21,5 @@ private slots:
     void readyRead();
 private:
     void init();
-    std::map<QLocalSocket*, QDataStream*> m_clientSockets;
-    static const quint32 HEADER_DATA_FIRST;
-    static const quint32 HEADER_DATA_SECOND;
+    std::vector<QLocalSocket*> m_clientSockets;
 };

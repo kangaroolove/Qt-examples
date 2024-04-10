@@ -3,9 +3,6 @@
 #include <QDataStream>
 #include <QDebug>
 
-const quint32 Server::HEADER_DATA_FIRST = 0xAA;
-const quint32 Server::HEADER_DATA_SECOND = 0xCC;
-
 Server::Server(QObject* parent)
     : QLocalServer(parent)
 {
@@ -27,15 +24,12 @@ void Server::sendMessage(const QString &msg)
     QByteArray data;
     QDataStream out(&data, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_5_12);
-
-    out << HEADER_DATA_FIRST;
-    out << HEADER_DATA_SECOND;
     out << msg;
 
     for (auto it = m_clientSockets.begin(); it != m_clientSockets.end(); it++)
     {
-        it->first->write(data);
-        it->first->flush();
+        (*it)->write(data);
+        (*it)->flush();
     }
 }
 
@@ -45,23 +39,19 @@ void Server::readyRead()
     if (!socket)
         return;
 
-    auto it = m_clientSockets.find(socket);
+    auto it = std::find(m_clientSockets.begin(), m_clientSockets.end(), socket);
     if (it == m_clientSockets.end())
         return;
 
-    qDebug()<<"bytesAvailable"<<socket->bytesAvailable();
-    if (socket->bytesAvailable() > 0 && !it->second->atEnd())
+    if (socket->bytesAvailable() <= 0)
+        return;
+    
+    QDataStream stream(socket->readAll());
+    stream.setVersion(QDataStream::Qt_5_12);
+    if (!stream.atEnd())
     {
-        quint32 headerFirst;
-        quint32 headerSecond;
-        *(it->second) >> headerFirst;
-        *(it->second) >> headerSecond;
-
-        if ((headerFirst != HEADER_DATA_FIRST) || headerSecond != HEADER_DATA_SECOND)
-            return;
-        
         QString msg;
-        *(it->second) >> msg;
+        stream >> msg;
         emit receiveMessage(msg);
     }
 }
@@ -75,9 +65,6 @@ void Server::newDeviceConnected()
 {
     QLocalSocket* socket = this->nextPendingConnection();
     connect(socket, &QLocalSocket::readyRead, this, &Server::readyRead);
-    QDataStream* dataStream = new QDataStream(socket);
-    dataStream->setVersion(QDataStream::Qt_5_12);
-    m_clientSockets.insert({socket, dataStream});
-
+    m_clientSockets.push_back(socket);
     sendMessage("Hello client!");
 }

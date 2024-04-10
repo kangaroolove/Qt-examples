@@ -31,7 +31,7 @@ void Client::readyToRead()
 
     QDataStream stream(readAll());
     stream.setVersion(QDataStream::Qt_5_12);
-    if (stream.atEnd())
+    if (!stream.atEnd())
     {
         QString msg;
         stream >> msg;
