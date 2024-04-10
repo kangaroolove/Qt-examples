@@ -49,12 +49,12 @@ void ClientWorker::readyToRead()
         auto packetType = getPacketType(document);
         if (packetType == PacketType::GET)
         {
-            if (!image.isNull())
-                emit imageReceived(image);
-
             auto map = document["data"].toObject().toVariantMap();
             for (auto it = map.begin(); it != map.end(); ++it)
                 m_client->updateResult(it.key(), it.value());
+
+            if (!image.isNull())
+                emit imageReceived(image);
         }
     }
 }
