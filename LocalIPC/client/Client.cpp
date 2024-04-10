@@ -6,6 +6,10 @@ Client::Client(QObject* parent)
     : QLocalSocket(parent)
 {
     connect(this, &Client::readyRead, this, &Client::readyToRead);
+    connect(this, QOverload<QLocalSocket::LocalSocketError>::of(&Client::error), this, [this](QLocalSocket::LocalSocketError socketError){
+        qDebug()<<"Error code:"<<socketError;
+        qDebug()<<errorString();
+    });
 }
 
 Client::~Client()
