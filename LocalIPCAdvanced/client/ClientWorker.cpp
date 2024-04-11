@@ -40,7 +40,14 @@ void ClientWorker::readyToRead()
         stream >> msg;
         stream >> image;
 
-        auto document = QJsonDocument::fromJson(msg);
+        QJsonParseError jsonParse;
+        auto document = QJsonDocument::fromJson(msg, &jsonParse);
+        if (jsonParse.error != QJsonParseError::NoError)
+        {
+            qCritical()<< "ClientWorker --- readyToRead ---- json parse error";
+            return;
+        }
+
         if (document.isNull())
             return;
 
