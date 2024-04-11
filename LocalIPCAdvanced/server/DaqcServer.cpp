@@ -12,11 +12,7 @@ DaqcServer::DaqcServer(QObject* parent) :
     m_daqc(new Daqc()),
     m_DaqcInfoUpdateTimer(new QTimer(this))
 {
-    m_DaqcInfoUpdateTimer->setInterval(400);
-    connect(m_DaqcInfoUpdateTimer, &QTimer::timeout, this, &DaqcServer::updateTimerTimeout);
     connect(m_daqc, SIGNAL(FrameReady()), this, SLOT(frameReady()));
-
-    m_DaqcInfoUpdateTimer->start();
 }
 
 DaqcServer::~DaqcServer()
@@ -129,6 +125,6 @@ void DaqcServer::frameReady()
             bmi->bmiColors[i].rgbBlue);
     image.setColorTable(colorTable);
 
-    GetPacket* packet = new GetPacket(getImageCurrentChannel(), image);
+    GetPacket* packet = new GetPacket(getDaqcInfo(), image);
     QThreadPool::globalInstance()->start(new SendTask(this, packet));
 }

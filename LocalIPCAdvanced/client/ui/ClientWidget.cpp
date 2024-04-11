@@ -162,7 +162,8 @@ QGroupBox *ClientWidget::getBGainGroupBox()
 
 void ClientWidget::startServer()
 {
-    QString serverFilePath = "D:/work/Qt-examples/LocalIPCAdvanced/server/build/Release/LocalServer.exe";
+    //QString serverFilePath = "D:/work/Qt-examples/LocalIPCAdvanced/server/build/Release/LocalServer.exe";
+    QString serverFilePath = "D:/profiles/kuanxin/uropro/release/newServer/LocalServer.exe";
     QProcess* process = new QProcess(this);
     process->setProgram(serverFilePath);
     process->start(QIODevice::ReadOnly);
