@@ -10,9 +10,9 @@
 
 ClientWorker::ClientWorker(Client* client, QObject* parent) :
     QLocalSocket(parent),
-    m_client(client),
-    m_mutex(new QMutex)
+    m_client(client)
 {
+
     qRegisterMetaType<QLocalSocket::LocalSocketError>("QLocalSocket::LocalSocketError");
     connect(this, &ClientWorker::readyRead, this, &ClientWorker::readyToRead);
     connect(this, QOverload<QLocalSocket::LocalSocketError>::of(&ClientWorker::error), this, [this](QLocalSocket::LocalSocketError socketError){
@@ -23,34 +23,44 @@ ClientWorker::ClientWorker(Client* client, QObject* parent) :
 
 ClientWorker::~ClientWorker()
 {
-    delete m_mutex;
 }
 
 void ClientWorker::readyToRead()
 {
-    QMutexLocker locker(m_mutex);
     if (bytesAvailable() < 0)
         return;
 
+    qDebug()<<"bytesAvailable = "<<bytesAvailable();
+
+    QDataStream stream(readAll());
+    stream.setVersion(QDataStream::Qt_5_12);
+
     //qDebug()<<"Client receive message";
 
-    QDataStream stream(this->readAll());
-    stream.setVersion(QDataStream::Qt_5_12);
     while (!stream.atEnd())
-    {  
+    {
+        stream.startTransaction();
+        
         QByteArray msg;
         QImage image;
 
         stream >> msg;
         stream >> image;
 
+        if (!stream.commitTransaction())
+        {
+            qDebug()<<"The ClientWorker --- readyToRead is not completed";
+            return;
+        }
+
         QJsonParseError jsonParse;
         auto document = QJsonDocument::fromJson(msg, &jsonParse);
         if (jsonParse.error != QJsonParseError::NoError)
         {
             qCritical()<< "ClientWorker --- readyToRead ---- json parse error";
-            return;
+            while (1);
         }
+
 
         if (document.isNull())
             return;
