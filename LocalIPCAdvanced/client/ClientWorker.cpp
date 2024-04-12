@@ -30,12 +30,10 @@ void ClientWorker::readyToRead()
     if (bytesAvailable() < 0)
         return;
 
-    qDebug()<<"bytesAvailable = "<<bytesAvailable();
+    //qDebug()<<"Client receive message";
 
     QDataStream stream(readAll());
     stream.setVersion(QDataStream::Qt_5_12);
-
-    //qDebug()<<"Client receive message";
 
     while (!stream.atEnd())
     {
@@ -61,10 +59,8 @@ void ClientWorker::readyToRead()
             while (1);
         }
 
-
         if (document.isNull())
             return;
-
         //qDebug()<<msg;
 
         auto packetType = getPacketType(document);
