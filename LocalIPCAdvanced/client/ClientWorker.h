@@ -4,6 +4,7 @@
 
 class QDataStream;
 class Client;
+class QMutex;
 
 class ClientWorker : public QLocalSocket
 {
@@ -21,4 +22,5 @@ private:
     QString getPacketType(const QJsonDocument &document);
 
     Client* m_client;
+    QMutex* m_mutex;
 };

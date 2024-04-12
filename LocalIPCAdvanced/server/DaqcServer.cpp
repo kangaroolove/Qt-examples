@@ -9,8 +9,7 @@
 
 DaqcServer::DaqcServer(QObject* parent) :
     Server(parent),
-    m_daqc(new Daqc()),
-    m_DaqcInfoUpdateTimer(new QTimer(this))
+    m_daqc(new Daqc())
 {
     connect(m_daqc, SIGNAL(FrameReady()), this, SLOT(frameReady()));
 }
@@ -32,12 +31,6 @@ void DaqcServer::start()
 HandleReceiveMessageTask *DaqcServer::generateHandleRequestTask(const QByteArray& data)
 {
     return new DaqcServerHandleReceiveMessageTask(m_daqc, data);
-}
-
-void DaqcServer::updateTimerTimeout()
-{
-    GetPacket* packet = new GetPacket(getDaqcInfo());
-    QThreadPool::globalInstance()->start(new SendTask(this, packet));
 }
 
 QJsonObject DaqcServer::getDaqcInfo()
@@ -101,13 +94,6 @@ QJsonObject DaqcServer::getDaqcInfo()
     object[DaqcParameter::ROI_POSITION_X] = m_daqc->scanMode() == (int)ScanMode::C_MODE ? m_daqc->GetParameter((int)WelldParameterId::C_ROI_X) : m_daqc->GetParameter((int)WelldParameterId::D_ROI_X) + ROI_X_OFFSET;
     object[DaqcParameter::ROI_POSITION_Y] = m_daqc->scanMode() == (int)ScanMode::C_MODE ? m_daqc->GetParameter((int)WelldParameterId::C_ROI_Y) : m_daqc->GetParameter((int)WelldParameterId::D_ROI_Y);
 
-    return object;
-}
-
-QJsonObject DaqcServer::getImageCurrentChannel()
-{
-    QJsonObject object;
-    object[DaqcParameter::IMAGE_CURRENT_CHANNEL] = m_daqc->GetParameter((int)WelldParameterId::IMAGE_CURRENT_CHANNEL);
     return object;
 }
 

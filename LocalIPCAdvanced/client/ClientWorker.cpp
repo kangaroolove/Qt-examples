@@ -6,10 +6,12 @@
 #include <QJsonDocument>
 #include <QImage>
 #include <QJsonObject>
+#include <QMutex>
 
 ClientWorker::ClientWorker(Client* client, QObject* parent) :
     QLocalSocket(parent),
-    m_client(client)
+    m_client(client),
+    m_mutex(new QMutex)
 {
     qRegisterMetaType<QLocalSocket::LocalSocketError>("QLocalSocket::LocalSocketError");
     connect(this, &ClientWorker::readyRead, this, &ClientWorker::readyToRead);
@@ -21,10 +23,12 @@ ClientWorker::ClientWorker(Client* client, QObject* parent) :
 
 ClientWorker::~ClientWorker()
 {
+    delete m_mutex;
 }
 
 void ClientWorker::readyToRead()
 {
+    QMutexLocker locker(m_mutex);
     if (bytesAvailable() < 0)
         return;
 

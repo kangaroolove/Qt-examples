@@ -43,11 +43,8 @@ protected:
     HandleReceiveMessageTask* generateHandleRequestTask(const QByteArray& data) override;
 private slots:
     void frameReady();
-    void updateTimerTimeout();
 private:
     QJsonObject getDaqcInfo();
-    QJsonObject getImageCurrentChannel();
 
     Daqc* m_daqc;
-    QTimer* m_DaqcInfoUpdateTimer;
 };
