@@ -24,7 +24,7 @@ void Server::sendMessage(const QByteArray &msg)
     QMutexLocker locker(m_mutex);
     for (auto it = m_clientSockets.begin(); it != m_clientSockets.end(); it++)
     {
-        qInfo()<<"Server send message";
+        //qInfo()<<"Server send message";
         //qInfo()<<msg;
         (*it)->write(msg);
         (*it)->flush();
