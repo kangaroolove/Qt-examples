@@ -16,6 +16,7 @@ DaqcServer::DaqcServer(QObject* parent) :
 
 DaqcServer::~DaqcServer()
 {
+    m_daqc->stop();
     delete m_daqc;
 }
 
