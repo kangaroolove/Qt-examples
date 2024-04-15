@@ -35,9 +35,10 @@ void UpdateValueTask::run()
         return;
     }
 
+    qInfo()<<"Parameter = "<<m_updateValueInfo.parameter;
     if (m_updateValueInfo.parameter == DaqcParameter::TEST)
         qInfo("Update Test");
-    if (m_updateValueInfo.parameter == DaqcParameter::INIT)
+    else if (m_updateValueInfo.parameter == DaqcParameter::INIT)
     {
         m_initialized = true;
         m_daqc->Init(values.first().toInt());

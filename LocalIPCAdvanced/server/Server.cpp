@@ -42,16 +42,16 @@ void Server::readyRead()
     if (it == m_clientSockets.end())
         return;
 
-    if (socket->bytesAvailable() <= 0) 
-        return;
-
     qInfo()<<"Server receive message";
     QDataStream stream(socket->readAll());
     stream.setVersion(QDataStream::Qt_5_12);
-    while (!stream.atEnd())
+    if (!stream.atEnd())
     {
+        stream.startTransaction();
         QByteArray msg;
         stream >> msg;
+        if (!stream.commitTransaction())
+            return;
 		qInfo()<<msg;
         QThreadPool::globalInstance()->start(generateHandleRequestTask(msg));
     }
