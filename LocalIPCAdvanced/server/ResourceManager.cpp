@@ -15,6 +15,17 @@ ResourceManager::ResourceManager(QObject* parent) :
 
 }
 
+ResourceManager::~ResourceManager()
+{
+    delete m_daqc;
+}
+
+ResourceManager *ResourceManager::getInstance()
+{
+    static ResourceManager resourceManager;
+    return &resourceManager;
+}
+
 void ResourceManager::handleUpdate(const QString &parameter, const QVariant &valueTypes, const QVariant &values)
 {
     // Before initialization, the server shouldn't do anything
@@ -138,7 +149,3 @@ void ResourceManager::handleUpdate(const QString &parameter, const QVariant &val
         m_daqc->SetDBaseLine(valueList.first().toInt());
 }
 
-ResourceManager::~ResourceManager()
-{
-
-}

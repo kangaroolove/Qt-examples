@@ -10,6 +10,7 @@ class ResourceManager : public QObject
 {
     Q_OBJECT
 public:
+    static ResourceManager* getInstance();
     void handleUpdate(const QString &parameter, const QVariant &valueTypes, const QVariant &values);
 
 private:
