@@ -26,7 +26,7 @@ ClientWidget::ClientWidget(QWidget* parent) :
     m_timer(new QTimer(this)),
     m_fpsLabel(new QLabel(this)),
     m_probeList{11, 12, 14, 8},
-    m_currentPort(2)
+    m_currentPort(0)
 {
     startServer();
     m_examTypeMap = {

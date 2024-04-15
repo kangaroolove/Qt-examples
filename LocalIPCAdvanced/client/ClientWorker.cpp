@@ -27,15 +27,10 @@ ClientWorker::~ClientWorker()
 
 void ClientWorker::readyToRead()
 {
-    if (bytesAvailable() < 0)
-        return;
-
-    //qDebug()<<"Client receive message";
-
     QDataStream stream(readAll());
     stream.setVersion(QDataStream::Qt_5_12);
 
-    while (!stream.atEnd())
+    if (!stream.atEnd())
     {
         stream.startTransaction();
         
@@ -46,17 +41,15 @@ void ClientWorker::readyToRead()
         stream >> image;
 
         if (!stream.commitTransaction())
-        {
-            qDebug()<<"The ClientWorker --- readyToRead is not completed";
-            return;
-        }
+            return; 
 
         QJsonParseError jsonParse;
         auto document = QJsonDocument::fromJson(msg, &jsonParse);
         if (jsonParse.error != QJsonParseError::NoError)
         {
             qCritical()<< "ClientWorker --- readyToRead ---- json parse error";
-            while (1);
+            abort();
+            return;
         }
 
         if (document.isNull())
@@ -80,7 +73,6 @@ void ClientWorker::sendMessage(const QByteArray &msg)
 {
     // qDebug()<<"Client send message";
     // qDebug()<<msg;
-
     write(msg);
     flush();
 }
