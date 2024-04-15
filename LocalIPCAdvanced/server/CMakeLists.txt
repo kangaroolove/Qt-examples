@@ -54,6 +54,10 @@ set(PROJECT_SOURCES
 	lib/Daqc/daqclib.cpp
 	lib/Daqc/daqclib.h
 	../common/DaqcClientDef.h
+	ServerWorker.cpp
+	ServerWorker.h
+	ResourceManager.cpp
+	ResourceManager.h
 )
 
 set(PROJECT_UIS

@@ -33,6 +33,7 @@ void Server::sendMessage(const QByteArray &msg)
 
 void Server::readyRead()
 {
+    qInfo()<<"Server receive message";
     QMutexLocker locker(m_mutex);
     QLocalSocket* socket = static_cast<QLocalSocket*>(this->sender());
     if (!socket)
@@ -42,7 +43,6 @@ void Server::readyRead()
     if (it == m_clientSockets.end())
         return;
 
-    qInfo()<<"Server receive message";
     QDataStream stream(socket->readAll());
     stream.setVersion(QDataStream::Qt_5_12);
     if (!stream.atEnd())
@@ -53,7 +53,7 @@ void Server::readyRead()
         if (!stream.commitTransaction())
             return;
 		qInfo()<<msg;
-        QThreadPool::globalInstance()->start(generateHandleRequestTask(msg));
+
     }
 }
 
