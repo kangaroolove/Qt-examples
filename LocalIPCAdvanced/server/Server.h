@@ -21,6 +21,7 @@ public slots:
     void sendMessage(const QByteArray& msg);
 protected:
     virtual HandleReceiveMessageTask* generateHandleRequestTask(const QByteArray& data) = 0;
+    virtual void handleReceive(const QByteArray& data) = 0;
 private slots:
     void newDeviceConnected();
     void readyRead();
