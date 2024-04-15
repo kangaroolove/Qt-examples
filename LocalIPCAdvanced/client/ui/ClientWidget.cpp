@@ -25,12 +25,13 @@ ClientWidget::ClientWidget(QWidget* parent) :
     m_decreaseBGainButton(new QPushButton("-", this)),
     m_timer(new QTimer(this)),
     m_fpsLabel(new QLabel(this)),
-    m_probeList{11, 12, 15, 8},
-    m_currentPort(0)
+    m_probeList{11, 12, 14, 8},
+    m_currentPort(2)
 {
     startServer();
     m_examTypeMap = {
-        {11, 10}
+        {11, 10},
+        {14, 10}
     };
     initGui();
     bindConnections();
@@ -163,7 +164,8 @@ QGroupBox *ClientWidget::getBGainGroupBox()
 void ClientWidget::startServer()
 {
     //QString serverFilePath = "D:/work/Qt-examples/LocalIPCAdvanced/server/build/Release/LocalServer.exe";
-    QString serverFilePath = "D:/profiles/kuanxin/uropro/release/newServer/LocalServer.exe";
+    //QString serverFilePath = "D:/profiles/kuanxin/uropro/release/newServer/LocalServer.exe";
+    QString serverFilePath = "D:/profiles/kuanxin/newServer/LocalServer.exe";
     QProcess* process = new QProcess(this);
     process->setProgram(serverFilePath);
     process->start(QIODevice::ReadOnly);
