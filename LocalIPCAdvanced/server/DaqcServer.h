@@ -19,9 +19,8 @@ protected:
     HandleReceiveMessageTask* generateHandleRequestTask(const QByteArray& data) override;
     void handleReceive(const QByteArray& data) override;
 private slots:
-    void frameReady();
+    void frameReady(const QImage& image);
 private:
-    QJsonObject getDaqcInfo();
     QString getPacketType(const QJsonDocument &document) const;
     QString getRequestType(const QJsonDocument &document) const;
 

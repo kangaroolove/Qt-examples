@@ -38,7 +38,8 @@ class ResourceManager : public QObject
 public:
     static ResourceManager* getInstance();
     void handleUpdate(const QString &parameter, const QVariant &valueTypes, const QVariant &values);
-signals:    
+    QJsonObject getDaqcInfo();
+signals:
     void frameReady(const QImage& image);
 private slots:
     void onFrameReady();
