@@ -12,7 +12,7 @@ ResourceManager::ResourceManager(QObject* parent) :
     m_daqc(new Daqc()),
     m_readWriteLock(new QReadWriteLock)
 {
-
+    connect(m_daqc, SIGNAL(FrameReady()), this, SLOT(onFrameReady()));
 }
 
 ResourceManager::~ResourceManager()
@@ -147,5 +147,21 @@ void ResourceManager::handleUpdate(const QString &parameter, const QVariant &val
         m_daqc->Mode2B();
     else if (parameter == DaqcParameter::D_BASELINE)
         m_daqc->SetDBaseLine(valueList.first().toInt());
+}
+
+void ResourceManager::onFrameReady()
+{
+    BITMAPINFO* bmi = (BITMAPINFO*)m_daqc->GetpBMIInfo();
+    int width = bmi->bmiHeader.biWidth;
+    int height = bmi->bmiHeader.biHeight;
+    QImage image((uchar*)m_daqc->GetpDIBits(), width, height, QImage::Format_Indexed8);
+    QVector<QRgb> colorTable(256);
+    for (int i = 0; i < 256; i++)
+        colorTable[i] = qRgb(
+            bmi->bmiColors[i].rgbRed,
+            bmi->bmiColors[i].rgbGreen,
+            bmi->bmiColors[i].rgbBlue);
+    image.setColorTable(colorTable);
+    emit frameReady(image);
 }
 

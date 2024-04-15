@@ -5,6 +5,7 @@
 #include "GetPacket.h"
 #include "ServerWorker.h"
 #include "RequestUpdatePacket.h"
+#include "ResourceManager.h"
 #include <QThreadPool>
 #include <QDebug>
 #include <QTimer>
@@ -20,7 +21,7 @@ DaqcServer::DaqcServer(QObject* parent) :
     connect(this, &DaqcServer::handleUpdateRequest, m_worker, &ServerWorker::handleUpdateRequest);
     m_thread->start();
 
-    //connect(m_daqc, SIGNAL(FrameReady()), this, SLOT(frameReady()));
+    connect(ResourceManager::getInstance(), &ResourceManager::frameReady, this, &DaqcServer::frameReady);
 }
 
 DaqcServer::~DaqcServer()
