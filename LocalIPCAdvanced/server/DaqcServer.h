@@ -1,9 +1,6 @@
 #pragma once
 
 #include "Server.h"
-#include "daqclib.h"
-
-using Daqc = DAQCLib::DAQC;
 
 struct BITMAPINFOHEADER {
     uint32_t biSize;
@@ -53,7 +50,6 @@ private:
     QString getPacketType(const QJsonDocument &document) const;
     QString getRequestType(const QJsonDocument &document) const;
 
-    Daqc* m_daqc;
     ServerWorker* m_worker;
     QThread* m_thread;
 };

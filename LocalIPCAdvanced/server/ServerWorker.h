@@ -11,5 +11,4 @@ public:
 public slots:
     void handleUpdateRequest(const QString &parameter, const QVariant &valueTypes, const QVariant &values);
 private:
-
 };

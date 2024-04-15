@@ -53,7 +53,7 @@ void Server::readyRead()
         if (!stream.commitTransaction())
             return;
 		qInfo()<<msg;
-
+        handleReceive(msg);
     }
 }
 

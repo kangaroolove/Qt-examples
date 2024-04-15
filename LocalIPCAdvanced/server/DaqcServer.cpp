@@ -12,7 +12,6 @@
 
 DaqcServer::DaqcServer(QObject* parent) :
     Server(parent),
-    m_daqc(new Daqc()),
     m_worker(new ServerWorker),
     m_thread(new QThread(this))
 {
@@ -21,13 +20,11 @@ DaqcServer::DaqcServer(QObject* parent) :
     connect(this, &DaqcServer::handleUpdateRequest, m_worker, &ServerWorker::handleUpdateRequest);
     m_thread->start();
 
-    connect(m_daqc, SIGNAL(FrameReady()), this, SLOT(frameReady()));
+    //connect(m_daqc, SIGNAL(FrameReady()), this, SLOT(frameReady()));
 }
 
 DaqcServer::~DaqcServer()
 {
-    m_daqc->stop();
-    delete m_daqc;
 }
 
 void DaqcServer::start()
@@ -41,7 +38,7 @@ void DaqcServer::start()
 
 HandleReceiveMessageTask *DaqcServer::generateHandleRequestTask(const QByteArray& data)
 {
-    return new DaqcServerHandleReceiveMessageTask(m_daqc, data);
+    return nullptr;
 }
 
 void DaqcServer::handleReceive(const QByteArray &data)
@@ -64,6 +61,7 @@ void DaqcServer::handleReceive(const QByteArray &data)
 
 QJsonObject DaqcServer::getDaqcInfo()
 {
+    #if 0
     QJsonObject object;
     object[DaqcParameter::TEST] = 10;
 
@@ -124,10 +122,14 @@ QJsonObject DaqcServer::getDaqcInfo()
     object[DaqcParameter::ROI_POSITION_Y] = m_daqc->scanMode() == (int)ScanMode::C_MODE ? m_daqc->GetParameter((int)WelldParameterId::C_ROI_Y) : m_daqc->GetParameter((int)WelldParameterId::D_ROI_Y);
 
     return object;
+    #endif
+
+    return QJsonObject();
 }
 
 void DaqcServer::frameReady()
 {
+    #if 0
     BITMAPINFO* bmi = (BITMAPINFO*)m_daqc->GetpBMIInfo();
     int width = bmi->bmiHeader.biWidth;
     int height = bmi->bmiHeader.biHeight;
@@ -142,6 +144,7 @@ void DaqcServer::frameReady()
 
     GetPacket* packet = new GetPacket(getDaqcInfo(), image);
     QThreadPool::globalInstance()->start(new SendTask(this, packet));
+    #endif
 }
 
 QString DaqcServer::getPacketType(const QJsonDocument &document) const
