@@ -12,7 +12,6 @@ ClientWorker::ClientWorker(Client* client, QObject* parent) :
     QLocalSocket(parent),
     m_client(client)
 {
-
     qRegisterMetaType<QLocalSocket::LocalSocketError>("QLocalSocket::LocalSocketError");
     connect(this, &ClientWorker::readyRead, this, &ClientWorker::readyToRead);
     connect(this, QOverload<QLocalSocket::LocalSocketError>::of(&ClientWorker::error), this, [this](QLocalSocket::LocalSocketError socketError){

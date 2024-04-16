@@ -26,6 +26,8 @@ DaqcServer::DaqcServer(QObject* parent) :
 
 DaqcServer::~DaqcServer()
 {
+    m_thread->quit();
+    m_thread->wait();
 }
 
 void DaqcServer::start()
