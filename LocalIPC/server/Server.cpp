@@ -42,16 +42,19 @@ void Server::readyRead()
     auto it = std::find(m_clientSockets.begin(), m_clientSockets.end(), socket);
     if (it == m_clientSockets.end())
         return;
-
-    if (socket->bytesAvailable() <= 0)
-        return;
     
     QDataStream stream(socket->readAll());
     stream.setVersion(QDataStream::Qt_5_12);
-    if (!stream.atEnd())
+    // readyRead won't be triggered every time, sometimes we will receive several packets at the same time even using flush()
+    // You can call bytesAvailable() to check so here we must use while 
+    while (!stream.atEnd())
     {
+        stream.startTransaction();
         QString msg;
         stream >> msg;
+        // make sure what we receive is completed
+        if (!stream.commitTransaction())
+            return;
         emit receiveMessage(msg);
     }
 }

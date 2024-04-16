@@ -24,21 +24,24 @@ void Client::sendMessage(const QString &msg)
     out.setVersion(QDataStream::Qt_5_12);
     out << msg;
 
-    this->write(data);
-    this->flush();
+    write(data);
+    flush();
 }
 
 void Client::readyToRead()
 {
-    if (bytesAvailable() <= 0)
-        return;
-
     QDataStream stream(readAll());
     stream.setVersion(QDataStream::Qt_5_12);
-    if (!stream.atEnd())
+    // readyRead won't be triggered every time, sometimes we will receive several packets at the same time even using flush()
+    // You can call bytesAvailable() to check so here we must use while 
+    while (!stream.atEnd())
     {
+        stream.startTransaction();
         QString msg;
         stream >> msg;
+        // make sure what we receive is completed
+        if (!stream.commitTransaction())
+            return;
         emit receiveMessage(msg);
     }
 }
