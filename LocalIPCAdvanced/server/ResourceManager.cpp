@@ -44,7 +44,6 @@ void ResourceManager::handleUpdate(const QString &parameter, const QVariant &val
         return;
     }
 
-    qInfo()<<"Parameter = "<<parameter;
     if (parameter == DaqcParameter::TEST)
         qInfo("Update Test");
     else if (parameter == DaqcParameter::INIT)
