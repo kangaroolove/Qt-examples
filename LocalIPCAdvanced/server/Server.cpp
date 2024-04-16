@@ -8,20 +8,17 @@
 #include <QMutex>
 
 Server::Server(QObject* parent) : 
-    QLocalServer(parent), 
-    m_mutex(new QMutex)
+    QLocalServer(parent)
 {
     init();
 }
 
 Server::~Server()
 {
-    delete m_mutex;
 }
 
 void Server::sendMessage(const QByteArray &msg)
 {
-    QMutexLocker locker(m_mutex);
     for (auto it = m_clientSockets.begin(); it != m_clientSockets.end(); it++)
     {
         //qInfo()<<"Server send message";
@@ -34,7 +31,6 @@ void Server::sendMessage(const QByteArray &msg)
 void Server::readyRead()
 {
     qInfo()<<"Server receive message";
-    QMutexLocker locker(m_mutex);
     QLocalSocket* socket = static_cast<QLocalSocket*>(this->sender());
     if (!socket)
         return;
@@ -59,7 +55,6 @@ void Server::readyRead()
 
 void Server::clientDisconnected()
 {
-    QMutexLocker locker(m_mutex);
     QLocalSocket* socket = static_cast<QLocalSocket*>(this->sender());
     if (!socket)
         return;
@@ -86,7 +81,6 @@ void Server::init()
 void Server::newDeviceConnected()
 {
     qInfo()<<"A client is connected";
-    QMutexLocker locker(m_mutex);
     QLocalSocket* socket = this->nextPendingConnection();
     connect(socket, &QLocalSocket::readyRead, this, &Server::readyRead);
     connect(socket, &QLocalSocket::disconnected, this, &Server::clientDisconnected);
