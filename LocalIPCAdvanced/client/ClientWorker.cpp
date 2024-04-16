@@ -29,8 +29,7 @@ void ClientWorker::readyToRead()
 {
     QDataStream stream(readAll());
     stream.setVersion(QDataStream::Qt_5_12);
-
-    if (!stream.atEnd())
+    while (!stream.atEnd())
     {
         stream.startTransaction();
         

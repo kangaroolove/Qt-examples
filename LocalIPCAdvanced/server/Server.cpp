@@ -45,7 +45,7 @@ void Server::readyRead()
 
     QDataStream stream(socket->readAll());
     stream.setVersion(QDataStream::Qt_5_12);
-    if (!stream.atEnd())
+    while (!stream.atEnd())
     {
         stream.startTransaction();
         QByteArray msg;
