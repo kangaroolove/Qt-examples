@@ -47,7 +47,7 @@ HandleReceiveMessageTask *DaqcServer::generateHandleRequestTask(const QByteArray
 void DaqcServer::handleReceive(const QByteArray &data)
 {
     auto document = QJsonDocument::fromJson(data);
-    if (document.isNull())//
+    if (document.isNull())
         return;
 
     QString packetType = getPacketType(document);

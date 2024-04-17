@@ -32,17 +32,9 @@ void ResourceManager::handleUpdate(const QString &parameter, const QVariant &val
     // Before initialization, the server shouldn't do anything
     if (!m_initialized && parameter != DaqcParameter::INIT)
         return;
-    
-    QWriteLocker locker(m_readWriteLock);
 
     auto valueList = values.toList();
     auto valueTypeList = valueTypes.toStringList();
-
-    if (valueList.size() != valueTypeList.size())
-    {
-        qCritical()<<"valueList and valueTypeList size are not matched";
-        return;
-    }
 
     if (parameter == DaqcParameter::TEST)
         qInfo("Update Test");
@@ -167,8 +159,6 @@ void ResourceManager::onFrameReady()
 
 QJsonObject ResourceManager::getDaqcInfo()
 {
-    QReadLocker locker(m_readWriteLock);
-    
     QJsonObject object;
     object[DaqcParameter::TEST] = 10;
 

@@ -31,6 +31,7 @@ ClientWidget::ClientWidget(QWidget* parent) :
     startServer();
     m_examTypeMap = {
         {11, 10},
+        {12, 10},
         {14, 10}
     };
     initGui();
@@ -88,6 +89,10 @@ void ClientWidget::bindConnections()
             m_imageLabel->setPixmap(QPixmap::fromImage(image));
         else if (channel == 1)
             m_imageLabel2->setPixmap(QPixmap::fromImage(image));
+    });
+
+    connect(m_client, &DaqcClient::disconnected, this, []{
+        qCritical() << "Server disconnected";
     });
 
     connect(m_startButton, &QPushButton::clicked, this, [this]{
@@ -164,8 +169,8 @@ QGroupBox *ClientWidget::getBGainGroupBox()
 void ClientWidget::startServer()
 {
     //QString serverFilePath = "D:/work/Qt-examples/LocalIPCAdvanced/server/build/Release/LocalServer.exe";
-    //QString serverFilePath = "D:/profiles/kuanxin/uropro/release/newServer/LocalServer.exe";
-    QString serverFilePath = "D:/profiles/kuanxin/newServer/LocalServer.exe";
+    QString serverFilePath = "D:/profiles/kuanxin/uropro/release/newServer/LocalServer.exe";
+    //QString serverFilePath = "D:/profiles/kuanxin/newServer/LocalServer.exe";
     QProcess* process = new QProcess(this);
     process->setProgram(serverFilePath);
     process->start(QIODevice::ReadOnly);
