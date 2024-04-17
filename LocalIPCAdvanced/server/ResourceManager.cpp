@@ -212,6 +212,7 @@ QJsonObject ResourceManager::getDaqcInfo()
     object[DaqcParameter::IMAGE_CURRENT_CHANNEL] = m_daqc->GetParameter((int)WelldParameterId::IMAGE_CURRENT_CHANNEL);
     object[DaqcParameter::XML_DEPTH] = m_daqc->GetParameter((int)WelldParameterId::XML_DEPTH);
     object[DaqcParameter::PARAMETER_SIX] = m_daqc->GetParameter((int)WelldParameterId::PARAMETER_SIX);
+    object[DaqcParameter::PARAMETER_SEVEN] = m_daqc->GetParameter((int)WelldParameterId::PARAMETER_SEVEN);
 
     // offset for x axis of ROI for CD, D, M mode from Welld
     const int ROI_X_OFFSET = 180;
