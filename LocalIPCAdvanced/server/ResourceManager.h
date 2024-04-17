@@ -50,4 +50,5 @@ private:
     Daqc* m_daqc;
     QReadWriteLock* m_readWriteLock;
     static bool m_initialized;
+    QImage m_image;
 };

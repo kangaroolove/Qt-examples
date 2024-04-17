@@ -25,10 +25,10 @@ ClientWidget::ClientWidget(QWidget* parent) :
     m_decreaseBGainButton(new QPushButton("-", this)),
     m_timer(new QTimer(this)),
     m_fpsLabel(new QLabel(this)),
-    m_probeList{11, 12, 14, 8},
+    m_probeList{11, 12, 15, 8},
     m_currentPort(0)
 {
-    startServer();
+    //startServer();
     m_examTypeMap = {
         {11, 10},
         {12, 10},

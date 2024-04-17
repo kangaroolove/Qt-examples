@@ -154,7 +154,11 @@ void ResourceManager::onFrameReady()
             bmi->bmiColors[i].rgbGreen,
             bmi->bmiColors[i].rgbBlue);
     image.setColorTable(colorTable);
-    emit frameReady(image);
+
+    if (m_daqc->scanMode() != (int)ScanMode::B_MODE)
+        image = image.mirrored(false, true);
+    m_image = image.copy();
+    emit frameReady(m_image);
 }
 
 QJsonObject ResourceManager::getDaqcInfo()
@@ -211,14 +215,15 @@ QJsonObject ResourceManager::getDaqcInfo()
     object[DaqcParameter::SPACING_Y] = m_daqc->GetParameter((int)WelldParameterId::SPACING_Y);
     object[DaqcParameter::IMAGE_CURRENT_CHANNEL] = m_daqc->GetParameter((int)WelldParameterId::IMAGE_CURRENT_CHANNEL);
     object[DaqcParameter::XML_DEPTH] = m_daqc->GetParameter((int)WelldParameterId::XML_DEPTH);
+
     object[DaqcParameter::PARAMETER_SIX] = m_daqc->GetParameter((int)WelldParameterId::PARAMETER_SIX);
     object[DaqcParameter::PARAMETER_SEVEN] = m_daqc->GetParameter((int)WelldParameterId::PARAMETER_SEVEN);
+    object[DaqcParameter::PARAMETER_EIGHT] = m_daqc->GetParameter((int)WelldParameterId::PARAMETER_EIGHT);
 
     // offset for x axis of ROI for CD, D, M mode from Welld
     const int ROI_X_OFFSET = 180;
     object[DaqcParameter::ROI_POSITION_X] = m_daqc->scanMode() == (int)ScanMode::C_MODE ? m_daqc->GetParameter((int)WelldParameterId::C_ROI_X) : m_daqc->GetParameter((int)WelldParameterId::D_ROI_X) + ROI_X_OFFSET;
     object[DaqcParameter::ROI_POSITION_Y] = m_daqc->scanMode() == (int)ScanMode::C_MODE ? m_daqc->GetParameter((int)WelldParameterId::C_ROI_Y) : m_daqc->GetParameter((int)WelldParameterId::D_ROI_Y);
-
     return object;
 }
 

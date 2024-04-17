@@ -16,6 +16,7 @@ enum class WelldParameterId : unsigned int
 {
     PARAMETER_SIX = 6,
     PARAMETER_SEVEN = 7,
+    PARAMETER_EIGHT = 8,
     C_ROI_X = 9,
     C_ROI_Y = 10,
     D_ROI_X = 11,
@@ -122,6 +123,7 @@ const QString SPACING_Y = GET_PARAMETER + QString::number((int)WelldParameterId:
 const QString XML_DEPTH = GET_PARAMETER + QString::number((int)WelldParameterId::XML_DEPTH);
 const QString PARAMETER_SIX = GET_PARAMETER + QString::number((int)WelldParameterId::PARAMETER_SIX);
 const QString PARAMETER_SEVEN = GET_PARAMETER + QString::number((int)WelldParameterId::PARAMETER_SEVEN);
+const QString PARAMETER_EIGHT = GET_PARAMETER + QString::number((int)WelldParameterId::PARAMETER_EIGHT);
 }
 
 enum class ScanMode : unsigned int

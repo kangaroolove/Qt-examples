@@ -21,7 +21,7 @@ void Server::sendMessage(const QByteArray &msg)
 {
     for (auto it = m_clientSockets.begin(); it != m_clientSockets.end(); it++)
     {
-        //qInfo()<<"Server send message";
+        qInfo()<<"Server send message";
         //qInfo()<<msg;
         (*it)->write(msg);
         (*it)->flush();
@@ -66,11 +66,11 @@ void Server::clientDisconnected()
         qInfo()<<"A client is disconnected";
     }
 
-    if (m_clientSockets.empty())
-    {
-        qInfo()<<"Since client list is empty, server will be closed";
-        QCoreApplication::quit();
-    }
+    // if (m_clientSockets.empty())
+    // {
+    //     qInfo()<<"Since client list is empty, server will be closed";
+    //     QCoreApplication::quit();
+    // }
 }
 
 void Server::init()
