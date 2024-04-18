@@ -32,6 +32,7 @@ set(PROJECT_SOURCES
 	../common/packets/RequestUpdatePacket.cpp
 	../common/packets/RequestPacket.cpp
 	../common/packets/GetInfoPacket.cpp
+	../common/packets/FramePacket.cpp
 )
 
 set(PROJECT_HEADERS
@@ -43,6 +44,7 @@ set(PROJECT_HEADERS
 	../common/DaqcClientDef.h
 	../common/packets/RequestPacket.h
 	../common/packets/GetInfoPacket.h
+	../common/packets/FramePacket.h
 )
 
 set(PROJECT_UIS
