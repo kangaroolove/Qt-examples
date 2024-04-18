@@ -4,6 +4,7 @@
 
 class QDataStream;
 class Client;
+class QSharedMemory;
 
 class ClientWorker : public QLocalSocket
 {
@@ -19,6 +20,8 @@ private slots:
     void readyToRead();
 private:
     QString getPacketType(const QJsonDocument &document);
+    void loadFromMemory();
 
     Client* m_client;
+    QSharedMemory* m_sharedMemory;
 };
