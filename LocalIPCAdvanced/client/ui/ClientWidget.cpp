@@ -111,7 +111,7 @@ void ClientWidget::bindConnections()
     connect(m_decreaseBGainButton, &QPushButton::clicked, this, [this]{
         m_client->setBGain(false);
     });
-    connect(m_timer, &QTimer::timeout, this, &ClientWidget::timeout);
+    //connect(m_timer, &QTimer::timeout, this, &ClientWidget::timeout);
 }
 
 int ClientWidget::getExamTypeId(const int &probeId)
