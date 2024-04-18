@@ -15,13 +15,18 @@
 DaqcServer::DaqcServer(QObject* parent) :
     Server(parent),
     m_worker(new ServerWorker),
-    m_thread(new QThread(this))
+    m_thread(new QThread(this)),
+    m_daqcInfoUpdateTimer(new QTimer(this))
 {
     m_worker->moveToThread(m_thread);
     connect(m_thread, &QThread::finished, m_worker, &ServerWorker::deleteLater);
     connect(this, &DaqcServer::handleUpdateRequest, m_worker, &ServerWorker::handleUpdateRequest);
     connect(m_worker, &ServerWorker::uploadImageFinished, this, &DaqcServer::uploadImageFinished);
     m_thread->start();
+
+    m_daqcInfoUpdateTimer->setInterval(400);
+    connect(m_daqcInfoUpdateTimer, &QTimer::timeout, this, &DaqcServer::daqcInfoUpdateTimerTimeout);
+    m_daqcInfoUpdateTimer->start();
 }
 
 DaqcServer::~DaqcServer()
@@ -39,7 +44,13 @@ void DaqcServer::start()
         qCritical()<<"Daqc server started failed";
 }
 
-HandleReceiveMessageTask *DaqcServer::generateHandleRequestTask(const QByteArray& data)
+void DaqcServer::daqcInfoUpdateTimerTimeout()
+{
+    GetInfoPacket* packet = new GetInfoPacket(ResourceManager::getInstance()->getDaqcInfo());
+    sendMessage(packet->toBinary());
+}
+
+HandleReceiveMessageTask *DaqcServer::generateHandleRequestTask(const QByteArray &data)
 {
     return nullptr;
 }
@@ -67,12 +78,6 @@ void DaqcServer::handleReceive(const QByteArray &data)
         }
     }
 }
-
-// void DaqcServer::frameReady(const QImage& image)
-// {
-//     // GetInfoPacket* packet = new GetPacket(ResourceManager::getInstance()->getDaqcInfo(), image);
-//     // sendMessage(packet->toBinary());
-// }
 
 QString DaqcServer::getPacketType(const QJsonDocument &document) const
 {

@@ -17,6 +17,7 @@ signals:
     void handleUpdateRequest(const QString &parameter, const QVariant &valueTypes, const QVariant &values);
 private slots:
     void uploadImageFinished();
+    void daqcInfoUpdateTimerTimeout();
 protected:
     HandleReceiveMessageTask* generateHandleRequestTask(const QByteArray& data) override;
     void handleReceive(const QByteArray& data) override;
@@ -26,4 +27,5 @@ private:
 
     ServerWorker* m_worker;
     QThread* m_thread;
+    QTimer* m_daqcInfoUpdateTimer;
 };
