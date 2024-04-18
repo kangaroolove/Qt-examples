@@ -18,8 +18,6 @@ signals:
 protected:
     HandleReceiveMessageTask* generateHandleRequestTask(const QByteArray& data) override;
     void handleReceive(const QByteArray& data) override;
-private slots:
-    void frameReady(const QImage& image);
 private:
     QString getPacketType(const QJsonDocument &document) const;
     QString getRequestType(const QJsonDocument &document) const;

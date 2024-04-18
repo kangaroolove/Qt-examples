@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QObject>
+#include <QSharedMemory>
 
 class ServerWorker : public QObject
 {
@@ -10,5 +11,7 @@ public:
     ~ServerWorker();
 public slots:
     void handleUpdateRequest(const QString &parameter, const QVariant &valueTypes, const QVariant &values);
+    void frameReady(const QImage& image);
 private:
+    QSharedMemory* m_sharedMemory;
 };

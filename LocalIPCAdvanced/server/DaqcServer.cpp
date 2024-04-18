@@ -2,7 +2,7 @@
 #include "DaqcServerHandleReceiveMessageTask.h"
 #include "SendTask.h"
 #include "DaqcClientDef.h"
-#include "GetPacket.h"
+#include "GetInfoPacket.h"
 #include "ServerWorker.h"
 #include "RequestUpdatePacket.h"
 #include "ResourceManager.h"
@@ -20,8 +20,6 @@ DaqcServer::DaqcServer(QObject* parent) :
     connect(m_thread, &QThread::finished, m_worker, &ServerWorker::deleteLater);
     connect(this, &DaqcServer::handleUpdateRequest, m_worker, &ServerWorker::handleUpdateRequest);
     m_thread->start();
-
-    connect(ResourceManager::getInstance(), &ResourceManager::frameReady, this, &DaqcServer::frameReady);
 }
 
 DaqcServer::~DaqcServer()
@@ -62,11 +60,11 @@ void DaqcServer::handleReceive(const QByteArray &data)
     }
 }
 
-void DaqcServer::frameReady(const QImage& image)
-{
-    GetPacket* packet = new GetPacket(ResourceManager::getInstance()->getDaqcInfo(), image);
-    sendMessage(packet->toBinary());
-}
+// void DaqcServer::frameReady(const QImage& image)
+// {
+//     // GetInfoPacket* packet = new GetPacket(ResourceManager::getInstance()->getDaqcInfo(), image);
+//     // sendMessage(packet->toBinary());
+// }
 
 QString DaqcServer::getPacketType(const QJsonDocument &document) const
 {
