@@ -24,6 +24,8 @@ protected:
 private:
     QString getPacketType(const QJsonDocument &document) const;
     QString getRequestType(const QJsonDocument &document) const;
+    void sendFrame();
+    void sendImageCurrentChannelInfo();
 
     ServerWorker* m_worker;
     QThread* m_thread;

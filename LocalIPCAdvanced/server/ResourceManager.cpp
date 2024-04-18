@@ -227,3 +227,9 @@ QJsonObject ResourceManager::getDaqcInfo()
     return object;
 }
 
+QJsonObject ResourceManager::getImageCurrentChannel()
+{
+    QJsonObject object;
+    object[DaqcParameter::IMAGE_CURRENT_CHANNEL] = m_daqc->GetParameter((int)WelldParameterId::IMAGE_CURRENT_CHANNEL);
+    return object;
+}

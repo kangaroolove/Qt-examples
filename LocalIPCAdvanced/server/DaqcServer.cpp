@@ -7,6 +7,7 @@
 #include "RequestUpdatePacket.h"
 #include "ResourceManager.h"
 #include "FramePacket.h"
+#include "ResourceManager.h"
 #include <QThreadPool>
 #include <QDebug>
 #include <QTimer>
@@ -57,8 +58,8 @@ HandleReceiveMessageTask *DaqcServer::generateHandleRequestTask(const QByteArray
 
 void DaqcServer::uploadImageFinished()
 {
-    auto packet = new FramePacket();
-    sendMessage(packet->toBinary());
+    sendImageCurrentChannelInfo();
+    sendFrame();
 }
 
 void DaqcServer::handleReceive(const QByteArray &data)
@@ -87,4 +88,16 @@ QString DaqcServer::getPacketType(const QJsonDocument &document) const
 QString DaqcServer::getRequestType(const QJsonDocument &document) const
 {
     return document["data"].toObject()["requestType"].toString();
+}
+
+void DaqcServer::sendFrame()
+{
+    auto packet = new FramePacket();
+    sendMessage(packet->toBinary());
+}
+
+void DaqcServer::sendImageCurrentChannelInfo()
+{
+    auto packet = new GetInfoPacket(ResourceManager::getInstance()->getImageCurrentChannel());
+    sendMessage(packet->toBinary());
 }

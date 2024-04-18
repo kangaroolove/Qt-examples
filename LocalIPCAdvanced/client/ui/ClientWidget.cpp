@@ -28,7 +28,7 @@ ClientWidget::ClientWidget(QWidget* parent) :
     m_probeList{11, 12, 15, 8},
     m_currentPort(0)
 {
-    //startServer();
+    startServer();
     m_examTypeMap = {
         {11, 10},
         {12, 10},

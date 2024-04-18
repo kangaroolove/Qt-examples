@@ -39,6 +39,7 @@ public:
     static ResourceManager* getInstance();
     void handleUpdate(const QString &parameter, const QVariant &valueTypes, const QVariant &values);
     QJsonObject getDaqcInfo();
+    QJsonObject getImageCurrentChannel();
 signals:
     void frameReady(const QImage& image);
 private slots:
