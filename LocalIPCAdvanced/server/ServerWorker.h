@@ -9,6 +9,8 @@ class ServerWorker : public QObject
 public:
     ServerWorker();
     ~ServerWorker();
+signals:
+    void uploadImageFinished();
 public slots:
     void handleUpdateRequest(const QString &parameter, const QVariant &valueTypes, const QVariant &values);
     void frameReady(const QImage& image);

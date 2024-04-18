@@ -31,6 +31,8 @@ void ServerWorker::frameReady(const QImage &image)
     const char* from = buffer.data().data();
     memcpy(to, from, qMin(m_sharedMemory->size(), size));
     m_sharedMemory->unlock();
+
+    emit uploadImageFinished();
 }
 
 void ServerWorker::handleUpdateRequest(const QString &parameter, const QVariant &valueTypes, const QVariant &values)

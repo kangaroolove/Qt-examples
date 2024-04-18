@@ -15,6 +15,8 @@ public:
     void start() override;
 signals:
     void handleUpdateRequest(const QString &parameter, const QVariant &valueTypes, const QVariant &values);
+private slots:
+    void uploadImageFinished();
 protected:
     HandleReceiveMessageTask* generateHandleRequestTask(const QByteArray& data) override;
     void handleReceive(const QByteArray& data) override;

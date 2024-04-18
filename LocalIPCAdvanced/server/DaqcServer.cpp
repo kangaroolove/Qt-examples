@@ -6,6 +6,7 @@
 #include "ServerWorker.h"
 #include "RequestUpdatePacket.h"
 #include "ResourceManager.h"
+#include "FramePacket.h"
 #include <QThreadPool>
 #include <QDebug>
 #include <QTimer>
@@ -19,6 +20,7 @@ DaqcServer::DaqcServer(QObject* parent) :
     m_worker->moveToThread(m_thread);
     connect(m_thread, &QThread::finished, m_worker, &ServerWorker::deleteLater);
     connect(this, &DaqcServer::handleUpdateRequest, m_worker, &ServerWorker::handleUpdateRequest);
+    connect(m_worker, &ServerWorker::uploadImageFinished, this, &DaqcServer::uploadImageFinished);
     m_thread->start();
 }
 
@@ -40,6 +42,12 @@ void DaqcServer::start()
 HandleReceiveMessageTask *DaqcServer::generateHandleRequestTask(const QByteArray& data)
 {
     return nullptr;
+}
+
+void DaqcServer::uploadImageFinished()
+{
+    auto packet = new FramePacket();
+    sendMessage(packet->toBinary());
 }
 
 void DaqcServer::handleReceive(const QByteArray &data)
