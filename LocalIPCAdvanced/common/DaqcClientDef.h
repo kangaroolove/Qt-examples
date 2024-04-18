@@ -7,9 +7,8 @@ namespace PacketType
 const QString UNKNOWN_PACKET = "UnknownPacket";
 const QString FRAME = "Frame";
 const QString REQUEST = "Request";
-const QString REPLY = "Reply";
 const QString COMMAND = "Command";
-const QString GET = "Get";
+const QString GET_INFO = "GetInfo";
 }
 
 enum class WelldParameterId : unsigned int

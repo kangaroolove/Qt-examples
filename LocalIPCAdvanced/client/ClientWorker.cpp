@@ -55,7 +55,7 @@ void ClientWorker::readyToRead()
         //qDebug()<<msg;
 
         auto packetType = getPacketType(document);
-        if (packetType == PacketType::GET)
+        if (packetType == PacketType::GET_INFO)
         {
             auto map = document["data"].toObject().toVariantMap();
             for (auto it = map.begin(); it != map.end(); ++it)
