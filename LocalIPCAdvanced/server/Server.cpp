@@ -1,5 +1,4 @@
 #include "Server.h"
-#include "HandleReceiveMessageTask.h"
 #include <QCoreApplication>
 #include <QLocalSocket>
 #include <QDataStream>
