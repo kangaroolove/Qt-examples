@@ -1,6 +1,4 @@
 #include "DaqcServer.h"
-#include "DaqcServerHandleReceiveMessageTask.h"
-#include "SendTask.h"
 #include "DaqcClientDef.h"
 #include "GetInfoPacket.h"
 #include "ServerWorker.h"
