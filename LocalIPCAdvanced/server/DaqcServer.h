@@ -18,7 +18,6 @@ signals:
 private slots:
     void uploadImageFinished();
 protected:
-    HandleReceiveMessageTask* generateHandleRequestTask(const QByteArray& data) override;
     void handleReceive(const QByteArray& data) override;
 private:
     QString getPacketType(const QJsonDocument &document) const;

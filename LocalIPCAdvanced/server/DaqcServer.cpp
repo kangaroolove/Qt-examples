@@ -40,11 +40,6 @@ void DaqcServer::start()
         qCritical()<<"Daqc server started failed";
 }
 
-HandleReceiveMessageTask *DaqcServer::generateHandleRequestTask(const QByteArray &data)
-{
-    return nullptr;
-}
-
 void DaqcServer::uploadImageFinished()
 {
     sendFrame();
