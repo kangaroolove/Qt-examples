@@ -21,7 +21,7 @@ void Server::sendMessage(const QByteArray &msg)
 {
     for (auto it = m_clientSockets.begin(); it != m_clientSockets.end(); it++)
     {
-        qInfo()<<"Server send message";
+        //qInfo()<<"Server send message";
         //qInfo()<<msg;
         (*it)->write(msg);
         (*it)->flush();

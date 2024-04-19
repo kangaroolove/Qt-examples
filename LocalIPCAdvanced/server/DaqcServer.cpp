@@ -26,8 +26,8 @@ DaqcServer::DaqcServer(QObject* parent) :
     m_thread->start();
 
     m_daqcInfoUpdateTimer->setInterval(400);
-    connect(m_daqcInfoUpdateTimer, &QTimer::timeout, this, &DaqcServer::daqcInfoUpdateTimerTimeout);
-    m_daqcInfoUpdateTimer->start();
+    //connect(m_daqcInfoUpdateTimer, &QTimer::timeout, this, &DaqcServer::daqcInfoUpdateTimerTimeout);
+    //m_daqcInfoUpdateTimer->start();
 }
 
 DaqcServer::~DaqcServer()
@@ -92,7 +92,7 @@ QString DaqcServer::getRequestType(const QJsonDocument &document) const
 
 void DaqcServer::sendFrame()
 {
-    auto packet = new FramePacket();
+    auto packet = new FramePacket(ResourceManager::getInstance()->getDaqcInfo());
     sendMessage(packet->toBinary());
 }
 
