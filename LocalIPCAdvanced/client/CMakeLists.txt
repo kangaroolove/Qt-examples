@@ -22,8 +22,6 @@ include_directories(
 	../common
 )
 
-
-
 set(PROJECT_SOURCES
 	Client.cpp
 	DaqcClient.cpp
