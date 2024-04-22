@@ -34,3 +34,5 @@
 /LocalIPCAdvanced/server/build
 /BinarySerialization/build
 /BinarySerialization/.vscode
+/ThreadPool/.vscode
+/ThreadPool/build
