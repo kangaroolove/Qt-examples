@@ -36,3 +36,5 @@
 /BinarySerialization/.vscode
 /ThreadPool/.vscode
 /ThreadPool/build
+/UnitTest/.vscode
+/UnitTest/build
