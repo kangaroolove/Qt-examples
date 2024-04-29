@@ -38,3 +38,5 @@
 /ThreadPool/build
 /UnitTest/.vscode
 /UnitTest/build
+/GoogleTest/.vscode
+/GoogleTest/build
