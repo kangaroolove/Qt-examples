@@ -21,7 +21,7 @@ TEST(TestFunction, BasicOperation)
 
 TEST(TestFunction, errorOperation) 
 {
-    EXPECT_EQ(Functions::sum(5, 5), 10);
+    EXPECT_EQ(Functions::sum(1, 1), -3);
     EXPECT_EQ(Functions::sum(-10, 5), 0);
 }
 
