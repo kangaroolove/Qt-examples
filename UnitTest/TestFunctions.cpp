@@ -16,6 +16,7 @@ TestFunctions::~TestFunctions()
 void TestFunctions::testSumError()
 {
     // error
+    QCOMPARE(Functions::sum(1, 1), -3);
     QCOMPARE(Functions::sum(-10, 5), 0);
 }
 
