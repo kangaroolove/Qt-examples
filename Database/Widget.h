@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWidget>
+#include <QSqlDatabase>
 
 class Widget : public QWidget
 {
@@ -8,4 +9,6 @@ class Widget : public QWidget
 public:
     Widget(QWidget* parent = nullptr);
     ~Widget();
+    void createDatabase(const QSqlDatabase& database);
+    void decryptDatabase(const QSqlDatabase& database);
 };
