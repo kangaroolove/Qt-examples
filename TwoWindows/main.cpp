@@ -8,11 +8,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-
-
     auto screens = a.screens();
-    qDebug()<<"screens.size() = "<<screens.size();
-
     MainWindow mainWindow;
     SecondWindow secondWindow;
     if (screens.size() == 2)
