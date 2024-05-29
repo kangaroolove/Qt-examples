@@ -1,0 +1,5 @@
+// The configured options @PROJECT_NAME@
+#define VERSION_MAJOR @ShowVersion_VERSION_MAJOR@
+#define VERSION_MINOR @ShowVersion_VERSION_MINOR@
+#define VERSION_PATCH @ShowVersion_VERSION_PATCH@
+#define VERSION_TWEAK @ShowVersion_VERSION_TWEAK@
