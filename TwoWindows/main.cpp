@@ -11,6 +11,7 @@ int main(int argc, char *argv[])
     auto screens = a.screens();
     MainWindow mainWindow;
     SecondWindow secondWindow;
+
     if (screens.size() == 2)
     {
         mainWindow.setGeometry(screens[0]->geometry());

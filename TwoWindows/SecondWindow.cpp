@@ -8,6 +8,9 @@ SecondWindow::SecondWindow()
 {
     auto label = new QLabel("Second window", this);
     connect(qApp, &QGuiApplication::screenAdded, this, &SecondWindow::screenAdded);
+
+    this->setObjectName("SecondWindow");
+    this->setStyleSheet("QMainWindow#SecondWindow{background-color:blue;}");
 }
 
 SecondWindow::~SecondWindow()
@@ -30,7 +33,6 @@ void SecondWindow::screenAdded(QScreen *screen)
     {
         qDebug()<<"Restore second geometry";
         setGeometry(m_rect);
-        showFullScreen();
     }
 }
 

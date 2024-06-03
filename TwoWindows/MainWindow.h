@@ -14,5 +14,8 @@ private slots:
 protected:
     void showEvent(QShowEvent *event);
 private:
+    void printGeometry();
+
+
     QRect m_rect;
 };
