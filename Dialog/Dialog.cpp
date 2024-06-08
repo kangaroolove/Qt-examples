@@ -13,6 +13,7 @@ Dialog::Dialog(QWidget* parent)
 
     connect(acceptBtn, &QPushButton::clicked, this, &Dialog::accept);
     connect(rejectBtn, &QPushButton::clicked, this, &Dialog::reject);
+    resize(400, 200);
 }
 
 Dialog::~Dialog()
