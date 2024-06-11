@@ -54,3 +54,5 @@
 /ShowVersion/build
 /Dialog/.vscode
 /Dialog/build
+/TouchEvent/.vscode
+/TouchEvent/build
