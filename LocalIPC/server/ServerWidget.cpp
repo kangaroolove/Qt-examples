@@ -19,6 +19,7 @@ QWidget(parent)
     , m_server(new Server(this))
     , m_timerIntervalInput(new QLineEdit(this))
     , m_autoSendButton(new QPushButton("Auto send"))
+    , m_stopSendButton(new QPushButton("Stop"))
 {
     initGui();
     bindConnections();
@@ -96,6 +97,9 @@ void ServerWidget::bindConnections()
         m_receiveTextEdit->append(msg);
     });
     connect(m_autoSendButton, &QPushButton::clicked, this, &ServerWidget::onAutoSendButtonClicked);
+    connect(m_stopSendButton, &QPushButton::clicked, this, [this]{
+        m_timer->stop();
+    });
 }
 
 QHBoxLayout *ServerWidget::getTimerLayout()
@@ -105,5 +109,6 @@ QHBoxLayout *ServerWidget::getTimerLayout()
     layout->addWidget(timerLabel);
     layout->addWidget(m_timerIntervalInput);
     layout->addWidget(m_autoSendButton);
+    layout->addWidget(m_stopSendButton);
     return layout;
 }

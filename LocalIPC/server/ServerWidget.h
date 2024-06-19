@@ -29,6 +29,7 @@ private:
     QTextEdit* m_sendTextEdit;
     QPushButton* m_sendButton;
     QPushButton* m_autoSendButton;
+    QPushButton* m_stopSendButton;
     QLabel* m_statusLabel;
     Server* m_server;
     QLineEdit* m_timerIntervalInput;
