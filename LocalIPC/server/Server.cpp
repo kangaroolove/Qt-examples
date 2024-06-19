@@ -26,10 +26,10 @@ void Server::sendMessage(const QString &msg)
     out.setVersion(QDataStream::Qt_5_12);
     out << msg;
 
-    for (auto it = m_clientSockets.begin(); it != m_clientSockets.end(); it++)
+    for (auto& socket : m_clientSockets)
     {
-        (*it)->write(data);
-        (*it)->flush();
+        socket->write(data);
+        socket->flush();
     }
 }
 
@@ -45,8 +45,6 @@ void Server::readyRead()
     
     QDataStream stream(socket->readAll());
     stream.setVersion(QDataStream::Qt_5_12);
-    // readyRead won't be triggered every time, sometimes we will receive several packets at the same time even using flush()
-    // You can call bytesAvailable() to check so here we must use while 
     while (!stream.atEnd())
     {
         stream.startTransaction();
