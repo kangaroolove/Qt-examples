@@ -56,3 +56,5 @@
 /Dialog/build
 /TouchEvent/.vscode
 /TouchEvent/build
+/EventLoop/.vscode
+/EventLoop/build
