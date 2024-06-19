@@ -14,13 +14,7 @@ ClientWidget::ClientWidget(QWidget* parent)
     , m_client(new Client(this))
 {
     initGui();
-    connect(m_sendButton, &QPushButton::clicked, this, [this]{
-        m_client->sendMessage(m_sendTextEdit->toPlainText());
-        m_sendTextEdit->clear();
-    });
-    connect(m_client, &Client::receiveMessage, this, [this](const QString& msg){
-        m_receiveTextEdit->append(msg);
-    });
+    bindConnections();
     connectServer();
 }
 
@@ -45,4 +39,15 @@ void ClientWidget::initGui()
 void ClientWidget::connectServer()
 {
     m_client->connectToServer("KangarooLove");
+}
+
+void ClientWidget::bindConnections()
+{
+    connect(m_sendButton, &QPushButton::clicked, this, [this]{
+        m_client->sendMessage(m_sendTextEdit->toPlainText());
+        m_sendTextEdit->clear();
+    });
+    connect(m_client, &Client::receiveMessage, this, [this](const QString& msg){
+        m_receiveTextEdit->append(msg);
+    });
 }

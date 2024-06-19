@@ -15,13 +15,7 @@ ServerWidget::ServerWidget(QWidget* parent)
     , m_server(new Server(this))
 {
     initGui();
-    connect(m_sendButton, &QPushButton::clicked, this, [this]{
-        m_server->sendMessage(m_sendTextEdit->toPlainText());
-        m_sendTextEdit->clear();
-    });
-    connect(m_server, &Server::receiveMessage, this, [this](const QString& msg){
-        m_receiveTextEdit->append(msg);
-    });
+    bindConnections();
     startServer();
 }
 
@@ -50,4 +44,15 @@ void ServerWidget::startServer()
         qDebug()<<"Server listen error";
     else 
         m_statusLabel->setText("Start listening");
+}
+
+void ServerWidget::bindConnections()
+{
+    connect(m_sendButton, &QPushButton::clicked, this, [this]{
+        m_server->sendMessage(m_sendTextEdit->toPlainText());
+        m_sendTextEdit->clear();
+    });
+    connect(m_server, &Server::receiveMessage, this, [this](const QString& msg){
+        m_receiveTextEdit->append(msg);
+    });
 }

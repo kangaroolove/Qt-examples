@@ -16,6 +16,7 @@ public:
 private:
     void initGui();
     void startServer();
+    void bindConnections();
 
     QTextEdit* m_receiveTextEdit;
     QTextEdit* m_sendTextEdit;
