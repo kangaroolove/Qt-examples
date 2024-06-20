@@ -6,10 +6,15 @@
 #include <QApplication>
 #include <QDebug>
 #include <QFileInfo>
+#include <QTableView>
+#include <QVBoxLayout>
+#include <QSqlTableModel>
 
 Widget::Widget(QWidget * parent)
     : QWidget(parent)
+    , m_tableView(new QTableView)
 {
+    initGui();
     auto database = QSqlDatabase::addDatabase("QSQLITE", "my connection");
     database.setDatabaseName("testDatabase.db");
     if (!database.open())
@@ -21,6 +26,8 @@ Widget::Widget(QWidget * parent)
 
     if (!isDatabaseCreated())
         createDatabase(database);
+
+    showData(database);
 }
 
 Widget::~Widget()
@@ -43,4 +50,18 @@ bool Widget::isDatabaseCreated()
 {
     QFileInfo fileInfo(QApplication::applicationDirPath() + "/testDatabase.db");
     return fileInfo.size() > 0 ? true : false;
+}
+
+void Widget::showData(const QSqlDatabase &database)
+{
+    auto model = new QSqlTableModel(this, database);
+    model->setTable("Users");
+    model->select();
+    m_tableView->setModel(model);
+}
+
+void Widget::initGui()
+{
+    auto layout = new QVBoxLayout(this);
+    layout->addWidget(m_tableView);
 }
