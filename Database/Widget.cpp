@@ -3,12 +3,15 @@
 #include <QSqlQuery>
 #include <QDebug>
 #include <qsqlerror.h>
+#include <QApplication>
+#include <QDebug>
+#include <QFileInfo>
 
 Widget::Widget(QWidget * parent)
     : QWidget(parent)
 {
-    auto database = QSqlDatabase::addDatabase("QSQLCIPHER", "my connection");
-    database.setDatabaseName("test3.db");
+    auto database = QSqlDatabase::addDatabase("QSQLITE", "my connection");
+    database.setDatabaseName("testDatabase.db");
     if (!database.open())
     {
         qDebug()<<"Cannot open the database";
@@ -16,7 +19,8 @@ Widget::Widget(QWidget * parent)
         return;
     }
 
-    createDatabase(database);
+    if (!isDatabaseCreated())
+        createDatabase(database);
 }
 
 Widget::~Widget()
@@ -26,33 +30,17 @@ Widget::~Widget()
 
 void Widget::createDatabase(const QSqlDatabase& database)
 {
-    //QSqlQuery encrypSql(database);
-    //encrypSql.exec("PRAGMA key='!@123Da'");
-
-    // QSqlQuery sql(database);   
-    // qDebug()<<sql.exec("CREATE TABLE Customers (CustomerID INT PRIMARY KEY, FirstName VARCHAR(255) NOT NULL, LastName VARCHAR(255) NOT NULL, Email VARCHAR(255) UNIQUE)");
-
-    // QSqlQuery insertSql(database);
-    // qDebug()<<insertSql.exec("INSERT INTO Customers (CustomerID, FirstName, LastName, Email) VALUES (0, 'a', 'a', '123')" );
-
-    QString cmd;
-    cmd.append("CREATE TABLE Customers (CustomerID INT PRIMARY KEY, FirstName VARCHAR(255) NOT NULL, LastName VARCHAR(255) NOT NULL, Email VARCHAR(255) UNIQUE);");
-    cmd.append("INSERT INTO Customers (CustomerID, FirstName, LastName, Email) VALUES (0, 'a', 'a', '123');" );
+    QStringList cmds;
+    cmds<<"CREATE TABLE Users (UserID INTEGER PRIMARY KEY AUTOINCREMENT, Username VARCHAR(50) NOT NULL UNIQUE, Email VARCHAR(100) NOT NULL UNIQUE);";
+    cmds<<("INSERT INTO Users (Username, Email) VALUES ('a', 'a@gmail.com');" );
+    cmds<<("INSERT INTO Users (Username, Email) VALUES ('b', 'b@gmail.com');");
     QSqlQuery sql(database);  
-    qDebug()<<sql.exec(cmd);
+    for (auto& cmd : cmds)
+        qDebug()<<"cmd = "<<cmd<<", result = "<<sql.exec(cmd);
 }
 
-void Widget::decryptDatabase(const QSqlDatabase& database)
+bool Widget::isDatabaseCreated()
 {
-    QSqlQuery encrypSql(database);
-    qDebug()<<encrypSql.exec("PRAGMA key='!@123Da'");
-
-    QSqlQuery attachSql(database);
-    qDebug()<<attachSql.exec("ATTACH DATABASE 'plaintext.db' AS plaintext KEY '';");
-
-    QSqlQuery exportDatabaseSql(database);
-    qDebug()<<exportDatabaseSql.exec("SELECT sqlcipher_export('plaintext');");
-
-    QSqlQuery detachSql(database);
-    qDebug()<<detachSql.exec("DETACH DATABASE plaintext");
+    QFileInfo fileInfo(QApplication::applicationDirPath() + "/testDatabase.db");
+    return fileInfo.size() > 0 ? true : false;
 }

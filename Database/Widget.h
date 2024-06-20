@@ -9,6 +9,11 @@ class Widget : public QWidget
 public:
     Widget(QWidget* parent = nullptr);
     ~Widget();
+    /**
+     * @brief Create the database and this function should be run when there is no database otherwise QSqlQuery will return false
+     * 
+     * @param database 
+     */
     void createDatabase(const QSqlDatabase& database);
-    void decryptDatabase(const QSqlDatabase& database);
+    bool isDatabaseCreated();
 };
