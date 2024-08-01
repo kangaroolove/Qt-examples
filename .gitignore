@@ -58,3 +58,7 @@
 /TouchEvent/build
 /EventLoop/.vscode
 /EventLoop/build
+/SendImageViaLocalSocket/.vscode
+/SendImageViaLocalSocket/build
+/LocalIPC/client/.vscode
+/LocalIPC/client/build
