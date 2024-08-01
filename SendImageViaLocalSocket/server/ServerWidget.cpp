@@ -51,9 +51,9 @@ void ServerWidget::onAutoSendButtonClicked()
 
     m_currentFileIndex = 0;
 
-    // auto interval = m_timerInput->text().toInt();
-    // m_timer->setInterval(interval);
-    // m_timer->start();
+    auto interval = m_timerInput->text().toInt();
+    m_timer->setInterval(interval);
+    m_timer->start();
 }
 
 void ServerWidget::onOpenFileButtonClicked()
@@ -85,7 +85,7 @@ void ServerWidget::onTimerTimeout()
     QImage image(fileName);
     m_server->sendImage(image);
 
-    if (m_currentFileIndex < m_fileList.size())
+    if (m_currentFileIndex < m_fileList.size() - 1)
         m_currentFileIndex++;
     else 
         m_currentFileIndex = 0;
