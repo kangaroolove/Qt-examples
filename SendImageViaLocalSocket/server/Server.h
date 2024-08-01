@@ -2,6 +2,7 @@
 
 #include <QLocalServer>
 #include <vector>
+#include <QImage>
 
 class QLocalSocket;
 class QDataStream;
@@ -14,6 +15,7 @@ public:
     ~Server();
     bool start();
     void sendMessage(const QString& msg);
+    void sendImage(const QImage& image);
 signals:
     void receiveMessage(const QString& msg);
 private slots:

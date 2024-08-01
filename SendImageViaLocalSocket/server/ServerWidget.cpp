@@ -9,17 +9,21 @@
 #include <QHBoxLayout>
 #include <QTimer>
 #include <QMessageBox>
+#include <QFileDialog>
+#include <QStandardPaths>
 
-ServerWidget::ServerWidget(QWidget* parent) : 
-QWidget(parent)
+ServerWidget::ServerWidget(QWidget* parent) : QWidget(parent)
     , m_server(new Server(this))
-    , m_openButton(new QPushButton("Open file", this))
-    , m_clearButton(new QPushButton("Clear file list", this))
+    , m_openFileButton(new QPushButton("Open file", this))
+    , m_clearFileListButton(new QPushButton("Clear file list", this))
     , m_fileListTextEdit(new QTextEdit(this))
     , m_timerGapLabel(new QLabel("Timer interval:", this))
     , m_timerInput(new QLineEdit(this))
     , m_timerGapUnitLabel(new QLabel("ms", this))
-    , m_sendButton(new QPushButton("Send", this))
+    , m_autoSendButton(new QPushButton("Auto Send", this))
+    , m_stopButton(new QPushButton("Stop", this))
+    , m_timer(new QTimer(this))
+    , m_currentFileIndex(0)
 {
     initGui();
     bindConnections();
@@ -33,36 +37,58 @@ ServerWidget::~ServerWidget()
 
 void ServerWidget::onAutoSendButtonClicked()
 {
-    // auto text = m_sendTextEdit->toPlainText();
-    // if (text.isEmpty())
-    // {
-    //     QMessageBox::critical(this, "Critical", "You didn't type anything!");
-    //     return;
-    // }
+    auto text = m_fileListTextEdit->toPlainText();
+    if (text.isEmpty())
+    {
+        QMessageBox::critical(this, "Critical", "You didn't choose any files!");
+        return;
+    }
 
-    // auto interval = m_timerIntervalInput->text();
-    // if (interval.isEmpty())
-    // {
-    //     QMessageBox::critical(this, "Critical", "You didn't enter the timer interval!");
-    //     return;
-    // }
+    auto fileListText = m_fileListTextEdit->toPlainText();
+    m_fileList = fileListText.split("\n");
+    if (m_fileList.size() == 0)
+        return;
 
-    // m_timer = std::make_unique<QTimer>();
-    // m_timer->setInterval(interval.toInt());
-    // connect(m_timer.get(), &QTimer::timeout, this, &ServerWidget::onSendButtonClicked);
+    m_currentFileIndex = 0;
+
+    // auto interval = m_timerInput->text().toInt();
+    // m_timer->setInterval(interval);
     // m_timer->start();
 }
 
-void ServerWidget::onSendButtonClicked()
+void ServerWidget::onOpenFileButtonClicked()
 {
-    // auto text = m_sendTextEdit->toPlainText();
-    // if (text.isEmpty())
-    // {
-    //     QMessageBox::critical(this, "Critical", "You didn't type anything!");
-    //     return;
-    // }
-    
-    // m_server->sendMessage(text);
+    auto fileNames = QFileDialog::getOpenFileNames(this, "Open file", QStandardPaths::writableLocation(QStandardPaths::DesktopLocation), "Image(*.png)");
+    if (fileNames.size() == 0)
+    {
+        QMessageBox::critical(this, "Error", "You didn't choose any files");
+        return;
+    }
+
+    for (auto& fileName : fileNames)
+        m_fileListTextEdit->append(fileName);
+}
+
+void ServerWidget::onClearFileListButtonClicked()
+{
+    m_fileListTextEdit->clear();
+}
+
+void ServerWidget::onStopButtonClicked()
+{
+    m_timer->stop();
+}
+
+void ServerWidget::onTimerTimeout()
+{
+    QString fileName = m_fileList.at(m_currentFileIndex);
+    QImage image(fileName);
+    m_server->sendImage(image);
+
+    if (m_currentFileIndex < m_fileList.size())
+        m_currentFileIndex++;
+    else 
+        m_currentFileIndex = 0;
 }
 
 void ServerWidget::initGui()
@@ -71,7 +97,8 @@ void ServerWidget::initGui()
     layout->addLayout(getFileButtonLayout());
     layout->addWidget(m_fileListTextEdit);
     layout->addLayout(getTimerLayout());
-    layout->addWidget(m_sendButton);
+    layout->addWidget(m_autoSendButton);
+    layout->addWidget(m_stopButton);
 
     m_fileListTextEdit->setReadOnly(true);
     m_timerInput->setText("16");
@@ -79,29 +106,24 @@ void ServerWidget::initGui()
 
 void ServerWidget::startServer()
 {
-    // if (!m_server->start())
-    //     qDebug()<<"Server listen error";
-    // else 
-    //     m_statusLabel->setText("Start listening");
+    if (!m_server->start())
+        qDebug()<<"Server listen error";
 }
 
 void ServerWidget::bindConnections()
 {
-    // connect(m_sendButton, &QPushButton::clicked, this, &ServerWidget::onSendButtonClicked);
-    // connect(m_server, &Server::receiveMessage, this, [this](const QString& msg){
-    //     m_receiveTextEdit->append(msg);
-    // });
-    // connect(m_autoSendButton, &QPushButton::clicked, this, &ServerWidget::onAutoSendButtonClicked);
-    // connect(m_stopSendButton, &QPushButton::clicked, this, [this]{
-    //     m_timer->stop();
-    // });
+    connect(m_autoSendButton, &QPushButton::clicked, this, &ServerWidget::onAutoSendButtonClicked);
+    connect(m_openFileButton, &QPushButton::clicked, this, &ServerWidget::onOpenFileButtonClicked);
+    connect(m_stopButton, &QPushButton::clicked, this, &ServerWidget::onStopButtonClicked);
+    connect(m_clearFileListButton, &QPushButton::clicked, this, &ServerWidget::onClearFileListButtonClicked);
+    connect(m_timer, &QTimer::timeout, this, &ServerWidget::onTimerTimeout);
 }
 
 QHBoxLayout *ServerWidget::getFileButtonLayout()
 {
     auto layout = new QHBoxLayout();
-    layout->addWidget(m_openButton);
-    layout->addWidget(m_clearButton);
+    layout->addWidget(m_openFileButton);
+    layout->addWidget(m_clearFileListButton);
     return layout;
 }
 

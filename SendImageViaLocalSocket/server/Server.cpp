@@ -33,6 +33,20 @@ void Server::sendMessage(const QString &msg)
     }
 }
 
+void Server::sendImage(const QImage &image)
+{
+    QByteArray data;
+    QDataStream out(&data, QIODevice::WriteOnly);
+    out.setVersion(QDataStream::Qt_5_12);
+    out << image;
+
+    for (auto& socket : m_clientSockets)
+    {
+        socket->write(data);
+        socket->flush();
+    }
+}
+
 void Server::readyRead()
 {
     QLocalSocket* socket = static_cast<QLocalSocket*>(this->sender());

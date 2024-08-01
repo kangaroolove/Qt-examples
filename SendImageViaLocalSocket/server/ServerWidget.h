@@ -17,7 +17,10 @@ public:
     ~ServerWidget();
 private slots:
     void onAutoSendButtonClicked();
-    void onSendButtonClicked();
+    void onOpenFileButtonClicked();
+    void onClearFileListButtonClicked();
+    void onStopButtonClicked();
+    void onTimerTimeout();
 private:
     void initGui();
     void startServer();
@@ -25,14 +28,16 @@ private:
     QHBoxLayout* getFileButtonLayout();
     QHBoxLayout* getTimerLayout();
 
-    std::unique_ptr<QTimer> m_timer;
     QTextEdit* m_fileListTextEdit;
-    QPushButton* m_openButton;
-    QPushButton* m_clearButton;
+    QPushButton* m_openFileButton;
+    QPushButton* m_clearFileListButton;
     QLabel* m_timerGapLabel;
     QLineEdit* m_timerInput;
     QLabel* m_timerGapUnitLabel;
-    QPushButton* m_sendButton;
-
+    QPushButton* m_autoSendButton;
+    QPushButton* m_stopButton;
+    QTimer* m_timer;
     Server* m_server;
+    QStringList m_fileList;
+    int m_currentFileIndex;
 };
