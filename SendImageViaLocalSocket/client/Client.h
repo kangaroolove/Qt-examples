@@ -15,6 +15,8 @@ public:
 signals:
     void receiveMessage(const QString& msg);
     void receiveImage(QImage image);
+public slots:
+    void connectServer();     
 private slots:
     void readyToRead();
 };

@@ -29,6 +29,11 @@ void Client::sendMessage(const QString &msg)
     flush();
 }
 
+void Client::connectServer()
+{
+    this->connectToServer("KangarooLove");
+}
+
 void Client::readyToRead()
 {
     QDataStream stream(readAll());
