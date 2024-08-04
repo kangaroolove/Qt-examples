@@ -18,3 +18,7 @@
 ### Database
 ![image](https://github.com/user-attachments/assets/d9a2d877-0252-4992-9a3a-7e030e3a4927)
 
+### Log4Qt
+![image](https://github.com/user-attachments/assets/7b09245c-ef78-4cb8-b7fe-391a891de17a)
+
+
