@@ -21,7 +21,10 @@ public:
     QString getMessageId() const;
     virtual QByteArray toBinary();
     PacketType getType() const;
+    PacketType static getTypeFromBinaryData(const QByteArray& data);
     PacketType static getTypeFromJson(const QByteArray& data);
+    QString static getMessageIdFromBinaryData(const QByteArray& data);
+    QString static getMessageIdFromJson(const QByteArray& data);
 
     static const QString PACKET_TYPE;
     static const QString DATA;

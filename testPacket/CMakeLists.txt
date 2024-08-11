@@ -19,7 +19,8 @@ add_executable(${PROJECT_NAME}
   Widget.h
   packets/Packet.cpp
   packets/Packet.h
-  packets/DaqcClientDef.h
+  packets/RequestUpdatePacket.cpp
+  packets/RequestUpdatePacket.h
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets)
