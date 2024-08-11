@@ -1,4 +1,5 @@
 #include "RequestUpdatePacket.h"
+#include <QDebug>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
@@ -7,7 +8,10 @@ const QString RequestUpdatePacket::PARAMETER = "parameter";
 const QString RequestUpdatePacket::VALUE_TYPES = "valueTypes";
 const QString RequestUpdatePacket::VALUES = "values";
 
-RequestUpdatePacket::RequestUpdatePacket(const QString& parameter, const QVariant& values, const QVariant& valueTypes)
+RequestUpdatePacket::RequestUpdatePacket(const QString& parameter, const QVariant& values, const QVariant& valueTypes) :
+    m_parameter(parameter),
+    m_values(values),
+    m_valueTypes(valueTypes)
 {
     m_packetType = PacketType::REQUEST_UPDATE;
 }
@@ -21,17 +25,17 @@ RequestUpdatePacket::RequestUpdatePacket(const RequestUpdatePacket &packet)
     m_messageId = packet.m_messageId;
 }
 
-RequestUpdatePacket RequestUpdatePacket::fromBinaryData(const QByteArray &data)
+RequestUpdatePacket RequestUpdatePacket::fromJson(const QByteArray &data)
 {
-    auto doc = QJsonDocument::fromBinaryData(data);
+    auto doc = QJsonDocument::fromJson(data);
     if (doc.isNull())
         return RequestUpdatePacket(QString(), QVariant(), QVariant());
 
     QString parameter = doc[Packet::DATA].toObject()[PARAMETER].toString();
-    QVariant valueTypes = doc[Packet::DATA].toObject()[VALUE_TYPES].toVariant();
-    QVariant values = doc[Packet::DATA].toObject()[VALUES].toVariant();
+    QStringList valueTypes = doc[Packet::DATA].toObject()[VALUE_TYPES].toVariant().toStringList();
+    QVariant values = doc[Packet::DATA].toObject()[VALUES].toVariant().toList();
     auto packet = RequestUpdatePacket(parameter, values, valueTypes);
-    packet.m_messageId = Packet::getMessageIdFromBinaryData(data);
+    packet.m_messageId = Packet::getMessageIdFromJson(data);
     return packet;
 }
 
@@ -48,6 +52,15 @@ QVariant RequestUpdatePacket::getValueTypes() const
 QVariant RequestUpdatePacket::getValues() const
 {
     return m_values;
+}
+
+void RequestUpdatePacket::printfSelf()
+{
+    qDebug()<<PACKET_TYPE<<":"<<(int)m_packetType;
+    qDebug()<<PARAMETER<<":"<<m_parameter;
+    qDebug()<<VALUE_TYPES<<":"<<m_valueTypes;
+    qDebug()<<VALUES<<":"<<m_values;
+    qDebug()<<MESSAGE_ID<<":"<<m_messageId;
 }
 
 QJsonObject RequestUpdatePacket::generateData()

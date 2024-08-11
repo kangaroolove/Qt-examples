@@ -29,36 +29,27 @@ QString Packet::getMessageId() const
     return m_messageId;
 }
 
-QByteArray Packet::toBinary()
-{
-    QByteArray data;
-    QDataStream stream(&data, QIODevice::WriteOnly);
-    stream.setVersion(QDataStream::Qt_5_12);
-    stream << toJson();
-    return data;
-}
-
 PacketType Packet::getType() const
 {
     return m_packetType;
 }
 
-PacketType Packet::getTypeFromBinaryData(const QByteArray &data)
+PacketType Packet::getTypeFromJson(const QByteArray &data)
 {
-    auto doc = QJsonDocument::fromBinaryData(data);
+    auto doc = QJsonDocument::fromJson(data);
     if (doc.isNull())
         return PacketType::UNKNOWN;
     
     return PacketType(doc[PACKET_TYPE].toInt());
 }
 
-QString Packet::getMessageIdFromBinaryData(const QByteArray &data)
+QString Packet::getMessageIdFromJson(const QByteArray &data)
 {
-    auto doc = QJsonDocument::fromBinaryData(data);
+    auto doc = QJsonDocument::fromJson(data);
     if (doc.isNull())
         return QString();
     
-    return doc[PACKET_TYPE].toString();
+    return doc[MESSAGE_ID].toString();
 }
 
 QString Packet::generateMessageId()

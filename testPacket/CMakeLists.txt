@@ -13,6 +13,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
+include_directories(
+  packets
+)
+
 add_executable(${PROJECT_NAME}
   main.cpp
   Widget.cpp

@@ -8,10 +8,11 @@ class RequestUpdatePacket : public Packet
 public:
     RequestUpdatePacket(const QString& parameter, const QVariant& values, const QVariant& valueTypes);
     RequestUpdatePacket(const RequestUpdatePacket& packet);
-    static RequestUpdatePacket fromBinaryData(const QByteArray& data);
+    static RequestUpdatePacket fromJson(const QByteArray& data);
     QString getParameter() const;
     QVariant getValueTypes() const;
     QVariant getValues() const;
+    void printfSelf() override;
 
     static const QString PARAMETER;
     static const QString VALUE_TYPES;

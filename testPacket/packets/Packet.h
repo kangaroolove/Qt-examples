@@ -19,16 +19,16 @@ public:
     Packet(QObject* parent = nullptr);
     QByteArray toJson();
     QString getMessageId() const;
-    virtual QByteArray toBinary();
     PacketType getType() const;
-    PacketType static getTypeFromBinaryData(const QByteArray& data);
+    PacketType static getTypeFromJson(const QByteArray& data);
+    virtual void printfSelf() = 0;
 
     static const QString PACKET_TYPE;
     static const QString DATA;
     static const QString MESSAGE_ID;
 protected:
     virtual QJsonObject generateData() = 0;
-    static QString getMessageIdFromBinaryData(const QByteArray& data);
+    static QString getMessageIdFromJson(const QByteArray& data);
 
     PacketType m_packetType;
     QString m_messageId;
