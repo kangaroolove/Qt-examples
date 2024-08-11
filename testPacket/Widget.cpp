@@ -1,6 +1,7 @@
 #include "Widget.h"
 #include "RequestUpdatePacket.h"
 #include <QDebug>
+#include <QFile>
 
 Widget::Widget(QWidget * parent)
     : QWidget(parent)
@@ -11,8 +12,12 @@ Widget::Widget(QWidget * parent)
     qDebug()<<"packet1";
     packet.printfSelf();
 
-    auto data = packet.toJson();
+    auto data = packet.toBinary();
     qDebug()<<"data = "<<data;
+
+    QImage image("D:/2.png");
+
+    QFile file("D:/3.dat");
 
     qDebug()<<"type = "<<(int)Packet::getTypeFromJson(data);
 

@@ -17,11 +17,11 @@ class Packet : public QObject
     Q_OBJECT
 public:
     Packet(QObject* parent = nullptr);
-    QByteArray toJson();
     QString getMessageId() const;
     PacketType getType() const;
     PacketType static getTypeFromJson(const QByteArray& data);
     virtual void printfSelf() = 0;
+    virtual QByteArray toBinary();
 
     static const QString PACKET_TYPE;
     static const QString DATA;
@@ -29,6 +29,7 @@ public:
 protected:
     virtual QJsonObject generateData() = 0;
     static QString getMessageIdFromJson(const QByteArray& data);
+    QByteArray toJson();
 
     PacketType m_packetType;
     QString m_messageId;

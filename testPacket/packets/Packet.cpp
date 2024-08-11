@@ -43,6 +43,15 @@ PacketType Packet::getTypeFromJson(const QByteArray &data)
     return PacketType(doc[PACKET_TYPE].toInt());
 }
 
+QByteArray Packet::toBinary()
+{
+    QByteArray data;
+    QDataStream stream(&data, QIODevice::WriteOnly);
+    stream.setVersion(QDataStream::Qt_5_12);
+    stream << toJson();
+    return data;
+}
+
 QString Packet::getMessageIdFromJson(const QByteArray &data)
 {
     auto doc = QJsonDocument::fromJson(data);
