@@ -14,6 +14,8 @@ Widget::Widget(QWidget * parent)
     auto data = packet.toJson();
     qDebug()<<"data = "<<data;
 
+    qDebug()<<"type = "<<(int)Packet::getTypeFromJson(data);
+
     qDebug()<<"packet2";
     RequestUpdatePacket packet2 = RequestUpdatePacket::fromJson(data);
     packet2.printfSelf();
