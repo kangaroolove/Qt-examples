@@ -28,11 +28,12 @@ public:
     static const QString MESSAGE_ID;
 protected:
     virtual QJsonObject generateData() = 0;
+    void setMessageId(const QString& messageId);
 
     PacketType m_packetType;
 
 private:
-    void generateMessageId();
+    QString generateMessageId();
 
     QString m_messageId;
 };

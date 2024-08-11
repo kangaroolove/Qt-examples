@@ -9,9 +9,9 @@ const QString Packet::MESSAGE_ID = "messageId";
 
 Packet::Packet(QObject* parent) :
     QObject(parent),
-    m_packetType(PacketType::UNKNOWN)
+    m_packetType(PacketType::UNKNOWN),
+    m_messageId(generateMessageId())
 {
-    generateMessageId();
 }
 
 QByteArray Packet::toJson()
@@ -52,7 +52,12 @@ PacketType Packet::getTypeFromJson(const QByteArray &data)
     return PacketType(doc[PACKET_TYPE].toInt());
 }
 
-void Packet::generateMessageId()
+void Packet::setMessageId(const QString &messageId)
 {
-    m_messageId = QUuid::createUuid().toString();
+    m_messageId = messageId;
+}
+
+QString Packet::generateMessageId()
+{
+    return QUuid::createUuid().toString();
 }
