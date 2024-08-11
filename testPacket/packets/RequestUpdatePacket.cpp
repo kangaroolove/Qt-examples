@@ -8,7 +8,7 @@ const QString RequestUpdatePacket::PARAMETER = "parameter";
 const QString RequestUpdatePacket::VALUE_TYPES = "valueTypes";
 const QString RequestUpdatePacket::VALUES = "values";
 
-RequestUpdatePacket::RequestUpdatePacket(const QString& parameter, const QVariant& values, const QVariant& valueTypes) :
+RequestUpdatePacket::RequestUpdatePacket(const QString& parameter, const QVariant& values, const QStringList& valueTypes) :
     m_parameter(parameter),
     m_values(values),
     m_valueTypes(valueTypes)
@@ -29,11 +29,11 @@ RequestUpdatePacket RequestUpdatePacket::fromJson(const QByteArray &data)
 {
     auto doc = QJsonDocument::fromJson(data);
     if (doc.isNull())
-        return RequestUpdatePacket(QString(), QVariant(), QVariant());
+        return RequestUpdatePacket(QString(), QVariant(), QStringList());
 
     QString parameter = doc[Packet::DATA].toObject()[PARAMETER].toString();
     QStringList valueTypes = doc[Packet::DATA].toObject()[VALUE_TYPES].toVariant().toStringList();
-    QVariant values = doc[Packet::DATA].toObject()[VALUES].toVariant().toList();
+    QVariant values = doc[Packet::DATA].toObject()[VALUES].toVariant();
     auto packet = RequestUpdatePacket(parameter, values, valueTypes);
     packet.m_messageId = Packet::getMessageIdFromJson(data);
     return packet;
@@ -44,7 +44,7 @@ QString RequestUpdatePacket::getParameter() const
     return m_parameter;
 }
 
-QVariant RequestUpdatePacket::getValueTypes() const
+QStringList RequestUpdatePacket::getValueTypes() const
 {
     return m_valueTypes;
 }
@@ -67,7 +67,7 @@ QJsonObject RequestUpdatePacket::generateData()
 {
     QJsonObject object;
     object[PARAMETER] = m_parameter;
-    object[VALUE_TYPES] = QJsonArray::fromStringList(m_valueTypes.toStringList());
+    object[VALUE_TYPES] = QJsonArray::fromStringList(m_valueTypes);
     object[VALUES] = QJsonArray::fromVariantList(m_values.toList());
     return object;
 }

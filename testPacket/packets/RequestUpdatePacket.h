@@ -6,11 +6,11 @@
 class RequestUpdatePacket : public Packet
 {
 public:
-    RequestUpdatePacket(const QString& parameter, const QVariant& values, const QVariant& valueTypes);
+    RequestUpdatePacket(const QString& parameter, const QVariant& values, const QStringList& valueTypes);
     RequestUpdatePacket(const RequestUpdatePacket& packet);
     static RequestUpdatePacket fromJson(const QByteArray& data);
     QString getParameter() const;
-    QVariant getValueTypes() const;
+    QStringList getValueTypes() const;
     QVariant getValues() const;
     void printfSelf() override;
 
@@ -21,6 +21,6 @@ protected:
     QJsonObject generateData() override;
 private:
     QString m_parameter;
-    QVariant m_valueTypes;
+    QStringList m_valueTypes;
     QVariant m_values;
 };
