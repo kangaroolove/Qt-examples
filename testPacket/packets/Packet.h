@@ -22,21 +22,16 @@ public:
     virtual QByteArray toBinary();
     PacketType getType() const;
     PacketType static getTypeFromBinaryData(const QByteArray& data);
-    PacketType static getTypeFromJson(const QByteArray& data);
     QString static getMessageIdFromBinaryData(const QByteArray& data);
-    QString static getMessageIdFromJson(const QByteArray& data);
 
     static const QString PACKET_TYPE;
     static const QString DATA;
     static const QString MESSAGE_ID;
 protected:
     virtual QJsonObject generateData() = 0;
-    void setMessageId(const QString& messageId);
 
     PacketType m_packetType;
-
+    QString m_messageId;
 private:
     QString generateMessageId();
-
-    QString m_messageId;
 };

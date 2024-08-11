@@ -14,7 +14,7 @@ RequestUpdatePacket::RequestUpdatePacket(const RequestUpdatePacket &packet)
     m_parameter = packet.m_parameter;
     m_values = packet.m_values;
     m_valueTypes = packet.m_valueTypes;
-    setMessageId(packet.getMessageId());
+    m_messageId = packet.m_messageId;
 }
 
 RequestUpdatePacket RequestUpdatePacket::fromBinaryData(const QByteArray &data)
@@ -27,7 +27,7 @@ RequestUpdatePacket RequestUpdatePacket::fromBinaryData(const QByteArray &data)
     QVariant valueTypes = doc["data"].toObject()["valueTypes"].toVariant();
     QVariant values = doc["data"].toObject()["values"].toVariant();
     auto packet = RequestUpdatePacket(parameter, values, valueTypes);
-    packet.setMessageId(Packet::getMessageIdFromBinaryData(data));
+    packet.m_messageId = Packet::getMessageIdFromBinaryData(data);
     return packet;
 }
 
