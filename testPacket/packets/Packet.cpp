@@ -3,6 +3,10 @@
 #include <QUuid>
 #include <QDataStream>
 
+const QString Packet::PACKET_TYPE = "packetType";
+const QString Packet::DATA = "data";
+const QString Packet::MESSAGE_ID = "messageId";
+
 Packet::Packet(QObject* parent) :
     QObject(parent),
     m_packetType(PacketType::UNKNOWN)
@@ -13,9 +17,9 @@ Packet::Packet(QObject* parent) :
 QByteArray Packet::toJson()
 {
     QJsonObject object;
-    object["data"] = generateData();
-    object["messageId"] = getMessageId();
-    object["packetType"] = (int)m_packetType;
+    object[DATA] = generateData();
+    object[MESSAGE_ID] = getMessageId();
+    object[PACKET_TYPE] = (int)m_packetType;
     QJsonDocument document(object);
     return document.toJson(QJsonDocument::Compact);
 }
@@ -45,7 +49,7 @@ PacketType Packet::getTypeFromJson(const QByteArray &data)
     if (doc.isNull())
         return PacketType::UNKNOWN;
     
-    return PacketType(doc["packetType"].toInt());
+    return PacketType(doc[PACKET_TYPE].toInt());
 }
 
 void Packet::generateMessageId()

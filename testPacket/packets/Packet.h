@@ -22,6 +22,10 @@ public:
     virtual QByteArray toBinary();
     PacketType getType() const;
     PacketType static getTypeFromJson(const QByteArray& data);
+
+    static const QString PACKET_TYPE;
+    static const QString DATA;
+    static const QString MESSAGE_ID;
 protected:
     virtual QJsonObject generateData() = 0;
 
