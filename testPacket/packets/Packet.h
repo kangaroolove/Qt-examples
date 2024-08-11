@@ -20,6 +20,8 @@ public:
     QByteArray toJson();
     QString getMessageId() const;
     virtual QByteArray toBinary();
+    PacketType getType() const;
+    PacketType static getTypeFromJson(const QByteArray& data);
 protected:
     virtual QJsonObject generateData() = 0;
 

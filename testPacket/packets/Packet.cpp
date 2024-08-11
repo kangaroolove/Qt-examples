@@ -34,6 +34,20 @@ QByteArray Packet::toBinary()
     return data;
 }
 
+PacketType Packet::getType() const
+{
+    return m_packetType;
+}
+
+PacketType Packet::getTypeFromJson(const QByteArray &data)
+{
+    auto doc = QJsonDocument::fromBinaryData(data);
+    if (doc.isNull())
+        return PacketType::UNKNOWN;
+    
+    return PacketType(doc["packetType"].toInt());
+}
+
 void Packet::generateMessageId()
 {
     m_messageId = QUuid::createUuid().toString();
