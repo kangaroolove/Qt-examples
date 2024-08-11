@@ -31,6 +31,21 @@ RequestUpdatePacket RequestUpdatePacket::fromBinaryData(const QByteArray &data)
     return packet;
 }
 
+QString RequestUpdatePacket::getParameter() const
+{
+    return m_parameter;
+}
+
+QVariant RequestUpdatePacket::getValueTypes() const
+{
+    return m_valueTypes;
+}
+
+QVariant RequestUpdatePacket::getValues() const
+{
+    return m_values;
+}
+
 QJsonObject RequestUpdatePacket::generateData()
 {
     QJsonObject object;
