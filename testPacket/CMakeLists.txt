@@ -25,6 +25,8 @@ add_executable(${PROJECT_NAME}
   packets/Packet.h
   packets/RequestUpdatePacket.cpp
   packets/RequestUpdatePacket.h
+  packets/FramePacket.cpp
+  packets/FramePacket.h
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets)
