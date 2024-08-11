@@ -12,6 +12,10 @@ public:
     QString getParameter() const;
     QVariant getValueTypes() const;
     QVariant getValues() const;
+
+    static const QString PARAMETER;
+    static const QString VALUE_TYPES;
+    static const QString VALUES;
 protected:
     QJsonObject generateData() override;
 private:

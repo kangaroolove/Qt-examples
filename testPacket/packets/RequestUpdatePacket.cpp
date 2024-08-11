@@ -3,6 +3,10 @@
 #include <QJsonObject>
 #include <QJsonArray>
 
+const QString RequestUpdatePacket::PARAMETER = "parameter";
+const QString RequestUpdatePacket::VALUE_TYPES = "valueTypes";
+const QString RequestUpdatePacket::VALUES = "values";
+
 RequestUpdatePacket::RequestUpdatePacket(const QString& parameter, const QVariant& values, const QVariant& valueTypes)
 {
     m_packetType = PacketType::REQUEST_UPDATE;
@@ -23,9 +27,9 @@ RequestUpdatePacket RequestUpdatePacket::fromBinaryData(const QByteArray &data)
     if (doc.isNull())
         return RequestUpdatePacket(QString(), QVariant(), QVariant());
 
-    QString parameter = doc["data"].toObject()["parameter"].toString();
-    QVariant valueTypes = doc["data"].toObject()["valueTypes"].toVariant();
-    QVariant values = doc["data"].toObject()["values"].toVariant();
+    QString parameter = doc[Packet::DATA].toObject()[PARAMETER].toString();
+    QVariant valueTypes = doc[Packet::DATA].toObject()[VALUE_TYPES].toVariant();
+    QVariant values = doc[Packet::DATA].toObject()[VALUES].toVariant();
     auto packet = RequestUpdatePacket(parameter, values, valueTypes);
     packet.m_messageId = Packet::getMessageIdFromBinaryData(data);
     return packet;
@@ -49,8 +53,8 @@ QVariant RequestUpdatePacket::getValues() const
 QJsonObject RequestUpdatePacket::generateData()
 {
     QJsonObject object;
-    object["parameter"] = m_parameter;
-    object["valueTypes"] = QJsonArray::fromStringList(m_valueTypes.toStringList());
-    object["values"] = QJsonArray::fromVariantList(m_values.toList());
+    object[PARAMETER] = m_parameter;
+    object[VALUE_TYPES] = QJsonArray::fromStringList(m_valueTypes.toStringList());
+    object[VALUES] = QJsonArray::fromVariantList(m_values.toList());
     return object;
 }
