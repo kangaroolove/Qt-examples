@@ -8,8 +8,8 @@
 Widget::Widget(QWidget * parent)
     : QWidget(parent)
 {
-    testRequestUpdatePacket();
-    testFramePacket();
+    //testRequestUpdatePacket();
+    //testFramePacket();
     testParameterPacket();
 }
 
@@ -67,5 +67,26 @@ void Widget::testParameterPacket()
 {
     qDebug()<<"\ntestParameterPacket";
 
+    std::map<QString, QVariant> map = {
+        {"Gain", 10},
+        {"Depth", 12.54},
+        {"DynamicBar", "AAA"}
+    };
 
+    ParameterInfoPacket packet(map);
+    qDebug()<<"packet1";
+    packet.printfSelf();
+
+    auto sendData = packet.toBinary();
+    qDebug()<<"sendData = "<<sendData;
+
+    QByteArray data;
+    QDataStream stream(sendData);
+    stream >> data; 
+
+    qDebug()<<"data = "<<data;
+
+    qDebug()<<"packet2";
+    ParameterInfoPacket packet2 = ParameterInfoPacket::fromJson(data);
+    packet2.printfSelf();
 }

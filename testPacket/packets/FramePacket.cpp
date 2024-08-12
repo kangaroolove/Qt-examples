@@ -25,8 +25,7 @@ QByteArray FramePacket::toBinary()
     QDataStream stream(&data, QIODevice::WriteOnly);
     stream.setVersion(QDataStream::Qt_5_12);
     stream << toJson();
-    if (!m_image.isNull())
-        stream << m_image;
+    stream << m_image;
     return data;
 }
 

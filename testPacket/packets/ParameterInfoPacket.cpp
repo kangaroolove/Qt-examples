@@ -14,6 +14,7 @@ ParameterInfoPacket::ParameterInfoPacket(const ParameterInfoPacket &packet)
 {
     m_messageId = packet.m_messageId;
     m_parameterInfo = packet.m_parameterInfo;
+    m_packetType = packet.m_packetType;
 }
 
 void ParameterInfoPacket::printfSelf()
