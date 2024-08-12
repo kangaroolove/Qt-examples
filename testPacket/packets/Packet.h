@@ -5,8 +5,8 @@
 #include <QJsonObject>
 #include <QObject>
 
-enum class PacketType : unsigned int {
-    UNKNOWN,
+enum class PacketType : int {
+    UNKNOWN = -1,
     FRAME,
     PARAMETER_INFO,
     REQUEST_UPDATE
