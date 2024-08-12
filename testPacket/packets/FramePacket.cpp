@@ -16,6 +16,7 @@ FramePacket::FramePacket(const FramePacket &packet)
     m_imageChannel = packet.m_imageChannel;
     m_image = packet.m_image;
     m_messageId = packet.m_messageId;
+    m_packetType = packet.m_packetType;
 }
 
 QByteArray FramePacket::toBinary()
@@ -24,7 +25,8 @@ QByteArray FramePacket::toBinary()
     QDataStream stream(&data, QIODevice::WriteOnly);
     stream.setVersion(QDataStream::Qt_5_12);
     stream << toJson();
-    stream << m_image;
+    if (!m_image.isNull())
+        stream << m_image;
     return data;
 }
 
