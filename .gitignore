@@ -62,3 +62,5 @@
 /SendImageViaLocalSocket/build
 /LocalIPC/client/.vscode
 /LocalIPC/client/build
+/testPacket/.vscode
+/testPacket/build
