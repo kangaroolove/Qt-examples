@@ -21,5 +21,6 @@ private:
     QPushButton* m_btnS1;
     QPushButton* m_btnS2;
     QPushButton* m_btnS3;
+    QPushButton* m_btnS4;
     QLabel* m_label;
 };
