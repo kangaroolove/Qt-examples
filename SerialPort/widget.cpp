@@ -45,13 +45,14 @@ Widget::Widget(QWidget *parent)
     initGui();
     initSetting();
     initWorker();
-    //initSerialPortThread();
     initConnections();
     readSerialPort();
 }
 
 Widget::~Widget()
 {
+    m_serialPortThread->quit();
+    m_serialPortThread->wait();
 }
 
 void Widget::onSendClearButtonClicked()
@@ -286,11 +287,6 @@ void Widget::initWorker()
     connect(m_serialPortWorker, &SerialPortWorker::receiveMessage, this, &Widget::receiveMessage);
     connect(this, &Widget::sendMessage, m_serialPortWorker, &SerialPortWorker::sendMessage);
     connect(m_serialPortThread, &QThread::finished, m_serialPortWorker, &QObject::deleteLater);
-    m_serialPortThread->start();
-}
-
-void Widget::initSerialPortThread()
-{
     m_serialPortThread->start();
 }
 

@@ -43,7 +43,6 @@ private:
     void initConnections();
     void setButtonsEnable(const bool& enable);
     void initWorker();
-    void initSerialPortThread();
     SerialPortInfo getSerialPortInfo();
 
     QLabel* m_serialPortLabel;
