@@ -1,8 +1,7 @@
-#ifndef WIDGET_H
-#define WIDGET_H
+#pragma once
 
 #include <QWidget>
-#include <SerialPortWorker.h>
+#include "Classes.h"
 
 class QLabel;
 class QPushButton;
@@ -20,6 +19,8 @@ class Widget : public QWidget
 public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
+signals:
+    void sendMessage(const QString& message, const bool& useHex);
 private slots:
     void onConnectButtonClicked();
     void onSendClearButtonClicked();
@@ -73,7 +74,8 @@ private:
     QTextEdit* m_responseTextEdit;
     QTextEdit* m_sendTextEdit;
 
-    SerialPortThread* m_serialPortThread;
+    QThread* m_serialPortThread;
+    SerialPortWorker* m_serialPortWorker;
     bool m_serialPortConnected;
 
     std::vector<QSerialPort::BaudRate> m_baudRates;
@@ -83,4 +85,3 @@ private:
     std::map<QSerialPort::StopBits, QString> m_stopBits;
     std::map<QSerialPort::PinoutSignal, QString> m_pinoutSignal;
 };
-#endif // WIDGET_H
