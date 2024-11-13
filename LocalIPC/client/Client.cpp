@@ -1,47 +1,36 @@
 #include "Client.h"
+#include "ClientWorker.h"
+#include "ClientWorker2.h"
 #include <QDataStream>
 #include <QDebug>
 
 Client::Client(QObject* parent)
-    : QLocalSocket(parent)
+    : QObject(parent)
+    , m_clientWorker(new ClientWorker(this))
+    , m_clientWorker2(new ClientWorker2())
+    , m_thread(new QThread(this))
 {
-    connect(this, &Client::readyRead, this, &Client::readyToRead);
-    connect(this, QOverload<QLocalSocket::LocalSocketError>::of(&Client::error), this, [this](QLocalSocket::LocalSocketError socketError){
-        qDebug()<<"Error code:"<<socketError;
-        qDebug()<<errorString();
-    });
+    qDebug()<<"main thread = "<<QThread::currentThreadId();
+
+    connect(this, &Client::connectToServerFromWorker, m_clientWorker2, &ClientWorker2::connectToServer);
+    connect(this, &Client::sendMessageToWorker, m_clientWorker2, &ClientWorker2::sendMessage);
+    m_clientWorker2->moveToThread(m_thread);
+    m_thread->start();
 }
 
 Client::~Client()
 {
-
+    emit quitThread();
+    m_thread->quit();
+    m_thread->wait();
 }
 
 void Client::sendMessage(const QString &msg)
 {
-    QByteArray data;
-    QDataStream out(&data, QIODevice::WriteOnly);
-    out.setVersion(QDataStream::Qt_5_12);
-    out << msg;
-
-    write(data);
-    flush();
+    emit sendMessageToWorker(msg);
 }
 
-void Client::readyToRead()
+void Client::connectToServer(const QString& name)
 {
-    QDataStream stream(readAll());
-    stream.setVersion(QDataStream::Qt_5_12);
-    // readyRead won't be triggered every time, sometimes we will receive several packets at the same time even using flush()
-    // You can call bytesAvailable() to check so here we must use while 
-    while (!stream.atEnd())
-    {
-        stream.startTransaction();
-        QString msg;
-        stream >> msg;
-        // make sure what we receive is completed
-        if (!stream.commitTransaction())
-            return;
-        emit receiveMessage(msg);
-    }
+    emit connectToServerFromWorker(name);
 }

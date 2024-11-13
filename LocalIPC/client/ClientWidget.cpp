@@ -18,11 +18,6 @@ ClientWidget::ClientWidget(QWidget* parent)
     connectServer();
 }
 
-ClientWidget::~ClientWidget()
-{
-
-}
-
 void ClientWidget::initGui()
 {
     QVBoxLayout *layout = new QVBoxLayout(this);
