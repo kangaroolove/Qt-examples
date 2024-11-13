@@ -4,23 +4,24 @@
 
 SerialPortWorker::SerialPortWorker(QObject* parent)
     : QObject(parent)
-    , m_serialPort(new QSerialPort(parent))
+    , m_serialPort(nullptr)
 {
-    connect(m_serialPort, &QSerialPort::readyRead, this, &SerialPortWorker::receiveMessageFromSerialPort);
 }
 
-SerialPortWorker::~SerialPortWorker()
+void SerialPortWorker::openSerialPort(const SerialPortInfo &info, bool& result)
 {
-    closeSerialPort();
-    delete m_serialPort;
-}
-
-bool SerialPortWorker::openSerialPort(const SerialPortInfo &info)
-{
-    if (m_serialPort->isOpen())
+    if (!m_serialPort)
     {
-        qDebug()<<"SerialPort has opened";
-        return false;
+        m_serialPort = new QSerialPort(this);
+        connect(m_serialPort, &QSerialPort::readyRead, this, &SerialPortWorker::readyRead);
+    }
+    else 
+    {
+        if (m_serialPort->isOpen())
+        {
+            qDebug()<<"SerialPort has opened";
+            result = false;
+        }
     }
 
     m_serialPort->setPortName(info.name);
@@ -29,7 +30,7 @@ bool SerialPortWorker::openSerialPort(const SerialPortInfo &info)
     m_serialPort->setFlowControl(info.flowControl);
     m_serialPort->setParity(info.parity);
     m_serialPort->setStopBits(info.stopBits);
-    return m_serialPort->open(QIODevice::ReadWrite);
+    result = m_serialPort->open(QIODevice::ReadWrite);
 }
 
 void SerialPortWorker::closeSerialPort()
@@ -37,7 +38,7 @@ void SerialPortWorker::closeSerialPort()
     m_serialPort->close();
 }
 
-void SerialPortWorker::receiveMessageFromSerialPort()
+void SerialPortWorker::readyRead()
 {
     QByteArray data = m_serialPort->readAll();
     qDebug()<<"Receive data from serialPort:"<<data;

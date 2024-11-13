@@ -21,6 +21,7 @@ public:
     ~Widget();
 signals:
     void sendMessage(const QString& message, const bool& useHex);
+    void openSerialPort(const SerialPortInfo& info, bool& result);
 private slots:
     void onConnectButtonClicked();
     void onSendClearButtonClicked();
@@ -75,7 +76,6 @@ private:
 
     QThread* m_serialPortThread;
     SerialPortWorker* m_serialPortWorker;
-    bool m_serialPortConnected;
 
     std::vector<QSerialPort::BaudRate> m_baudRates;
     std::vector<QSerialPort::DataBits> m_dataBits;

@@ -40,7 +40,6 @@ Widget::Widget(QWidget *parent)
     , m_sendByHexButton(new QPushButton("Send By Hex"))
     , m_serialPortWorker(new SerialPortWorker)
     , m_serialPortThread(new QThread(this))
-    , m_serialPortConnected(false)
 {
     initGui();
     initSetting();
@@ -88,16 +87,11 @@ void Widget::onConnectButtonClicked()
         return;
     }
 
-    // if (!m_serialPortConnected)
-    //     m_serialPortConnected = m_serialPortThread->openSerialPort(getSerialPortInfo());
-    // else 
-    // {
-    //     m_serialPortThread->closeSerialPort();
-    //     m_serialPortConnected = false;
-    // }
+    bool isOpen = false;
+    emit openSerialPort(getSerialPortInfo(), isOpen);
 
-    m_serialPortConnected ? m_connectButton->setText("Disconnect") : m_connectButton->setText("Connect");
-    setButtonsEnable(!m_serialPortConnected);
+    isOpen ? m_connectButton->setText("Disconnect") : m_connectButton->setText("Connect");
+    setButtonsEnable(!isOpen);
 }
 
 void Widget::initGui()
@@ -284,6 +278,7 @@ void Widget::setButtonsEnable(const bool &enable)
 void Widget::initWorker()
 {
     m_serialPortWorker->moveToThread(m_serialPortThread);
+    connect(this, &Widget::openSerialPort, m_serialPortWorker, &SerialPortWorker::openSerialPort);
     connect(m_serialPortWorker, &SerialPortWorker::receiveMessage, this, &Widget::receiveMessage);
     connect(this, &Widget::sendMessage, m_serialPortWorker, &SerialPortWorker::sendMessage);
     connect(m_serialPortThread, &QThread::finished, m_serialPortWorker, &QObject::deleteLater);
