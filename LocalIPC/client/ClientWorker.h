@@ -5,11 +5,11 @@
 class QThread;
 class QLocalSocket;
 
-class ClientWorker2 : public QObject
+class ClientWorker : public QObject
 {
     Q_OBJECT
 public:
-    ClientWorker2(QObject* parent = nullptr);
+    ClientWorker(QObject* parent = nullptr);
 signals:
     void receiveMessage(const QString& msg);
 public slots:

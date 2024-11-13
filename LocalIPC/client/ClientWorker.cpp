@@ -1,17 +1,17 @@
-#include "ClientWorker2.h"
+#include "ClientWorker.h"
 #include <QThread>
 #include <QLocalSocket>
 #include <QDataStream>
 #include <QDebug>
 #include <QEventLoop>
 
-ClientWorker2::ClientWorker2(QObject* parent)
+ClientWorker::ClientWorker(QObject* parent)
     : QObject(parent)
 {
     
 }
 
-void ClientWorker2::sendMessage(const QString& msg)
+void ClientWorker::sendMessage(const QString& msg)
 {
     qDebug()<<"Send";
     qDebug()<<"ClientWorker2 = "<<QThread::currentThreadId();
@@ -24,7 +24,7 @@ void ClientWorker2::sendMessage(const QString& msg)
     m_socket->write(data);
 }
 
-void ClientWorker2::readyRead()
+void ClientWorker::readyRead()
 {
     qDebug()<<"Receive";
     qDebug()<<"ClientWorker2 = "<<QThread::currentThreadId();
@@ -36,13 +36,13 @@ void ClientWorker2::readyRead()
     emit receiveMessage(data);
 }
 
-void ClientWorker2::connectToServer(const QString& name)
+void ClientWorker::connectToServer(const QString& name)
 {
     m_socket = new QLocalSocket(this);
     m_socket->connectToServer(name);
 
     QEventLoop loop;
-    connect(m_socket, &QLocalSocket::readyRead, this, &ClientWorker2::readyRead);
+    connect(m_socket, &QLocalSocket::readyRead, this, &ClientWorker::readyRead);
 
     loop.exec();
 

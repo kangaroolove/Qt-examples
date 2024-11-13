@@ -3,7 +3,7 @@
 #include <QLocalSocket>
 
 class ClientWorker;
-class ClientWorker2;
+class ClientWorker;
 class QThread;
 
 class Client : public QObject
@@ -20,6 +20,6 @@ signals:
     void connectToServerFromWorker(const QString& name);
     void quitThread();
 private:
-    ClientWorker2* m_clientWorker2;
+    ClientWorker* m_clientWorker2;
     QThread* m_thread;
 };
