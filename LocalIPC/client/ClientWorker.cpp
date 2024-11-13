@@ -13,9 +13,6 @@ ClientWorker::ClientWorker(QObject* parent)
 
 void ClientWorker::sendMessage(const QString& msg)
 {
-    qDebug()<<"Send";
-    qDebug()<<"ClientWorker2 = "<<QThread::currentThreadId();
-
     QByteArray data;
     QDataStream out(&data, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_5_12);
@@ -26,13 +23,11 @@ void ClientWorker::sendMessage(const QString& msg)
 
 void ClientWorker::readyRead()
 {
-    qDebug()<<"Receive";
-    qDebug()<<"ClientWorker2 = "<<QThread::currentThreadId();
     QByteArray data;
     QDataStream stream(m_socket->readAll());
     stream.setVersion(QDataStream::Qt_5_12);
     stream >> data;
-    qDebug()<<data;
+    
     emit receiveMessage(data);
 }
 
@@ -43,8 +38,5 @@ void ClientWorker::connectToServer(const QString& name)
 
     QEventLoop loop;
     connect(m_socket, &QLocalSocket::readyRead, this, &ClientWorker::readyRead);
-
     loop.exec();
-
-    qDebug()<<"quit loop";
 }

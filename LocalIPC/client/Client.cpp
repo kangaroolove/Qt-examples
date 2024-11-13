@@ -6,20 +6,20 @@
 
 Client::Client(QObject* parent)
     : QObject(parent)
-    , m_clientWorker2(new ClientWorker())
+    , m_clientWorker(new ClientWorker())
     , m_thread(new QThread(this))
 {
-    qDebug()<<"main thread = "<<QThread::currentThreadId();
+    connect(this, &Client::connectServer, m_clientWorker, &ClientWorker::connectToServer);
+    connect(this, &Client::sendMessageToWorker, m_clientWorker, &ClientWorker::sendMessage);
+    connect(m_thread, &QThread::finished, m_clientWorker, &ClientWorker::deleteLater);
+    connect(m_clientWorker, &ClientWorker::receiveMessage, this, &Client::receiveMessage);
 
-    connect(this, &Client::connectToServerFromWorker, m_clientWorker2, &ClientWorker::connectToServer);
-    connect(this, &Client::sendMessageToWorker, m_clientWorker2, &ClientWorker::sendMessage);
-    m_clientWorker2->moveToThread(m_thread);
+    m_clientWorker->moveToThread(m_thread);
     m_thread->start();
 }
 
 Client::~Client()
 {
-    emit quitThread();
     m_thread->quit();
     m_thread->wait();
 }
@@ -31,5 +31,5 @@ void Client::sendMessage(const QString &msg)
 
 void Client::connectToServer(const QString& name)
 {
-    emit connectToServerFromWorker(name);
+    emit connectServer(name);
 }

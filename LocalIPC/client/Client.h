@@ -17,9 +17,8 @@ public:
 signals:
     void receiveMessage(const QString& msg);
     void sendMessageToWorker(const QString& msg);
-    void connectToServerFromWorker(const QString& name);
-    void quitThread();
+    void connectServer(const QString& name);
 private:
-    ClientWorker* m_clientWorker2;
+    ClientWorker* m_clientWorker;
     QThread* m_thread;
 };
