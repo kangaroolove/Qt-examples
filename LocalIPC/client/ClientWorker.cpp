@@ -23,12 +23,12 @@ void ClientWorker::sendMessage(const QString& msg)
 
 void ClientWorker::readyRead()
 {
-    QByteArray data;
+    QString msg;
     QDataStream stream(m_socket->readAll());
     stream.setVersion(QDataStream::Qt_5_12);
-    stream >> data;
+    stream >> msg;
     
-    emit receiveMessage(data);
+    emit receiveMessage(msg);
 }
 
 void ClientWorker::connectToServer(const QString& name)
