@@ -1,12 +1,11 @@
 #include "Client.h"
-#include "ClientWorker.h"
 #include "ClientWorker2.h"
+#include <QThread>
 #include <QDataStream>
 #include <QDebug>
 
 Client::Client(QObject* parent)
     : QObject(parent)
-    , m_clientWorker(new ClientWorker(this))
     , m_clientWorker2(new ClientWorker2())
     , m_thread(new QThread(this))
 {
