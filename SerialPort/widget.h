@@ -21,7 +21,7 @@ public:
     ~Widget();
 signals:
     void sendMessage(const QString& message, const bool& useHex);
-    void openSerialPort(const SerialPortInfo& info, bool& result);
+    void openSerialPort(const SerialPortInfo& info);
 private slots:
     void onConnectButtonClicked();
     void onSendClearButtonClicked();

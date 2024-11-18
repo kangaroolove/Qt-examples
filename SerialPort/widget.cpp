@@ -87,8 +87,8 @@ void Widget::onConnectButtonClicked()
         return;
     }
 
-    bool isOpen = false;
-    emit openSerialPort(getSerialPortInfo(), isOpen);
+    emit openSerialPort(getSerialPortInfo());
+    bool isOpen = m_serialPortWorker->isOpen();
 
     isOpen ? m_connectButton->setText("Disconnect") : m_connectButton->setText("Connect");
     setButtonsEnable(!isOpen);

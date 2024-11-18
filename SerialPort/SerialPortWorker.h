@@ -2,6 +2,7 @@
 
 #include "Classes.h"
 #include <QObject>
+#include <memory>
 
 class QSerialPort;
 class SerialPortWorker : public QObject
@@ -9,13 +10,14 @@ class SerialPortWorker : public QObject
     Q_OBJECT
 public:
     SerialPortWorker(QObject* parent = nullptr);
+    bool isOpen() const;
 signals:
     void receiveMessage(const QString& message);
 public slots:
     void sendMessage(const QString& message, const bool& useHex);
     void readyRead();
-    void openSerialPort(const SerialPortInfo& info, bool& result);
+    void openSerialPort(const SerialPortInfo& info);
     void closeSerialPort();
 private:
-    QSerialPort* m_serialPort;
+    std::unique_ptr<QSerialPort> m_serialPort;
 };

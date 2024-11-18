@@ -1,4 +1,5 @@
 #include "SerialPortWorker.h"
+#include <QEventLoop>
 #include <QSerialPort>
 #include <QDebug>
 
@@ -8,21 +9,18 @@ SerialPortWorker::SerialPortWorker(QObject* parent)
 {
 }
 
-void SerialPortWorker::openSerialPort(const SerialPortInfo &info, bool& result)
+bool SerialPortWorker::isOpen() const
 {
-    if (!m_serialPort)
-    {
-        m_serialPort = new QSerialPort(this);
-        connect(m_serialPort, &QSerialPort::readyRead, this, &SerialPortWorker::readyRead);
-    }
-    else 
-    {
-        if (m_serialPort->isOpen())
-        {
-            qDebug()<<"SerialPort has opened";
-            result = false;
-        }
-    }
+    return m_serialPort->isOpen();
+}
+
+void SerialPortWorker::openSerialPort(const SerialPortInfo &info)
+{
+    m_serialPort = std::make_unique<QSerialPort>(new QSerialPort(this));
+
+    QEventLoop loop;
+    connect(m_serialPort.get(), &QSerialPort::readyRead, this, &SerialPortWorker::readyRead);
+    connect(m_serialPort.get(), &QSerialPort::errorOccurred, &loop, &QEventLoop::quit);
 
     m_serialPort->setPortName(info.name);
     m_serialPort->setBaudRate(info.baudRate);
@@ -30,7 +28,8 @@ void SerialPortWorker::openSerialPort(const SerialPortInfo &info, bool& result)
     m_serialPort->setFlowControl(info.flowControl);
     m_serialPort->setParity(info.parity);
     m_serialPort->setStopBits(info.stopBits);
-    result = m_serialPort->open(QIODevice::ReadWrite);
+    m_serialPort->open(QIODevice::ReadWrite);
+    loop.exec();
 }
 
 void SerialPortWorker::closeSerialPort()
