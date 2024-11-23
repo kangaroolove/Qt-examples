@@ -1,5 +1,8 @@
 # Qt-examples
 
+## Formatting
+- LLVM
+
 ### RestartApplication
 ![image](https://github.com/kangaroolove/Qt-examples/assets/16329871/3f489a56-e3aa-4c31-a5c4-2ecc5aa2325c)
 
