@@ -1,13 +1,10 @@
 #include "Widget.h"
 #include <QApplication>
 
-int main(int argc, char *argv[])
-{
-    //QCoreApplication::setAttribute(Qt::AA_SynthesizeTouchForUnhandledMouseEvents);
+int main(int argc, char *argv[]) {
+  QApplication a(argc, argv);
+  Widget widget;
+  widget.show();
 
-    QApplication a(argc, argv);
-    Widget widget;
-    widget.show();
-
-    return a.exec();
+  return a.exec();
 }
