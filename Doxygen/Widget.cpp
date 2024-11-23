@@ -1,11 +1,5 @@
 #include "Widget.h"
 
-Widget::Widget(QWidget * parent)
-    : QWidget(parent)
-{
-}
+Widget::Widget(QWidget *parent) : QWidget(parent) {}
 
-Widget::~Widget()
-{
-
-}
+Widget::~Widget() {}
