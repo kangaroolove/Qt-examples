@@ -1,10 +1,8 @@
 #pragma once
 
-class Functions
-{
+class Functions {
 public:
-    Functions();
-    ~Functions();
-    static int sum(const int& left, const int& right);
-private:
+  Functions();
+  ~Functions();
+  static int sum(const int &left, const int &right);
 };

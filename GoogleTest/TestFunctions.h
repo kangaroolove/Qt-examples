@@ -2,9 +2,8 @@
 
 #include <gtest/gtest.h>
 
-class TestFunctions
-{
+class TestFunctions {
 public:
-    TestFunctions();
-    ~TestFunctions();
+  TestFunctions();
+  ~TestFunctions();
 };
