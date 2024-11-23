@@ -10,8 +10,6 @@ class ClientWidget : public QWidget
 {
 public:
     ClientWidget(QWidget* parent = nullptr);
-    ~ClientWidget();
-
 private:
     void initGui();
     void connectServer();

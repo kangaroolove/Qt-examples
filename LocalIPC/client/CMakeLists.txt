@@ -25,6 +25,8 @@ set(PROJECT_SOURCES
 	ClientWidget.h
 	Client.cpp
 	Client.h
+	ClientWorker.cpp
+	ClientWorker.h
 )
 
 set(PROJECT_UIS
