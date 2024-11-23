@@ -2,16 +2,17 @@
 
 #include <QObject>
 
-class KeyEventHandler : public QObject
-{
-    Q_OBJECT
+class KeyEventHandler : public QObject {
+  Q_OBJECT
 public:
-    static KeyEventHandler* getInstance();
-protected:
-    bool eventFilter(QObject *obj, QEvent *event) override;
-private:
-    KeyEventHandler();
-    ~KeyEventHandler();
+  static KeyEventHandler *getInstance();
 
-    bool m_pressedAltAndF4;
+protected:
+  bool eventFilter(QObject *obj, QEvent *event) override;
+
+private:
+  KeyEventHandler();
+  ~KeyEventHandler();
+
+  bool m_pressedAltAndF4;
 };
