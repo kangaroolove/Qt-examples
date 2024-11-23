@@ -23,4 +23,6 @@
 ### Log4Qt
 ![image](https://github.com/user-attachments/assets/7b09245c-ef78-4cb8-b7fe-391a891de17a)
 
+### Dialog
+![image](https://github.com/user-attachments/assets/a3ac45f6-24da-4d7c-abee-36024fd3a2b2)
 
