@@ -1,92 +1,81 @@
 #include "Widget.h"
-#include "RequestUpdatePacket.h"
 #include "FramePacket.h"
 #include "ParameterInfoPacket.h"
+#include "RequestUpdatePacket.h"
 #include <QDebug>
 #include <QFile>
 
-Widget::Widget(QWidget * parent)
-    : QWidget(parent)
-{
-    //testRequestUpdatePacket();
-    //testFramePacket();
-    testParameterPacket();
+Widget::Widget(QWidget *parent) : QWidget(parent) {
+  // testRequestUpdatePacket();
+  // testFramePacket();
+  testParameterPacket();
 }
 
-Widget::~Widget()
-{
+Widget::~Widget() {}
 
+void Widget::testRequestUpdatePacket() {
+  qDebug() << "\ntestRequestUpdatePacket";
+  QVariantList values = {10};
+  QStringList valueTypes = {"int", "double", "string"};
+  RequestUpdatePacket packet("gain", values, valueTypes);
+  qDebug() << "packet1";
+  packet.printfSelf();
+
+  auto sendData = packet.toBinary();
+  qDebug() << "sendData = " << sendData;
+
+  QByteArray data;
+  QDataStream stream(sendData);
+  stream >> data;
+
+  qDebug() << "data = " << data;
+
+  qDebug() << "packet2";
+  RequestUpdatePacket packet2 = RequestUpdatePacket::fromJson(data);
+  packet2.printfSelf();
 }
 
-void Widget::testRequestUpdatePacket()
-{
-    qDebug()<<"\ntestRequestUpdatePacket";
-    QVariantList values = { 10 };
-    QStringList valueTypes = { "int", "double", "string"};
-    RequestUpdatePacket packet("gain", values, valueTypes);
-    qDebug()<<"packet1";
-    packet.printfSelf();
+void Widget::testFramePacket() {
+  qDebug() << "\ntestFramePacket";
 
-    auto sendData = packet.toBinary();
-    qDebug()<<"sendData = "<<sendData;
+  FramePacket packet(QImage(), ImageChannel::DEFAULT_OR_DUAL_LINEAR);
+  qDebug() << "packet1";
+  packet.printfSelf();
 
-    QByteArray data;
-    QDataStream stream(sendData);
-    stream >> data; 
+  auto sendData = packet.toBinary();
+  qDebug() << "sendData = " << sendData;
 
-    qDebug()<<"data = "<<data;
+  QByteArray data;
+  QDataStream stream(sendData);
+  stream >> data;
 
-    qDebug()<<"packet2";
-    RequestUpdatePacket packet2 = RequestUpdatePacket::fromJson(data);
-    packet2.printfSelf();
+  qDebug() << "data = " << data;
+
+  qDebug() << "packet2";
+  FramePacket packet2 = FramePacket::fromJson(data);
+  packet2.printfSelf();
 }
 
-void Widget::testFramePacket()
-{
-    qDebug()<<"\ntestFramePacket";
+void Widget::testParameterPacket() {
+  qDebug() << "\ntestParameterPacket";
 
-    FramePacket packet(QImage(), ImageChannel::DEFAULT_OR_DUAL_LINEAR);
-    qDebug()<<"packet1";
-    packet.printfSelf();
+  std::map<QString, QVariant> map = {
+      {"Gain", 10}, {"Depth", 12.54}, {"DynamicBar", "AAA"}};
 
-    auto sendData = packet.toBinary();
-    qDebug()<<"sendData = "<<sendData;
+  ParameterInfoPacket packet(map);
+  qDebug() << "packet1";
+  packet.printfSelf();
 
-    QByteArray data;
-    QDataStream stream(sendData);
-    stream >> data; 
+  auto sendData = packet.toBinary();
+  qDebug() << "sendData = " << sendData;
 
-    qDebug()<<"data = "<<data;
+  QByteArray data;
+  QDataStream stream(sendData);
+  stream >> data;
 
-    qDebug()<<"packet2";
-    FramePacket packet2 = FramePacket::fromJson(data);
-    packet2.printfSelf();
-}
+  qDebug() << "data = " << data;
 
-void Widget::testParameterPacket()
-{
-    qDebug()<<"\ntestParameterPacket";
-
-    std::map<QString, QVariant> map = {
-        {"Gain", 10},
-        {"Depth", 12.54},
-        {"DynamicBar", "AAA"}
-    };
-
-    ParameterInfoPacket packet(map);
-    qDebug()<<"packet1";
-    packet.printfSelf();
-
-    auto sendData = packet.toBinary();
-    qDebug()<<"sendData = "<<sendData;
-
-    QByteArray data;
-    QDataStream stream(sendData);
-    stream >> data; 
-
-    qDebug()<<"data = "<<data;
-
-    qDebug()<<"packet2";
-    ParameterInfoPacket packet2 = ParameterInfoPacket::fromJson(data);
-    packet2.printfSelf();
+  qDebug() << "packet2";
+  ParameterInfoPacket packet2 = ParameterInfoPacket::fromJson(data);
+  packet2.printfSelf();
 }
