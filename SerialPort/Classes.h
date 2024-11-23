@@ -1,15 +1,14 @@
 #pragma once
 
-#include <QString>
 #include <QSerialPort>
+#include <QString>
 
-class SerialPortInfo
-{
+class SerialPortInfo {
 public:
-    QString name;
-    QSerialPort::BaudRate baudRate;
-    QSerialPort::DataBits dataBits;
-    QSerialPort::FlowControl flowControl;
-    QSerialPort::Parity parity;
-    QSerialPort::StopBits stopBits;
+  QString name;
+  QSerialPort::BaudRate baudRate;
+  QSerialPort::DataBits dataBits;
+  QSerialPort::FlowControl flowControl;
+  QSerialPort::Parity parity;
+  QSerialPort::StopBits stopBits;
 };

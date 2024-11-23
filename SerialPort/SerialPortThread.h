@@ -4,26 +4,26 @@
 #include <QThread>
 
 class QSerialPort;
-class SerialPortThread : public QThread
-{
-    Q_OBJECT
+class SerialPortThread : public QThread {
+  Q_OBJECT
 public:
-    SerialPortThread(QObject* parent = nullptr);
-    ~SerialPortThread();
-    bool openSerialPort(const SerialPortInfo &info);
-    void closeSerialPort();
-    void sendMessage(const QString& message, const bool& useHex);
+  SerialPortThread(QObject *parent = nullptr);
+  ~SerialPortThread();
+  bool openSerialPort(const SerialPortInfo &info);
+  void closeSerialPort();
+  void sendMessage(const QString &message, const bool &useHex);
 signals:
-    void receiveMessage(const QString& message);
+  void receiveMessage(const QString &message);
+
 protected:
-    void run() override;
+  void run() override;
 private slots:
-    void receiveMessageFromSerialPort();
-    void setUpReadyToRead();
+  void receiveMessageFromSerialPort();
+  void setUpReadyToRead();
 
 private:
-    QSerialPort* m_serialPort;
-    bool m_quit;
-    bool m_readReady;
-    bool m_isFirstTimeReceiveMessage;
+  QSerialPort *m_serialPort;
+  bool m_quit;
+  bool m_readReady;
+  bool m_isFirstTimeReceiveMessage;
 };

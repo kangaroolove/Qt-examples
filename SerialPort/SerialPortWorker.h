@@ -5,19 +5,19 @@
 #include <memory>
 
 class QSerialPort;
-class SerialPortWorker : public QObject
-{
-    Q_OBJECT
+class SerialPortWorker : public QObject {
+  Q_OBJECT
 public:
-    SerialPortWorker(QObject* parent = nullptr);
-    bool isOpen() const;
+  SerialPortWorker(QObject *parent = nullptr);
+  bool isOpen() const;
 signals:
-    void receiveMessage(const QString& message);
+  void receiveMessage(const QString &message);
 public slots:
-    void sendMessage(const QString& message, const bool& useHex);
-    void readyRead();
-    void openSerialPort(const SerialPortInfo& info);
-    void closeSerialPort();
+  void sendMessage(const QString &message, const bool &useHex);
+  void readyRead();
+  void openSerialPort(const SerialPortInfo &info);
+  void closeSerialPort();
+
 private:
-    std::unique_ptr<QSerialPort> m_serialPort;
+  std::unique_ptr<QSerialPort> m_serialPort;
 };
