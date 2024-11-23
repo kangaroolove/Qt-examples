@@ -1,20 +1,13 @@
 #include "Worker.h"
-#include <QThread>
 #include <QDebug>
+#include <QThread>
 
-Worker::Worker(QObject* parent)
-    : QObject(parent)
-{
+Worker::Worker(QObject *parent) : QObject(parent) {}
 
-}
+Worker::~Worker() {}
 
-Worker::~Worker()
-{
-
-}
-
-void Worker::doWork()
-{
-    for (int i = 0; i < 100; ++i)
-        qDebug()<<"Worker currentThreadId() = "<<QThread::currentThreadId()<<", i = "<<i;
+void Worker::doWork() {
+  for (int i = 0; i < 100; ++i)
+    qDebug() << "Worker currentThreadId() = " << QThread::currentThreadId()
+             << ", i = " << i;
 }
