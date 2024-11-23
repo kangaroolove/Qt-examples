@@ -5,18 +5,18 @@
 class QThread;
 class QLocalSocket;
 
-class ClientWorker : public QObject
-{
-    Q_OBJECT
+class ClientWorker : public QObject {
+  Q_OBJECT
 public:
-    ClientWorker(QObject* parent = nullptr);
+  ClientWorker(QObject *parent = nullptr);
 signals:
-    void receiveMessage(const QString& msg);
+  void receiveMessage(const QString &msg);
 public slots:
-    void connectToServer(const QString& name);
-    void sendMessage(const QString& msg);
+  void connectToServer(const QString &name);
+  void sendMessage(const QString &msg);
 private slots:
-    void readyRead();
+  void readyRead();
+
 private:
-    QLocalSocket* m_socket;
+  QLocalSocket *m_socket;
 };
