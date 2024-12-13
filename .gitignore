@@ -64,3 +64,5 @@
 /LocalIPC/client/build
 /testPacket/.vscode
 /testPacket/build
+/ButtonToggle/build
+/ButtonToggle/.vscode
