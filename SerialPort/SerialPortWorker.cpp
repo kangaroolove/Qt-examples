@@ -30,14 +30,10 @@ void SerialPortWorker::openSerialPort(const SerialPortInfo &info) {
   m_serialPort->setFlowControl(info.flowControl);
   m_serialPort->setParity(info.parity);
   m_serialPort->setStopBits(info.stopBits);
-  auto result = m_serialPort->open(QIODevice::ReadWrite);
-  if (result)
+  if (m_serialPort->open(QIODevice::ReadWrite))
     emit opened();
 
-  qDebug() << "result = " << result;
   loop.exec();
-
-  qDebug() << "loop quitted";
 }
 
 void SerialPortWorker::closeSerialPort() {
@@ -51,8 +47,8 @@ void SerialPortWorker::closeSerialPort() {
 
 void SerialPortWorker::readyRead() {
   QByteArray data = m_serialPort->readAll();
-  qDebug() << "Receive data from serialPort:" << data;
-  emit receiveMessage(data);
+  qDebug() << "Receive data from serialPort:" << data.toHex();
+  emit receiveMessage(data.toHex());
 }
 
 void SerialPortWorker::sendMessage(const QString &message, const bool &useHex) {
@@ -62,8 +58,7 @@ void SerialPortWorker::sendMessage(const QString &message, const bool &useHex) {
   }
 
   QByteArray data =
-      useHex ? QByteArray::fromHex(message.toLatin1()) : message.toUtf8();
+      useHex ? QByteArray::fromHex(message.toUtf8()) : message.toUtf8();
   m_serialPort->write(data);
-
-  qDebug() << "Sent message = " << message;
+  qDebug() << "Sent message = " << data;
 }
