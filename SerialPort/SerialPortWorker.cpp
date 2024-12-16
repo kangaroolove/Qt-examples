@@ -6,7 +6,12 @@
 SerialPortWorker::SerialPortWorker(QObject *parent)
     : QObject(parent), m_serialPort(nullptr) {}
 
-bool SerialPortWorker::isOpen() const { return m_serialPort->isOpen(); }
+bool SerialPortWorker::isOpen() const {
+  if (!m_serialPort)
+    return false;
+
+  return m_serialPort->isOpen();
+}
 
 void SerialPortWorker::openSerialPort(const SerialPortInfo &info) {
   m_serialPort = std::make_unique<QSerialPort>(new QSerialPort(this));
@@ -16,6 +21,8 @@ void SerialPortWorker::openSerialPort(const SerialPortInfo &info) {
           &SerialPortWorker::readyRead);
   connect(m_serialPort.get(), &QSerialPort::errorOccurred, &loop,
           &QEventLoop::quit);
+  connect(m_serialPort.get(), &SerialPortWorker::destroyed, &loop,
+          &QEventLoop::quit);
 
   m_serialPort->setPortName(info.name);
   m_serialPort->setBaudRate(info.baudRate);
@@ -23,11 +30,24 @@ void SerialPortWorker::openSerialPort(const SerialPortInfo &info) {
   m_serialPort->setFlowControl(info.flowControl);
   m_serialPort->setParity(info.parity);
   m_serialPort->setStopBits(info.stopBits);
-  m_serialPort->open(QIODevice::ReadWrite);
+  auto result = m_serialPort->open(QIODevice::ReadWrite);
+  if (result)
+    emit opened();
+
+  qDebug() << "result = " << result;
   loop.exec();
+
+  qDebug() << "loop quitted";
 }
 
-void SerialPortWorker::closeSerialPort() { m_serialPort->close(); }
+void SerialPortWorker::closeSerialPort() {
+  if (!m_serialPort)
+    return;
+
+  m_serialPort->close();
+  m_serialPort.reset();
+  emit closed();
+}
 
 void SerialPortWorker::readyRead() {
   QByteArray data = m_serialPort->readAll();
@@ -36,7 +56,7 @@ void SerialPortWorker::readyRead() {
 }
 
 void SerialPortWorker::sendMessage(const QString &message, const bool &useHex) {
-  if (!m_serialPort->isOpen()) {
+  if (!isOpen()) {
     qDebug() << "Please open serial port first";
     return;
   }
@@ -44,4 +64,6 @@ void SerialPortWorker::sendMessage(const QString &message, const bool &useHex) {
   QByteArray data =
       useHex ? QByteArray::fromHex(message.toLatin1()) : message.toUtf8();
   m_serialPort->write(data);
+
+  qDebug() << "Sent message = " << message;
 }

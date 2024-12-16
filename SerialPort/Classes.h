@@ -12,3 +12,4 @@ public:
   QSerialPort::Parity parity;
   QSerialPort::StopBits stopBits;
 };
+Q_DECLARE_METATYPE(SerialPortInfo)

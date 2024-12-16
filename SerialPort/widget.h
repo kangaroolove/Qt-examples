@@ -21,6 +21,7 @@ public:
 signals:
   void sendMessage(const QString &message, const bool &useHex);
   void openSerialPort(const SerialPortInfo &info);
+  void closeSerialPort();
 private slots:
   void onConnectButtonClicked();
   void onSendClearButtonClicked();
@@ -28,6 +29,8 @@ private slots:
   void onSendByAsciiButtonClicked();
   void onSendByHexButtonClicked();
   void receiveMessage(const QString &message);
+  void onSerialPortOpened();
+  void onSerialPortClosed();
 
 private:
   void initGui();
@@ -42,7 +45,7 @@ private:
   void initStopBits();
   void initPinoutSignals();
   void initConnections();
-  void setButtonsEnable(const bool &enable);
+  void updateButtonsEnable(const bool &enable);
   void initWorker();
   SerialPortInfo getSerialPortInfo();
 

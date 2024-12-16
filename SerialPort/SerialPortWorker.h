@@ -12,6 +12,8 @@ public:
   bool isOpen() const;
 signals:
   void receiveMessage(const QString &message);
+  void opened();
+  void closed();
 public slots:
   void sendMessage(const QString &message, const bool &useHex);
   void readyRead();

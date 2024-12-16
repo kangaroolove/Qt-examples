@@ -38,6 +38,7 @@ Widget::Widget(QWidget *parent)
       m_sendByHexButton(new QPushButton("Send By Hex")),
       m_serialPortWorker(new SerialPortWorker),
       m_serialPortThread(new QThread(this)) {
+  qRegisterMetaType<SerialPortInfo>("SerialPortInfo");
   initGui();
   initSetting();
   initWorker();
@@ -66,24 +67,32 @@ void Widget::receiveMessage(const QString &message) {
   m_responseTextEdit->append(message);
 }
 
+void Widget::onSerialPortOpened() {
+  m_connectButton->setText("Disconnect");
+  updateButtonsEnable(false);
+}
+
+void Widget::onSerialPortClosed() {
+  m_connectButton->setText("Connect");
+  updateButtonsEnable(true);
+}
+
 void Widget::onConnectButtonClicked() {
   if (m_serialPortComboBox->currentText().isEmpty()) {
     QMessageBox::critical(this, tr("Error"), "There is no serial port");
     return;
   }
 
-  emit openSerialPort(getSerialPortInfo());
-  bool isOpen = m_serialPortWorker->isOpen();
-
-  isOpen ? m_connectButton->setText("Disconnect")
-         : m_connectButton->setText("Connect");
-  setButtonsEnable(!isOpen);
+  if (!m_serialPortWorker->isOpen())
+    emit openSerialPort(getSerialPortInfo());
+  else
+    emit closeSerialPort();
 }
 
 void Widget::initGui() {
   createLeftLayout();
   createRightLayout();
-  setButtonsEnable(true);
+  updateButtonsEnable(true);
   this->resize(400, 300);
 }
 
@@ -238,7 +247,7 @@ void Widget::initConnections() {
           &Widget::onSendByAsciiButtonClicked);
 }
 
-void Widget::setButtonsEnable(const bool &enable) {
+void Widget::updateButtonsEnable(const bool &enable) {
   m_serialPortComboBox->setEnabled(enable);
   m_baudRateComboBox->setEnabled(enable);
   m_dataBitsComboBox->setEnabled(enable);
@@ -254,12 +263,18 @@ void Widget::initWorker() {
   m_serialPortWorker->moveToThread(m_serialPortThread);
   connect(this, &Widget::openSerialPort, m_serialPortWorker,
           &SerialPortWorker::openSerialPort);
+  connect(this, &Widget::closeSerialPort, m_serialPortWorker,
+          &SerialPortWorker::closeSerialPort);
   connect(m_serialPortWorker, &SerialPortWorker::receiveMessage, this,
           &Widget::receiveMessage);
   connect(this, &Widget::sendMessage, m_serialPortWorker,
           &SerialPortWorker::sendMessage);
   connect(m_serialPortThread, &QThread::finished, m_serialPortWorker,
           &QObject::deleteLater);
+  connect(m_serialPortWorker, &SerialPortWorker::opened, this,
+          &Widget::onSerialPortOpened);
+  connect(m_serialPortWorker, &SerialPortWorker::closed, this,
+          &Widget::onSerialPortClosed);
   m_serialPortThread->start();
 }
 
