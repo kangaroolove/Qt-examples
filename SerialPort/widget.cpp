@@ -1,5 +1,4 @@
 #include "widget.h"
-#include "SerialPortThread.h"
 #include "SerialPortWorker.h"
 #include <QComboBox>
 #include <QFile>

@@ -17,8 +17,6 @@ add_executable(SerialPort
   main.cpp
   widget.cpp
   widget.h
-  SerialPortThread.cpp
-  SerialPortThread.h
   SerialPortWorker.cpp
   SerialPortWorker.h
   Classes.h
