@@ -14,6 +14,9 @@ int main(int argc, char *argv[]) {
     qDebug() << "Dialog result = " << result;
   });
 
+  // The following solutions are different from calling exec() function.
+  // show()/open() returns control to the caller immediately,
+
   // Solution 1 Qt::ApplicationModal
   // dialog.setModal(true);
   // dialog.show();
