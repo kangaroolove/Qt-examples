@@ -26,3 +26,6 @@
 ### Dialog
 ![image](https://github.com/user-attachments/assets/a3ac45f6-24da-4d7c-abee-36024fd3a2b2)
 
+### CircularSlider
+![image](https://github.com/user-attachments/assets/4efcc5fc-62d3-4bff-bfd9-c2984f9d34b0)
+
