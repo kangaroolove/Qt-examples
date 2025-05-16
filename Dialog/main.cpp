@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
   // dialog.setWindowModality(Qt::ApplicationModal);
   // dialog.show();
 
-  // Solution 3 Qt::ApplicationModal
+  // Solution 3 Qt::windowModality
   dialog.open();
 
   return a.exec();
