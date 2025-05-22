@@ -6,18 +6,18 @@ class QThread;
 class WorkerThread;
 
 class Widget : public QWidget {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  Widget(QWidget *parent = nullptr);
-  ~Widget();
+    Widget(QWidget *parent = nullptr);
+    ~Widget();
 signals:
-  void doWork();
+    void doWork();
 
 private:
-  void initWorker();
-  void print();
-  void initWorkerThread();
+    void initWorker();
+    void print();
+    void initWorkerThread();
 
-  QThread *m_thread;
-  WorkerThread *m_workerThread;
+    QThread *m_thread;
+    WorkerThread *m_workerThread;
 };

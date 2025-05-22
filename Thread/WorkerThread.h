@@ -3,14 +3,14 @@
 #include <QThread>
 
 class WorkerThread : public QThread {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  WorkerThread(QObject *parent = nullptr);
-  ~WorkerThread();
+    WorkerThread(QObject *parent = nullptr);
+    ~WorkerThread();
 
 protected:
-  void run() override;
+    void run() override;
 
 private:
-  bool m_finishThread;
+    bool m_finishThread;
 };
