@@ -4,10 +4,10 @@
 
 class B : public A {
 public:
-  B();
-  ~B();
+    B();
+    ~B();
 
-  void printf() override;
+    void printf() override;
 
 private:
 };

@@ -2,10 +2,10 @@
 
 class A {
 public:
-  A();
-  ~A();
+    A();
+    ~A();
 
-  virtual void printf();
+    virtual void printf();
 
 private:
 };
