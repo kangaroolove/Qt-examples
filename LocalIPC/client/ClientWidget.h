@@ -8,15 +8,15 @@ class Client;
 
 class ClientWidget : public QWidget {
 public:
-  ClientWidget(QWidget *parent = nullptr);
+    ClientWidget(QWidget *parent = nullptr);
 
 private:
-  void initGui();
-  void connectServer();
-  void bindConnections();
+    void initGui();
+    void connectServer();
+    void bindConnections();
 
-  QTextEdit *m_receiveTextEdit;
-  QTextEdit *m_sendTextEdit;
-  QPushButton *m_sendButton;
-  Client *m_client;
+    QTextEdit *m_receiveTextEdit;
+    QTextEdit *m_sendTextEdit;
+    QPushButton *m_sendButton;
+    Client *m_client;
 };
