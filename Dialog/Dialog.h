@@ -4,5 +4,5 @@
 
 class Dialog : public QDialog {
 public:
-  Dialog(QWidget *parent = nullptr);
+    Dialog(QWidget *parent = nullptr);
 };
