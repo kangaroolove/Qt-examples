@@ -4,11 +4,11 @@
 #include <QTest>
 
 class TestFunctions : public QObject {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  TestFunctions();
-  ~TestFunctions();
+    TestFunctions();
+    ~TestFunctions();
 private slots:
-  void testSum();
-  void testSumError();
+    void testSum();
+    void testSumError();
 };
