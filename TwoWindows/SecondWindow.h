@@ -4,17 +4,17 @@
 #include <QMainWindow>
 
 class SecondWindow : public QMainWindow {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  SecondWindow();
-  ~SecondWindow();
+    SecondWindow();
+    ~SecondWindow();
 private slots:
-  void screenAdded(QScreen *screen);
+    void screenAdded(QScreen *screen);
 
 protected:
-  void showEvent(QShowEvent *event);
+    void showEvent(QShowEvent *event);
 
 private:
-  QByteArray m_geometry;
-  QRect m_rect;
+    QByteArray m_geometry;
+    QRect m_rect;
 };

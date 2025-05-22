@@ -4,18 +4,18 @@
 #include <QMainWindow>
 
 class MainWindow : public QMainWindow {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  MainWindow();
-  ~MainWindow();
+    MainWindow();
+    ~MainWindow();
 private slots:
-  void screenAdded(QScreen *screen);
+    void screenAdded(QScreen *screen);
 
 protected:
-  void showEvent(QShowEvent *event);
+    void showEvent(QShowEvent *event);
 
 private:
-  void printGeometry();
+    void printGeometry();
 
-  QRect m_rect;
+    QRect m_rect;
 };
