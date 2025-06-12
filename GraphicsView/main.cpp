@@ -6,19 +6,19 @@
 #include <QGraphicsView>
 
 int main(int argc, char *argv[]) {
-  QApplication a(argc, argv);
+    QApplication a(argc, argv);
 
-  QGraphicsScene scene;
-  scene.setSceneRect(0, 0, 200, 200);
-  scene.addText("Hello, world");
+    QGraphicsScene scene;
+    scene.setSceneRect(0, 0, 200, 200);
+    scene.addText("Hello, world");
 
-  auto text2 = scene.addText("Second Text");
-  text2->setPos(50, 50);
+    auto text2 = scene.addText("Second Text");
+    text2->setPos(50, 50);
 
-  QGraphicsView view(&scene);
-  view.show();
+    QGraphicsView view(&scene);
+    view.show();
 
-  qDebug() << scene.sceneRect();
+    qDebug() << scene.sceneRect();
 
-  return a.exec();
+    return a.exec();
 }

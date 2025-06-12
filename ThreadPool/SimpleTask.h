@@ -4,10 +4,10 @@
 
 class SimpleTask : public QRunnable {
 public:
-  SimpleTask(const int &id);
-  ~SimpleTask();
-  void run() override;
+    SimpleTask(const int &id);
+    ~SimpleTask();
+    void run() override;
 
 private:
-  int m_id;
+    int m_id;
 };

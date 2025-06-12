@@ -3,16 +3,16 @@
 #include <QObject>
 
 class KeyEventHandler : public QObject {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  static KeyEventHandler *getInstance();
+    static KeyEventHandler *getInstance();
 
 protected:
-  bool eventFilter(QObject *obj, QEvent *event) override;
+    bool eventFilter(QObject *obj, QEvent *event) override;
 
 private:
-  KeyEventHandler();
-  ~KeyEventHandler();
+    KeyEventHandler();
+    ~KeyEventHandler();
 
-  bool m_pressedAltAndF4;
+    bool m_pressedAltAndF4;
 };

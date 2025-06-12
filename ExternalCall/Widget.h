@@ -6,13 +6,13 @@
 class QProcess;
 
 class Widget : public QWidget {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  Widget(QWidget *parent = nullptr);
-  ~Widget();
+    Widget(QWidget *parent = nullptr);
+    ~Widget();
 
 private:
-  QProcess *m_process;
+    QProcess *m_process;
 
-  void clearProcess();
+    void clearProcess();
 };

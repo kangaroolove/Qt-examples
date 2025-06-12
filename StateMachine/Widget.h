@@ -7,21 +7,21 @@ class QPushButton;
 class QLabel;
 
 class Widget : public QWidget {
-  Q_OBJECT
+    Q_OBJECT
 public:
-  Widget(QWidget *parent = nullptr);
-  ~Widget();
+    Widget(QWidget *parent = nullptr);
+    ~Widget();
 
 private:
-  void initGui();
-  void bindConnections();
-  void initStateMachine();
+    void initGui();
+    void bindConnections();
+    void initStateMachine();
 
-  QStateMachine *m_stateMachine;
-  QPushButton *m_btnS1;
-  QPushButton *m_btnS2;
-  QPushButton *m_btnS3;
-  QPushButton *m_btnS4;
-  QPushButton *m_btnHistory;
-  QLabel *m_label;
+    QStateMachine *m_stateMachine;
+    QPushButton *m_btnS1;
+    QPushButton *m_btnS2;
+    QPushButton *m_btnS3;
+    QPushButton *m_btnS4;
+    QPushButton *m_btnHistory;
+    QLabel *m_label;
 };

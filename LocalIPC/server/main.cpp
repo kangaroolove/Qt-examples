@@ -2,9 +2,9 @@
 #include <QApplication>
 
 int main(int argc, char **argv) {
-  QApplication app(argc, argv);
-  ServerWidget widget;
-  widget.show();
+    QApplication app(argc, argv);
+    ServerWidget widget;
+    widget.show();
 
-  return app.exec();
+    return app.exec();
 }

@@ -7,58 +7,55 @@ SerialPortWorker::SerialPortWorker(QObject *parent)
     : QObject(parent), m_serialPort(nullptr) {}
 
 bool SerialPortWorker::isOpen() const {
-  if (!m_serialPort)
-    return false;
+    if (!m_serialPort) return false;
 
-  return m_serialPort->isOpen();
+    return m_serialPort->isOpen();
 }
 
 void SerialPortWorker::openSerialPort(const SerialPortInfo &info) {
-  m_serialPort = std::make_unique<QSerialPort>(new QSerialPort(this));
+    m_serialPort = std::make_unique<QSerialPort>(new QSerialPort(this));
 
-  QEventLoop loop;
-  connect(m_serialPort.get(), &QSerialPort::readyRead, this,
-          &SerialPortWorker::readyRead);
-  connect(m_serialPort.get(), &QSerialPort::errorOccurred, &loop,
-          &QEventLoop::quit);
-  connect(m_serialPort.get(), &SerialPortWorker::destroyed, &loop,
-          &QEventLoop::quit);
+    QEventLoop loop;
+    connect(m_serialPort.get(), &QSerialPort::readyRead, this,
+            &SerialPortWorker::readyRead);
+    connect(m_serialPort.get(), &QSerialPort::errorOccurred, &loop,
+            &QEventLoop::quit);
+    connect(m_serialPort.get(), &SerialPortWorker::destroyed, &loop,
+            &QEventLoop::quit);
 
-  m_serialPort->setPortName(info.name);
-  m_serialPort->setBaudRate(info.baudRate);
-  m_serialPort->setDataBits(info.dataBits);
-  m_serialPort->setFlowControl(info.flowControl);
-  m_serialPort->setParity(info.parity);
-  m_serialPort->setStopBits(info.stopBits);
-  if (m_serialPort->open(QIODevice::ReadWrite))
-    emit opened();
+    m_serialPort->setPortName(info.name);
+    m_serialPort->setBaudRate(info.baudRate);
+    m_serialPort->setDataBits(info.dataBits);
+    m_serialPort->setFlowControl(info.flowControl);
+    m_serialPort->setParity(info.parity);
+    m_serialPort->setStopBits(info.stopBits);
+    if (m_serialPort->open(QIODevice::ReadWrite)) emit opened();
 
-  loop.exec();
+    loop.exec();
 }
 
 void SerialPortWorker::closeSerialPort() {
-  if (!m_serialPort)
-    return;
+    if (!m_serialPort) return;
 
-  m_serialPort->close();
-  m_serialPort.reset();
-  emit closed();
+    m_serialPort->close();
+    m_serialPort.reset();
+    emit closed();
 }
 
 void SerialPortWorker::readyRead() {
-  QByteArray data = m_serialPort->readAll();
-  qDebug() << "Receive data from serialPort:" << data.toHex();
-  emit receiveMessage(data.toHex());
+    QByteArray data = m_serialPort->readAll();
+    qDebug() << "Receive data from serialPort:" << data.toHex();
+    emit receiveMessage(data.toHex());
 }
 
 void SerialPortWorker::sendMessage(const QString &message, const bool &useHex) {
-  if (!isOpen()) {
-    qDebug() << "Please open serial port first";
-    return;
-  }
+    if (!isOpen()) {
+        qDebug() << "Please open serial port first";
+        return;
+    }
 
-  QByteArray data =
-      useHex ? QByteArray::fromHex(message.toUtf8()) : message.toUtf8();
-  m_serialPort->write(data);
-  qDebug() << "Sent message = " << data;
+QByteArray data =
+    useHex ? QByteArray::fromHex(message.toUtf8()) : message.toUtf8();
+m_serialPort->write(data);
+qDebug() << "Sent message = " << data;
 }

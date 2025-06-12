@@ -4,6 +4,6 @@
 
 class TestFunctions {
 public:
-  TestFunctions();
-  ~TestFunctions();
+    TestFunctions();
+    ~TestFunctions();
 };
