@@ -14,8 +14,8 @@ B::~B()
 
 }
 
-void B::getTextFromAType(AZone::A::AType type) {
-    if (type == AZone::A::X) {
+void B::getTextFromAType(A::AType type) {
+    if (type == A::X) {
         qDebug() << "A";
     }
 }

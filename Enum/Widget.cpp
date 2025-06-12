@@ -12,5 +12,5 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     A a;
     B b;
 
-    b.getTextFromAType(AZone::A::X);
+    b.getTextFromAType(A::X);
 }

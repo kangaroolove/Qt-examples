@@ -8,7 +8,7 @@
 // class A;
 // }
 
-// using A = AZone::A;
+using A = AZone::A;
 // using AType = A::AType;
 // enum class AType : unsigned int;
 
@@ -17,7 +17,7 @@ class B {
 public:
     B();
     ~B();
-    void getTextFromAType(AZone::A::AType type);
+    void getTextFromAType(A::AType type);
 
 private:
 };
