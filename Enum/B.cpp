@@ -14,10 +14,15 @@ B::~B()
 
 }
 
-void B::getTextFromAType(A::AType type) {
+void B::getTextFromAEnumFirst(A::AEnumFirst type) {
     if (type == A::X) {
         qDebug() << "A";
     }
 }
 
+void B::getTextFromAEnumSecond(A::AEnumSecond type) {
+    if (type == A::AEnumSecond::I) {
+        qDebug() << "I";
+    }
+}
 }  // namespace BZone

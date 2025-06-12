@@ -4,10 +4,6 @@
 
 #include "A.h"
 
-// namespace AZone {
-// class A;
-// }
-
 using A = AZone::A;
 // using AType = A::AType;
 // enum class AType : unsigned int;
@@ -17,7 +13,8 @@ class B {
 public:
     B();
     ~B();
-    void getTextFromAType(A::AType type);
+    void getTextFromAEnumFirst(A::AEnumFirst type);
+    void getTextFromAEnumSecond(A::AEnumSecond type);
 
 private:
 };

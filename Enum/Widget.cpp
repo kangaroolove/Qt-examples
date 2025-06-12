@@ -12,5 +12,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     A a;
     B b;
 
-    b.getTextFromAType(A::X);
+    b.getTextFromAEnumFirst(A::X);
+
+    b.getTextFromAEnumSecond(A::AEnumSecond::I);
 }

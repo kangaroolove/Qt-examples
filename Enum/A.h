@@ -5,7 +5,8 @@ namespace AZone {
 class A
 {
 public:
-    enum AType { X, Y };
+    enum AEnumFirst : unsigned int { X, Y };
+    enum class AEnumSecond : unsigned int { I, J };
 
     A();
     ~A();
