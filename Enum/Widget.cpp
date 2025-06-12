@@ -13,6 +13,5 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     B b;
 
     b.getTextFromAEnumFirst(A::X);
-
     b.getTextFromAEnumSecond(A::AEnumSecond::I);
 }
