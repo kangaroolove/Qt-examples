@@ -102,7 +102,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
 
     cursor.setPosition(textTable->cellAt(0, 2).firstPosition());
     cursor.insertFrame(lineFormat);
-#endif
+
 
     // Optional: Set table format (e.g., borders, alignment)
     QTextTableFormat tableFormat;
@@ -190,4 +190,62 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     }
 
     table->mergeCells(0, 1, 1, 3);
+#endif
+
+    QTextTableFormat tableFormat;
+    tableFormat.setBorder(1);  // Thin border around cells
+    tableFormat.setCellPadding(5);
+    tableFormat.setCellSpacing(0);
+    tableFormat.setAlignment(Qt::AlignLeft);
+    QVector<QTextLength> columnWidths;
+    columnWidths << QTextLength(QTextLength::PercentageLength,
+                                33)  // Biopsy Type
+                 << QTextLength(QTextLength::PercentageLength, 33)  // Exam Part
+                 << QTextLength(QTextLength::PercentageLength,
+                                34);  // PSA Value
+    tableFormat.setColumnWidthConstraints(columnWidths);
+
+    QTextBlockFormat centerFormat;
+    centerFormat.setAlignment(Qt::AlignCenter);
+
+    // Insert 2x3 table
+    QTextTable* table = cursor.insertTable(2, 3, tableFormat);
+
+    // Optional: Char format for headers (e.g., bold)
+    QTextCharFormat headerFormat;
+    headerFormat.setFontWeight(QFont::Bold);
+
+    // Row 0: Headers
+    {
+        QTextCursor cellCursor = table->cellAt(0, 0).firstCursorPosition();
+        cellCursor.setBlockFormat(centerFormat);
+        cellCursor.insertText("Biopsy Type", headerFormat);
+    }
+    {
+        QTextCursor cellCursor = table->cellAt(0, 1).firstCursorPosition();
+        cellCursor.setBlockFormat(centerFormat);
+        cellCursor.insertText("Exam Part", headerFormat);
+    }
+    {
+        QTextCursor cellCursor = table->cellAt(0, 2).firstCursorPosition();
+        cellCursor.setBlockFormat(centerFormat);
+        cellCursor.insertText("PSA Value", headerFormat);
+    }
+
+    // Row 1: Data
+    {
+        QTextCursor cellCursor = table->cellAt(1, 0).firstCursorPosition();
+        cellCursor.setBlockFormat(centerFormat);
+        cellCursor.insertText("Ultrasound");
+    }
+    {
+        QTextCursor cellCursor = table->cellAt(1, 1).firstCursorPosition();
+        cellCursor.setBlockFormat(centerFormat);
+        cellCursor.insertText("Prostate");
+    }
+    {
+        QTextCursor cellCursor = table->cellAt(1, 2).firstCursorPosition();
+        cellCursor.setBlockFormat(centerFormat);
+        cellCursor.insertText("4.5 ng/mL");
+    }
 }
