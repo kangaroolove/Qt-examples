@@ -43,4 +43,26 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     QTextBlockFormat hospitalLogoBlockFormat;
     hospitalLogoBlockFormat.setAlignment(Qt::AlignCenter);
     cursor.mergeBlockFormat(hospitalLogoBlockFormat);
+
+    QTextTableCell hospitalInfoCell = table->cellAt(0, 2);
+    cursor.setPosition(hospitalInfoCell.firstPosition());
+
+    QTextBlockFormat blockFormat;
+    blockFormat.setAlignment(Qt::AlignRight);
+    cursor.setBlockFormat(blockFormat);
+
+    // Insert the text
+    cursor.insertText("Tan Tock Seng Hospital\n");
+    cursor.insertBlock();
+    cursor.insertText("11 Jln Tan Tock Seng,\n");
+    cursor.insertBlock();
+    cursor.insertText("Singapore 308433\n");
+    cursor.insertBlock();
+    cursor.insertText("+65 6256 6011");
+
+    cursor.movePosition(QTextCursor::NextBlock);
+
+    blockFormat.setAlignment(Qt::AlignCenter);  // Horizontal center
+    cursor.setBlockFormat(blockFormat);
+    cursor.insertText("Prostate Biopsy Report");
 }
