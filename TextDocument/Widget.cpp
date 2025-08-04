@@ -16,14 +16,16 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     auto document = textEdit->document();
     QTextCursor cursor(document);
 
+#if 1
+
     QTextTableFormat headerTableFormat;
     QVector<QTextLength> headerTextLength;
-    headerTextLength<< QTextLength(QTextLength::PercentageLength, 33.33);
-    headerTextLength<< QTextLength(QTextLength::PercentageLength, 33.33);
-    headerTextLength<< QTextLength(QTextLength::PercentageLength, 33.33);
+    headerTextLength << QTextLength(QTextLength::PercentageLength, 33.33);
+    headerTextLength << QTextLength(QTextLength::PercentageLength, 33.33);
+    headerTextLength << QTextLength(QTextLength::PercentageLength, 33.33);
     headerTableFormat.setColumnWidthConstraints(headerTextLength);
-    //headerTableFormat.setBorder(0);
-    headerTableFormat.setCellSpacing(0);
+    // headerTableFormat.setBorder(0);
+    // headerTableFormat.setCellSpacing(0);
     auto table = cursor.insertTable(1, 3, headerTableFormat);
 
     QTextTableCell companyLogoCell = table->cellAt(0, 0);
@@ -65,4 +67,43 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     blockFormat.setAlignment(Qt::AlignCenter);  // Horizontal center
     cursor.setBlockFormat(blockFormat);
     cursor.insertText("Prostate Biopsy Report");
+#endif
+
+    QTextTableFormat textWithinLineFormat;
+    QVector<QTextLength> textWithinLength;
+    textWithinLength << QTextLength(QTextLength::PercentageLength, 40);
+    textWithinLength << QTextLength(QTextLength::PercentageLength, 20);
+    textWithinLength << QTextLength(QTextLength::PercentageLength, 40);
+    textWithinLineFormat.setColumnWidthConstraints(textWithinLength);
+    // headerTableFormat.setBorder(0);
+    // textWithinLineFormat.setCellSpacing(0);
+    // auto textTable = cursor.insertTable(1, 3, textWithinLineFormat);
+    // textWithinLineFormat.setTopMargin(0);
+
+    auto textTable = cursor.insertTable(1, 3, textWithinLineFormat);
+
+    QTextTableCell cell = textTable->cellAt(0, 0);
+    cursor.setPosition(cell.firstPosition());
+
+    QTextFrameFormat lineFormat;
+    lineFormat.setWidth(QTextLength(QTextLength::PercentageLength, 100));
+    lineFormat.setHeight(0);
+    lineFormat.setBackground(QBrush(Qt::black));
+    lineFormat.setBorder(0);
+    lineFormat.setPadding(0);
+    lineFormat.setMargin(0);
+    cursor.insertFrame(lineFormat);
+
+    cursor.setPosition(textTable->cellAt(0, 1).firstPosition());
+    auto format = textTable->cellAt(0, 1).format();
+    format.setVerticalAlignment(QTextCharFormat::AlignMiddle);
+    textTable->cellAt(0, 1).setFormat(format);
+    cursor.setBlockFormat(blockFormat);
+    cursor.insertText("Biopsy Summary");
+
+    cursor.setPosition(textTable->cellAt(0, 2).firstPosition());
+    cursor.insertFrame(lineFormat);
+
+    // cursor.movePosition(QTextCursor::NextCell);
+    // cursor.insertFrame(lineFormat);
 }
