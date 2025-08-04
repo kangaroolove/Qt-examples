@@ -26,15 +26,21 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     headerTableFormat.setCellSpacing(0);
     auto table = cursor.insertTable(1, 3, headerTableFormat);
 
-    QTextTableCell operatorCell = table->cellAt(0, 0);
-    cursor.setPosition(operatorCell.firstPosition());
-
+    QTextTableCell companyLogoCell = table->cellAt(0, 0);
+    cursor.setPosition(companyLogoCell.firstPosition());
     QImage companyLogo("C:/Users/q3514/Desktop/HTML/companyLogo.png");
     cursor.insertImage(companyLogo.scaled(200, 200, Qt::KeepAspectRatio));
 
-    QTextBlockFormat blockFormat;
-    blockFormat.setAlignment(Qt::AlignRight);
-    cursor.mergeBlockFormat(blockFormat);
+    QTextBlockFormat companyLogoBlockFormat;
+    companyLogoBlockFormat.setAlignment(Qt::AlignLeft);
+    cursor.mergeBlockFormat(companyLogoBlockFormat);
 
+    QTextTableCell hospitalLogoCell = table->cellAt(0, 1);
+    cursor.setPosition(hospitalLogoCell.firstPosition());
+    QImage hospitalLogo("C:/Users/q3514/Desktop/HTML/hospitalLogo.png");
+    cursor.insertImage(hospitalLogo.scaled(200, 200, Qt::KeepAspectRatio));
 
+    QTextBlockFormat hospitalLogoBlockFormat;
+    hospitalLogoBlockFormat.setAlignment(Qt::AlignCenter);
+    cursor.mergeBlockFormat(hospitalLogoBlockFormat);
 }
