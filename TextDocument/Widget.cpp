@@ -248,7 +248,6 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
         cellCursor.setBlockFormat(centerFormat);
         cellCursor.insertText("4.5 ng/mL");
     }
-#endif
 
     //
     QTextTableFormat tableFormat;
@@ -427,4 +426,25 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
         cellCursor.setBlockFormat(centerFormat);
         cellCursor.insertText("2");
     }
+#endif
+
+    // Insert "Remarks:" in bold
+    QTextCharFormat boldFormat;
+    boldFormat.setFontWeight(QFont::Bold);
+    cursor.setCharFormat(boldFormat);
+    cursor.insertText("Remarks:");
+
+    // Set frame format for the blank box
+    QTextFrameFormat frameFormat;
+    frameFormat.setBorder(1);  // Border thickness
+    frameFormat.setBorderStyle(
+        QTextFrameFormat::BorderStyle_Solid);  // Solid line border
+    frameFormat.setPadding(0);                 // Inner padding
+    frameFormat.setWidth(
+        QTextLength(QTextLength::PercentageLength, 100));  // Full width
+    frameFormat.setHeight(
+        40);  // Fixed height for the box (adjust for single/multi-line)
+
+    // Insert the frame
+    cursor.insertFrame(frameFormat);
 }
