@@ -16,7 +16,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     auto document = textEdit->document();
     QTextCursor cursor(document);
 
-#if 1
+#if 0
 
     QTextTableFormat headerTableFormat;
     QVector<QTextLength> headerTextLength;
@@ -67,7 +67,6 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     blockFormat.setAlignment(Qt::AlignCenter);  // Horizontal center
     cursor.setBlockFormat(blockFormat);
     cursor.insertText("Prostate Biopsy Report");
-#endif
 
     QTextTableFormat textWithinLineFormat;
     QVector<QTextLength> textWithinLength;
@@ -103,7 +102,92 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
 
     cursor.setPosition(textTable->cellAt(0, 2).firstPosition());
     cursor.insertFrame(lineFormat);
+#endif
 
-    // cursor.movePosition(QTextCursor::NextCell);
-    // cursor.insertFrame(lineFormat);
+    // Optional: Set table format (e.g., borders, alignment)
+    QTextTableFormat tableFormat;
+    tableFormat.setBorder(1);  // Thin border around cells
+    tableFormat.setCellPadding(5);
+    tableFormat.setCellSpacing(0);
+    // tableFormat.setAlignment(Qt::AlignCenter);
+    QVector<QTextLength> columnWidths;
+    columnWidths << QTextLength(QTextLength::PercentageLength, 25)   // Label 1
+                 << QTextLength(QTextLength::PercentageLength, 25)   // Value 1
+                 << QTextLength(QTextLength::PercentageLength, 25)   // Label 2
+                 << QTextLength(QTextLength::PercentageLength, 25);  // Value 2
+    tableFormat.setColumnWidthConstraints(columnWidths);
+
+    // Insert 4x4 table
+    QTextTable* table = cursor.insertTable(4, 4, tableFormat);
+
+    // Optional: Char format for text (e.g., bold labels)
+    QTextCharFormat labelFormat;
+    labelFormat.setFontWeight(QFont::Bold);
+
+    // Row 0: Name and value, leave last two cells empty
+    {
+        QTextCursor cellCursor = table->cellAt(0, 0).firstCursorPosition();
+        cellCursor.insertText("Name", labelFormat);
+    }
+    {
+        QTextCursor cellCursor = table->cellAt(0, 1).firstCursorPosition();
+        cellCursor.insertText("Erick Lee");
+    }
+    // Columns 2 and 3 remain empty
+
+    // Row 1
+    {
+        QTextCursor cellCursor = table->cellAt(1, 0).firstCursorPosition();
+        cellCursor.insertText("Case ID", labelFormat);
+    }
+    {
+        QTextCursor cellCursor = table->cellAt(1, 1).firstCursorPosition();
+        cellCursor.insertText("25");
+    }
+    {
+        QTextCursor cellCursor = table->cellAt(1, 2).firstCursorPosition();
+        cellCursor.insertText("Gender", labelFormat);
+    }
+    {
+        QTextCursor cellCursor = table->cellAt(1, 3).firstCursorPosition();
+        cellCursor.insertText("Male");
+    }
+
+    // Row 2
+    {
+        QTextCursor cellCursor = table->cellAt(2, 0).firstCursorPosition();
+        cellCursor.insertText("MRN/PIN", labelFormat);
+    }
+    {
+        QTextCursor cellCursor = table->cellAt(2, 1).firstCursorPosition();
+        cellCursor.insertText("J1122334K");
+    }
+    {
+        QTextCursor cellCursor = table->cellAt(2, 2).firstCursorPosition();
+        cellCursor.insertText("Date of Birth", labelFormat);
+    }
+    {
+        QTextCursor cellCursor = table->cellAt(2, 3).firstCursorPosition();
+        cellCursor.insertText("1971-06-03");
+    }
+
+    // Row 3
+    {
+        QTextCursor cellCursor = table->cellAt(3, 0).firstCursorPosition();
+        cellCursor.insertText("Age", labelFormat);
+    }
+    {
+        QTextCursor cellCursor = table->cellAt(3, 1).firstCursorPosition();
+        cellCursor.insertText("54");
+    }
+    {
+        QTextCursor cellCursor = table->cellAt(3, 2).firstCursorPosition();
+        cellCursor.insertText("Exam Date", labelFormat);
+    }
+    {
+        QTextCursor cellCursor = table->cellAt(3, 3).firstCursorPosition();
+        cellCursor.insertText("2025-06-30");
+    }
+
+    table->mergeCells(0, 1, 1, 3);
 }
