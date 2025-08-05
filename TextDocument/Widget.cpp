@@ -44,7 +44,9 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     createTextWithinLine(cursor, "MRI information");
     cursor.setPosition(frame->lastPosition());
     createBiopsyTypeTable(cursor, 4.5);
+
     cursor.setPosition(frame->lastPosition());
+    cursor.insertHtml("<br>");
 
     ReportBiopsyModelInfo modelInfo;
     modelInfo.piRads = {"5", "2", "3", "1", "5", "4", "3", "2"};
@@ -332,6 +334,7 @@ void Widget::createBiopsyTypeTable(QTextCursor &cursor,
                                    const double &psaValue) {
     QTextTableFormat tableFormat;
     tableFormat.setBorder(1);
+    tableFormat.setCellPadding(5);
     tableFormat.setCellSpacing(0);
 
     QVector<QTextLength> constraints;
@@ -377,6 +380,7 @@ void Widget::createBiopsyModelTable(QTextCursor &cursor,
                                     const ReportBiopsyModelInfo &info) {
     QTextTableFormat tableFormat;
     tableFormat.setBorder(1);
+    tableFormat.setCellPadding(5);
     tableFormat.setCellSpacing(0);
 
     QVector<QTextLength> constraints;
