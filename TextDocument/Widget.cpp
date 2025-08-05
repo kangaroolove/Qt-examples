@@ -480,4 +480,32 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     tableFormat.setCellPadding(5);  // Padding inside cells
     table->setFormat(tableFormat);
 #endif
+
+    QTextTable *table = cursor.insertTable(6, 3);
+
+    // Populate the first row (headers)
+    table->cellAt(0, 0).firstCursorPosition().insertText("Target Core");
+    table->cellAt(0, 1).firstCursorPosition().insertText("Lesion");
+    table->cellAt(0, 2).firstCursorPosition().insertText("Status");
+
+    // Populate the data rows
+    table->cellAt(1, 0).firstCursorPosition().insertText("T1");
+    table->cellAt(1, 1).firstCursorPosition().insertText("ROI 1");
+    table->cellAt(1, 2).firstCursorPosition().insertText("Done");
+
+    table->cellAt(2, 0).firstCursorPosition().insertText("T2");
+    table->cellAt(2, 1).firstCursorPosition().insertText("ROI 2");
+    table->cellAt(2, 2).firstCursorPosition().insertText("Skipped");
+
+    table->cellAt(3, 0).firstCursorPosition().insertText("T3");
+    table->cellAt(3, 1).firstCursorPosition().insertText("ROI 3");
+    table->cellAt(3, 2).firstCursorPosition().insertText("Done");
+
+    table->cellAt(4, 0).firstCursorPosition().insertText("T4");
+    table->cellAt(4, 1).firstCursorPosition().insertText("ROI 4");
+    table->cellAt(4, 2).firstCursorPosition().insertText("Skipped");
+
+    table->cellAt(5, 0).firstCursorPosition().insertText("T5");
+    table->cellAt(5, 1).firstCursorPosition().insertText("ROI 5");
+    table->cellAt(5, 2).firstCursorPosition().insertText("Done");
 }
