@@ -16,66 +16,15 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     auto document = textEdit->document();
     QTextCursor cursor(document);
 
-    QTextTableFormat headerTableFormat;
-    QVector<QTextLength> headerTextLength;
-    headerTextLength << QTextLength(QTextLength::PercentageLength, 33.33);
-    headerTextLength << QTextLength(QTextLength::PercentageLength, 33.33);
-    headerTextLength << QTextLength(QTextLength::PercentageLength, 33.33);
-    headerTableFormat.setColumnWidthConstraints(headerTextLength);
-    headerTableFormat.setBorder(0);
-    auto table = cursor.insertTable(1, 3, headerTableFormat);
+    ReportHeaderInfo info;
+    info.companyLogo = QImage("C:/Users/q3514/Desktop/HTML/companyLogo.png");
+    info.hospitalLogo = QImage("C:/Users/q3514/Desktop/HTML/hospitalLogo.png");
+    info.hospitalName = "abc";
+    info.hospitalAddress = "New York";
+    info.hospitalPhone = "123456";
 
-    const int logoSize = 200;
+    createReportHeader(cursor, info);
 
-    QTextTableCell companyLogoCell = table->cellAt(0, 0);
-    cursor.setPosition(companyLogoCell.firstPosition());
-    QImage companyLogo("C:/Users/q3514/Desktop/HTML/companyLogo.png");
-    cursor.insertImage(
-        companyLogo.scaled(logoSize, logoSize, Qt::KeepAspectRatio));
-
-    QTextBlockFormat companyLogoBlockFormat;
-    companyLogoBlockFormat.setAlignment(Qt::AlignLeft);
-    cursor.mergeBlockFormat(companyLogoBlockFormat);
-
-    QTextTableCell hospitalLogoCell = table->cellAt(0, 1);
-    cursor.setPosition(hospitalLogoCell.firstPosition());
-    QImage hospitalLogo("C:/Users/q3514/Desktop/HTML/hospitalLogo.png");
-    cursor.insertImage(
-        hospitalLogo.scaled(logoSize, logoSize, Qt::KeepAspectRatio));
-
-    QTextBlockFormat hospitalLogoBlockFormat;
-    hospitalLogoBlockFormat.setAlignment(Qt::AlignCenter);
-    cursor.mergeBlockFormat(hospitalLogoBlockFormat);
-
-    QTextTableCell hospitalInfoCell = table->cellAt(0, 2);
-    cursor.setPosition(hospitalInfoCell.firstPosition());
-
-    QTextBlockFormat blockFormat;
-    blockFormat.setAlignment(Qt::AlignRight);
-    cursor.setBlockFormat(blockFormat);
-
-    // Insert the text
-    QTextCharFormat hospitalNameFormat;
-    hospitalNameFormat.setFontWeight(QFont::Bold);
-
-    QTextCharFormat emptyCharFormat;
-
-    cursor.insertText("Tan Tock Seng Hospital\n", hospitalNameFormat);
-    cursor.insertBlock();
-    cursor.insertText("11 Jln Tan Tock Seng,\n", emptyCharFormat);
-    cursor.insertBlock();
-    cursor.insertText("Singapore 308433\n");
-    cursor.insertBlock();
-    cursor.insertText("+65 6256 6011");
-
-    cursor.movePosition(QTextCursor::NextBlock);
-
-    QTextCharFormat titleCharFormat;
-    titleCharFormat.setFontPointSize(24);
-    titleCharFormat.setFontWeight(QFont::Bold);
-    blockFormat.setAlignment(Qt::AlignCenter);  // Horizontal center
-    cursor.setBlockFormat(blockFormat);
-    cursor.insertText("Prostate Biopsy Report", titleCharFormat);
 #if 0
 
     QTextTableFormat textWithinLineFormat;
@@ -548,4 +497,65 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     table->cellAt(5, 1).firstCursorPosition().insertText("Left Posterior");
     table->cellAt(5, 2).firstCursorPosition().insertText("Done");
 #endif
+}
+
+void Widget::createReportHeader(QTextCursor &cursor,
+                                const ReportHeaderInfo &info) {
+    QVector<QTextLength> tableConstraints;
+    tableConstraints << QTextLength(QTextLength::PercentageLength, 33.33);
+    tableConstraints << QTextLength(QTextLength::PercentageLength, 33.33);
+    tableConstraints << QTextLength(QTextLength::PercentageLength, 33.33);
+
+    QTextTableFormat tableFormat;
+    tableFormat.setColumnWidthConstraints(tableConstraints);
+    tableFormat.setBorder(0);
+    auto table = cursor.insertTable(1, 3, tableFormat);
+
+    const int logoSize = 200;
+    cursor.setPosition(table->cellAt(0, 0).firstPosition());
+    cursor.insertImage(
+        info.companyLogo.scaled(logoSize, logoSize, Qt::KeepAspectRatio));
+
+    QTextBlockFormat companyLogoBlockFormat;
+    companyLogoBlockFormat.setAlignment(Qt::AlignLeft);
+    cursor.mergeBlockFormat(companyLogoBlockFormat);
+
+    cursor.setPosition(table->cellAt(0, 1).firstPosition());
+    cursor.insertImage(
+        info.hospitalLogo.scaled(logoSize, logoSize, Qt::KeepAspectRatio));
+
+    QTextBlockFormat hospitalLogoBlockFormat;
+    hospitalLogoBlockFormat.setAlignment(Qt::AlignCenter);
+    cursor.mergeBlockFormat(hospitalLogoBlockFormat);
+
+    cursor.setPosition(table->cellAt(0, 2).firstPosition());
+
+    QTextBlockFormat alignRightFormat;
+    alignRightFormat.setAlignment(Qt::AlignRight);
+    cursor.setBlockFormat(alignRightFormat);
+
+    QTextCharFormat hospitalNameFormat;
+    hospitalNameFormat.setFontWeight(QFont::Bold);
+
+    QTextCharFormat emptyCharFormat;
+
+    cursor.insertText(QString("%1\n").arg(info.hospitalName),
+                      hospitalNameFormat);
+    cursor.insertBlock();
+    cursor.insertText(QString("%1\n").arg(info.hospitalAddress),
+                      emptyCharFormat);
+    cursor.insertBlock();
+    cursor.insertText(info.hospitalPhone);
+
+    cursor.movePosition(QTextCursor::NextBlock);
+
+    QTextCharFormat titleCharFormat;
+    titleCharFormat.setFontPointSize(24);
+    titleCharFormat.setFontWeight(QFont::Bold);
+
+    QTextBlockFormat alignCenterFormat;
+    alignCenterFormat.setAlignment(Qt::AlignCenter);
+    cursor.setBlockFormat(alignCenterFormat);
+
+    cursor.insertText("Prostate Biopsy Report", titleCharFormat);
 }
