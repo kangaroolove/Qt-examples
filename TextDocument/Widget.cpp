@@ -38,6 +38,10 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     patientInfo.age = "54";
     patientInfo.examDate = "2025-06-30";
     createPatientInfoTable(cursor, patientInfo);
+
+    cursor.setPosition(frame->lastPosition());
+
+    createTextWithinLine(cursor, "MRI information");
 #if 0
 
 
