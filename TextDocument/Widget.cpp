@@ -71,31 +71,19 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     frameFormat.setWidth(QTextLength(QTextLength::PercentageLength, 100));
     frameFormat.setHeight(100);
     cursor.insertFrame(frameFormat);
+
+    cursor.setPosition(frame->lastPosition());
+
+    ReportBiopsySummaryInfo biopsySummaryInfo;
+    biopsySummaryInfo.doneTargetCores = "15";
+    biopsySummaryInfo.skippedTargetCores = "1";
+    biopsySummaryInfo.doneSystemCores = "24";
+    biopsySummaryInfo.skippedSystemCores = "3";
+    biopsySummaryInfo.totalDoneCores = "39";
+    biopsySummaryInfo.totalSkippedCores = "4";
+    createBiopsySummaryTable(cursor, biopsySummaryInfo);
 #if 0
 
-    // Biospy Summary
-    QTextTable *table = cursor.insertTable(3, 5);
-
-    // Populate the first row (headers, preserving the given structure)
-    table->cellAt(0, 1).firstCursorPosition().insertText("Target cores");
-    table->cellAt(0, 2).firstCursorPosition().insertText("System cores");
-    table->cellAt(0, 3).firstCursorPosition().insertText("Total cores done");
-    table->cellAt(0, 4).firstCursorPosition().insertText("Total cores skipped");
-
-    // Populate the second row
-    table->cellAt(1, 0).firstCursorPosition().insertText("Done");
-    table->cellAt(1, 1).firstCursorPosition().insertText("15");
-    table->cellAt(1, 2).firstCursorPosition().insertText("24");
-    table->cellAt(1, 3).firstCursorPosition().insertText("39");
-    table->cellAt(1, 4).firstCursorPosition().insertText("4");
-
-    // Populate the third row (leaving last two cells empty)
-    table->cellAt(2, 0).firstCursorPosition().insertText("Skipped");
-    table->cellAt(2, 1).firstCursorPosition().insertText("1");
-    table->cellAt(2, 2).firstCursorPosition().insertText("3");
-
-    table->mergeCells(1, 3, 2, 1);
-    table->mergeCells(1, 4, 2, 1);
     // No insertText for cells 2,3 and 2,4 to keep them empty
 
     // Optional: Apply basic formatting to the table (e.g., borders)
@@ -423,4 +411,85 @@ void Widget::createBiopsyModelTable(QTextCursor &cursor,
         cursor.setBlockFormat(alignCenterFormat);
         cursor.insertText(info.piRads[i]);
     }
+}
+
+void Widget::createBiopsySummaryTable(QTextCursor &cursor,
+                                      const ReportBiopsySummaryInfo &info) {
+    QTextTableFormat tableFormat;
+    tableFormat.setBorder(1);
+    tableFormat.setCellPadding(5);
+    tableFormat.setCellSpacing(0);
+
+    QVector<QTextLength> constraints;
+    constraints << QTextLength(QTextLength::PercentageLength, 14)
+                << QTextLength(QTextLength::PercentageLength, 14)
+                << QTextLength(QTextLength::PercentageLength, 14)
+                << QTextLength(QTextLength::PercentageLength, 29)
+                << QTextLength(QTextLength::PercentageLength, 29);
+    tableFormat.setColumnWidthConstraints(constraints);
+
+    QTextCharFormat headerFormat;
+    headerFormat.setFontWeight(QFont::Bold);
+
+    QTextBlockFormat alignCenterFormat;
+    alignCenterFormat.setAlignment(Qt::AlignCenter);
+
+    QTextTable *table = cursor.insertTable(3, 5, tableFormat);
+
+    cursor.setPosition(table->cellAt(0, 1).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText("Target cores", headerFormat);
+
+    cursor.setPosition(table->cellAt(0, 2).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText("System cores", headerFormat);
+
+    cursor.setPosition(table->cellAt(0, 3).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText("Total cores done", headerFormat);
+
+    cursor.setPosition(table->cellAt(0, 4).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText("Total cores skipped", headerFormat);
+
+    cursor.setPosition(table->cellAt(1, 0).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText("Done");
+
+    cursor.setPosition(table->cellAt(1, 1).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText(info.doneTargetCores);
+
+    cursor.setPosition(table->cellAt(1, 2).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText(info.doneSystemCores);
+
+    cursor.setPosition(table->cellAt(1, 3).firstPosition());
+    auto totalDoneCores = table->cellAt(1, 3).format();
+    totalDoneCores.setVerticalAlignment(QTextCharFormat::AlignMiddle);
+    table->cellAt(1, 3).setFormat(totalDoneCores);
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText(info.totalDoneCores);
+
+    cursor.setPosition(table->cellAt(1, 4).firstPosition());
+    auto totalSkippedCores = table->cellAt(1, 4).format();
+    totalSkippedCores.setVerticalAlignment(QTextCharFormat::AlignMiddle);
+    table->cellAt(1, 4).setFormat(totalSkippedCores);
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText(info.totalSkippedCores);
+
+    cursor.setPosition(table->cellAt(2, 0).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText("Skipped");
+
+    cursor.setPosition(table->cellAt(2, 1).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText(info.skippedTargetCores);
+
+    cursor.setPosition(table->cellAt(2, 2).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText(info.skippedSystemCores);
+
+    table->mergeCells(1, 3, 2, 1);
+    table->mergeCells(1, 4, 2, 1);
 }

@@ -25,6 +25,15 @@ struct ReportBiopsyModelInfo {
     std::vector<QString> piRads;
 };
 
+struct ReportBiopsySummaryInfo {
+    QString doneTargetCores;
+    QString skippedTargetCores;
+    QString doneSystemCores;
+    QString skippedSystemCores;
+    QString totalDoneCores;
+    QString totalSkippedCores;
+};
+
 class QTextCursor;
 class Widget : public QWidget {
     Q_OBJECT
@@ -39,4 +48,6 @@ private:
     void createBiopsyTypeTable(QTextCursor& cursor, const double& psaValue);
     void createBiopsyModelTable(QTextCursor& cursor,
                                 const ReportBiopsyModelInfo& info);
+    void createBiopsySummaryTable(QTextCursor& cursor,
+                                  const ReportBiopsySummaryInfo& info);
 };
