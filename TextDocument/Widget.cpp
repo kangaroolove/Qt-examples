@@ -90,6 +90,9 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     cursor.setPosition(frame->lastPosition());
     cursor.insertHtml("<br>");
 
+    createReportHeader(cursor, headerInfo);
+    createTextWithinLine(cursor, "Image Data");
+
 #if 0
 
     // No insertText for cells 2,3 and 2,4 to keep them empty
