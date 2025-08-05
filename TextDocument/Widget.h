@@ -20,6 +20,11 @@ struct ReportPatientInfo {
     QString examDate;
 };
 
+struct ReportBiopsyModelInfo {
+    std::vector<QString> volumes;
+    std::vector<QString> piRads;
+};
+
 class QTextCursor;
 class Widget : public QWidget {
     Q_OBJECT
@@ -32,4 +37,6 @@ private:
     void createPatientInfoTable(QTextCursor& cursor,
                                 const ReportPatientInfo& info);
     void createBiopsyTypeTable(QTextCursor& cursor, const double& psaValue);
+    void createBiopsyModelTable(QTextCursor& cursor,
+                                const ReportBiopsyModelInfo& info);
 };
