@@ -426,7 +426,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
         cellCursor.setBlockFormat(centerFormat);
         cellCursor.insertText("2");
     }
-#endif
+
 
     // Insert "Remarks:" in bold
     QTextCharFormat boldFormat;
@@ -447,4 +447,37 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
 
     // Insert the frame
     cursor.insertFrame(frameFormat);
+
+
+    // Biospy Summary
+    QTextTable *table = cursor.insertTable(3, 5);
+
+    // Populate the first row (headers, preserving the given structure)
+    table->cellAt(0, 1).firstCursorPosition().insertText("Target cores");
+    table->cellAt(0, 2).firstCursorPosition().insertText("System cores");
+    table->cellAt(0, 3).firstCursorPosition().insertText("Total cores done");
+    table->cellAt(0, 4).firstCursorPosition().insertText("Total cores skipped");
+
+    // Populate the second row
+    table->cellAt(1, 0).firstCursorPosition().insertText("Done");
+    table->cellAt(1, 1).firstCursorPosition().insertText("15");
+    table->cellAt(1, 2).firstCursorPosition().insertText("24");
+    table->cellAt(1, 3).firstCursorPosition().insertText("39");
+    table->cellAt(1, 4).firstCursorPosition().insertText("4");
+
+    // Populate the third row (leaving last two cells empty)
+    table->cellAt(2, 0).firstCursorPosition().insertText("Skipped");
+    table->cellAt(2, 1).firstCursorPosition().insertText("1");
+    table->cellAt(2, 2).firstCursorPosition().insertText("3");
+
+    table->mergeCells(1, 3, 2, 1);
+    table->mergeCells(1, 4, 2, 1);
+    // No insertText for cells 2,3 and 2,4 to keep them empty
+
+    // Optional: Apply basic formatting to the table (e.g., borders)
+    QTextTableFormat tableFormat;
+    tableFormat.setBorder(1);       // 1-pixel border
+    tableFormat.setCellPadding(5);  // Padding inside cells
+    table->setFormat(tableFormat);
+#endif
 }
