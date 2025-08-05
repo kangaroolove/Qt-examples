@@ -25,10 +25,13 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     headerTableFormat.setBorder(0);
     auto table = cursor.insertTable(1, 3, headerTableFormat);
 
+    const int logoSize = 200;
+
     QTextTableCell companyLogoCell = table->cellAt(0, 0);
     cursor.setPosition(companyLogoCell.firstPosition());
     QImage companyLogo("C:/Users/q3514/Desktop/HTML/companyLogo.png");
-    cursor.insertImage(companyLogo.scaled(200, 200, Qt::KeepAspectRatio));
+    cursor.insertImage(
+        companyLogo.scaled(logoSize, logoSize, Qt::KeepAspectRatio));
 
     QTextBlockFormat companyLogoBlockFormat;
     companyLogoBlockFormat.setAlignment(Qt::AlignLeft);
@@ -37,7 +40,8 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     QTextTableCell hospitalLogoCell = table->cellAt(0, 1);
     cursor.setPosition(hospitalLogoCell.firstPosition());
     QImage hospitalLogo("C:/Users/q3514/Desktop/HTML/hospitalLogo.png");
-    cursor.insertImage(hospitalLogo.scaled(200, 200, Qt::KeepAspectRatio));
+    cursor.insertImage(
+        hospitalLogo.scaled(logoSize, logoSize, Qt::KeepAspectRatio));
 
     QTextBlockFormat hospitalLogoBlockFormat;
     hospitalLogoBlockFormat.setAlignment(Qt::AlignCenter);
