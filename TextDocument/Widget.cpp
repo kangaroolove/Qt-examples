@@ -52,30 +52,26 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     modelInfo.piRads = {"5", "2", "3", "1", "5", "4", "3", "2"};
     modelInfo.volumes = {"5", "2", "3", "1", "5", "10", "3", "2"};
     createBiopsyModelTable(cursor, modelInfo);
-#if 0
-  
+    cursor.setPosition(frame->lastPosition());
+    cursor.insertHtml("<br>");
 
+    cursor.insertHtml("<br>");
 
-    // Insert "Remarks:" in bold
     QTextCharFormat boldFormat;
     boldFormat.setFontWeight(QFont::Bold);
     cursor.setCharFormat(boldFormat);
     cursor.insertText("Remarks:");
 
-    // Set frame format for the blank box
+    cursor.insertHtml("<br>");
+
     QTextFrameFormat frameFormat;
-    frameFormat.setBorder(1);  // Border thickness
-    frameFormat.setBorderStyle(
-        QTextFrameFormat::BorderStyle_Solid);  // Solid line border
-    frameFormat.setPadding(0);                 // Inner padding
-    frameFormat.setWidth(
-        QTextLength(QTextLength::PercentageLength, 100));  // Full width
-    frameFormat.setHeight(
-        40);  // Fixed height for the box (adjust for single/multi-line)
-
-    // Insert the frame
+    frameFormat.setBorder(1);
+    frameFormat.setBorderStyle(QTextFrameFormat::BorderStyle_Solid);
+    frameFormat.setPadding(0);
+    frameFormat.setWidth(QTextLength(QTextLength::PercentageLength, 100));
+    frameFormat.setHeight(100);
     cursor.insertFrame(frameFormat);
-
+#if 0
 
     // Biospy Summary
     QTextTable *table = cursor.insertTable(3, 5);
@@ -402,6 +398,18 @@ void Widget::createBiopsyModelTable(QTextCursor &cursor,
     QTextBlockFormat alignCenterFormat;
     alignCenterFormat.setAlignment(Qt::AlignCenter);
 
+    cursor.setPosition(table->cellAt(0, 0).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText("Model", headerFormat);
+
+    cursor.setPosition(table->cellAt(0, 1).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText("Volume (cc)", headerFormat);
+
+    cursor.setPosition(table->cellAt(0, 2).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText("PI-RADS", headerFormat);
+
     for (int i = 0; i < modelNames.size(); ++i) {
         cursor.setPosition(table->cellAt(i + 1, 0).firstPosition());
         cursor.setBlockFormat(alignCenterFormat);
@@ -415,16 +423,4 @@ void Widget::createBiopsyModelTable(QTextCursor &cursor,
         cursor.setBlockFormat(alignCenterFormat);
         cursor.insertText(info.piRads[i]);
     }
-
-    cursor.setPosition(table->cellAt(0, 0).firstPosition());
-    cursor.setBlockFormat(alignCenterFormat);
-    cursor.insertText("Model", headerFormat);
-
-    cursor.setPosition(table->cellAt(0, 1).firstPosition());
-    cursor.setBlockFormat(alignCenterFormat);
-    cursor.insertText("Volume (cc)", headerFormat);
-
-    cursor.setPosition(table->cellAt(0, 2).firstPosition());
-    cursor.setBlockFormat(alignCenterFormat);
-    cursor.insertText("PI-RADS", headerFormat);
 }
