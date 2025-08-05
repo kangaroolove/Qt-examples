@@ -31,4 +31,5 @@ private:
     void createTextWithinLine(QTextCursor& cursor, const QString& text);
     void createPatientInfoTable(QTextCursor& cursor,
                                 const ReportPatientInfo& info);
+    void createBiopsyTypeTable(QTextCursor& cursor, const double& psaValue);
 };

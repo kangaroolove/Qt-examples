@@ -38,71 +38,11 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     patientInfo.age = "54";
     patientInfo.examDate = "2025-06-30";
     createPatientInfoTable(cursor, patientInfo);
-
     cursor.setPosition(frame->lastPosition());
-
     createTextWithinLine(cursor, "MRI information");
+    cursor.setPosition(frame->lastPosition());
+    createBiopsyTypeTable(cursor, 4.5);
 #if 0
-
-
-
-    QTextTableFormat tableFormat;
-    tableFormat.setBorder(1);  // Thin border around cells
-    tableFormat.setCellPadding(5);
-    tableFormat.setCellSpacing(0);
-    tableFormat.setAlignment(Qt::AlignLeft);
-    QVector<QTextLength> columnWidths;
-    columnWidths << QTextLength(QTextLength::PercentageLength,
-                                33)  // Biopsy Type
-                 << QTextLength(QTextLength::PercentageLength, 33)  // Exam Part
-                 << QTextLength(QTextLength::PercentageLength,
-                                34);  // PSA Value
-    tableFormat.setColumnWidthConstraints(columnWidths);
-
-    QTextBlockFormat centerFormat;
-    centerFormat.setAlignment(Qt::AlignCenter);
-
-    // Insert 2x3 table
-    QTextTable* table = cursor.insertTable(2, 3, tableFormat);
-
-    // Optional: Char format for headers (e.g., bold)
-    QTextCharFormat headerFormat;
-    headerFormat.setFontWeight(QFont::Bold);
-
-    // Row 0: Headers
-    {
-        QTextCursor cellCursor = table->cellAt(0, 0).firstCursorPosition();
-        cellCursor.setBlockFormat(centerFormat);
-        cellCursor.insertText("Biopsy Type", headerFormat);
-    }
-    {
-        QTextCursor cellCursor = table->cellAt(0, 1).firstCursorPosition();
-        cellCursor.setBlockFormat(centerFormat);
-        cellCursor.insertText("Exam Part", headerFormat);
-    }
-    {
-        QTextCursor cellCursor = table->cellAt(0, 2).firstCursorPosition();
-        cellCursor.setBlockFormat(centerFormat);
-        cellCursor.insertText("PSA Value", headerFormat);
-    }
-
-    // Row 1: Data
-    {
-        QTextCursor cellCursor = table->cellAt(1, 0).firstCursorPosition();
-        cellCursor.setBlockFormat(centerFormat);
-        cellCursor.insertText("Ultrasound");
-    }
-    {
-        QTextCursor cellCursor = table->cellAt(1, 1).firstCursorPosition();
-        cellCursor.setBlockFormat(centerFormat);
-        cellCursor.insertText("Prostate");
-    }
-    {
-        QTextCursor cellCursor = table->cellAt(1, 2).firstCursorPosition();
-        cellCursor.setBlockFormat(centerFormat);
-        cellCursor.insertText("4.5 ng/mL");
-    }
-
     //
     QTextTableFormat tableFormat;
     tableFormat.setBorder(1);  // Thin border around cells
@@ -554,4 +494,50 @@ void Widget::createPatientInfoTable(QTextCursor &cursor,
     cursor.insertText(info.examDate);
 
     table->mergeCells(0, 1, 1, 3);
+}
+
+void Widget::createBiopsyTypeTable(QTextCursor &cursor,
+                                   const double &psaValue) {
+    QTextTableFormat tableFormat;
+    tableFormat.setBorder(1);
+    tableFormat.setCellPadding(5);
+    tableFormat.setCellSpacing(0);
+
+    QVector<QTextLength> constraints;
+    constraints << QTextLength(QTextLength::PercentageLength, 33)
+                << QTextLength(QTextLength::PercentageLength, 33)
+                << QTextLength(QTextLength::PercentageLength, 34);
+    tableFormat.setColumnWidthConstraints(constraints);
+
+    QTextBlockFormat alignCenterFormat;
+    alignCenterFormat.setAlignment(Qt::AlignCenter);
+
+    QTextTable *table = cursor.insertTable(2, 3, tableFormat);
+
+    QTextCharFormat headerFormat;
+    headerFormat.setFontWeight(QFont::Bold);
+
+    cursor.setPosition(table->cellAt(0, 0).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText("Biopsy Type", headerFormat);
+
+    cursor.setPosition(table->cellAt(0, 1).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText("Exam Part", headerFormat);
+
+    cursor.setPosition(table->cellAt(0, 2).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText("PSA Value", headerFormat);
+
+    cursor.setPosition(table->cellAt(1, 0).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText("Ultrasound");
+
+    cursor.setPosition(table->cellAt(1, 1).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText("Prostate");
+
+    cursor.setPosition(table->cellAt(1, 2).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText(QString("%1 ng/mL").arg(psaValue));
 }
