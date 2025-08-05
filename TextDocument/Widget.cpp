@@ -398,12 +398,18 @@ void Widget::createBiopsyModelTable(QTextCursor &cursor,
     QTextBlockFormat alignCenterFormat;
     alignCenterFormat.setAlignment(Qt::AlignCenter);
 
-    int modelIndex = 1;
-    for (const auto name : modelNames) {
-        cursor.setPosition(table->cellAt(modelIndex, 0).firstPosition());
+    for (int i = 0; i < modelNames.size(); ++i) {
+        cursor.setPosition(table->cellAt(i + 1, 0).firstPosition());
         cursor.setBlockFormat(alignCenterFormat);
-        cursor.insertText(name);
-        ++modelIndex;
+        cursor.insertText(modelNames[i]);
+
+        cursor.setPosition(table->cellAt(i + 1, 1).firstPosition());
+        cursor.setBlockFormat(alignCenterFormat);
+        cursor.insertText(info.volumes[i]);
+
+        cursor.setPosition(table->cellAt(i + 1, 2).firstPosition());
+        cursor.setBlockFormat(alignCenterFormat);
+        cursor.insertText(info.piRads[i]);
     }
 
     cursor.setPosition(table->cellAt(0, 0).firstPosition());
@@ -417,83 +423,4 @@ void Widget::createBiopsyModelTable(QTextCursor &cursor,
     cursor.setPosition(table->cellAt(0, 2).firstPosition());
     cursor.setBlockFormat(alignCenterFormat);
     cursor.insertText("PI-RADS", headerFormat);
-
-    cursor.setPosition(table->cellAt(1, 1).firstPosition());
-    cursor.setBlockFormat(alignCenterFormat);
-    cursor.insertText(info.volumes[0], headerFormat);
-
-    cursor.setPosition(table->cellAt(1, 2).firstPosition());
-    cursor.setBlockFormat(alignCenterFormat);
-    cursor.insertText(info.piRads[0], headerFormat);
-
-    cursor.setPosition(table->cellAt(2, 1).firstPosition());
-    cursor.setBlockFormat(alignCenterFormat);
-    cursor.insertText(info.volumes[1], headerFormat);
-
-    cursor.setPosition(table->cellAt(2, 2).firstPosition());
-    cursor.setBlockFormat(alignCenterFormat);
-    cursor.insertText(info.piRads[1], headerFormat);
-
-    cursor.setPosition(table->cellAt(3, 1).firstPosition());
-    cursor.setBlockFormat(alignCenterFormat);
-    cursor.insertText(info.volumes[2], headerFormat);
-
-    cursor.setPosition(table->cellAt(3, 2).firstPosition());
-    cursor.setBlockFormat(alignCenterFormat);
-    cursor.insertText(info.piRads[2], headerFormat);
-
-    cursor.setPosition(table->cellAt(4, 1).firstPosition());
-    cursor.setBlockFormat(alignCenterFormat);
-    cursor.insertText(info.volumes[3], headerFormat);
-
-    cursor.setPosition(table->cellAt(4, 2).firstPosition());
-    cursor.setBlockFormat(alignCenterFormat);
-    cursor.insertText(info.piRads[3], headerFormat);
-
-    cursor.setPosition(table->cellAt(5, 1).firstPosition());
-    cursor.setBlockFormat(alignCenterFormat);
-    cursor.insertText(info.volumes[4], headerFormat);
-    {
-        QTextCursor cellCursor = table->cellAt(5, 1).firstCursorPosition();
-        cellCursor.setBlockFormat(alignCenterFormat);
-        cellCursor.insertText("2");
-    }
-    {
-        QTextCursor cellCursor = table->cellAt(5, 2).firstCursorPosition();
-        cellCursor.setBlockFormat(alignCenterFormat);
-        cellCursor.insertText("5");
-    }
-
-    {
-        QTextCursor cellCursor = table->cellAt(6, 1).firstCursorPosition();
-        cellCursor.setBlockFormat(alignCenterFormat);
-        cellCursor.insertText("5");
-    }
-    {
-        QTextCursor cellCursor = table->cellAt(6, 2).firstCursorPosition();
-        cellCursor.setBlockFormat(alignCenterFormat);
-        cellCursor.insertText("4");
-    }
-
-    {
-        QTextCursor cellCursor = table->cellAt(7, 1).firstCursorPosition();
-        cellCursor.setBlockFormat(alignCenterFormat);
-        cellCursor.insertText("3");
-    }
-    {
-        QTextCursor cellCursor = table->cellAt(7, 2).firstCursorPosition();
-        cellCursor.setBlockFormat(alignCenterFormat);
-        cellCursor.insertText("3");
-    }
-
-    {
-        QTextCursor cellCursor = table->cellAt(8, 1).firstCursorPosition();
-        cellCursor.setBlockFormat(alignCenterFormat);
-        cellCursor.insertText("2");
-    }
-    {
-        QTextCursor cellCursor = table->cellAt(8, 2).firstCursorPosition();
-        cellCursor.setBlockFormat(alignCenterFormat);
-        cellCursor.insertText("2");
-    }
 }
