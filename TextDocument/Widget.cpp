@@ -479,7 +479,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     tableFormat.setBorder(1);       // 1-pixel border
     tableFormat.setCellPadding(5);  // Padding inside cells
     table->setFormat(tableFormat);
-#endif
+
 
     QTextTable *table = cursor.insertTable(6, 3);
 
@@ -507,5 +507,36 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
 
     table->cellAt(5, 0).firstCursorPosition().insertText("T5");
     table->cellAt(5, 1).firstCursorPosition().insertText("ROI 5");
+    table->cellAt(5, 2).firstCursorPosition().insertText("Done");
+
+#endif
+
+    // Insert a table with 6 rows and 3 columns
+    QTextTable *table = cursor.insertTable(6, 3);
+
+    // Populate the first row (headers)
+    table->cellAt(0, 0).firstCursorPosition().insertText("System Core");
+    table->cellAt(0, 1).firstCursorPosition().insertText("Zone");
+    table->cellAt(0, 2).firstCursorPosition().insertText("Status");
+
+    // Populate the data rows
+    table->cellAt(1, 0).firstCursorPosition().insertText("S1");
+    table->cellAt(1, 1).firstCursorPosition().insertText("Right Anterior");
+    table->cellAt(1, 2).firstCursorPosition().insertText("Done");
+
+    table->cellAt(2, 0).firstCursorPosition().insertText("S2");
+    table->cellAt(2, 1).firstCursorPosition().insertText("Right Posterior");
+    table->cellAt(2, 2).firstCursorPosition().insertText("Skipped");
+
+    table->cellAt(3, 0).firstCursorPosition().insertText("S3");
+    table->cellAt(3, 1).firstCursorPosition().insertText("Left Anterior");
+    table->cellAt(3, 2).firstCursorPosition().insertText("Done");
+
+    table->cellAt(4, 0).firstCursorPosition().insertText("S4");
+    table->cellAt(4, 1).firstCursorPosition().insertText("Right Mid");
+    table->cellAt(4, 2).firstCursorPosition().insertText("Skipped");
+
+    table->cellAt(5, 0).firstCursorPosition().insertText("S5");
+    table->cellAt(5, 1).firstCursorPosition().insertText("Left Posterior");
     table->cellAt(5, 2).firstCursorPosition().insertText("Done");
 }
