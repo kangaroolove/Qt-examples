@@ -18,4 +18,5 @@ public:
 
 private:
     void createReportHeader(QTextCursor& cursor, const ReportHeaderInfo& info);
+    void createTextWithinLine(QTextCursor& cursor, const QString& text);
 };

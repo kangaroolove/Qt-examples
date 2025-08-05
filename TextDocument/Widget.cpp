@@ -24,44 +24,8 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     info.hospitalPhone = "123456";
 
     createReportHeader(cursor, info);
-
+    createTextWithinLine(cursor, "Patient Information");
 #if 0
-
-    QTextTableFormat textWithinLineFormat;
-    QVector<QTextLength> textWithinLength;
-    textWithinLength << QTextLength(QTextLength::PercentageLength, 40);
-    textWithinLength << QTextLength(QTextLength::PercentageLength, 20);
-    textWithinLength << QTextLength(QTextLength::PercentageLength, 40);
-    textWithinLineFormat.setColumnWidthConstraints(textWithinLength);
-    // headerTableFormat.setBorder(0);
-    // textWithinLineFormat.setCellSpacing(0);
-    // auto textTable = cursor.insertTable(1, 3, textWithinLineFormat);
-    // textWithinLineFormat.setTopMargin(0);
-
-    auto textTable = cursor.insertTable(1, 3, textWithinLineFormat);
-
-    QTextTableCell cell = textTable->cellAt(0, 0);
-    cursor.setPosition(cell.firstPosition());
-
-    QTextFrameFormat lineFormat;
-    lineFormat.setWidth(QTextLength(QTextLength::PercentageLength, 100));
-    lineFormat.setHeight(0);
-    lineFormat.setBackground(QBrush(Qt::black));
-    lineFormat.setBorder(0);
-    lineFormat.setPadding(0);
-    lineFormat.setMargin(0);
-    cursor.insertFrame(lineFormat);
-
-    cursor.setPosition(textTable->cellAt(0, 1).firstPosition());
-    auto format = textTable->cellAt(0, 1).format();
-    format.setVerticalAlignment(QTextCharFormat::AlignMiddle);
-    textTable->cellAt(0, 1).setFormat(format);
-    cursor.setBlockFormat(blockFormat);
-    cursor.insertText("Biopsy Summary");
-
-    cursor.setPosition(textTable->cellAt(0, 2).firstPosition());
-    cursor.insertFrame(lineFormat);
-
 
     // Optional: Set table format (e.g., borders, alignment)
     QTextTableFormat tableFormat;
@@ -550,7 +514,7 @@ void Widget::createReportHeader(QTextCursor &cursor,
     cursor.movePosition(QTextCursor::NextBlock);
 
     QTextCharFormat titleCharFormat;
-    titleCharFormat.setFontPointSize(24);
+    titleCharFormat.setFontPointSize(30);
     titleCharFormat.setFontWeight(QFont::Bold);
 
     QTextBlockFormat alignCenterFormat;
@@ -558,4 +522,41 @@ void Widget::createReportHeader(QTextCursor &cursor,
     cursor.setBlockFormat(alignCenterFormat);
 
     cursor.insertText("Prostate Biopsy Report", titleCharFormat);
+}
+
+void Widget::createTextWithinLine(QTextCursor &cursor, const QString &text) {
+    QVector<QTextLength> constraints;
+    constraints << QTextLength(QTextLength::PercentageLength, 40);
+    constraints << QTextLength(QTextLength::PercentageLength, 20);
+    constraints << QTextLength(QTextLength::PercentageLength, 40);
+    QTextTableFormat tableFormat;
+    tableFormat.setBorder(0);
+    tableFormat.setColumnWidthConstraints(constraints);
+
+    auto table = cursor.insertTable(1, 3, tableFormat);
+    cursor.setPosition(table->cellAt(0, 0).firstPosition());
+
+    QTextFrameFormat lineFormat;
+    lineFormat.setWidth(QTextLength(QTextLength::PercentageLength, 100));
+    lineFormat.setHeight(0);
+    lineFormat.setBackground(QBrush(Qt::black));
+    lineFormat.setBorder(0);
+    cursor.insertFrame(lineFormat);
+
+    cursor.setPosition(table->cellAt(0, 1).firstPosition());
+    auto cellFormat = table->cellAt(0, 1).format();
+    cellFormat.setVerticalAlignment(QTextCharFormat::AlignMiddle);
+    table->cellAt(0, 1).setFormat(cellFormat);
+
+    QTextBlockFormat blockFormat;
+    blockFormat.setAlignment(Qt::AlignCenter);
+    cursor.setBlockFormat(blockFormat);
+
+    QTextCharFormat textFormat;
+    textFormat.setFontWeight(QFont::Bold);
+    textFormat.setFontPointSize(26.5);
+    cursor.insertText(text, textFormat);
+
+    cursor.setPosition(table->cellAt(0, 2).firstPosition());
+    cursor.insertFrame(lineFormat);
 }
