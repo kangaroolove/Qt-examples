@@ -87,6 +87,9 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     biopsySummaryInfo.totalDoneCores = "39";
     biopsySummaryInfo.totalSkippedCores = "4";
     createBiopsySummaryTable(cursor, biopsySummaryInfo);
+    cursor.setPosition(frame->lastPosition());
+    cursor.insertHtml("<br>");
+
 #if 0
 
     // No insertText for cells 2,3 and 2,4 to keep them empty
