@@ -16,6 +16,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     auto document = textEdit->document();
     QTextCursor cursor(document);
 
+    auto frame = cursor.currentFrame();
     ReportHeaderInfo info;
     info.companyLogo = QImage("C:/Users/q3514/Desktop/HTML/companyLogo.png");
     info.hospitalLogo = QImage("C:/Users/q3514/Desktop/HTML/hospitalLogo.png");
@@ -25,94 +26,20 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
 
     createReportHeader(cursor, info);
     createTextWithinLine(cursor, "Patient Information");
+
+    cursor.setPosition(frame->lastPosition());
+
+    ReportPatientInfo patientInfo;
+    patientInfo.name = "Erick Lee";
+    patientInfo.caseId = "25";
+    patientInfo.gender = "Male";
+    patientInfo.mrn = "J1122334K";
+    patientInfo.dateOfBirth = "1971-06-03";
+    patientInfo.age = "54";
+    patientInfo.examDate = "2025-06-30";
+    createPatientInfoTable(cursor, patientInfo);
 #if 0
 
-    // Optional: Set table format (e.g., borders, alignment)
-    QTextTableFormat tableFormat;
-    tableFormat.setBorder(1);  // Thin border around cells
-    tableFormat.setCellPadding(5);
-    tableFormat.setCellSpacing(0);
-    // tableFormat.setAlignment(Qt::AlignCenter);
-    QVector<QTextLength> columnWidths;
-    columnWidths << QTextLength(QTextLength::PercentageLength, 25)   // Label 1
-                 << QTextLength(QTextLength::PercentageLength, 25)   // Value 1
-                 << QTextLength(QTextLength::PercentageLength, 25)   // Label 2
-                 << QTextLength(QTextLength::PercentageLength, 25);  // Value 2
-    tableFormat.setColumnWidthConstraints(columnWidths);
-
-    // Insert 4x4 table
-    QTextTable* table = cursor.insertTable(4, 4, tableFormat);
-
-    // Optional: Char format for text (e.g., bold labels)
-    QTextCharFormat labelFormat;
-    labelFormat.setFontWeight(QFont::Bold);
-
-    // Row 0: Name and value, leave last two cells empty
-    {
-        QTextCursor cellCursor = table->cellAt(0, 0).firstCursorPosition();
-        cellCursor.insertText("Name", labelFormat);
-    }
-    {
-        QTextCursor cellCursor = table->cellAt(0, 1).firstCursorPosition();
-        cellCursor.insertText("Erick Lee");
-    }
-    // Columns 2 and 3 remain empty
-
-    // Row 1
-    {
-        QTextCursor cellCursor = table->cellAt(1, 0).firstCursorPosition();
-        cellCursor.insertText("Case ID", labelFormat);
-    }
-    {
-        QTextCursor cellCursor = table->cellAt(1, 1).firstCursorPosition();
-        cellCursor.insertText("25");
-    }
-    {
-        QTextCursor cellCursor = table->cellAt(1, 2).firstCursorPosition();
-        cellCursor.insertText("Gender", labelFormat);
-    }
-    {
-        QTextCursor cellCursor = table->cellAt(1, 3).firstCursorPosition();
-        cellCursor.insertText("Male");
-    }
-
-    // Row 2
-    {
-        QTextCursor cellCursor = table->cellAt(2, 0).firstCursorPosition();
-        cellCursor.insertText("MRN/PIN", labelFormat);
-    }
-    {
-        QTextCursor cellCursor = table->cellAt(2, 1).firstCursorPosition();
-        cellCursor.insertText("J1122334K");
-    }
-    {
-        QTextCursor cellCursor = table->cellAt(2, 2).firstCursorPosition();
-        cellCursor.insertText("Date of Birth", labelFormat);
-    }
-    {
-        QTextCursor cellCursor = table->cellAt(2, 3).firstCursorPosition();
-        cellCursor.insertText("1971-06-03");
-    }
-
-    // Row 3
-    {
-        QTextCursor cellCursor = table->cellAt(3, 0).firstCursorPosition();
-        cellCursor.insertText("Age", labelFormat);
-    }
-    {
-        QTextCursor cellCursor = table->cellAt(3, 1).firstCursorPosition();
-        cellCursor.insertText("54");
-    }
-    {
-        QTextCursor cellCursor = table->cellAt(3, 2).firstCursorPosition();
-        cellCursor.insertText("Exam Date", labelFormat);
-    }
-    {
-        QTextCursor cellCursor = table->cellAt(3, 3).firstCursorPosition();
-        cellCursor.insertText("2025-06-30");
-    }
-
-    table->mergeCells(0, 1, 1, 3);
 
 
     QTextTableFormat tableFormat;
@@ -465,13 +392,13 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
 
 void Widget::createReportHeader(QTextCursor &cursor,
                                 const ReportHeaderInfo &info) {
-    QVector<QTextLength> tableConstraints;
-    tableConstraints << QTextLength(QTextLength::PercentageLength, 33.33);
-    tableConstraints << QTextLength(QTextLength::PercentageLength, 33.33);
-    tableConstraints << QTextLength(QTextLength::PercentageLength, 33.33);
+    QVector<QTextLength> constraints;
+    constraints << QTextLength(QTextLength::PercentageLength, 33.33);
+    constraints << QTextLength(QTextLength::PercentageLength, 33.33);
+    constraints << QTextLength(QTextLength::PercentageLength, 33.33);
 
     QTextTableFormat tableFormat;
-    tableFormat.setColumnWidthConstraints(tableConstraints);
+    tableFormat.setColumnWidthConstraints(constraints);
     tableFormat.setBorder(0);
     auto table = cursor.insertTable(1, 3, tableFormat);
 
@@ -559,4 +486,68 @@ void Widget::createTextWithinLine(QTextCursor &cursor, const QString &text) {
 
     cursor.setPosition(table->cellAt(0, 2).firstPosition());
     cursor.insertFrame(lineFormat);
+}
+
+void Widget::createPatientInfoTable(QTextCursor &cursor,
+                                    const ReportPatientInfo &info) {
+    QTextTableFormat tableFormat;
+    tableFormat.setBorder(1);
+    tableFormat.setCellSpacing(0);
+    tableFormat.setCellPadding(5);
+
+    QVector<QTextLength> constraints;
+    constraints << QTextLength(QTextLength::PercentageLength, 25)
+                << QTextLength(QTextLength::PercentageLength, 25)
+                << QTextLength(QTextLength::PercentageLength, 25)
+                << QTextLength(QTextLength::PercentageLength, 25);
+    tableFormat.setColumnWidthConstraints(constraints);
+
+    QTextTable *table = cursor.insertTable(4, 4, tableFormat);
+
+    QTextCharFormat headerFormat;
+    headerFormat.setFontWeight(QFont::Bold);
+
+    cursor.setPosition(table->cellAt(0, 0).firstPosition());
+    cursor.insertText("Name", headerFormat);
+
+    cursor.setPosition(table->cellAt(0, 1).firstPosition());
+    cursor.insertText(info.name);
+
+    cursor.setPosition(table->cellAt(1, 0).firstPosition());
+    cursor.insertText("Case ID", headerFormat);
+
+    cursor.setPosition(table->cellAt(1, 1).firstPosition());
+    cursor.insertText(info.caseId);
+
+    cursor.setPosition(table->cellAt(1, 2).firstPosition());
+    cursor.insertText("Gender", headerFormat);
+
+    cursor.setPosition(table->cellAt(1, 3).firstPosition());
+    cursor.insertText(info.gender);
+
+    cursor.setPosition(table->cellAt(2, 0).firstPosition());
+    cursor.insertText("MRN/PIN", headerFormat);
+
+    cursor.setPosition(table->cellAt(2, 1).firstPosition());
+    cursor.insertText(info.mrn);
+
+    cursor.setPosition(table->cellAt(2, 2).firstPosition());
+    cursor.insertText("Date of Birth", headerFormat);
+
+    cursor.setPosition(table->cellAt(2, 3).firstPosition());
+    cursor.insertText(info.dateOfBirth);
+
+    cursor.setPosition(table->cellAt(3, 0).firstPosition());
+    cursor.insertText("Age", headerFormat);
+
+    cursor.setPosition(table->cellAt(3, 1).firstPosition());
+    cursor.insertText(info.age);
+
+    cursor.setPosition(table->cellAt(3, 2).firstPosition());
+    cursor.insertText("Exam Date", headerFormat);
+
+    cursor.setPosition(table->cellAt(3, 3).firstPosition());
+    cursor.insertText(info.examDate);
+
+    table->mergeCells(0, 1, 1, 3);
 }

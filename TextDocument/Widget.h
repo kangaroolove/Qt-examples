@@ -10,6 +10,16 @@ struct ReportHeaderInfo {
     QString hospitalPhone;
 };
 
+struct ReportPatientInfo {
+    QString name;
+    QString caseId;
+    QString gender;
+    QString mrn;
+    QString dateOfBirth;
+    QString age;
+    QString examDate;
+};
+
 class QTextCursor;
 class Widget : public QWidget {
     Q_OBJECT
@@ -19,4 +29,6 @@ public:
 private:
     void createReportHeader(QTextCursor& cursor, const ReportHeaderInfo& info);
     void createTextWithinLine(QTextCursor& cursor, const QString& text);
+    void createPatientInfoTable(QTextCursor& cursor,
+                                const ReportPatientInfo& info);
 };
