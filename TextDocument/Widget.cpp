@@ -16,16 +16,13 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     auto document = textEdit->document();
     QTextCursor cursor(document);
 
-#if 0
-
     QTextTableFormat headerTableFormat;
     QVector<QTextLength> headerTextLength;
     headerTextLength << QTextLength(QTextLength::PercentageLength, 33.33);
     headerTextLength << QTextLength(QTextLength::PercentageLength, 33.33);
     headerTextLength << QTextLength(QTextLength::PercentageLength, 33.33);
     headerTableFormat.setColumnWidthConstraints(headerTextLength);
-    // headerTableFormat.setBorder(0);
-    // headerTableFormat.setCellSpacing(0);
+    headerTableFormat.setBorder(0);
     auto table = cursor.insertTable(1, 3, headerTableFormat);
 
     QTextTableCell companyLogoCell = table->cellAt(0, 0);
@@ -54,9 +51,14 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     cursor.setBlockFormat(blockFormat);
 
     // Insert the text
-    cursor.insertText("Tan Tock Seng Hospital\n");
+    QTextCharFormat hospitalNameFormat;
+    hospitalNameFormat.setFontWeight(QFont::Bold);
+
+    QTextCharFormat emptyCharFormat;
+
+    cursor.insertText("Tan Tock Seng Hospital\n", hospitalNameFormat);
     cursor.insertBlock();
-    cursor.insertText("11 Jln Tan Tock Seng,\n");
+    cursor.insertText("11 Jln Tan Tock Seng,\n", emptyCharFormat);
     cursor.insertBlock();
     cursor.insertText("Singapore 308433\n");
     cursor.insertBlock();
@@ -64,9 +66,13 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
 
     cursor.movePosition(QTextCursor::NextBlock);
 
+    QTextCharFormat titleCharFormat;
+    titleCharFormat.setFontPointSize(24);
+    titleCharFormat.setFontWeight(QFont::Bold);
     blockFormat.setAlignment(Qt::AlignCenter);  // Horizontal center
     cursor.setBlockFormat(blockFormat);
-    cursor.insertText("Prostate Biopsy Report");
+    cursor.insertText("Prostate Biopsy Report", titleCharFormat);
+#if 0
 
     QTextTableFormat textWithinLineFormat;
     QVector<QTextLength> textWithinLength;
@@ -509,8 +515,6 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     table->cellAt(5, 1).firstCursorPosition().insertText("ROI 5");
     table->cellAt(5, 2).firstCursorPosition().insertText("Done");
 
-#endif
-
     // Insert a table with 6 rows and 3 columns
     QTextTable *table = cursor.insertTable(6, 3);
 
@@ -539,4 +543,5 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     table->cellAt(5, 0).firstCursorPosition().insertText("S5");
     table->cellAt(5, 1).firstCursorPosition().insertText("Left Posterior");
     table->cellAt(5, 2).firstCursorPosition().insertText("Done");
+#endif
 }
