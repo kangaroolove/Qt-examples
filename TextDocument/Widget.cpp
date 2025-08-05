@@ -74,6 +74,11 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
 
     cursor.setPosition(frame->lastPosition());
 
+    createReportHeader(cursor, headerInfo);
+    createTextWithinLine(cursor, "Biopsy Summary");
+
+    cursor.setPosition(frame->lastPosition());
+
     ReportBiopsySummaryInfo biopsySummaryInfo;
     biopsySummaryInfo.doneTargetCores = "15";
     biopsySummaryInfo.skippedTargetCores = "1";
