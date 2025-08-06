@@ -70,4 +70,5 @@ private:
                             const std::vector<QImage>& images,
                             const ReportHeaderInfo& headerInfo);
     void moveCursorBehindTable(QTextCursor& cursor);
+    void insertPageBreak(QTextCursor& cursor);
 };

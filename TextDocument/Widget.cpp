@@ -88,6 +88,8 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
         cursor.setPosition(frame->lastPosition() + 1);
     }
 
+    insertPageBreak(cursor);
+
     createReportHeader(cursor, headerInfo);
     createTextWithinLine(cursor, "Biopsy Summary");
 
@@ -610,6 +612,7 @@ void Widget::createImageGallery(QTextCursor &cursor,
     for (const auto &image : images) {
         currentImageShowVertical = image.height() > image.width();
         if (newPage || currentImageShowVertical || lastImageShowVertical) {
+            insertPageBreak(cursor);
             createReportHeader(cursor, headerInfo);
             createTextWithinLine(cursor, "Image Data");
             newPage = false;
@@ -635,4 +638,11 @@ void Widget::moveCursorBehindTable(QTextCursor &cursor) {
         int endOfTablePos = table->lastPosition() + 1;
         cursor.setPosition(endOfTablePos);
     }
+}
+
+void Widget::insertPageBreak(QTextCursor &cursor) {
+    QTextBlockFormat pageBreakFormat;
+    pageBreakFormat.setPageBreakPolicy(
+        QTextBlockFormat::PageBreak_AlwaysBefore);
+    cursor.insertBlock(pageBreakFormat);
 }
