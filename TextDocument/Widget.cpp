@@ -1,11 +1,15 @@
 #include "Widget.h"
+
 #include <QDebug>
-#include <QTextEdit>
-#include <QVBoxLayout>
+#include <QPrintDialog>
+#include <QPrinter>
+#include <QPushButton>
 #include <QTextCursor>
+#include <QTextEdit>
+#include <QTextImageFormat>
 #include <QTextLength>
 #include <QTextTableCell>
-#include <QTextImageFormat>
+#include <QVBoxLayout>
 
 Widget::Widget(QWidget *parent) : QWidget(parent) {
     auto layout = new QVBoxLayout(this);
@@ -14,6 +18,20 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     layout->addWidget(textEdit);
 
     auto document = textEdit->document();
+
+    auto button = new QPushButton("Print", this);
+    connect(button, &QPushButton::clicked, this, [=] {
+        QPrinter printer(QPrinter::PrinterResolution);
+        printer.setOrientation(QPrinter::Portrait);
+        printer.setPaperSize(QPrinter::A4);
+
+        QPrintDialog dialog(&printer);
+        if (dialog.exec() == QDialog::Accepted) {
+            document->print(&printer);
+        }
+    });
+    layout->addWidget(button);
+
     QTextCursor cursor(document);
 
     ReportHeaderInfo headerInfo;
