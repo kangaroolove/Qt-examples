@@ -64,12 +64,14 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     modelInfo.piRads = {"5", "2", "3", "1", "5", "4", "3", "2"};
     modelInfo.volumes = {"5", "2", "3", "1", "5", "10", "3", "2"};
     createBiopsyModelTable(cursor, modelInfo);
+
+    cursor.insertHtml("<br>");
     cursor.insertHtml("<br>");
 
     QTextCharFormat boldFormat;
     boldFormat.setFontWeight(QFont::Bold);
-    cursor.setCharFormat(boldFormat);
-    cursor.insertText("Remarks:");
+
+    cursor.insertText("Remarks:", boldFormat);
 
     cursor.insertHtml("<br>");
 
