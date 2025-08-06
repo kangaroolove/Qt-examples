@@ -91,10 +91,19 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
         {"S1", "Right Anterior", "Done"}, {"S2", "Right Posterior", "Skipped"}};
     createSystemCoreTable(cursor, systemCores);
 
-    std::vector<QImage> images = {QImage("C:/Users/q3514/Desktop/HTML/h.png"),
-                                  QImage("C:/Users/q3514/Desktop/HTML/h.png"),
-                                  QImage("C:/Users/q3514/Desktop/HTML/v.png")};
-    // createImageGallery(cursor, images, headerInfo);
+    // HHHV OK
+    // HVHH OK
+    // VVHHH OK
+    // VHHH
+    // H OK
+    // V OK
+    std::vector<QImage> images = {
+        QImage("C:/Users/q3514/Desktop/HTML/v.png"),
+        QImage("C:/Users/q3514/Desktop/HTML/h.png"),
+        QImage("C:/Users/q3514/Desktop/HTML/h.png"),
+        QImage("C:/Users/q3514/Desktop/HTML/h.png"),
+    };
+    createImageGallery(cursor, images, headerInfo);
 }
 
 void Widget::createReportHeader(QTextCursor &cursor,
@@ -568,32 +577,34 @@ void Widget::createSystemCoreTable(
 void Widget::createImageGallery(QTextCursor &cursor,
                                 const std::vector<QImage> &images,
                                 const ReportHeaderInfo &headerInfo) {
-    bool firstItem = true;
+    if (images.empty()) return;
+
+    bool lastImageShowVertical = true;
+    bool currentImageShowVertical = false;
+    bool newPage = false;
 
     QTextBlockFormat alignCenterBlockFormat;
     alignCenterBlockFormat.setAlignment(Qt::AlignCenter);
 
     for (const auto &image : images) {
-        bool showImageVertical = image.height() > image.width();
-        if (firstItem) {
+        currentImageShowVertical = image.height() > image.width();
+        if (newPage || currentImageShowVertical || lastImageShowVertical) {
             createReportHeader(cursor, headerInfo);
             createTextWithinLine(cursor, "Image Data");
-            cursor.setPosition(cursor.currentFrame()->lastPosition());
+            newPage = false;
         }
-        int imageWidth = showImageVertical ? 1080 : 1920;
-        int imageHeight = showImageVertical ? 1920 : 1080;
+        int imageWidth = currentImageShowVertical ? 1080 : 1920;
+        int imageHeight = currentImageShowVertical ? 1920 : 1080;
+        if (!lastImageShowVertical && !currentImageShowVertical) {
+            cursor.insertHtml("<br>");
+            cursor.insertHtml("<br>");
+            cursor.insertHtml("<br>");
+            newPage = true;
+        }
         cursor.insertImage(
             image.scaled(imageWidth, imageHeight, Qt::KeepAspectRatio));
         cursor.mergeBlockFormat(alignCenterBlockFormat);
-        if (!firstItem) {
-            cursor.insertHtml("<br>");
-        } else
-            cursor.setPosition(cursor.currentFrame()->lastPosition());
-
-        if (!showImageVertical && firstItem) {
-            firstItem = false;
-        } else
-            firstItem = true;
+        lastImageShowVertical = currentImageShowVertical;
     }
 }
 
