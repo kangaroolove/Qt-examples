@@ -105,39 +105,6 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
 
     createReportHeader(cursor, headerInfo);
     createTextWithinLine(cursor, "Image Data");
-
-#if 0
-
-
-    // Insert a table with 6 rows and 3 columns
-    QTextTable *table = cursor.insertTable(6, 3);
-
-    // Populate the first row (headers)
-    table->cellAt(0, 0).firstCursorPosition().insertText("System Core");
-    table->cellAt(0, 1).firstCursorPosition().insertText("Zone");
-    table->cellAt(0, 2).firstCursorPosition().insertText("Status");
-
-    // Populate the data rows
-    table->cellAt(1, 0).firstCursorPosition().insertText("S1");
-    table->cellAt(1, 1).firstCursorPosition().insertText("Right Anterior");
-    table->cellAt(1, 2).firstCursorPosition().insertText("Done");
-
-    table->cellAt(2, 0).firstCursorPosition().insertText("S2");
-    table->cellAt(2, 1).firstCursorPosition().insertText("Right Posterior");
-    table->cellAt(2, 2).firstCursorPosition().insertText("Skipped");
-
-    table->cellAt(3, 0).firstCursorPosition().insertText("S3");
-    table->cellAt(3, 1).firstCursorPosition().insertText("Left Anterior");
-    table->cellAt(3, 2).firstCursorPosition().insertText("Done");
-
-    table->cellAt(4, 0).firstCursorPosition().insertText("S4");
-    table->cellAt(4, 1).firstCursorPosition().insertText("Right Mid");
-    table->cellAt(4, 2).firstCursorPosition().insertText("Skipped");
-
-    table->cellAt(5, 0).firstCursorPosition().insertText("S5");
-    table->cellAt(5, 1).firstCursorPosition().insertText("Left Posterior");
-    table->cellAt(5, 2).firstCursorPosition().insertText("Done");
-#endif
 }
 
 void Widget::createReportHeader(QTextCursor &cursor,
@@ -153,21 +120,25 @@ void Widget::createReportHeader(QTextCursor &cursor,
     auto table = cursor.insertTable(1, 3, tableFormat);
 
     const int logoSize = 200;
-    cursor.setPosition(table->cellAt(0, 0).firstPosition());
-    cursor.insertImage(
-        info.companyLogo.scaled(logoSize, logoSize, Qt::KeepAspectRatio));
+    if (!info.companyLogo.isNull()) {
+        cursor.setPosition(table->cellAt(0, 0).firstPosition());
+        cursor.insertImage(
+            info.companyLogo.scaled(logoSize, logoSize, Qt::KeepAspectRatio));
 
-    QTextBlockFormat companyLogoBlockFormat;
-    companyLogoBlockFormat.setAlignment(Qt::AlignLeft);
-    cursor.mergeBlockFormat(companyLogoBlockFormat);
+        QTextBlockFormat companyLogoBlockFormat;
+        companyLogoBlockFormat.setAlignment(Qt::AlignLeft);
+        cursor.mergeBlockFormat(companyLogoBlockFormat);
+    }
 
-    cursor.setPosition(table->cellAt(0, 1).firstPosition());
-    cursor.insertImage(
-        info.hospitalLogo.scaled(logoSize, logoSize, Qt::KeepAspectRatio));
+    if (!info.hospitalLogo.isNull()) {
+        cursor.setPosition(table->cellAt(0, 1).firstPosition());
+        cursor.insertImage(
+            info.hospitalLogo.scaled(logoSize, logoSize, Qt::KeepAspectRatio));
 
-    QTextBlockFormat hospitalLogoBlockFormat;
-    hospitalLogoBlockFormat.setAlignment(Qt::AlignCenter);
-    cursor.mergeBlockFormat(hospitalLogoBlockFormat);
+        QTextBlockFormat hospitalLogoBlockFormat;
+        hospitalLogoBlockFormat.setAlignment(Qt::AlignCenter);
+        cursor.mergeBlockFormat(hospitalLogoBlockFormat);
+    }
 
     cursor.setPosition(table->cellAt(0, 2).firstPosition());
 
