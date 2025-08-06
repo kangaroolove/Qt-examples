@@ -224,7 +224,7 @@ void Widget::createTextWithinLine(QTextCursor &cursor, const QString &text) {
 
     QTextCharFormat textFormat;
     textFormat.setFontWeight(QFont::Bold);
-    // textFormat.setFontPointSize(26.5);
+    textFormat.setFontPointSize(11);
     cursor.insertText(text, textFormat);
 
     cursor.setPosition(table->cellAt(0, 2).firstPosition());
