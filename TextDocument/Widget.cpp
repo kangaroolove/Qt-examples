@@ -184,6 +184,9 @@ void Widget::createReportHeader(QTextCursor &cursor,
 
     moveCursorBehindTable(cursor);
 
+    cursor.insertHtml("<br>");
+    cursor.insertHtml("<br>");
+
     QTextCharFormat titleCharFormat;
     titleCharFormat.setFontPointSize(14);
     titleCharFormat.setFontWeight(QFont::Bold);
