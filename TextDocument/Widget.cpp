@@ -21,7 +21,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
 
     auto button = new QPushButton("Print", this);
     connect(button, &QPushButton::clicked, this, [=] {
-        QPrinter printer(QPrinter::PrinterResolution);
+        QPrinter printer(QPrinter::ScreenResolution);
         printer.setOrientation(QPrinter::Portrait);
         printer.setPaperSize(QPrinter::A4);
 
@@ -129,20 +129,21 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
 void Widget::createReportHeader(QTextCursor &cursor,
                                 const ReportHeaderInfo &info) {
     QVector<QTextLength> constraints;
-    constraints << QTextLength(QTextLength::PercentageLength, 33.33);
-    constraints << QTextLength(QTextLength::PercentageLength, 33.33);
-    constraints << QTextLength(QTextLength::PercentageLength, 33.33);
+    constraints << QTextLength(QTextLength::PercentageLength, 33);
+    constraints << QTextLength(QTextLength::PercentageLength, 33);
+    constraints << QTextLength(QTextLength::PercentageLength, 34);
 
     QTextTableFormat tableFormat;
     tableFormat.setColumnWidthConstraints(constraints);
     tableFormat.setBorder(0);
     auto table = cursor.insertTable(1, 3, tableFormat);
 
-    const int logoSize = 200;
+    const int logoWidth = 150;
+    const int logoHeight = 100;
     if (!info.companyLogo.isNull()) {
         cursor.setPosition(table->cellAt(0, 0).firstPosition());
-        cursor.insertImage(
-            info.companyLogo.scaled(logoSize, logoSize, Qt::KeepAspectRatio));
+        cursor.insertImage(info.companyLogo.scaled(logoWidth, logoHeight,
+                                                   Qt::KeepAspectRatio));
 
         QTextBlockFormat companyLogoBlockFormat;
         companyLogoBlockFormat.setAlignment(Qt::AlignLeft);
@@ -151,8 +152,8 @@ void Widget::createReportHeader(QTextCursor &cursor,
 
     if (!info.hospitalLogo.isNull()) {
         cursor.setPosition(table->cellAt(0, 1).firstPosition());
-        cursor.insertImage(
-            info.hospitalLogo.scaled(logoSize, logoSize, Qt::KeepAspectRatio));
+        cursor.insertImage(info.hospitalLogo.scaled(logoWidth, logoHeight,
+                                                    Qt::KeepAspectRatio));
 
         QTextBlockFormat hospitalLogoBlockFormat;
         hospitalLogoBlockFormat.setAlignment(Qt::AlignCenter);
@@ -181,7 +182,7 @@ void Widget::createReportHeader(QTextCursor &cursor,
     moveCursorBehindTable(cursor);
 
     QTextCharFormat titleCharFormat;
-    titleCharFormat.setFontPointSize(30);
+    // titleCharFormat.setFontPointSize(30);
     titleCharFormat.setFontWeight(QFont::Bold);
 
     QTextBlockFormat alignCenterFormat;
@@ -221,7 +222,7 @@ void Widget::createTextWithinLine(QTextCursor &cursor, const QString &text) {
 
     QTextCharFormat textFormat;
     textFormat.setFontWeight(QFont::Bold);
-    textFormat.setFontPointSize(26.5);
+    // textFormat.setFontPointSize(26.5);
     cursor.insertText(text, textFormat);
 
     cursor.setPosition(table->cellAt(0, 2).firstPosition());
@@ -613,8 +614,8 @@ void Widget::createImageGallery(QTextCursor &cursor,
             createTextWithinLine(cursor, "Image Data");
             newPage = false;
         }
-        int imageWidth = currentImageShowVertical ? 1080 : 1920;
-        int imageHeight = currentImageShowVertical ? 1920 : 1080;
+        int imageWidth = 595;
+        int imageHeight = currentImageShowVertical ? 842 : 421;
         if (!lastImageShowVertical && !currentImageShowVertical) {
             cursor.insertHtml("<br>");
             cursor.insertHtml("<br>");
