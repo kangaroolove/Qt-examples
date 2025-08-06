@@ -66,4 +66,8 @@ private:
                                const std::vector<TargetCoreInfo>& targetCores);
     void createSystemCoreTable(QTextCursor& cursor,
                                const std::vector<SystemCoreInfo>& systemCores);
+    void createImageGallery(QTextCursor& cursor,
+                            const std::vector<QImage>& images,
+                            const ReportHeaderInfo& headerInfo);
+    void moveCursorBehindTable(QTextCursor& cursor);
 };

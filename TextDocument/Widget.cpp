@@ -16,7 +16,6 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     auto document = textEdit->document();
     QTextCursor cursor(document);
 
-    auto frame = cursor.currentFrame();
     ReportHeaderInfo headerInfo;
     headerInfo.companyLogo =
         QImage("C:/Users/q3514/Desktop/HTML/companyLogo.png");
@@ -29,8 +28,6 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     createReportHeader(cursor, headerInfo);
     createTextWithinLine(cursor, "Patient Information");
 
-    cursor.setPosition(frame->lastPosition());
-
     ReportPatientInfo patientInfo;
     patientInfo.name = "Erick Lee";
     patientInfo.caseId = "25";
@@ -40,21 +37,15 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     patientInfo.age = "54";
     patientInfo.examDate = "2025-06-30";
     createPatientInfoTable(cursor, patientInfo);
-    cursor.setPosition(frame->lastPosition());
     createTextWithinLine(cursor, "MRI information");
-    cursor.setPosition(frame->lastPosition());
     createBiopsyTypeTable(cursor, 4.5);
 
-    cursor.setPosition(frame->lastPosition());
     cursor.insertHtml("<br>");
 
     ReportBiopsyModelInfo modelInfo;
     modelInfo.piRads = {"5", "2", "3", "1", "5", "4", "3", "2"};
     modelInfo.volumes = {"5", "2", "3", "1", "5", "10", "3", "2"};
     createBiopsyModelTable(cursor, modelInfo);
-    cursor.setPosition(frame->lastPosition());
-    cursor.insertHtml("<br>");
-
     cursor.insertHtml("<br>");
 
     QTextCharFormat boldFormat;
@@ -72,12 +63,13 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     frameFormat.setHeight(100);
     cursor.insertFrame(frameFormat);
 
-    cursor.setPosition(frame->lastPosition());
+    auto frame = cursor.currentFrame();
+    if (frame) {
+        cursor.setPosition(frame->lastPosition() + 1);
+    }
 
     createReportHeader(cursor, headerInfo);
     createTextWithinLine(cursor, "Biopsy Summary");
-
-    cursor.setPosition(frame->lastPosition());
 
     ReportBiopsySummaryInfo biopsySummaryInfo;
     biopsySummaryInfo.doneTargetCores = "15";
@@ -87,24 +79,22 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     biopsySummaryInfo.totalDoneCores = "39";
     biopsySummaryInfo.totalSkippedCores = "4";
     createBiopsySummaryTable(cursor, biopsySummaryInfo);
-    cursor.setPosition(frame->lastPosition());
     cursor.insertHtml("<br>");
 
     std::vector<TargetCoreInfo> targetCores = {{"T1", "ROI 1", "Done"},
                                                {"T2", "ROI 2", "Skipped"}};
     createTargetCoreTable(cursor, targetCores);
 
-    cursor.setPosition(frame->lastPosition());
     cursor.insertHtml("<br>");
 
     std::vector<SystemCoreInfo> systemCores = {
         {"S1", "Right Anterior", "Done"}, {"S2", "Right Posterior", "Skipped"}};
     createSystemCoreTable(cursor, systemCores);
 
-    cursor.setPosition(frame->lastPosition());
-
-    createReportHeader(cursor, headerInfo);
-    createTextWithinLine(cursor, "Image Data");
+    std::vector<QImage> images = {QImage("C:/Users/q3514/Desktop/HTML/h.png"),
+                                  QImage("C:/Users/q3514/Desktop/HTML/h.png"),
+                                  QImage("C:/Users/q3514/Desktop/HTML/v.png")};
+    // createImageGallery(cursor, images, headerInfo);
 }
 
 void Widget::createReportHeader(QTextCursor &cursor,
@@ -159,7 +149,7 @@ void Widget::createReportHeader(QTextCursor &cursor,
     cursor.insertBlock();
     cursor.insertText(info.hospitalPhone);
 
-    cursor.movePosition(QTextCursor::NextBlock);
+    moveCursorBehindTable(cursor);
 
     QTextCharFormat titleCharFormat;
     titleCharFormat.setFontPointSize(30);
@@ -207,6 +197,8 @@ void Widget::createTextWithinLine(QTextCursor &cursor, const QString &text) {
 
     cursor.setPosition(table->cellAt(0, 2).firstPosition());
     cursor.insertFrame(lineFormat);
+
+    moveCursorBehindTable(cursor);
 }
 
 void Widget::createPatientInfoTable(QTextCursor &cursor,
@@ -271,6 +263,8 @@ void Widget::createPatientInfoTable(QTextCursor &cursor,
     cursor.insertText(info.examDate);
 
     table->mergeCells(0, 1, 1, 3);
+
+    moveCursorBehindTable(cursor);
 }
 
 void Widget::createBiopsyTypeTable(QTextCursor &cursor,
@@ -317,6 +311,8 @@ void Widget::createBiopsyTypeTable(QTextCursor &cursor,
     cursor.setPosition(table->cellAt(1, 2).firstPosition());
     cursor.setBlockFormat(alignCenterFormat);
     cursor.insertText(QString("%1 ng/mL").arg(psaValue));
+
+    moveCursorBehindTable(cursor);
 }
 
 void Widget::createBiopsyModelTable(QTextCursor &cursor,
@@ -370,6 +366,8 @@ void Widget::createBiopsyModelTable(QTextCursor &cursor,
         cursor.setBlockFormat(alignCenterFormat);
         cursor.insertText(info.piRads[i]);
     }
+
+    moveCursorBehindTable(cursor);
 }
 
 void Widget::createBiopsySummaryTable(QTextCursor &cursor,
@@ -451,6 +449,8 @@ void Widget::createBiopsySummaryTable(QTextCursor &cursor,
 
     table->mergeCells(1, 3, 2, 1);
     table->mergeCells(1, 4, 2, 1);
+
+    moveCursorBehindTable(cursor);
 }
 
 void Widget::createTargetCoreTable(
@@ -505,6 +505,8 @@ void Widget::createTargetCoreTable(
 
         ++index;
     }
+
+    moveCursorBehindTable(cursor);
 }
 
 void Widget::createSystemCoreTable(
@@ -558,5 +560,47 @@ void Widget::createSystemCoreTable(
         cursor.insertText(core.status);
 
         ++index;
+    }
+
+    moveCursorBehindTable(cursor);
+}
+
+void Widget::createImageGallery(QTextCursor &cursor,
+                                const std::vector<QImage> &images,
+                                const ReportHeaderInfo &headerInfo) {
+    bool firstItem = true;
+
+    QTextBlockFormat alignCenterBlockFormat;
+    alignCenterBlockFormat.setAlignment(Qt::AlignCenter);
+
+    for (const auto &image : images) {
+        bool showImageVertical = image.height() > image.width();
+        if (firstItem) {
+            createReportHeader(cursor, headerInfo);
+            createTextWithinLine(cursor, "Image Data");
+            cursor.setPosition(cursor.currentFrame()->lastPosition());
+        }
+        int imageWidth = showImageVertical ? 1080 : 1920;
+        int imageHeight = showImageVertical ? 1920 : 1080;
+        cursor.insertImage(
+            image.scaled(imageWidth, imageHeight, Qt::KeepAspectRatio));
+        cursor.mergeBlockFormat(alignCenterBlockFormat);
+        if (!firstItem) {
+            cursor.insertHtml("<br>");
+        } else
+            cursor.setPosition(cursor.currentFrame()->lastPosition());
+
+        if (!showImageVertical && firstItem) {
+            firstItem = false;
+        } else
+            firstItem = true;
+    }
+}
+
+void Widget::moveCursorBehindTable(QTextCursor &cursor) {
+    auto table = cursor.currentTable();
+    if (table) {
+        int endOfTablePos = table->lastPosition() + 1;
+        cursor.setPosition(endOfTablePos);
     }
 }
