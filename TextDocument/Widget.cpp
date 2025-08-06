@@ -618,7 +618,7 @@ void Widget::createImageGallery(QTextCursor &cursor,
             newPage = false;
         }
         int imageWidth = 595;
-        int imageHeight = currentImageShowVertical ? 842 : 421;
+        int imageHeight = currentImageShowVertical ? 752 : 360;
         if (!lastImageShowVertical && !currentImageShowVertical) {
             cursor.insertHtml("<br>");
             cursor.insertHtml("<br>");
