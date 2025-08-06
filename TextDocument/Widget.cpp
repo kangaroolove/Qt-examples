@@ -115,14 +115,14 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
 
     // HHHV OK
     // HVHH OK
-    // VVHHH OK
-    // VHHH
+    // VHHH OK
+    // HHVH
     // H OK
     // V OK
     std::vector<QImage> images = {
+        QImage("C:/Users/q3514/Desktop/HTML/h.png"),
+        QImage("C:/Users/q3514/Desktop/HTML/h.png"),
         QImage("C:/Users/q3514/Desktop/HTML/v.png"),
-        QImage("C:/Users/q3514/Desktop/HTML/h.png"),
-        QImage("C:/Users/q3514/Desktop/HTML/h.png"),
         QImage("C:/Users/q3514/Desktop/HTML/h.png"),
     };
     createImageGallery(cursor, images, headerInfo);
@@ -604,27 +604,29 @@ void Widget::createImageGallery(QTextCursor &cursor,
 
     bool lastImageShowVertical = true;
     bool currentImageShowVertical = false;
-    bool newPage = false;
+    int horizontalDisplayCount = 0;
 
     QTextBlockFormat alignCenterBlockFormat;
     alignCenterBlockFormat.setAlignment(Qt::AlignCenter);
 
     for (const auto &image : images) {
         currentImageShowVertical = image.height() > image.width();
-        if (newPage || currentImageShowVertical || lastImageShowVertical) {
+        if (currentImageShowVertical || lastImageShowVertical ||
+            horizontalDisplayCount == 2) {
             insertPageBreak(cursor);
             createReportHeader(cursor, headerInfo);
             createTextWithinLine(cursor, "Image Data");
-            newPage = false;
+            horizontalDisplayCount = 0;
         }
         int imageWidth = 595;
         int imageHeight = currentImageShowVertical ? 752 : 360;
-        if (!lastImageShowVertical && !currentImageShowVertical) {
+        if (!lastImageShowVertical && !currentImageShowVertical &&
+            horizontalDisplayCount == 1) {
             cursor.insertHtml("<br>");
             cursor.insertHtml("<br>");
             cursor.insertHtml("<br>");
-            newPage = true;
         }
+        if (!currentImageShowVertical) ++horizontalDisplayCount;
         cursor.insertImage(
             image.scaled(imageWidth, imageHeight, Qt::KeepAspectRatio));
         cursor.mergeBlockFormat(alignCenterBlockFormat);
