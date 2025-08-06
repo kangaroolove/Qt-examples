@@ -90,47 +90,17 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     cursor.setPosition(frame->lastPosition());
     cursor.insertHtml("<br>");
 
+    std::vector<TargetCoreInfo> targetCores = {{"T1", "ROI 1", "Done"},
+                                               {"T2", "ROI 2", "Skipped"}};
+    createTargetCoreTable(cursor, targetCores);
+
+    cursor.setPosition(frame->lastPosition());
+
     createReportHeader(cursor, headerInfo);
     createTextWithinLine(cursor, "Image Data");
 
 #if 0
 
-    // No insertText for cells 2,3 and 2,4 to keep them empty
-
-    // Optional: Apply basic formatting to the table (e.g., borders)
-    QTextTableFormat tableFormat;
-    tableFormat.setBorder(1);       // 1-pixel border
-    tableFormat.setCellPadding(5);  // Padding inside cells
-    table->setFormat(tableFormat);
-
-
-    QTextTable *table = cursor.insertTable(6, 3);
-
-    // Populate the first row (headers)
-    table->cellAt(0, 0).firstCursorPosition().insertText("Target Core");
-    table->cellAt(0, 1).firstCursorPosition().insertText("Lesion");
-    table->cellAt(0, 2).firstCursorPosition().insertText("Status");
-
-    // Populate the data rows
-    table->cellAt(1, 0).firstCursorPosition().insertText("T1");
-    table->cellAt(1, 1).firstCursorPosition().insertText("ROI 1");
-    table->cellAt(1, 2).firstCursorPosition().insertText("Done");
-
-    table->cellAt(2, 0).firstCursorPosition().insertText("T2");
-    table->cellAt(2, 1).firstCursorPosition().insertText("ROI 2");
-    table->cellAt(2, 2).firstCursorPosition().insertText("Skipped");
-
-    table->cellAt(3, 0).firstCursorPosition().insertText("T3");
-    table->cellAt(3, 1).firstCursorPosition().insertText("ROI 3");
-    table->cellAt(3, 2).firstCursorPosition().insertText("Done");
-
-    table->cellAt(4, 0).firstCursorPosition().insertText("T4");
-    table->cellAt(4, 1).firstCursorPosition().insertText("ROI 4");
-    table->cellAt(4, 2).firstCursorPosition().insertText("Skipped");
-
-    table->cellAt(5, 0).firstCursorPosition().insertText("T5");
-    table->cellAt(5, 1).firstCursorPosition().insertText("ROI 5");
-    table->cellAt(5, 2).firstCursorPosition().insertText("Done");
 
     // Insert a table with 6 rows and 3 columns
     QTextTable *table = cursor.insertTable(6, 3);
@@ -503,4 +473,58 @@ void Widget::createBiopsySummaryTable(QTextCursor &cursor,
 
     table->mergeCells(1, 3, 2, 1);
     table->mergeCells(1, 4, 2, 1);
+}
+
+void Widget::createTargetCoreTable(
+    QTextCursor &cursor, const std::vector<TargetCoreInfo> &targetCores) {
+    if (targetCores.empty()) return;
+
+    QTextTableFormat tableFormat;
+    tableFormat.setBorder(1);
+    tableFormat.setCellPadding(5);
+    tableFormat.setCellSpacing(0);
+
+    QVector<QTextLength> constraints;
+    constraints << QTextLength(QTextLength::PercentageLength, 33)
+                << QTextLength(QTextLength::PercentageLength, 33)
+                << QTextLength(QTextLength::PercentageLength, 34);
+    tableFormat.setColumnWidthConstraints(constraints);
+
+    QTextCharFormat headerFormat;
+    headerFormat.setFontWeight(QFont::Bold);
+
+    QTextBlockFormat alignCenterFormat;
+    alignCenterFormat.setAlignment(Qt::AlignCenter);
+
+    QTextTable *table =
+        cursor.insertTable(targetCores.size() + 1, 3, tableFormat);
+
+    cursor.setPosition(table->cellAt(0, 0).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText("Target Core", headerFormat);
+
+    cursor.setPosition(table->cellAt(0, 1).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText("Lesion", headerFormat);
+
+    cursor.setPosition(table->cellAt(0, 2).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText("Status", headerFormat);
+
+    int index = 1;
+    for (const auto &core : targetCores) {
+        cursor.setPosition(table->cellAt(index, 0).firstPosition());
+        cursor.setBlockFormat(alignCenterFormat);
+        cursor.insertText(core.name);
+
+        cursor.setPosition(table->cellAt(index, 1).firstPosition());
+        cursor.setBlockFormat(alignCenterFormat);
+        cursor.insertText(core.lesion);
+
+        cursor.setPosition(table->cellAt(index, 2).firstPosition());
+        cursor.setBlockFormat(alignCenterFormat);
+        cursor.insertText(core.status);
+
+        ++index;
+    }
 }

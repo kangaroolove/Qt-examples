@@ -34,6 +34,18 @@ struct ReportBiopsySummaryInfo {
     QString totalSkippedCores;
 };
 
+struct TargetCoreInfo {
+    QString name;
+    QString lesion;
+    QString status;
+};
+
+struct SystemCoreInfo {
+    QString name;
+    QString zone;
+    QString status;
+};
+
 class QTextCursor;
 class Widget : public QWidget {
     Q_OBJECT
@@ -50,4 +62,6 @@ private:
                                 const ReportBiopsyModelInfo& info);
     void createBiopsySummaryTable(QTextCursor& cursor,
                                   const ReportBiopsySummaryInfo& info);
+    void createTargetCoreTable(QTextCursor& cursor,
+                               const std::vector<TargetCoreInfo>& targetCores);
 };
