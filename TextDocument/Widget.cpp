@@ -68,10 +68,11 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     cursor.insertHtml("<br>");
     cursor.insertHtml("<br>");
 
-    QTextCharFormat boldFormat;
-    boldFormat.setFontWeight(QFont::Bold);
+    QTextCharFormat remarkTextFormat;
+    remarkTextFormat.setFontWeight(QFont::Bold);
+    remarkTextFormat.setFontPointSize(11);
 
-    cursor.insertText("Remarks:", boldFormat);
+    cursor.insertText("Remarks:", remarkTextFormat);
 
     cursor.insertHtml("<br>");
 
@@ -184,7 +185,7 @@ void Widget::createReportHeader(QTextCursor &cursor,
     moveCursorBehindTable(cursor);
 
     QTextCharFormat titleCharFormat;
-    titleCharFormat.setFontPointSize(13);
+    titleCharFormat.setFontPointSize(14);
     titleCharFormat.setFontWeight(QFont::Bold);
 
     QTextBlockFormat alignCenterFormat;
