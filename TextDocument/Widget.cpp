@@ -95,6 +95,13 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     createTargetCoreTable(cursor, targetCores);
 
     cursor.setPosition(frame->lastPosition());
+    cursor.insertHtml("<br>");
+
+    std::vector<SystemCoreInfo> systemCores = {
+        {"S1", "Right Anterior", "Done"}, {"S2", "Right Posterior", "Skipped"}};
+    createSystemCoreTable(cursor, systemCores);
+
+    cursor.setPosition(frame->lastPosition());
 
     createReportHeader(cursor, headerInfo);
     createTextWithinLine(cursor, "Image Data");
@@ -520,6 +527,60 @@ void Widget::createTargetCoreTable(
         cursor.setPosition(table->cellAt(index, 1).firstPosition());
         cursor.setBlockFormat(alignCenterFormat);
         cursor.insertText(core.lesion);
+
+        cursor.setPosition(table->cellAt(index, 2).firstPosition());
+        cursor.setBlockFormat(alignCenterFormat);
+        cursor.insertText(core.status);
+
+        ++index;
+    }
+}
+
+void Widget::createSystemCoreTable(
+    QTextCursor &cursor, const std::vector<SystemCoreInfo> &systemCores) {
+    if (systemCores.empty()) return;
+
+    QTextTableFormat tableFormat;
+    tableFormat.setBorder(1);
+    tableFormat.setCellPadding(5);
+    tableFormat.setCellSpacing(0);
+
+    QVector<QTextLength> constraints;
+    constraints << QTextLength(QTextLength::PercentageLength, 33)
+                << QTextLength(QTextLength::PercentageLength, 33)
+                << QTextLength(QTextLength::PercentageLength, 34);
+    tableFormat.setColumnWidthConstraints(constraints);
+
+    QTextCharFormat headerFormat;
+    headerFormat.setFontWeight(QFont::Bold);
+
+    QTextBlockFormat alignCenterFormat;
+    alignCenterFormat.setAlignment(Qt::AlignCenter);
+
+    QTextTable *table =
+        cursor.insertTable(systemCores.size() + 1, 3, tableFormat);
+
+    cursor.setPosition(table->cellAt(0, 0).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText("System Core", headerFormat);
+
+    cursor.setPosition(table->cellAt(0, 1).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText("Zone", headerFormat);
+
+    cursor.setPosition(table->cellAt(0, 2).firstPosition());
+    cursor.setBlockFormat(alignCenterFormat);
+    cursor.insertText("Status", headerFormat);
+
+    int index = 1;
+    for (const auto &core : systemCores) {
+        cursor.setPosition(table->cellAt(index, 0).firstPosition());
+        cursor.setBlockFormat(alignCenterFormat);
+        cursor.insertText(core.name);
+
+        cursor.setPosition(table->cellAt(index, 1).firstPosition());
+        cursor.setBlockFormat(alignCenterFormat);
+        cursor.insertText(core.zone);
 
         cursor.setPosition(table->cellAt(index, 2).firstPosition());
         cursor.setBlockFormat(alignCenterFormat);

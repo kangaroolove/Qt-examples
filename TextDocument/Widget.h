@@ -64,4 +64,6 @@ private:
                                   const ReportBiopsySummaryInfo& info);
     void createTargetCoreTable(QTextCursor& cursor,
                                const std::vector<TargetCoreInfo>& targetCores);
+    void createSystemCoreTable(QTextCursor& cursor,
+                               const std::vector<SystemCoreInfo>& systemCores);
 };
