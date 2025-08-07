@@ -11,28 +11,10 @@
 #include <QTextTableCell>
 #include <QVBoxLayout>
 
-Widget::Widget(QWidget *parent) : QWidget(parent) {
-    auto layout = new QVBoxLayout(this);
-    auto textEdit = new QTextEdit(this);
-    textEdit->setReadOnly(true);
-    layout->addWidget(textEdit);
-
-    auto document = textEdit->document();
-
-    auto button = new QPushButton("Print", this);
-    connect(button, &QPushButton::clicked, this, [=] {
-        QPrinter printer(QPrinter::ScreenResolution);
-        printer.setOrientation(QPrinter::Portrait);
-        printer.setPaperSize(QPrinter::A4);
-
-        QPrintDialog dialog(&printer);
-        if (dialog.exec() == QDialog::Accepted) {
-            document->print(&printer);
-        }
-    });
-    layout->addWidget(button);
-
-    prepareReport(document, getReportInfo());
+Widget::Widget(QWidget *parent)
+    : QWidget(parent), m_textEdit(new QTextEdit(this)) {
+    initGui();
+    prepareReport(m_textEdit->document(), getReportInfo());
 }
 
 void Widget::createReportHeader(QTextCursor &cursor,
@@ -685,4 +667,24 @@ ReportInfo Widget::getReportInfo() {
     reportInfo.images = images;
 
     return reportInfo;
+}
+
+void Widget::initGui() {
+    auto layout = new QVBoxLayout(this);
+    m_textEdit->setReadOnly(true);
+    layout->addWidget(m_textEdit);
+
+    auto button = new QPushButton("Print", this);
+    layout->addWidget(button);
+
+    connect(button, &QPushButton::clicked, this, [this] {
+        QPrinter printer(QPrinter::ScreenResolution);
+        printer.setOrientation(QPrinter::Portrait);
+        printer.setPaperSize(QPrinter::A4);
+
+        QPrintDialog dialog(&printer);
+        if (dialog.exec() == QDialog::Accepted) {
+            m_textEdit->document()->print(&printer);
+        }
+    });
 }

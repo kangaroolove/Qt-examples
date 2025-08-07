@@ -59,6 +59,7 @@ struct ReportInfo {
 
 class QTextCursor;
 class QTextDocument;
+class QTextEdit;
 class Widget : public QWidget {
     Q_OBJECT
 public:
@@ -86,4 +87,7 @@ private:
     void preparePrint(QTextDocument* document);
     void prepareReport(QTextDocument* document, const ReportInfo& reportInfo);
     ReportInfo getReportInfo();
+    void initGui();
+
+    QTextEdit* m_textEdit;
 };
