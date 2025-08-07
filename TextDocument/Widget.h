@@ -46,7 +46,19 @@ struct SystemCoreInfo {
     QString status;
 };
 
+struct ReportInfo {
+    ReportHeaderInfo headerInfo;
+    ReportPatientInfo patientInfo;
+    ReportBiopsyModelInfo biopsyModelInfo;
+    ReportBiopsySummaryInfo biopsySummaryInfo;
+    std::vector<TargetCoreInfo> targetCoreInfo;
+    std::vector<SystemCoreInfo> systemCoreInfo;
+    std::vector<QImage> images;
+    QString remark;
+};
+
 class QTextCursor;
+class QTextDocument;
 class Widget : public QWidget {
     Q_OBJECT
 public:
@@ -71,4 +83,7 @@ private:
                             const ReportHeaderInfo& headerInfo);
     void moveCursorBehindTable(QTextCursor& cursor);
     void insertPageBreak(QTextCursor& cursor);
+    void preparePrint(QTextDocument* document);
+    void prepareReport(QTextDocument* document, const ReportInfo& reportInfo);
+    ReportInfo getReportInfo();
 };

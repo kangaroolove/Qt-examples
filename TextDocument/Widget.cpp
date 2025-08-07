@@ -32,101 +32,7 @@ Widget::Widget(QWidget *parent) : QWidget(parent) {
     });
     layout->addWidget(button);
 
-    QTextCursor cursor(document);
-
-    ReportHeaderInfo headerInfo;
-    headerInfo.companyLogo =
-        QImage("C:/Users/q3514/Desktop/HTML/companyLogo.png");
-    headerInfo.hospitalLogo =
-        QImage("C:/Users/q3514/Desktop/HTML/hospitalLogo.png");
-    headerInfo.hospitalName = "abc";
-    headerInfo.hospitalAddress = "New York";
-    headerInfo.hospitalPhone = "123456";
-
-    createReportHeader(cursor, headerInfo);
-    createTextWithinLine(cursor, "Patient Information");
-
-    ReportPatientInfo patientInfo;
-    patientInfo.name = "Erick Lee";
-    patientInfo.caseId = "25";
-    patientInfo.gender = "Male";
-    patientInfo.mrn = "J1122334K";
-    patientInfo.dateOfBirth = "1971-06-03";
-    patientInfo.age = "54";
-    patientInfo.examDate = "2025-06-30";
-    createPatientInfoTable(cursor, patientInfo);
-    createTextWithinLine(cursor, "MRI information");
-    createBiopsyTypeTable(cursor, 4.5);
-
-    cursor.insertHtml("<br>");
-
-    ReportBiopsyModelInfo modelInfo;
-    modelInfo.piRads = {"5", "2", "3", "1", "5", "4", "3", "2"};
-    modelInfo.volumes = {"5", "2", "3", "1", "5", "10", "3", "2"};
-    createBiopsyModelTable(cursor, modelInfo);
-
-    cursor.insertHtml("<br>");
-    cursor.insertHtml("<br>");
-
-    QTextCharFormat remarkTextFormat;
-    remarkTextFormat.setFontWeight(QFont::Bold);
-    remarkTextFormat.setFontPointSize(11);
-
-    cursor.insertText("Remarks:", remarkTextFormat);
-
-    cursor.insertHtml("<br>");
-
-    QTextFrameFormat frameFormat;
-    frameFormat.setBorder(1);
-    frameFormat.setBorderStyle(QTextFrameFormat::BorderStyle_Solid);
-    frameFormat.setPadding(0);
-    frameFormat.setWidth(QTextLength(QTextLength::PercentageLength, 100));
-    frameFormat.setHeight(100);
-    cursor.insertFrame(frameFormat);
-
-    auto frame = cursor.currentFrame();
-    if (frame) {
-        cursor.setPosition(frame->lastPosition() + 1);
-    }
-
-    insertPageBreak(cursor);
-
-    createReportHeader(cursor, headerInfo);
-    createTextWithinLine(cursor, "Biopsy Summary");
-
-    ReportBiopsySummaryInfo biopsySummaryInfo;
-    biopsySummaryInfo.doneTargetCores = "15";
-    biopsySummaryInfo.skippedTargetCores = "1";
-    biopsySummaryInfo.doneSystemCores = "24";
-    biopsySummaryInfo.skippedSystemCores = "3";
-    biopsySummaryInfo.totalDoneCores = "39";
-    biopsySummaryInfo.totalSkippedCores = "4";
-    createBiopsySummaryTable(cursor, biopsySummaryInfo);
-    cursor.insertHtml("<br>");
-
-    std::vector<TargetCoreInfo> targetCores = {{"T1", "ROI 1", "Done"},
-                                               {"T2", "ROI 2", "Skipped"}};
-    createTargetCoreTable(cursor, targetCores);
-
-    cursor.insertHtml("<br>");
-
-    std::vector<SystemCoreInfo> systemCores = {
-        {"S1", "Right Anterior", "Done"}, {"S2", "Right Posterior", "Skipped"}};
-    createSystemCoreTable(cursor, systemCores);
-
-    // HHHV OK
-    // HVHH OK
-    // VHHH OK
-    // HHVH
-    // H OK
-    // V OK
-    std::vector<QImage> images = {
-        QImage("C:/Users/q3514/Desktop/HTML/h.png"),
-        QImage("C:/Users/q3514/Desktop/HTML/h.png"),
-        QImage("C:/Users/q3514/Desktop/HTML/v.png"),
-        QImage("C:/Users/q3514/Desktop/HTML/h.png"),
-    };
-    createImageGallery(cursor, images, headerInfo);
+    prepareReport(document, getReportInfo());
 }
 
 void Widget::createReportHeader(QTextCursor &cursor,
@@ -651,4 +557,132 @@ void Widget::insertPageBreak(QTextCursor &cursor) {
     pageBreakFormat.setPageBreakPolicy(
         QTextBlockFormat::PageBreak_AlwaysBefore);
     cursor.insertBlock(pageBreakFormat);
+}
+
+void Widget::preparePrint(QTextDocument *document) {
+    if (!document) return;
+
+    document->clear();
+}
+
+void Widget::prepareReport(QTextDocument *document,
+                           const ReportInfo &reportInfo) {
+    if (!document) return;
+
+    QTextCursor cursor(document);
+
+    createReportHeader(cursor, reportInfo.headerInfo);
+    createTextWithinLine(cursor, "Patient Information");
+
+    createPatientInfoTable(cursor, reportInfo.patientInfo);
+    createTextWithinLine(cursor, "MRI information");
+    createBiopsyTypeTable(cursor, 4.5);
+
+    cursor.insertHtml("<br>");
+
+    createBiopsyModelTable(cursor, reportInfo.biopsyModelInfo);
+
+    cursor.insertHtml("<br>");
+    cursor.insertHtml("<br>");
+
+    QTextCharFormat remarkTextFormat;
+    remarkTextFormat.setFontWeight(QFont::Bold);
+    remarkTextFormat.setFontPointSize(11);
+
+    cursor.insertText("Remarks:", remarkTextFormat);
+
+    cursor.insertHtml("<br>");
+
+    QTextFrameFormat frameFormat;
+    frameFormat.setBorder(1);
+    frameFormat.setBorderStyle(QTextFrameFormat::BorderStyle_Solid);
+    frameFormat.setPadding(0);
+    frameFormat.setWidth(QTextLength(QTextLength::PercentageLength, 100));
+    frameFormat.setHeight(100);
+    cursor.insertFrame(frameFormat);
+
+    auto frame = cursor.currentFrame();
+    if (frame) {
+        cursor.setPosition(frame->lastPosition() + 1);
+    }
+
+    insertPageBreak(cursor);
+
+    createReportHeader(cursor, reportInfo.headerInfo);
+    createTextWithinLine(cursor, "Biopsy Summary");
+
+    createBiopsySummaryTable(cursor, reportInfo.biopsySummaryInfo);
+    cursor.insertHtml("<br>");
+
+    createTargetCoreTable(cursor, reportInfo.targetCoreInfo);
+
+    cursor.insertHtml("<br>");
+
+    createSystemCoreTable(cursor, reportInfo.systemCoreInfo);
+
+    // HHHV OK
+    // HVHH OK
+    // VHHH OK
+    // HHVH
+    // H OK
+    // V OK
+    createImageGallery(cursor, reportInfo.images, reportInfo.headerInfo);
+}
+
+ReportInfo Widget::getReportInfo() {
+    ReportInfo reportInfo;
+
+    ReportHeaderInfo headerInfo;
+    headerInfo.companyLogo =
+        QImage("C:/Users/q3514/Desktop/HTML/companyLogo.png");
+    headerInfo.hospitalLogo =
+        QImage("C:/Users/q3514/Desktop/HTML/hospitalLogo.png");
+    headerInfo.hospitalName = "abc";
+    headerInfo.hospitalAddress = "New York";
+    headerInfo.hospitalPhone = "123456";
+    reportInfo.headerInfo = headerInfo;
+
+    ReportPatientInfo patientInfo;
+    patientInfo.name = "Erick Lee";
+    patientInfo.caseId = "25";
+    patientInfo.gender = "Male";
+    patientInfo.mrn = "J1122334K";
+    patientInfo.dateOfBirth = "1971-06-03";
+    patientInfo.age = "54";
+    patientInfo.examDate = "2025-06-30";
+    reportInfo.patientInfo = patientInfo;
+
+    ReportBiopsyModelInfo modelInfo;
+    modelInfo.piRads = {"5", "2", "3", "1", "5", "4", "3", "2"};
+    modelInfo.volumes = {"5", "2", "3", "1", "5", "10", "3", "2"};
+    reportInfo.biopsyModelInfo = modelInfo;
+
+    reportInfo.remark = "Hello world!";
+
+    ReportBiopsySummaryInfo biopsySummaryInfo;
+    biopsySummaryInfo.doneTargetCores = "15";
+    biopsySummaryInfo.skippedTargetCores = "1";
+    biopsySummaryInfo.doneSystemCores = "24";
+    biopsySummaryInfo.skippedSystemCores = "3";
+    biopsySummaryInfo.totalDoneCores = "39";
+    biopsySummaryInfo.totalSkippedCores = "4";
+    reportInfo.biopsySummaryInfo = biopsySummaryInfo;
+
+    std::vector<TargetCoreInfo> targetCores = {{"T1", "ROI 1", "Done"},
+                                               {"T2", "ROI 2", "Skipped"}};
+    reportInfo.targetCoreInfo = targetCores;
+
+    std::vector<SystemCoreInfo> systemCores = {
+        {"S1", "Right Anterior", "Done"}, {"S2", "Right Posterior", "Skipped"}};
+    reportInfo.systemCoreInfo = systemCores;
+
+    std::vector<QImage> images = {
+        QImage("C:/Users/q3514/Desktop/HTML/h.png"),
+        QImage("C:/Users/q3514/Desktop/HTML/h.png"),
+        QImage("C:/Users/q3514/Desktop/HTML/v.png"),
+        QImage("C:/Users/q3514/Desktop/HTML/h.png"),
+    };
+    reportInfo.images = images;
+
+    return reportInfo;
 }
