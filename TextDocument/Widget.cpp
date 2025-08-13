@@ -378,7 +378,7 @@ void Widget::createBiopsySummaryTable(QTextCursor &cursor,
 }
 
 void Widget::createTargetCoreTable(
-    QTextCursor &cursor, const std::vector<TargetCoreInfo> &targetCores) {
+    QTextCursor &cursor, const std::vector<ReportTargetCoreInfo> &targetCores) {
     if (targetCores.empty()) return;
 
     QTextTableFormat tableFormat;
@@ -434,7 +434,7 @@ void Widget::createTargetCoreTable(
 }
 
 void Widget::createSystemCoreTable(
-    QTextCursor &cursor, const std::vector<SystemCoreInfo> &systemCores) {
+    QTextCursor &cursor, const std::vector<ReportSystemCoreInfo> &systemCores) {
     if (systemCores.empty()) return;
 
     QTextTableFormat tableFormat;
@@ -650,11 +650,11 @@ ReportInfo Widget::getReportInfo() {
     biopsySummaryInfo.totalSkippedCores = "4";
     reportInfo.biopsySummaryInfo = biopsySummaryInfo;
 
-    std::vector<TargetCoreInfo> targetCores = {{"T1", "ROI 1", "Done"},
-                                               {"T2", "ROI 2", "Skipped"}};
+    std::vector<ReportTargetCoreInfo> targetCores = {
+        {"T1", "ROI 1", "Done"}, {"T2", "ROI 2", "Skipped"}};
     reportInfo.targetCoreInfo = targetCores;
 
-    std::vector<SystemCoreInfo> systemCores = {
+    std::vector<ReportSystemCoreInfo> systemCores = {
         {"S1", "Right Anterior", "Done"}, {"S2", "Right Posterior", "Skipped"}};
     reportInfo.systemCoreInfo = systemCores;
 

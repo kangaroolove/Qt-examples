@@ -34,13 +34,13 @@ struct ReportBiopsySummaryInfo {
     QString totalSkippedCores;
 };
 
-struct TargetCoreInfo {
+struct ReportTargetCoreInfo {
     QString name;
     QString lesion;
     QString status;
 };
 
-struct SystemCoreInfo {
+struct ReportSystemCoreInfo {
     QString name;
     QString zone;
     QString status;
@@ -51,8 +51,8 @@ struct ReportInfo {
     ReportPatientInfo patientInfo;
     ReportBiopsyModelInfo biopsyModelInfo;
     ReportBiopsySummaryInfo biopsySummaryInfo;
-    std::vector<TargetCoreInfo> targetCoreInfo;
-    std::vector<SystemCoreInfo> systemCoreInfo;
+    std::vector<ReportTargetCoreInfo> targetCoreInfo;
+    std::vector<ReportSystemCoreInfo> systemCoreInfo;
     std::vector<QImage> images;
     QString remark;
 };
@@ -75,10 +75,12 @@ private:
                                 const ReportBiopsyModelInfo& info);
     void createBiopsySummaryTable(QTextCursor& cursor,
                                   const ReportBiopsySummaryInfo& info);
-    void createTargetCoreTable(QTextCursor& cursor,
-                               const std::vector<TargetCoreInfo>& targetCores);
-    void createSystemCoreTable(QTextCursor& cursor,
-                               const std::vector<SystemCoreInfo>& systemCores);
+    void createTargetCoreTable(
+        QTextCursor& cursor,
+        const std::vector<ReportTargetCoreInfo>& targetCores);
+    void createSystemCoreTable(
+        QTextCursor& cursor,
+        const std::vector<ReportSystemCoreInfo>& systemCores);
     void createImageGallery(QTextCursor& cursor,
                             const std::vector<QImage>& images,
                             const ReportHeaderInfo& headerInfo);
