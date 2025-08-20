@@ -1,5 +1,6 @@
 #include "Widget.h"
 
+#include <QAbstractTextDocumentLayout>
 #include <QDebug>
 #include <QPainter>
 #include <QPrintDialog>
@@ -692,46 +693,71 @@ void Widget::initGui() {
         // work, need to set doc.size
         printer.setMargins({0, 0, 0, 0});
 
-#if 0
+        auto doc = m_textEdit->document();
+        doc->setPageSize(
+            QSize(printer.pageRect().width(), printer.pageRect().height()));
+
+        int count = doc->pageCount();
+
+#if 1
         QPainter painter(&printer);
         // painter.begin(&printer);
-        QRectF pageRect = printer.pageRect(QPrinter::DevicePixel);
+        QRectF body = printer.pageRect(QPrinter::DevicePixel);
+
+        qDebug() << body;
+
+        for (int index = 1; index <= count; ++index) {
+            painter.save();
+            painter.translate(body.left(),
+                              body.top() - (index - 1) * body.height());
+            QRectF view(0, (index - 1) * body.height(), body.width(),
+                        body.height());
+
+            QAbstractTextDocumentLayout::PaintContext ctx;
+
+            painter.setClipRect(view);
+            ctx.clip = view;
+
+            // don't use the system palette text as default text color, on HP/UX
+            // for example that's white, and white text on white paper doesn't
+            // look that nice
+            ctx.palette.setColor(QPalette::Text, Qt::black);
+
+            auto layout = doc->documentLayout();
+            layout->draw(&painter, ctx);
+
+            painter.restore();
+            if (index != count) printer.newPage();
+        }
 
         // Define footer text and font
-        QString footerText = "Page 1 - Confidential Document";
-        QFont footerFont("Arial", 10);
-        painter.setFont(footerFont);
+        // QString footerText = "Page 1 - Confidential Document";
+        // QFont footerFont("Arial", 10);
+        // painter.setFont(footerFont);
 
-        // Calculate footer position (bottom of the page)
-        int footerHeight = 30;  // Height reserved for footer
-        QRect footerRect(pageRect.left(), pageRect.bottom() - footerHeight,
-                         pageRect.width(), footerHeight);
+        // // Calculate footer position (bottom of the page)
+        // int footerHeight = 30;  // Height reserved for footer
+        // QRect footerRect(pageRect.left(), pageRect.bottom() -
+        // footerHeight,
+        //                  pageRect.width(), footerHeight);
 
-        // Draw footer text centered
-        painter.drawText(footerRect, Qt::AlignCenter, footerText);
+        // // Draw footer text centered
+        // painter.drawText(footerRect, Qt::AlignCenter, footerText);
 
-        // Draw main content (example)
-        painter.drawText(pageRect, Qt::AlignTop | Qt::AlignLeft,
-                         "Main document content here...");
-
-        printer.newPage();
+        // // Draw main content (example)
+        // painter.drawText(pageRect, Qt::AlignTop | Qt::AlignLeft,
+        //                  "Main document content here...");
 
         // End painting
         painter.end();
 
-        qDebug() << printer.pageRect();
-
-
+        // qDebug() << printer.pageRect();
 
         // didn't work
         // printer.setMargins({0, 0, 0, 0});
         // didn't work
         // printer.setPageMargins(0, 0, 0, 0, QPrinter::Unit::Millimeter);
 #endif
-
-        auto doc = m_textEdit->document();
-        doc->setPageSize(
-            QSize(printer.pageRect().width(), printer.pageRect().height()));
 
         qDebug() << "size = " << doc->pageSize();
         qDebug() << "count=" << doc->pageCount();
