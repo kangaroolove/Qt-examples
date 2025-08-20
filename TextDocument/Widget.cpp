@@ -685,10 +685,6 @@ void Widget::initGui() {
         printer.setPaperSize(QPrinter::A4);
         printer.setOutputFormat(QPrinter::PdfFormat);
         printer.setOutputFileName("D:/test.pdf");
-
-        // QPrintDialog dialog(&printer);
-        // if (dialog.exec() == QDialog::Accepted) {
-        //     m_textEdit->document()->print(&printer);
-        // }
+        m_textEdit->document()->print(&printer);
     });
 }
