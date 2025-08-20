@@ -694,6 +694,7 @@ void Widget::initGui() {
         printer.setMargins({0, 0, 0, 0});
 
         auto doc = m_textEdit->document();
+        doc->setDocumentMargin(20);
         doc->setPageSize(
             QSize(printer.pageRect().width(), printer.pageRect().height()));
 
@@ -725,6 +726,14 @@ void Widget::initGui() {
 
             auto layout = doc->documentLayout();
             layout->draw(&painter, ctx);
+
+            auto footerHeight = 30;
+            QRect footerRect(body.left(), body.bottom() * index - footerHeight,
+                             body.width(), footerHeight);
+
+            // Draw footer text centered
+            painter.drawText(footerRect, Qt::AlignCenter,
+                             QString("Page %1").arg(index));
 
             painter.restore();
             if (index != count) printer.newPage();
