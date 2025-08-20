@@ -29,7 +29,7 @@ void Widget::createReportHeader(QTextCursor &cursor,
     tableFormat.setBorder(0);
     auto table = cursor.insertTable(1, 3, tableFormat);
 
-    const int logoWidth = 150;
+    const int logoWidth = 200;
     const int logoHeight = 100;
     if (!info.companyLogo.isNull()) {
         cursor.setPosition(table->cellAt(0, 0).firstPosition());
@@ -615,12 +615,14 @@ ReportInfo Widget::getReportInfo() {
     ReportInfo reportInfo;
 
     ReportHeaderInfo headerInfo;
-    headerInfo.companyLogo =
-        QImage("C:/Users/q3514/Desktop/HTML/companyLogo.png");
-    headerInfo.hospitalLogo =
-        QImage("C:/Users/q3514/Desktop/HTML/hospitalLogo.png");
+    headerInfo.companyLogo = QImage(":/icons/compangLogo.png");
+    headerInfo.hospitalLogo = QImage(":/icons/hispitalLogo.png");
     headerInfo.hospitalName = "abc";
-    headerInfo.hospitalAddress = "New York";
+    headerInfo.hospitalAddress =
+        "New YorkNew YorkNew YorkNew YorkNew YorkNew YorkNew YorkNew YorkNew "
+        "YorkNew YorkNew YorkNew YorkNew YorkNew YorkNew YorkNew YorkNew "
+        "YorkNew YorkNew YorkNew YorkNew YorkNew YorkNew YorkNew YorkNew "
+        "YorkNew YorkNew YorkNew YorkNew YorkNew YorkNew York";
     headerInfo.hospitalPhone = "123456";
     reportInfo.headerInfo = headerInfo;
 
@@ -681,10 +683,12 @@ void Widget::initGui() {
         QPrinter printer(QPrinter::ScreenResolution);
         printer.setOrientation(QPrinter::Portrait);
         printer.setPaperSize(QPrinter::A4);
+        printer.setOutputFormat(QPrinter::PdfFormat);
+        printer.setOutputFileName("D:/test.pdf");
 
-        QPrintDialog dialog(&printer);
-        if (dialog.exec() == QDialog::Accepted) {
-            m_textEdit->document()->print(&printer);
-        }
+        // QPrintDialog dialog(&printer);
+        // if (dialog.exec() == QDialog::Accepted) {
+        //     m_textEdit->document()->print(&printer);
+        // }
     });
 }

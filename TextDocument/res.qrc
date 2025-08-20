@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/compangLogo.png</file>
+        <file>icons/hispitalLogo.png</file>
+    </qresource>
+</RCC>

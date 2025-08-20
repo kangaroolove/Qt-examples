@@ -17,6 +17,7 @@ add_executable(${PROJECT_NAME}
   main.cpp
   Widget.cpp
   Widget.h
+  res.qrc
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets Qt5::PrintSupport)
