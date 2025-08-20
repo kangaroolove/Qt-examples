@@ -700,12 +700,8 @@ void Widget::initGui() {
 
         int count = doc->pageCount();
 
-#if 1
         QPainter painter(&printer);
-        // painter.begin(&printer);
         QRectF body = printer.pageRect(QPrinter::DevicePixel);
-
-        qDebug() << body;
 
         for (int index = 1; index <= count; ++index) {
             painter.save();
@@ -715,62 +711,36 @@ void Widget::initGui() {
                         body.height());
 
             QAbstractTextDocumentLayout::PaintContext ctx;
-
             painter.setClipRect(view);
             ctx.clip = view;
-
-            // don't use the system palette text as default text color, on HP/UX
-            // for example that's white, and white text on white paper doesn't
-            // look that nice
             ctx.palette.setColor(QPalette::Text, Qt::black);
 
             auto layout = doc->documentLayout();
             layout->draw(&painter, ctx);
 
+            auto margin = 20;
             auto footerHeight = 30;
-            QRect footerRect(body.left(), body.bottom() * index - footerHeight,
-                             body.width(), footerHeight);
+            QRect footerRect(body.left() + margin,
+                             body.bottom() * index - footerHeight,
+                             body.width() - (2 * margin), footerHeight);
 
             // Draw footer text centered
-            painter.drawText(footerRect, Qt::AlignCenter,
+            QFont font;
+            font.setBold(true);
+            painter.setFont(font);
+            painter.drawText(footerRect, Qt::AlignLeft | Qt::AlignVCenter,
+                             QString("Patient Name:%1").arg("EEEE"));
+            painter.drawText(footerRect, Qt::AlignRight | Qt::AlignVCenter,
                              QString("Page %1").arg(index));
 
             painter.restore();
             if (index != count) printer.newPage();
         }
 
-        // Define footer text and font
-        // QString footerText = "Page 1 - Confidential Document";
-        // QFont footerFont("Arial", 10);
-        // painter.setFont(footerFont);
-
-        // // Calculate footer position (bottom of the page)
-        // int footerHeight = 30;  // Height reserved for footer
-        // QRect footerRect(pageRect.left(), pageRect.bottom() -
-        // footerHeight,
-        //                  pageRect.width(), footerHeight);
-
-        // // Draw footer text centered
-        // painter.drawText(footerRect, Qt::AlignCenter, footerText);
-
-        // // Draw main content (example)
-        // painter.drawText(pageRect, Qt::AlignTop | Qt::AlignLeft,
-        //                  "Main document content here...");
-
         // End painting
         painter.end();
 
-        // qDebug() << printer.pageRect();
-
-        // didn't work
-        // printer.setMargins({0, 0, 0, 0});
-        // didn't work
-        // printer.setPageMargins(0, 0, 0, 0, QPrinter::Unit::Millimeter);
-#endif
-
         qDebug() << "size = " << doc->pageSize();
         qDebug() << "count=" << doc->pageCount();
-
-        // m_textEdit->document()->print(&printer);
     });
 }
