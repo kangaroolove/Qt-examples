@@ -1,6 +1,7 @@
 #include "Widget.h"
 
 #include <QDebug>
+#include <QPainter>
 #include <QPrintDialog>
 #include <QPrinter>
 #include <QPushButton>
@@ -55,6 +56,7 @@ void Widget::createReportHeader(QTextCursor &cursor,
 
     QTextBlockFormat alignRightFormat;
     alignRightFormat.setAlignment(Qt::AlignRight);
+    alignRightFormat.setLeftMargin(50);
     cursor.setBlockFormat(alignRightFormat);
 
     QTextCharFormat hospitalNameFormat;
@@ -551,6 +553,8 @@ void Widget::prepareReport(QTextDocument *document,
                            const ReportInfo &reportInfo) {
     if (!document) return;
 
+    // document->setDocumentMargin(50);
+
     QTextCursor cursor(document);
 
     createReportHeader(cursor, reportInfo.headerInfo);
@@ -685,6 +689,53 @@ void Widget::initGui() {
         printer.setPaperSize(QPrinter::A4);
         printer.setOutputFormat(QPrinter::PdfFormat);
         printer.setOutputFileName("D:/test.pdf");
-        m_textEdit->document()->print(&printer);
+        // work, need to set doc.size
+        printer.setMargins({0, 0, 0, 0});
+
+#if 0
+        QPainter painter(&printer);
+        // painter.begin(&printer);
+        QRectF pageRect = printer.pageRect(QPrinter::DevicePixel);
+
+        // Define footer text and font
+        QString footerText = "Page 1 - Confidential Document";
+        QFont footerFont("Arial", 10);
+        painter.setFont(footerFont);
+
+        // Calculate footer position (bottom of the page)
+        int footerHeight = 30;  // Height reserved for footer
+        QRect footerRect(pageRect.left(), pageRect.bottom() - footerHeight,
+                         pageRect.width(), footerHeight);
+
+        // Draw footer text centered
+        painter.drawText(footerRect, Qt::AlignCenter, footerText);
+
+        // Draw main content (example)
+        painter.drawText(pageRect, Qt::AlignTop | Qt::AlignLeft,
+                         "Main document content here...");
+
+        printer.newPage();
+
+        // End painting
+        painter.end();
+
+        qDebug() << printer.pageRect();
+
+
+
+        // didn't work
+        // printer.setMargins({0, 0, 0, 0});
+        // didn't work
+        // printer.setPageMargins(0, 0, 0, 0, QPrinter::Unit::Millimeter);
+#endif
+
+        auto doc = m_textEdit->document();
+        doc->setPageSize(
+            QSize(printer.pageRect().width(), printer.pageRect().height()));
+
+        qDebug() << "size = " << doc->pageSize();
+        qDebug() << "count=" << doc->pageCount();
+
+        // m_textEdit->document()->print(&printer);
     });
 }
