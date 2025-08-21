@@ -64,6 +64,14 @@ class Widget : public QWidget {
     Q_OBJECT
 public:
     Widget(QWidget *parent = nullptr);
+    Widget(QTextDocument& document, QWidget* parent = nullptr);
+
+    void prepareReport(QTextDocument* document, const ReportInfo& reportInfo);
+    ReportInfo getReportInfo();
+    QTextDocument* document() const;
+
+protected:
+    void paintEvent(QPaintEvent* event) override;
 
 private:
     void createReportHeader(QTextCursor& cursor, const ReportHeaderInfo& info);
@@ -87,8 +95,7 @@ private:
     void moveCursorBehindTable(QTextCursor& cursor);
     void insertPageBreak(QTextCursor& cursor);
     void preparePrint(QTextDocument* document);
-    void prepareReport(QTextDocument* document, const ReportInfo& reportInfo);
-    ReportInfo getReportInfo();
+
     void initGui();
 
     QTextEdit* m_textEdit;
