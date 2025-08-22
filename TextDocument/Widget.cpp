@@ -679,22 +679,17 @@ QTextDocument *Widget::document() const { return m_textEdit->document(); }
 void Widget::paintEvent(QPaintEvent *event) {
     QWidget::paintEvent(event);
 
-    static bool firstPaint = false;
+    QPrinter printer(QPrinter::ScreenResolution);
+    printer.setOrientation(QPrinter::Portrait);
+    printer.setPaperSize(QPrinter::A4);
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    // work, need to set doc.size
+    printer.setMargins({0, 0, 0, 0});
 
-    if (!firstPaint) {
-        firstPaint = true;
-        QPrinter printer(QPrinter::ScreenResolution);
-        printer.setOrientation(QPrinter::Portrait);
-        printer.setPaperSize(QPrinter::A4);
-        printer.setOutputFormat(QPrinter::PdfFormat);
-        // work, need to set doc.size
-        printer.setMargins({0, 0, 0, 0});
-
-        auto doc = m_textEdit->document();
-        doc->setDocumentMargin(20);
-        doc->setPageSize(
-            QSize(printer.pageRect().width(), printer.pageRect().height()));
-    }
+    auto doc = m_textEdit->document();
+    doc->setDocumentMargin(20);
+    doc->setPageSize(
+        QSize(printer.pageRect().width(), printer.pageRect().height()));
 }
 
 void Widget::initGui() {
