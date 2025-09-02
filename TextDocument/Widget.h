@@ -1,7 +1,7 @@
 #pragma once
 
+#include <QPrinter>
 #include <QWidget>
-
 struct ReportHeaderInfo {
     QImage companyLogo;
     QImage hospitalLogo;
@@ -97,6 +97,8 @@ private:
     void preparePrint(QTextDocument* document);
 
     void initGui();
+    void initPrinter();
 
     QTextEdit* m_textEdit;
+    QPrinter m_printer;
 };

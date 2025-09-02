@@ -2,5 +2,10 @@
     <qresource prefix="/">
         <file>icons/compangLogo.png</file>
         <file>icons/hispitalLogo.png</file>
+        <file>icons/1.jpg</file>
+        <file>icons/2.jpg</file>
+        <file>icons/3.jpg</file>
+        <file>icons/4.jpg</file>
+        <file>icons/5.jpg</file>
     </qresource>
 </RCC>

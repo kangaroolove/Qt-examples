@@ -16,6 +16,7 @@
 Widget::Widget(QWidget *parent)
     : QWidget(parent), m_textEdit(new QTextEdit(this)) {
     initGui();
+    initPrinter();
     prepareReport(m_textEdit->document(), getReportInfo());
 }
 
@@ -677,19 +678,19 @@ ReportInfo Widget::getReportInfo() {
 QTextDocument *Widget::document() const { return m_textEdit->document(); }
 
 void Widget::paintEvent(QPaintEvent *event) {
-    QWidget::paintEvent(event);
-
-    QPrinter printer(QPrinter::ScreenResolution);
-    printer.setOrientation(QPrinter::Portrait);
-    printer.setPaperSize(QPrinter::A4);
-    printer.setOutputFormat(QPrinter::PdfFormat);
-    // work, need to set doc.size
-    printer.setMargins({0, 0, 0, 0});
-
     auto doc = m_textEdit->document();
     doc->setDocumentMargin(20);
-    doc->setPageSize(
-        QSize(printer.pageRect().width(), printer.pageRect().height()));
+
+    static bool firstTime = true;
+    if (firstTime) {
+        qDebug() << m_printer.pageRect();
+
+        firstTime = false;
+        doc->setPageSize(
+            QSize(m_printer.pageRect().width(), m_printer.pageRect().height()));
+    }
+
+    QWidget::paintEvent(event);
 }
 
 void Widget::initGui() {
@@ -701,20 +702,21 @@ void Widget::initGui() {
     layout->addWidget(button);
 
     connect(button, &QPushButton::clicked, this, [this] {
-        QPrinter printer(QPrinter::ScreenResolution);
-        printer.setOrientation(QPrinter::Portrait);
-        printer.setPaperSize(QPrinter::A4);
-        printer.setOutputFormat(QPrinter::PdfFormat);
-        printer.setOutputFileName("D:/test.pdf");
-        // work, need to set doc.size
-        printer.setMargins({0, 0, 0, 0});
-
         auto doc = m_textEdit->document();
-
         int count = doc->pageCount();
 
-        QPainter painter(&printer);
-        QRectF body = printer.pageRect(QPrinter::DevicePixel);
+        // QPrinter printer;
+        // printer.setOrientation(QPrinter::Portrait);
+        // printer.setPaperSize(QPrinter::A4);
+        // printer.setOutputFormat(QPrinter::PdfFormat);
+        // printer.setOutputFileName("D:/test.pdf");
+        // // m_printer.setResolution(150);
+        // printer.setMargins({0, 0, 0, 0});
+
+        QPainter painter(&m_printer);
+        QRectF body = m_printer.pageRect(QPrinter::DevicePixel);
+
+        qDebug() << body;
 
         for (int index = 1; index <= count; ++index) {
             painter.save();
@@ -747,7 +749,7 @@ void Widget::initGui() {
                              QString("Page %1").arg(index));
 
             painter.restore();
-            if (index != count) printer.newPage();
+            if (index != count) m_printer.newPage();
         }
 
         // End painting
@@ -756,4 +758,13 @@ void Widget::initGui() {
         qDebug() << "size = " << doc->pageSize();
         qDebug() << "count=" << doc->pageCount();
     });
+}
+
+void Widget::initPrinter() {
+    m_printer.setOrientation(QPrinter::Portrait);
+    m_printer.setPaperSize(QPrinter::A4);
+    m_printer.setOutputFormat(QPrinter::PdfFormat);
+    m_printer.setOutputFileName("D:/test.pdf");
+    m_printer.setResolution(150);
+    m_printer.setMargins({0, 0, 0, 0});
 }
