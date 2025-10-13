@@ -14,7 +14,9 @@
 #include <QVBoxLayout>
 
 Widget::Widget(QWidget *parent)
-    : QWidget(parent), m_textEdit(new QTextEdit(this)) {
+    : QWidget(parent),
+      m_textEdit(new QTextEdit(this)),
+      m_printer(QPrinter::HighResolution) {
     initGui();
     initPrinter();
     prepareReport(m_textEdit->document(), getReportInfo());
@@ -132,9 +134,10 @@ void Widget::createTextWithinLine(QTextCursor &cursor, const QString &text) {
 void Widget::createPatientInfoTable(QTextCursor &cursor,
                                     const ReportPatientInfo &info) {
     QTextTableFormat tableFormat;
-    tableFormat.setBorder(1);
-    tableFormat.setCellSpacing(0);
+    // tableFormat.setBorder(1);
+    // tableFormat.setBorder(2 / 25.4 * 96);
     tableFormat.setCellPadding(5);
+    // tableFormat.setBorderStyle(QTextFrameFormat::BorderStyle_Dotted);
 
     QVector<QTextLength> constraints;
     constraints << QTextLength(QTextLength::PercentageLength, 25)
@@ -200,7 +203,7 @@ void Widget::createBiopsyTypeTable(QTextCursor &cursor,
     QTextTableFormat tableFormat;
     tableFormat.setBorder(1);
     tableFormat.setCellPadding(5);
-    tableFormat.setCellSpacing(0);
+    // tableFormat.setCellSpacing(0);
 
     QVector<QTextLength> constraints;
     constraints << QTextLength(QTextLength::PercentageLength, 33)
@@ -246,9 +249,9 @@ void Widget::createBiopsyTypeTable(QTextCursor &cursor,
 void Widget::createBiopsyModelTable(QTextCursor &cursor,
                                     const ReportBiopsyModelInfo &info) {
     QTextTableFormat tableFormat;
-    tableFormat.setBorder(1);
+    // tableFormat.setBorder(1);
     tableFormat.setCellPadding(5);
-    tableFormat.setCellSpacing(0);
+    // tableFormat.setCellSpacing(0);
 
     QVector<QTextLength> constraints;
     constraints << QTextLength(QTextLength::PercentageLength, 33)
@@ -514,8 +517,8 @@ void Widget::createImageGallery(QTextCursor &cursor,
             createTextWithinLine(cursor, "Image Data");
             horizontalDisplayCount = 0;
         }
-        int imageWidth = 595;
-        int imageHeight = currentImageShowVertical ? 752 : 360;
+        int imageWidth = 2200;
+        int imageHeight = currentImageShowVertical ? 3200 : 1600;
         if (!lastImageShowVertical && !currentImageShowVertical &&
             horizontalDisplayCount == 1) {
             cursor.insertHtml("<br>");
@@ -554,6 +557,10 @@ void Widget::preparePrint(QTextDocument *document) {
 void Widget::prepareReport(QTextDocument *document,
                            const ReportInfo &reportInfo) {
     if (!document) return;
+    document->setDocumentMargin(20);
+    QFont font;
+    font.setPointSize(9);
+    document->setDefaultFont(font);
 
     QTextCursor cursor(document);
 
@@ -580,12 +587,14 @@ void Widget::prepareReport(QTextDocument *document,
     cursor.insertHtml("<br>");
 
     QTextFrameFormat frameFormat;
-    frameFormat.setBorder(1);
+    // frameFormat.setBorder(1 / 25.4 * 96);
+    frameFormat.setBorder(2);
     frameFormat.setBorderStyle(QTextFrameFormat::BorderStyle_Solid);
-    frameFormat.setPadding(0);
+    // frameFormat.setPadding(10 / 25.4 * 96);
+    // frameFormat.setPadding(0);
     frameFormat.setWidth(QTextLength(QTextLength::PercentageLength, 100));
-    frameFormat.setHeight(100);
     cursor.insertFrame(frameFormat);
+    cursor.insertText(reportInfo.remark);
 
     auto frame = cursor.currentFrame();
     if (frame) {
@@ -645,7 +654,15 @@ ReportInfo Widget::getReportInfo() {
     modelInfo.volumes = {"5", "2", "3", "1", "5", "10", "3", "2"};
     reportInfo.biopsyModelInfo = modelInfo;
 
-    reportInfo.remark = "Hello world!";
+    reportInfo.remark =
+        "Hello world!\nHello world!\nHello world!\nHello world!\nHello "
+        "world!\nHello world!\nHello world!\nHello world!\nHello world!\nHello "
+        "world!\nHello world!\nHello world!\nHello world!\nHello world!\nHello "
+        "world!\nHello world!\nHello world!\nHello world!\nHello world!\nHello "
+        "world!\nHello world!\nHello world!\nHello world!\nHello world!\nHello "
+        "world!\nHello world!\nHello world!\nHello world!\nHello world!\nHello "
+        "world!\nHello world!\nHello world!\nHello world!\nHello world!\nHello "
+        "world!\n";
 
     ReportBiopsySummaryInfo biopsySummaryInfo;
     biopsySummaryInfo.doneTargetCores = "15";
@@ -665,10 +682,9 @@ ReportInfo Widget::getReportInfo() {
     reportInfo.systemCoreInfo = systemCores;
 
     std::vector<QImage> images = {
-        QImage("C:/Users/q3514/Desktop/HTML/h.png"),
-        QImage("C:/Users/q3514/Desktop/HTML/h.png"),
-        QImage("C:/Users/q3514/Desktop/HTML/v.png"),
-        QImage("C:/Users/q3514/Desktop/HTML/h.png"),
+        // QImage(":icons/1.jpg"), QImage(":icons/2.jpg"),
+        // QImage(":icons/3.jpg"),
+        // QImage(":icons/4.jpg"), QImage(":icons/5.jpg"),
     };
     reportInfo.images = images;
 
@@ -678,19 +694,16 @@ ReportInfo Widget::getReportInfo() {
 QTextDocument *Widget::document() const { return m_textEdit->document(); }
 
 void Widget::paintEvent(QPaintEvent *event) {
-    auto doc = m_textEdit->document();
-    doc->setDocumentMargin(20);
+    QWidget::paintEvent(event);
 
     static bool firstTime = true;
     if (firstTime) {
-        qDebug() << m_printer.pageRect();
-
+        auto doc = m_textEdit->document();
         firstTime = false;
-        doc->setPageSize(
-            QSize(m_printer.pageRect().width(), m_printer.pageRect().height()));
+        const double pageWidth = 793;
+        const double pageHeight = 1123;
+        doc->setPageSize(QSize(pageWidth, pageHeight));
     }
-
-    QWidget::paintEvent(event);
 }
 
 void Widget::initGui() {
@@ -701,22 +714,61 @@ void Widget::initGui() {
     auto button = new QPushButton("Print", this);
     layout->addWidget(button);
 
+    m_font.setPointSize(9);
+
     connect(button, &QPushButton::clicked, this, [this] {
-        auto doc = m_textEdit->document();
-        int count = doc->pageCount();
+        auto doc = m_textEdit->document()->clone();
 
-        // QPrinter printer;
-        // printer.setOrientation(QPrinter::Portrait);
-        // printer.setPaperSize(QPrinter::A4);
-        // printer.setOutputFormat(QPrinter::PdfFormat);
-        // printer.setOutputFileName("D:/test.pdf");
-        // // m_printer.setResolution(150);
-        // printer.setMargins({0, 0, 0, 0});
+        auto rootFrame = doc->rootFrame();
+        auto it = rootFrame->begin();
+        while (!it.atEnd()) {
+            auto frame = it.currentFrame();
+            if (frame) {
+                auto format = frame->frameFormat();
+                if (format.borderStyle() ==
+                    QTextFrameFormat::BorderStyle_Solid) {
+                    qDebug() << "border = " << format.border();
+                    qDebug() << "padding = " << format.padding();
 
-        QPainter painter(&m_printer);
-        QRectF body = m_printer.pageRect(QPrinter::DevicePixel);
+                    auto border = format.border();
+                    format.setBorder(2.0 * border / 25.4 * 96.0);
 
-        qDebug() << body;
+                    auto padding = format.padding();
+                    format.setPadding(2.0 * padding / 25.4 * 96.0);
+                    frame->setFrameFormat(format);
+                    break;
+                }
+            }
+            ++it;
+        }
+
+        const int horizontalMargin = int((0 / 2.54) * 96);
+        const int verticalMargin = int((10 / 25.4) * 96);
+        QTextFrameFormat fmt = doc->rootFrame()->frameFormat();
+        fmt.setLeftMargin(0);
+        fmt.setRightMargin(0);
+        fmt.setTopMargin(int((10 / 25.4) * 96));
+        fmt.setBottomMargin(int((80 / 25.4) * 96));
+        doc->rootFrame()->setFrameFormat(fmt);
+#if 1
+        const double dpi = 96.0;
+        const double inch = 25.4;
+        double pageMargin = 20 / dpi * inch;
+
+        QPrinter printer(QPrinter::HighResolution);
+        printer.setOrientation(QPrinter::Portrait);
+        printer.setPaperSize(QPrinter::A4);
+        printer.setOutputFormat(QPrinter::PdfFormat);
+        printer.setOutputFileName("D:/test.pdf");
+        printer.setMargins({pageMargin, pageMargin, pageMargin, pageMargin});
+
+        QPainter painter(&printer);
+        painter.setRenderHint(QPainter::Antialiasing);
+        auto body = QRectF(0, 0, printer.width(), printer.height() - 10);
+
+        doc->documentLayout()->setPaintDevice(&printer);
+        doc->setPageSize(printer.pageRect().size());
+        auto count = doc->pageCount();
 
         for (int index = 1; index <= count; ++index) {
             painter.save();
@@ -733,27 +785,26 @@ void Widget::initGui() {
             auto layout = doc->documentLayout();
             layout->draw(&painter, ctx);
 
-            auto margin = 20;
-            auto footerHeight = 30;
-            QRect footerRect(body.left() + margin,
-                             body.bottom() * index - footerHeight,
-                             body.width() - (2 * margin), footerHeight);
+            QFont textfont;
+            textfont.setPointSize(m_font.pointSize());
+            textfont.setBold(true);
+            QFontMetrics fm(m_font, &printer);
+            QRect footerRect(body.left(), body.bottom() * index - fm.height(),
+                             body.width(), fm.height());
 
-            // Draw footer text centered
-            QFont font;
-            font.setBold(true);
-            painter.setFont(font);
+            painter.setFont(textfont);
             painter.drawText(footerRect, Qt::AlignLeft | Qt::AlignVCenter,
-                             QString("Patient Name:%1").arg("EEEE"));
+                             QString("Patient Name: %1").arg("Error"));
             painter.drawText(footerRect, Qt::AlignRight | Qt::AlignVCenter,
-                             QString("Page %1").arg(index));
+                             QString("Page %1 of %2").arg(index).arg(count));
 
             painter.restore();
-            if (index != count) m_printer.newPage();
+            if (index != count) printer.newPage();
         }
 
         // End painting
         painter.end();
+#endif
 
         qDebug() << "size = " << doc->pageSize();
         qDebug() << "count=" << doc->pageCount();
@@ -765,6 +816,6 @@ void Widget::initPrinter() {
     m_printer.setPaperSize(QPrinter::A4);
     m_printer.setOutputFormat(QPrinter::PdfFormat);
     m_printer.setOutputFileName("D:/test.pdf");
-    m_printer.setResolution(150);
+    // m_printer.setResolution(300);
     m_printer.setMargins({0, 0, 0, 0});
 }

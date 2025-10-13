@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QFont>
 #include <QPrinter>
 #include <QWidget>
 struct ReportHeaderInfo {
@@ -101,4 +102,5 @@ private:
 
     QTextEdit* m_textEdit;
     QPrinter m_printer;
+    QFont m_font;
 };
