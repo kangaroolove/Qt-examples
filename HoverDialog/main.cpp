@@ -6,8 +6,9 @@ int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     Widget widget;
     HoverDialog dialog(&widget);
+    widget.installEventFilter(&dialog);
     dialog.show();
-    widget.show();
+    widget.showMaximized();
 
     return a.exec();
 }
