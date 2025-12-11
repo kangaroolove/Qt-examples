@@ -6,6 +6,15 @@ class QPushButton;
 class QObject;
 class QEvent;
 
+class Content : public QWidget {
+    Q_OBJECT
+public:
+    Content(QWidget* parent = nullptr);
+
+private:
+    void initGui();
+};
+
 class HoverDialog : public QDialog
 {
     Q_OBJECT
@@ -21,4 +30,5 @@ private:
 
     QPushButton* m_button;
     QWidget* m_parent;
+    Content* m_contentWidget;
 };
