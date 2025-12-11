@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
     HoverDialog dialog(&widget);
     widget.installEventFilter(&dialog);
     dialog.show();
-    widget.showMaximized();
+    widget.show();
 
     return a.exec();
 }

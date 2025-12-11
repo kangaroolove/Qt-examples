@@ -8,13 +8,16 @@ class QEvent;
 
 class HoverDialog : public QDialog
 {
+    Q_OBJECT
 public:
     HoverDialog(QWidget* parent = nullptr);
-private:
-    void initGui();
 
 protected:
     bool eventFilter(QObject* obj, QEvent* event) override;
+
+private:
+    void initGui();
+    void bindConnections();
 
     QPushButton* m_button;
     QWidget* m_parent;

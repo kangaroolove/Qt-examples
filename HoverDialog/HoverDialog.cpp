@@ -8,6 +8,7 @@
 HoverDialog::HoverDialog(QWidget* parent)
     : QDialog(parent), m_parent(parent), m_button(new QPushButton("Click")) {
     initGui();
+    bindConnections();
 }
 
 void HoverDialog::initGui() {
@@ -23,10 +24,21 @@ void HoverDialog::initGui() {
     layout->addWidget(m_button);
     layout->addStretch();
 
-    resize(800, 90);
+    resize(400, 90);
 
     setObjectName("Dialog");
     // setStyleSheet("QDialog#Dialog{background-color:rgba(0, 255, 0,50%);}");
+}
+
+void HoverDialog::bindConnections() {
+    connect(m_button, &QPushButton::clicked, this, [this] {
+        static bool isBig = false;
+        isBig ? this->setFixedHeight(90) : this->setFixedHeight(300);
+        isBig = !isBig;
+
+        this->move(
+            m_parent->mapToGlobal(QPoint(0, m_parent->height() - height())));
+    });
 }
 
 bool HoverDialog::eventFilter(QObject* obj, QEvent* event) {
