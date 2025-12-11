@@ -5,7 +5,7 @@
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
     Widget widget;
-    HoverDialog dialog;
+    HoverDialog dialog(&widget);
     dialog.show();
     widget.show();
 
