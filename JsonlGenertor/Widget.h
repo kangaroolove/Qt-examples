@@ -10,8 +10,12 @@ class Widget : public QWidget {
 public:
     Widget(QWidget *parent = nullptr);
 
+private slots:
+    void onGenerateButtonClicked();
+
 private:
     void initGui();
+    void bindConnections();
 
     QPushButton* m_generateButton;
     QTextEdit* m_textEdit;
