@@ -4,6 +4,7 @@
 
 class QPushButton;
 class QTextEdit;
+class QLineEdit;
 
 class Widget : public QWidget {
     Q_OBJECT
@@ -17,6 +18,8 @@ private:
     void initGui();
     void bindConnections();
 
+    QLineEdit* m_dirLineEdit;
+    QPushButton* m_dirChooseButton;
     QPushButton* m_generateButton;
     QTextEdit* m_textEdit;
 };

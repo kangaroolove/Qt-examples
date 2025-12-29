@@ -4,21 +4,31 @@
 #include <QFile>
 #include <QJsonDocument>
 #include <QJsonObject>
+#include <QLineEdit>
 #include <QMessageBox>
 #include <QPushButton>
 #include <QTextEdit>
 #include <QUuid>
 #include <QVBoxLayout>
 
-Widget::Widget(QWidget *parent) : QWidget(parent),
-    m_generateButton(new QPushButton("Generate", this)),
-    m_textEdit(new QTextEdit(this)) {
+Widget::Widget(QWidget *parent)
+    : QWidget(parent),
+      m_generateButton(new QPushButton("Generate", this)),
+      m_textEdit(new QTextEdit(this)),
+      m_dirLineEdit(new QLineEdit(this)),
+      m_dirChooseButton(new QPushButton("Choose dir")) {
     initGui();
     bindConnections();
 }
 
 void Widget::initGui() {
     auto layout = new QVBoxLayout(this);
+
+    auto dirLayout = new QHBoxLayout();
+    dirLayout->addWidget(m_dirLineEdit);
+    dirLayout->addWidget(m_dirChooseButton);
+
+    layout->addLayout(dirLayout);
     layout->addWidget(m_textEdit);
     layout->addWidget(m_generateButton);
     resize(800, 600);
