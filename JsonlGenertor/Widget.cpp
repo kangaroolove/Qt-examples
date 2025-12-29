@@ -55,7 +55,9 @@ void Widget::bindConnections() {
 void Widget::onGenerateButtonClicked() {
     if (m_textEdit->toPlainText().isEmpty()) return;
 
-    QFile file("D:/work/history/train.jsonl");
+    if (m_dirLineEdit->text().isEmpty()) return;
+
+    QFile file(m_dirLineEdit->text());
     if (!file.open(QIODevice::WriteOnly | QIODevice::Append)) {
         QMessageBox::critical(this, "error", "Open file failed");
         return;
