@@ -13,6 +13,7 @@ public:
 
 private slots:
     void onGenerateButtonClicked();
+    void onDirChooseButtonClicked();
 
 private:
     void initGui();

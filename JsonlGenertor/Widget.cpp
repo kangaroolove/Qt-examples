@@ -2,6 +2,7 @@
 
 #include <QDebug>
 #include <QFile>
+#include <QFileDialog>
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QLineEdit>
@@ -16,9 +17,19 @@ Widget::Widget(QWidget *parent)
       m_generateButton(new QPushButton("Generate", this)),
       m_textEdit(new QTextEdit(this)),
       m_dirLineEdit(new QLineEdit(this)),
-      m_dirChooseButton(new QPushButton("Choose dir")) {
+      m_dirChooseButton(new QPushButton("Choose file")) {
     initGui();
     bindConnections();
+}
+
+void Widget::onDirChooseButtonClicked() {
+    auto filePath = QFileDialog::getOpenFileName(this, "Choose File");
+    if (filePath.isEmpty()) {
+        QMessageBox::critical(this, "error", "Please select a file first!");
+        return;
+    }
+
+    m_dirLineEdit->setText(filePath);
 }
 
 void Widget::initGui() {
@@ -37,6 +48,8 @@ void Widget::initGui() {
 void Widget::bindConnections() {
     connect(m_generateButton, &QPushButton::clicked, this,
             &Widget::onGenerateButtonClicked);
+    connect(m_dirChooseButton, &QPushButton::clicked, this,
+            &Widget::onDirChooseButtonClicked);
 }
 
 void Widget::onGenerateButtonClicked() {
