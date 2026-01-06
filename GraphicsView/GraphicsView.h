@@ -9,5 +9,6 @@ class GraphicsView : public QGraphicsView
 public:
     GraphicsView(QGraphicsScene* scene, QWidget* parent = nullptr);
 
-private:
+protected:
+    void resizeEvent(QResizeEvent* event);
 };

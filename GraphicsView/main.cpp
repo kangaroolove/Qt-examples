@@ -10,9 +10,8 @@ int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
     QGraphicsScene scene;
-    // scene.setSceneRect(0, 0, 1280, 700);
 
-    QPixmap pixmap("D:/1.png");
+    QPixmap pixmap("D:/1.jpg");
     scene.addPixmap(pixmap);
 
     scene.addText("Hello, world");
@@ -22,8 +21,6 @@ int main(int argc, char *argv[]) {
 
     GraphicsView view(&scene);
     view.show();
-
-    qDebug() << scene.sceneRect();
 
     return a.exec();
 }
