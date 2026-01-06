@@ -1,21 +1,26 @@
-#include "Widget.h"
 #include <QApplication>
 #include <QDebug>
 #include <QGraphicsScene>
 #include <QGraphicsTextItem>
-#include <QGraphicsView>
+
+#include "GraphicsView.h"
+#include "Widget.h"
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
     QGraphicsScene scene;
-    scene.setSceneRect(0, 0, 200, 200);
+    // scene.setSceneRect(0, 0, 1280, 700);
+
+    QPixmap pixmap("D:/1.png");
+    scene.addPixmap(pixmap);
+
     scene.addText("Hello, world");
 
     auto text2 = scene.addText("Second Text");
     text2->setPos(50, 50);
 
-    QGraphicsView view(&scene);
+    GraphicsView view(&scene);
     view.show();
 
     qDebug() << scene.sceneRect();
