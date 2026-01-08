@@ -15,8 +15,8 @@ find_package(Qt5 COMPONENTS Widgets REQUIRED)
 
 add_executable(${PROJECT_NAME}
   main.cpp
-  Widget.cpp
-  Widget.h
+  MagnifierWidget.cpp
+  MagnifierWidget.h
   GraphicsView.cpp
   GraphicsView.h
   GraphicsScene.cpp

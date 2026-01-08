@@ -3,10 +3,7 @@
 #include <QDebug>
 #include <QGraphicsProxyWidget>
 #include <QGraphicsSceneMouseEvent>
-#include <QLabel>
 #include <QPainter>
-
-#include "Widget.h"
 
 GraphicsScene::GraphicsScene(QObject* parent) : QGraphicsScene(parent) {
     QPixmap pixmap("D:/2.jpg");

@@ -13,6 +13,4 @@ protected:
     void mouseMoveEvent(QGraphicsSceneMouseEvent* mouseEvent);
 
 private:
-    QGraphicsProxyWidget* m_magnifierProxyWidget;
-    QLabel* m_magnifierWidget;
 };
