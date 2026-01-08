@@ -30,8 +30,9 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent* mouseEvent) {
     auto width = m_magnifierWidget->width();
     auto height = m_magnifierWidget->height();
 
-    auto pos = mouseEvent->scenePos();
-    QRectF rect(pos.x() - (width / 2), pos.y() - (height / 2), width, height);
+    auto scenePos = mouseEvent->scenePos();
+    QRectF rect(scenePos.x() - (width / 2), scenePos.y() - (height / 2), width,
+                height);
 
     QImage image(width, height, QImage::Format_ARGB32);
     image.fill(Qt::transparent);  // clear the background
@@ -43,6 +44,9 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent* mouseEvent) {
 
     render(&painter, image.rect(), rect);
     painter.end();
+
+    auto screenPos = mouseEvent->screenPos();
+    m_magnifierWidget->move(screenPos);
 
     m_magnifierWidget->setPixmap(QPixmap::fromImage(image));
 
