@@ -2,8 +2,8 @@
 
 #include <QPainter>
 
-GraphicsView::GraphicsView(QGraphicsScene* scene, QWidget* parent) : QGraphicsView(scene, parent)
-{
+GraphicsView::GraphicsView(QGraphicsScene* scene, QWidget* parent)
+    : QGraphicsView(scene, parent) {
     setRenderHint(QPainter::Antialiasing);
     setRenderHint(QPainter::SmoothPixmapTransform);
 }

@@ -3,13 +3,14 @@
 #include <QGraphicsScene>
 #include <QGraphicsTextItem>
 
+#include "GraphicsScene.h"
 #include "GraphicsView.h"
 #include "Widget.h"
 
 int main(int argc, char *argv[]) {
     QApplication a(argc, argv);
 
-    QGraphicsScene scene;
+    GraphicsScene scene;
 
     QPixmap pixmap("D:/1.jpg");
     scene.addPixmap(pixmap);
