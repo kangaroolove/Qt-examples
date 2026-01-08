@@ -5,7 +5,9 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QPainter>
 
-GraphicsScene::GraphicsScene(QObject* parent) : QGraphicsScene(parent) {
+GraphicsScene::GraphicsScene(QObject* parent)
+    : QGraphicsScene(parent),
+      m_magnifierWidget(std::make_unique<MagnifierWidget>()) {
     QPixmap pixmap("D:/2.jpg");
     auto pixmapItem = addPixmap(pixmap);
     pixmapItem->setTransformationMode(Qt::SmoothTransformation);
@@ -14,6 +16,8 @@ GraphicsScene::GraphicsScene(QObject* parent) : QGraphicsScene(parent) {
 
     auto text2 = addText("Second Text");
     text2->setPos(50, 50);
+
+    m_magnifierWidget->show();
 }
 
 void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent* mouseEvent) {
