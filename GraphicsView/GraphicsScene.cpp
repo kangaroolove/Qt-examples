@@ -17,44 +17,34 @@ GraphicsScene::GraphicsScene(QObject* parent)
     auto text2 = addText("Second Text");
     text2->setPos(50, 50);
 
+    m_magnifierWidget->move(0, 0);
     m_magnifierWidget->show();
 }
 
 void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent* mouseEvent) {
-    // This one always return 0
-    // qDebug() << "mouseEvent->pos = " << mouseEvent->pos();
-    auto pos = mouseEvent->scenePos();
-    qDebug() << "mouseEvent->scenePos" << pos;
-
-    // m_magnifierProxyWidget->setVisible(false);
-
     // // if ((pos.x() >= 200 / 2 || pos.x() <= 1280 - (200 / 2)) &&
     // //         pos.y() >= 100 / 2 ||
     // //     pos.y() <= 720 - (100 / 2))
     // m_magnifierProxyWidget->setPos(pos.x() - (200 / 2), pos.y() - (100 / 2));
 
-    // QRect rect(std::round(pos.x() - (200 / 2)), std::round(pos.y() - (100 /
-    // 2)),
-    //            200, 100);
+    auto width = m_magnifierWidget->width();
+    auto height = m_magnifierWidget->height();
 
-    // qDebug() << "Rect = " << rect;
+    auto pos = mouseEvent->scenePos();
+    QRectF rect(pos.x() - (width / 2), pos.y() - (height / 2), width, height);
 
-    // // QRectF rect(50, 50, 200, 100);
-    // QImage image(rect.size(), QImage::Format_RGB32);
-    // image.fill(Qt::transparent);  // clear the background
+    QImage image(width, height, QImage::Format_ARGB32);
+    image.fill(Qt::transparent);  // clear the background
 
-    // // 3. Initialize a QPainter on the image
-    // QPainter painter(&image);
-    // painter.setRenderHint(QPainter::Antialiasing);
-    // // painter.setRenderHint(QPainter::SmoothPixmapTransform);
+    // 3. Initialize a QPainter on the image
+    QPainter painter(&image);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setRenderHint(QPainter::SmoothPixmapTransform);
 
-    // qDebug() << "image.rect()" << image.rect();
+    render(&painter, image.rect(), rect);
+    painter.end();
 
-    // render(&painter, image.rect(), rect);
-    // painter.end();
-
-    // m_magnifierWidget->setPixmap(QPixmap::fromImage(image));
-    // m_magnifierProxyWidget->setVisible(true);
+    m_magnifierWidget->setPixmap(QPixmap::fromImage(image));
 
     QGraphicsScene::mouseMoveEvent(mouseEvent);
 }
