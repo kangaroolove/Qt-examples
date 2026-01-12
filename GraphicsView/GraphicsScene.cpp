@@ -20,6 +20,7 @@ GraphicsScene::GraphicsScene(QObject* parent)
 
     m_magnifierWidget->move(0, 0);
     m_magnifierWidget->show();
+    m_magnifierWidget->installEventFilter(this);
 }
 
 void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent* mouseEvent) {
@@ -44,10 +45,7 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent* mouseEvent) {
 
     m_magnifierWidget->setPixmap(QPixmap::fromImage(image));
 
-    auto screenPos = mouseEvent->screenPos();
-    auto newX = screenPos.x() - (m_magnifierWidget->width() / 2);
-    auto newY = screenPos.y() - (m_magnifierWidget->height() / 2);
-    m_magnifierWidget->move(newX, newY);
+    moveMagnifierWidget(mouseEvent->screenPos());
 
     QGraphicsScene::mouseMoveEvent(mouseEvent);
 }
@@ -118,4 +116,22 @@ void GraphicsScene::keyPressEvent(QKeyEvent* keyEvent) {
         m_magnifierWidget->setPixmap(QPixmap::fromImage(image));
     }
     QGraphicsScene::keyPressEvent(keyEvent);
+}
+
+bool GraphicsScene::eventFilter(QObject* obj, QEvent* event) {
+    if (event->type() == QEvent::MouseMove) {
+        QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
+        // qDebug() << mouseEvent->screenPos();
+        // qDebug() << mouseEvent->pos();
+
+        moveMagnifierWidget(mouseEvent->globalPos());
+    }
+
+    return QGraphicsScene::eventFilter(obj, event);
+}
+
+void GraphicsScene::moveMagnifierWidget(const QPoint& screenPos) {
+    auto newX = screenPos.x() - (m_magnifierWidget->width() / 2);
+    auto newY = screenPos.y() - (m_magnifierWidget->height() / 2);
+    m_magnifierWidget->move(newX, newY);
 }
