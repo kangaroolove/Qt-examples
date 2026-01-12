@@ -16,7 +16,6 @@ public slots:
     void onFitInViewScaleChanged(double scale);
 
 protected:
-    void mouseMoveEvent(QGraphicsSceneMouseEvent* mouseEvent);
     void keyPressEvent(QKeyEvent* keyEvent);
     bool eventFilter(QObject* obj, QEvent* event) override;
 

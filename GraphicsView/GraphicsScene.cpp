@@ -25,12 +25,6 @@ GraphicsScene::GraphicsScene(QObject* parent)
     m_magnifierWidget->installEventFilter(this);
 }
 
-void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent* mouseEvent) {
-    auto scenePos = mouseEvent->scenePos();
-    moveMagnifierWidget(mouseEvent->screenPos());
-    QGraphicsScene::mouseMoveEvent(mouseEvent);
-}
-
 void GraphicsScene::keyPressEvent(QKeyEvent* keyEvent) {
     if (keyEvent->key() == Qt::Key_M) {
         auto width = m_magnifierWidget->getZoomSize().width();
