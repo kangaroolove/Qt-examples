@@ -9,7 +9,8 @@
 
 GraphicsScene::GraphicsScene(QObject* parent)
     : QGraphicsScene(parent),
-      m_magnifierWidget(std::make_unique<MagnifierWidget>()) {
+      m_magnifierWidget(std::make_unique<MagnifierWidget>()),
+      m_fitInViewScale(1) {
     QPixmap pixmap("D:/2.jpg");
     auto pixmapItem = addPixmap(pixmap);
     pixmapItem->setTransformationMode(Qt::SmoothTransformation);
@@ -116,6 +117,10 @@ bool GraphicsScene::eventFilter(QObject* obj, QEvent* event) {
     return QGraphicsScene::eventFilter(obj, event);
 }
 
+void GraphicsScene::onFitInViewScaleChanged(double scale) {
+    m_fitInViewScale = scale;
+}
+
 void GraphicsScene::moveMagnifierWidget(const QPoint& screenPos) {
     auto newX = screenPos.x() - (m_magnifierWidget->width() / 2);
     auto newY = screenPos.y() - (m_magnifierWidget->height() / 2);
@@ -123,15 +128,14 @@ void GraphicsScene::moveMagnifierWidget(const QPoint& screenPos) {
 }
 
 void GraphicsScene::updateMagnifierDisplayPicture(const QPointF& scenePos) {
-    auto scale = 0.797765;
-
     auto width = m_magnifierWidget->getZoomSize().width();
     auto height = m_magnifierWidget->getZoomSize().height();
 
     QRectF rect(scenePos.x() - (width / 2), scenePos.y() - (height / 2), width,
                 height);
 
-    QImage image(width * scale, height * scale, QImage::Format_ARGB32);
+    QImage image(width * m_fitInViewScale, height * m_fitInViewScale,
+                 QImage::Format_ARGB32);
     image.fill(Qt::transparent);
 
     QPainter painter(&image);
