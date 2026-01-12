@@ -6,7 +6,7 @@ MagnifierWidget::MagnifierWidget(QWidget *parent)
     setWindowFlags(windowFlags() | Qt::FramelessWindowHint |
                    Qt::WindowStaysOnTopHint);
     setObjectName("Magnifier");
-    // setStyleSheet("QLabel#Magnifier{border: 1px solid #FF0000}");
+    setStyleSheet("QLabel#Magnifier{border: 1px solid #FF0000}");
     setFixedSize(m_zoomSize);
 }
 

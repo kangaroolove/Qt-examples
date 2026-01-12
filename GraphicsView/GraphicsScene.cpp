@@ -44,6 +44,11 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent* mouseEvent) {
 
     m_magnifierWidget->setPixmap(QPixmap::fromImage(image));
 
+    auto screenPos = mouseEvent->screenPos();
+    auto newX = screenPos.x() - (m_magnifierWidget->width() / 2);
+    auto newY = screenPos.y() - (m_magnifierWidget->height() / 2);
+    m_magnifierWidget->move(newX, newY);
+
     QGraphicsScene::mouseMoveEvent(mouseEvent);
 }
 
