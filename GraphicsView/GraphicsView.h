@@ -11,4 +11,5 @@ public:
 
 protected:
     void resizeEvent(QResizeEvent* event);
+    void closeEvent(QCloseEvent* closeEvent);
 };
