@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QGraphicsProxyWidget>
 #include <QGraphicsSceneMouseEvent>
+#include <QGraphicsView>
 #include <QKeyEvent>
 #include <QPainter>
 
@@ -25,25 +26,6 @@ GraphicsScene::GraphicsScene(QObject* parent)
 
 void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent* mouseEvent) {
     auto scenePos = mouseEvent->scenePos();
-    auto scale = 0.797765;
-
-    auto width = m_magnifierWidget->getZoomSize().width();
-    auto height = m_magnifierWidget->getZoomSize().height();
-
-    QRectF rect(scenePos.x() - (width / 2), scenePos.y() - (height / 2), width,
-                height);
-
-    QImage image(width * scale, height * scale, QImage::Format_ARGB32);
-    image.fill(Qt::transparent);
-
-    QPainter painter(&image);
-    painter.setRenderHint(QPainter::Antialiasing);
-    painter.setRenderHint(QPainter::SmoothPixmapTransform);
-
-    render(&painter, image.rect(), rect);
-    painter.end();
-
-    m_magnifierWidget->setPixmap(QPixmap::fromImage(image));
 
     moveMagnifierWidget(mouseEvent->screenPos());
 
@@ -121,9 +103,13 @@ void GraphicsScene::keyPressEvent(QKeyEvent* keyEvent) {
 bool GraphicsScene::eventFilter(QObject* obj, QEvent* event) {
     if (event->type() == QEvent::MouseMove) {
         QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
-        // qDebug() << mouseEvent->screenPos();
-        // qDebug() << mouseEvent->pos();
-
+        if (!views().isEmpty()) {
+            auto view = views().first();
+            auto viewPos = view->mapFromGlobal(mouseEvent->globalPos());
+            auto scenePos = view->mapToScene(viewPos);
+            // qDebug() << "scenePos = " << scenePos;
+            updateMagnifierDisplayPicture(scenePos);
+        }
         moveMagnifierWidget(mouseEvent->globalPos());
     }
 
@@ -134,4 +120,26 @@ void GraphicsScene::moveMagnifierWidget(const QPoint& screenPos) {
     auto newX = screenPos.x() - (m_magnifierWidget->width() / 2);
     auto newY = screenPos.y() - (m_magnifierWidget->height() / 2);
     m_magnifierWidget->move(newX, newY);
+}
+
+void GraphicsScene::updateMagnifierDisplayPicture(const QPointF& scenePos) {
+    auto scale = 0.797765;
+
+    auto width = m_magnifierWidget->getZoomSize().width();
+    auto height = m_magnifierWidget->getZoomSize().height();
+
+    QRectF rect(scenePos.x() - (width / 2), scenePos.y() - (height / 2), width,
+                height);
+
+    QImage image(width * scale, height * scale, QImage::Format_ARGB32);
+    image.fill(Qt::transparent);
+
+    QPainter painter(&image);
+    painter.setRenderHint(QPainter::Antialiasing);
+    painter.setRenderHint(QPainter::SmoothPixmapTransform);
+
+    render(&painter, image.rect(), rect);
+    painter.end();
+
+    m_magnifierWidget->setPixmap(QPixmap::fromImage(image));
 }
