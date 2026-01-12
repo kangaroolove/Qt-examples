@@ -12,13 +12,13 @@ class GraphicsScene : public QGraphicsScene
 public:
     GraphicsScene(QObject* parent = nullptr);
 
+public slots:
+    void onFitInViewScaleChanged(double scale);
+
 protected:
     void mouseMoveEvent(QGraphicsSceneMouseEvent* mouseEvent);
     void keyPressEvent(QKeyEvent* keyEvent);
     bool eventFilter(QObject* obj, QEvent* event) override;
-
-private slots:
-    void onFitInViewScaleChanged(double scale);
 
 private:
     void moveMagnifierWidget(const QPoint& screenPos);
