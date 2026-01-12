@@ -25,45 +25,45 @@ GraphicsScene::GraphicsScene(QObject* parent)
     m_magnifierWidget->installEventFilter(this);
 }
 
-void GraphicsScene::keyPressEvent(QKeyEvent* keyEvent) {
-    if (keyEvent->key() == Qt::Key_M) {
-        auto width = m_magnifierWidget->getZoomSize().width();
-        auto height = m_magnifierWidget->getZoomSize().height();
+// void GraphicsScene::keyPressEvent(QKeyEvent* keyEvent) {
+//     if (keyEvent->key() == Qt::Key_M) {
+//         auto width = m_magnifierWidget->getZoomSize().width();
+//         auto height = m_magnifierWidget->getZoomSize().height();
 
-        QRect rect(40, 40, width, height);
-        addRect(rect, QColor(255, 0, 0));
-    } else if (keyEvent->key() == Qt::Key_N) {
-        auto width = m_magnifierWidget->getZoomSize().width();
-        auto height = m_magnifierWidget->getZoomSize().height();
+//         QRect rect(40, 40, width, height);
+//         addRect(rect, QColor(255, 0, 0));
+//     } else if (keyEvent->key() == Qt::Key_N) {
+//         auto width = m_magnifierWidget->getZoomSize().width();
+//         auto height = m_magnifierWidget->getZoomSize().height();
 
-        auto scale = 0.797765;
+//         auto scale = 0.797765;
 
-        m_magnifierWidget->setFixedSize(width * scale, height * scale);
-    } else if (keyEvent->key() == Qt::Key_B) {
-        auto scale = 0.797765;
+//         m_magnifierWidget->setFixedSize(width * scale, height * scale);
+//     } else if (keyEvent->key() == Qt::Key_B) {
+//         auto scale = 0.797765;
 
-        auto width = m_magnifierWidget->getZoomSize().width();
-        auto height = m_magnifierWidget->getZoomSize().height();
+//         auto width = m_magnifierWidget->getZoomSize().width();
+//         auto height = m_magnifierWidget->getZoomSize().height();
 
-        QRectF rect(40, 40, width, height);
+//         QRectF rect(40, 40, width, height);
 
-        QImage image(width * scale, height * scale, QImage::Format_ARGB32);
-        image.fill(Qt::transparent);  // clear the background
+//         QImage image(width * scale, height * scale, QImage::Format_ARGB32);
+//         image.fill(Qt::transparent);  // clear the background
 
-        // 3. Initialize a QPainter on the image
-        QPainter painter(&image);
-        painter.setRenderHint(QPainter::Antialiasing);
-        painter.setRenderHint(QPainter::SmoothPixmapTransform);
+//         // 3. Initialize a QPainter on the image
+//         QPainter painter(&image);
+//         painter.setRenderHint(QPainter::Antialiasing);
+//         painter.setRenderHint(QPainter::SmoothPixmapTransform);
 
-        render(&painter, image.rect(), rect);
-        painter.end();
+//         render(&painter, image.rect(), rect);
+//         painter.end();
 
-        qDebug() << image.rect();
+//         qDebug() << image.rect();
 
-        m_magnifierWidget->setPixmap(QPixmap::fromImage(image));
-    }
-    QGraphicsScene::keyPressEvent(keyEvent);
-}
+//         m_magnifierWidget->setPixmap(QPixmap::fromImage(image));
+//     }
+//     QGraphicsScene::keyPressEvent(keyEvent);
+// }
 
 bool GraphicsScene::eventFilter(QObject* obj, QEvent* event) {
     if (event->type() == QEvent::MouseMove) {

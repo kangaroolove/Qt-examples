@@ -16,7 +16,7 @@ public slots:
     void onFitInViewScaleChanged(double scale);
 
 protected:
-    void keyPressEvent(QKeyEvent* keyEvent);
+    // void keyPressEvent(QKeyEvent* keyEvent);
     bool eventFilter(QObject* obj, QEvent* event) override;
 
 private:
