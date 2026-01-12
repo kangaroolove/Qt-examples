@@ -27,9 +27,7 @@ GraphicsScene::GraphicsScene(QObject* parent)
 
 void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent* mouseEvent) {
     auto scenePos = mouseEvent->scenePos();
-
     moveMagnifierWidget(mouseEvent->screenPos());
-
     QGraphicsScene::mouseMoveEvent(mouseEvent);
 }
 
@@ -119,6 +117,7 @@ bool GraphicsScene::eventFilter(QObject* obj, QEvent* event) {
 
 void GraphicsScene::onFitInViewScaleChanged(double scale) {
     m_fitInViewScale = scale;
+    updateMagnifierWidgetSize(scale);
 }
 
 void GraphicsScene::moveMagnifierWidget(const QPoint& screenPos) {
@@ -146,4 +145,11 @@ void GraphicsScene::updateMagnifierDisplayPicture(const QPointF& scenePos) {
     painter.end();
 
     m_magnifierWidget->setPixmap(QPixmap::fromImage(image));
+}
+
+void GraphicsScene::updateMagnifierWidgetSize(const double& fitInViewScale) {
+    auto width = m_magnifierWidget->getZoomSize().width();
+    auto height = m_magnifierWidget->getZoomSize().height();
+    m_magnifierWidget->setFixedSize(width * fitInViewScale,
+                                    height * fitInViewScale);
 }
