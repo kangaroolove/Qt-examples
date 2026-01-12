@@ -32,35 +32,7 @@ void GraphicsScene::mouseMoveEvent(QGraphicsSceneMouseEvent* mouseEvent) {
 }
 
 void GraphicsScene::keyPressEvent(QKeyEvent* keyEvent) {
-    if (keyEvent->key() == Qt::Key_H) {
-        // auto width = m_magnifierWidget->width();
-        // auto height = m_magnifierWidget->height();
-
-        // auto scale = 0.797765;
-
-        // QRectF rect(0, 0, width, height);
-
-        // QImage image(width, height, QImage::Format_ARGB32);
-        // image.fill(Qt::transparent);  // clear the background
-
-        // // 3. Initialize a QPainter on the image
-        // QPainter painter(&image);
-        // painter.setRenderHint(QPainter::Antialiasing);
-        // painter.setRenderHint(QPainter::SmoothPixmapTransform);
-
-        // render(&painter, image.rect(), rect);
-        // painter.end();
-
-        // qDebug() << image.rect();
-
-        // auto convertImage =
-        //     image.scaled(image.width() * scale, image.height() * scale,
-        //                  Qt::KeepAspectRatio, Qt::SmoothTransformation);
-
-        // convertImage.save("D:/5.png");
-    }
-
-    else if (keyEvent->key() == Qt::Key_M) {
+    if (keyEvent->key() == Qt::Key_M) {
         auto width = m_magnifierWidget->getZoomSize().width();
         auto height = m_magnifierWidget->getZoomSize().height();
 

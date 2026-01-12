@@ -26,6 +26,5 @@ private:
     void updateMagnifierWidgetSize(const double& fitInViewScale);
 
     std::unique_ptr<MagnifierWidget> m_magnifierWidget;
-    QPointF m_lastSceneMousePos;
     double m_fitInViewScale;
 };
