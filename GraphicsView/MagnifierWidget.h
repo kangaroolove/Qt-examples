@@ -8,6 +8,7 @@ public:
     MagnifierWidget(QWidget *parent = nullptr);
     QSize getViewportSize() const;
     QSize getZoomSize() const;
+    void setZoomFactor(const double& factor);
 
 private:
     QSize m_viewportSize;
