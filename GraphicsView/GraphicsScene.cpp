@@ -13,7 +13,7 @@ GraphicsScene::GraphicsScene(QObject* parent)
       m_fitInViewScale(1) {
     QPixmap pixmap("D:/2.jpg");
     auto pixmapItem = addPixmap(pixmap);
-    // pixmapItem->setTransformationMode(Qt::SmoothTransformation);
+    pixmapItem->setTransformationMode(Qt::SmoothTransformation);
 
     addText("Hello, world");
 
@@ -93,8 +93,8 @@ void GraphicsScene::moveMagnifierWidget(const QPoint& screenPos) {
 }
 
 void GraphicsScene::updateMagnifierDisplayPicture(const QPointF& scenePos) {
-    auto width = m_magnifierWidget->getZoomSize().width();
-    auto height = m_magnifierWidget->getZoomSize().height();
+    auto width = m_magnifierWidget->getViewportSize().width();
+    auto height = m_magnifierWidget->getViewportSize().height();
 
     QRectF rect(scenePos.x() - (width / 2), scenePos.y() - (height / 2), width,
                 height);
@@ -114,8 +114,8 @@ void GraphicsScene::updateMagnifierDisplayPicture(const QPointF& scenePos) {
 }
 
 void GraphicsScene::updateMagnifierWidgetSize(const double& fitInViewScale) {
-    auto width = m_magnifierWidget->getZoomSize().width();
-    auto height = m_magnifierWidget->getZoomSize().height();
+    auto width = m_magnifierWidget->getViewportSize().width();
+    auto height = m_magnifierWidget->getViewportSize().height();
     m_magnifierWidget->setFixedSize(width * fitInViewScale,
                                     height * fitInViewScale);
 }
