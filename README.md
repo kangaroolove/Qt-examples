@@ -29,3 +29,7 @@
 ### CircularSlider
 ![image](https://github.com/user-attachments/assets/4efcc5fc-62d3-4bff-bfd9-c2984f9d34b0)
 
+### Magnifier
+<img width="1048" height="752" alt="image" src="https://github.com/user-attachments/assets/dd15ff26-493c-48e4-8d3a-9332cbdf089c" />
+
+
