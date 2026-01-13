@@ -13,7 +13,7 @@ GraphicsScene::GraphicsScene(QObject* parent)
       m_fitInViewScale(1) {
     QPixmap pixmap("D:/2.jpg");
     auto pixmapItem = addPixmap(pixmap);
-    pixmapItem->setTransformationMode(Qt::SmoothTransformation);
+    // pixmapItem->setTransformationMode(Qt::SmoothTransformation);
 
     addText("Hello, world");
 

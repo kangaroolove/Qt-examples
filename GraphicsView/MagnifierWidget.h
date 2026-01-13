@@ -10,4 +10,5 @@ public:
 
 private:
     QSize m_zoomSize;
+    double m_zoomFactor;
 };

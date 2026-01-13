@@ -4,7 +4,7 @@
 #include <QMouseEvent>
 
 MagnifierWidget::MagnifierWidget(QWidget *parent)
-    : QLabel(parent), m_zoomSize(QSize(300, 200)) {
+    : QLabel(parent), m_zoomSize(QSize(300, 200)), m_zoomFactor(1) {
     setWindowFlags(windowFlags() | Qt::FramelessWindowHint |
                    Qt::WindowStaysOnTopHint);
     setObjectName("Magnifier");
