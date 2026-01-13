@@ -93,14 +93,17 @@ void GraphicsScene::moveMagnifierWidget(const QPoint& screenPos) {
 }
 
 void GraphicsScene::updateMagnifierDisplayPicture(const QPointF& scenePos) {
-    auto width = m_magnifierWidget->getViewportSize().width();
-    auto height = m_magnifierWidget->getViewportSize().height();
+    auto viewportWidth = m_magnifierWidget->getViewportSize().width();
+    auto viewportHeight = m_magnifierWidget->getViewportSize().height();
 
-    QRectF rect(scenePos.x() - (width / 2), scenePos.y() - (height / 2), width,
-                height);
+    auto zoomWidth = m_magnifierWidget->getZoomSize().width();
+    auto zoomHeight = m_magnifierWidget->getZoomSize().height();
 
-    QImage image(width * m_fitInViewScale, height * m_fitInViewScale,
-                 QImage::Format_ARGB32);
+    QRectF rect(scenePos.x() - (zoomWidth / 2), scenePos.y() - (zoomHeight / 2),
+                zoomWidth, zoomHeight);
+
+    QImage image(viewportWidth * m_fitInViewScale,
+                 viewportHeight * m_fitInViewScale, QImage::Format_ARGB32);
     image.fill(Qt::transparent);
 
     QPainter painter(&image);
