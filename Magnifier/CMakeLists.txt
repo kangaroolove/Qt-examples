@@ -21,6 +21,8 @@ add_executable(${PROJECT_NAME}
   GraphicsView.h
   GraphicsScene.cpp
   GraphicsScene.h
+  Widget.cpp
+  Widget.h
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Widgets)
