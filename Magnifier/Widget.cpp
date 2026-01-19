@@ -20,6 +20,7 @@ Widget::Widget(QWidget* parent)
     initMagnifierStateMachine();
     bindConnections();
     onChangePictureButtonClicked();
+    resize(800, 600);
 }
 
 void Widget::closeEvent(QCloseEvent* closeEvent) { QCoreApplication::quit(); }
