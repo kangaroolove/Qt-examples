@@ -12,18 +12,23 @@ GraphicsScene::GraphicsScene(QObject* parent)
       m_magnifierWidget(std::make_unique<MagnifierWidget>()),
       m_fitInViewScale(1),
       m_canMoveMagnifier(true) {
-    QPixmap pixmap("D:/2.jpg");
-    auto pixmapItem = addPixmap(pixmap);
-    pixmapItem->setTransformationMode(Qt::SmoothTransformation);
+    m_pixmapItem = addPixmap(QPixmap());
+    m_pixmapItem->setTransformationMode(Qt::SmoothTransformation);
 
-    addText("Hello, world");
+    auto cornerText = addText("Hello, world");
+    cornerText->setDefaultTextColor(QColor(0, 255, 0));
 
-    auto text2 = addText("Second Text");
-    text2->setPos(40, 40);
+    auto text = addText("Hello Qt");
+    text->setPos(40, 40);
+    text->setDefaultTextColor(QColor(0, 0, 255));
 
     m_magnifierWidget->move(0, 0);
     m_magnifierWidget->show();
     m_magnifierWidget->installEventFilter(this);
+}
+
+void GraphicsScene::setImage(const QPixmap& pix) {
+    m_pixmapItem->setPixmap(pix);
 }
 
 void GraphicsScene::magnifyAreaOneTime() {

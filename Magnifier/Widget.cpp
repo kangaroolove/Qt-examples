@@ -19,9 +19,19 @@ Widget::Widget(QWidget* parent)
     initGui();
     initMagnifierStateMachine();
     bindConnections();
+
+    m_graphicsScene->setImage(QPixmap("D:/2.jpg"));
 }
 
 void Widget::closeEvent(QCloseEvent* closeEvent) { QCoreApplication::quit(); }
+
+void Widget::onChangePictureButton() {
+    static bool clicked = false;
+    if (clicked == true) {
+    } else {
+    }
+    clicked = !clicked;
+}
 
 void Widget::initGui() {
     auto buttonLayout = new QHBoxLayout();
@@ -36,6 +46,8 @@ void Widget::initGui() {
 void Widget::bindConnections() {
     connect(m_graphicsView, &GraphicsView::fitInViewScaleChanged,
             m_graphicsScene, &GraphicsScene::onFitInViewScaleChanged);
+    connect(m_changePictureButton, &QPushButton::clicked, this,
+            &Widget::onChangePictureButton);
 }
 
 void Widget::initMagnifierStateMachine() {

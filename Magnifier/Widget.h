@@ -15,6 +15,9 @@ public:
 protected:
     void closeEvent(QCloseEvent* closeEvent);
 
+private slots:
+    void onChangePictureButton();
+
 private:
     void initGui();
     void bindConnections();

@@ -6,11 +6,13 @@
 #include <memory>
 
 class QLabel;
+class QGraphicsPixmapItem;
 
 class GraphicsScene : public QGraphicsScene
 {
 public:
     GraphicsScene(QObject* parent = nullptr);
+    void setImage(const QPixmap& pix);
 
 public slots:
     void onFitInViewScaleChanged(double scale);
@@ -30,4 +32,5 @@ private:
     std::unique_ptr<MagnifierWidget> m_magnifierWidget;
     double m_fitInViewScale;
     bool m_canMoveMagnifier;
+    QGraphicsPixmapItem* m_pixmapItem;
 };
