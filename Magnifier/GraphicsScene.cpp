@@ -10,7 +10,8 @@
 GraphicsScene::GraphicsScene(QObject* parent)
     : QGraphicsScene(parent),
       m_magnifierWidget(std::make_unique<MagnifierWidget>()),
-      m_fitInViewScale(1) {
+      m_fitInViewScale(1),
+      m_canMoveMagnifier(true) {
     QPixmap pixmap("D:/2.jpg");
     auto pixmapItem = addPixmap(pixmap);
     pixmapItem->setTransformationMode(Qt::SmoothTransformation);
@@ -28,14 +29,21 @@ GraphicsScene::GraphicsScene(QObject* parent)
 bool GraphicsScene::eventFilter(QObject* obj, QEvent* event) {
     if (event->type() == QEvent::MouseMove) {
         QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);
-        if (!views().isEmpty()) {
+        if (m_canMoveMagnifier && !views().isEmpty()) {
             auto view = views().first();
             auto viewPos = view->mapFromGlobal(mouseEvent->globalPos());
             auto scenePos = view->mapToScene(viewPos);
             // qDebug() << "scenePos = " << scenePos;
             updateMagnifierDisplayPicture(scenePos);
+            moveMagnifierWidget(mouseEvent->globalPos());
         }
-        moveMagnifierWidget(mouseEvent->globalPos());
+    } else if (event->type() == QEvent::KeyPress) {
+        QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
+        if (keyEvent->key() == Qt::Key_C) {
+            m_canMoveMagnifier = false;
+        } else if (keyEvent->key() == Qt::Key_V) {
+            m_canMoveMagnifier = true;
+        }
     }
 
     return QGraphicsScene::eventFilter(obj, event);

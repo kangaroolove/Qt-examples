@@ -26,4 +26,5 @@ private:
 
     std::unique_ptr<MagnifierWidget> m_magnifierWidget;
     double m_fitInViewScale;
+    bool m_canMoveMagnifier;
 };

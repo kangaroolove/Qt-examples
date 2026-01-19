@@ -1,5 +1,7 @@
 #include "Widget.h"
 
+#include <QCloseEvent>
+#include <QCoreApplication>
 #include <QHBoxLayout>
 #include <QPushButton>
 #include <QVBoxLayout>
@@ -17,6 +19,8 @@ Widget::Widget(QWidget* parent)
     connect(m_graphicsView, &GraphicsView::fitInViewScaleChanged,
             m_graphicsScene, &GraphicsScene::onFitInViewScaleChanged);
 }
+
+void Widget::closeEvent(QCloseEvent* closeEvent) { QCoreApplication::quit(); }
 
 void Widget::initGui() {
     auto buttonLayout = new QHBoxLayout();

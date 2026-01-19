@@ -11,6 +11,9 @@ class Widget : public QWidget
 public:
     Widget(QWidget* parent = nullptr);
 
+protected:
+    void closeEvent(QCloseEvent* closeEvent);
+
 private:
     void initGui();
 

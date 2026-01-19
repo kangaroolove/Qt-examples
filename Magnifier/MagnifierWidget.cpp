@@ -5,10 +5,7 @@
 #include <QMouseEvent>
 
 MagnifierWidget::MagnifierWidget(QWidget *parent)
-    : QLabel(parent),
-      m_viewportSize(QSize(300, 200)),
-      m_zoomFactor(1.0),
-      m_enableMove(true) {
+    : QLabel(parent), m_viewportSize(QSize(300, 200)), m_zoomFactor(1.0) {
     setWindowFlags(windowFlags() | Qt::FramelessWindowHint |
                    Qt::WindowStaysOnTopHint);
     setObjectName("Magnifier");
@@ -28,12 +25,4 @@ void MagnifierWidget::setZoomFactor(const double &factor) {
     if (factor == 0) return;
 
     m_zoomFactor = factor;
-}
-
-void MagnifierWidget::keyPressEvent(QKeyEvent *event) {
-    if (event->key() == Qt::Key_C)
-        m_enableMove = false;
-    else if (event->key() == Qt::Key_V)
-        m_enableMove = true;
-    QLabel::keyPressEvent(event);
 }

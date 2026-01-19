@@ -19,7 +19,3 @@ void GraphicsView::resizeEvent(QResizeEvent* event) {
     }
     QGraphicsView::resizeEvent(event);
 }
-
-void GraphicsView::closeEvent(QCloseEvent* closeEvent) {
-    QCoreApplication::quit();
-}
