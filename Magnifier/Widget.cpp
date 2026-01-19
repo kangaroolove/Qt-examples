@@ -19,17 +19,16 @@ Widget::Widget(QWidget* parent)
     initGui();
     initMagnifierStateMachine();
     bindConnections();
-
-    m_graphicsScene->setImage(QPixmap("D:/2.jpg"));
+    onChangePictureButtonClicked();
 }
 
 void Widget::closeEvent(QCloseEvent* closeEvent) { QCoreApplication::quit(); }
 
-void Widget::onChangePictureButton() {
+void Widget::onChangePictureButtonClicked() {
     static bool clicked = false;
-    if (clicked == true) {
-    } else {
-    }
+    // 2.png:1920 * 1080, 2,jpg:1044 * 895
+    clicked ? m_graphicsScene->setImage(QPixmap("D:/2.png"))
+            : m_graphicsScene->setImage(QPixmap("D:/2.jpg"));
     clicked = !clicked;
 }
 
@@ -47,7 +46,7 @@ void Widget::bindConnections() {
     connect(m_graphicsView, &GraphicsView::fitInViewScaleChanged,
             m_graphicsScene, &GraphicsScene::onFitInViewScaleChanged);
     connect(m_changePictureButton, &QPushButton::clicked, this,
-            &Widget::onChangePictureButton);
+            &Widget::onChangePictureButtonClicked);
 }
 
 void Widget::initMagnifierStateMachine() {
