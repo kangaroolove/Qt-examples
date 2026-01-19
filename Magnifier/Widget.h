@@ -1,5 +1,6 @@
 #pragma once
 
+#include <QStateMachine>
 #include <QWidget>
 
 class GraphicsView;
@@ -16,9 +17,12 @@ protected:
 
 private:
     void initGui();
+    void bindConnections();
+    void initMagnifierStateMachine();
 
     GraphicsScene* m_graphicsScene;
     GraphicsView* m_graphicsView;
     QPushButton* m_changePictureButton;
     QPushButton* m_zoomFactorButton;
+    QStateMachine m_magnifierStateMachine;
 };

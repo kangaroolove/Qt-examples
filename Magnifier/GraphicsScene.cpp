@@ -26,6 +26,18 @@ GraphicsScene::GraphicsScene(QObject* parent)
     m_magnifierWidget->installEventFilter(this);
 }
 
+void GraphicsScene::magnifyAreaOneTime() {
+    m_magnifierWidget->setZoomFactor(1.0);
+}
+
+void GraphicsScene::magnifyAreaTwoTimes() {
+    m_magnifierWidget->setZoomFactor(2.0);
+}
+
+void GraphicsScene::magnifyAreaFourTimes() {
+    m_magnifierWidget->setZoomFactor(4.0);
+}
+
 bool GraphicsScene::eventFilter(QObject* obj, QEvent* event) {
     if (event->type() == QEvent::MouseMove) {
         QMouseEvent* mouseEvent = static_cast<QMouseEvent*>(event);

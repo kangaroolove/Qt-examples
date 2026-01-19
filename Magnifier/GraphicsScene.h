@@ -14,6 +14,9 @@ public:
 
 public slots:
     void onFitInViewScaleChanged(double scale);
+    void magnifyAreaOneTime();
+    void magnifyAreaTwoTimes();
+    void magnifyAreaFourTimes();
 
 protected:
     // void keyPressEvent(QKeyEvent* keyEvent);

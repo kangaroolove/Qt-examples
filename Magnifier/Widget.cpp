@@ -4,6 +4,7 @@
 #include <QCoreApplication>
 #include <QHBoxLayout>
 #include <QPushButton>
+#include <QStateMachine>
 #include <QVBoxLayout>
 
 #include "GraphicsScene.h"
@@ -16,8 +17,8 @@ Widget::Widget(QWidget* parent)
       m_changePictureButton(new QPushButton("Change picture")),
       m_zoomFactorButton(new QPushButton()) {
     initGui();
-    connect(m_graphicsView, &GraphicsView::fitInViewScaleChanged,
-            m_graphicsScene, &GraphicsScene::onFitInViewScaleChanged);
+    initMagnifierStateMachine();
+    bindConnections();
 }
 
 void Widget::closeEvent(QCloseEvent* closeEvent) { QCoreApplication::quit(); }
@@ -30,4 +31,41 @@ void Widget::initGui() {
     auto layout = new QVBoxLayout(this);
     layout->addWidget(m_graphicsView);
     layout->addLayout(buttonLayout);
+}
+
+void Widget::bindConnections() {
+    connect(m_graphicsView, &GraphicsView::fitInViewScaleChanged,
+            m_graphicsScene, &GraphicsScene::onFitInViewScaleChanged);
+}
+
+void Widget::initMagnifierStateMachine() {
+    auto x1Magnification = new QState;
+    auto x2Magnification = new QState;
+    auto x4Magnification = new QState;
+
+    x1Magnification->addTransition(m_zoomFactorButton, &QPushButton::clicked,
+                                   x2Magnification);
+    x2Magnification->addTransition(m_zoomFactorButton, &QPushButton::clicked,
+                                   x4Magnification);
+    x4Magnification->addTransition(m_zoomFactorButton, &QPushButton::clicked,
+                                   x1Magnification);
+
+    x1Magnification->assignProperty(m_zoomFactorButton, "text", "ZOOM:X1");
+    x2Magnification->assignProperty(m_zoomFactorButton, "text", "ZOOM:X2");
+    x4Magnification->assignProperty(m_zoomFactorButton, "text", "ZOOM:X4");
+
+    connect(x1Magnification, &QState::entered, m_graphicsScene,
+            &GraphicsScene::magnifyAreaOneTime);
+    connect(x2Magnification, &QState::entered, m_graphicsScene,
+            &GraphicsScene::magnifyAreaTwoTimes);
+    connect(x4Magnification, &QState::entered, m_graphicsScene,
+            &GraphicsScene::magnifyAreaFourTimes);
+
+    std::vector<QState*> states = {x1Magnification, x2Magnification,
+                                   x4Magnification};
+    for (auto state : states) {
+        m_magnifierStateMachine.addState(state);
+    }
+    m_magnifierStateMachine.setInitialState(x1Magnification);
+    m_magnifierStateMachine.start();
 }
