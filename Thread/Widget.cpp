@@ -1,15 +1,12 @@
 #include "Widget.h"
-#include "Worker.h"
-#include "WorkerThread.h"
+
 #include <QDebug>
 #include <QThread>
 
-Widget::Widget(QWidget *parent)
-    : QWidget(parent),
-      m_thread(new QThread(this)),
-      m_workerThread(new WorkerThread(this)) {
+#include "Worker.h"
+
+Widget::Widget(QWidget *parent) : QWidget(parent), m_thread(new QThread(this)) {
     initWorker();
-    initWorkerThread();
     print();
 }
 
@@ -34,5 +31,3 @@ void Widget::print() {
         qDebug() << "main currentThreadId() = " << QThread::currentThreadId()
                  << ", i = " << i;
 }
-
-void Widget::initWorkerThread() { m_workerThread->start(); }
