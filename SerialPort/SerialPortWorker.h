@@ -20,5 +20,5 @@ public slots:
     void closeSerialPort();
 
 private:
-    std::unique_ptr<QSerialPort> m_serialPort;
+    QSerialPort *m_serialPort;
 };
