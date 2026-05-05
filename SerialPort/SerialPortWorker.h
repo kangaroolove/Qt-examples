@@ -9,7 +9,6 @@ class SerialPortWorker : public QObject {
     Q_OBJECT
 public:
     SerialPortWorker(QObject *parent = nullptr);
-    bool isOpen() const;
 signals:
     void receiveMessage(const QString &message);
     void opened();

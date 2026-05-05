@@ -79,6 +79,7 @@ private:
 
     QThread *m_serialPortThread;
     SerialPortWorker *m_serialPortWorker;
+    bool m_isSerialPortOpen;
 
     std::vector<QSerialPort::BaudRate> m_baudRates;
     std::vector<QSerialPort::DataBits> m_dataBits;

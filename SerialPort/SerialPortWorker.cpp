@@ -1,27 +1,17 @@
 #include "SerialPortWorker.h"
+
 #include <QDebug>
-#include <QEventLoop>
 #include <QSerialPort>
 
 SerialPortWorker::SerialPortWorker(QObject *parent)
     : QObject(parent), m_serialPort(nullptr) {}
 
-bool SerialPortWorker::isOpen() const {
-    if (!m_serialPort) return false;
-
-    return m_serialPort->isOpen();
-}
-
 void SerialPortWorker::openSerialPort(const SerialPortInfo &info) {
-    m_serialPort = std::make_unique<QSerialPort>(new QSerialPort(this));
-
-    QEventLoop loop;
+    m_serialPort = std::make_unique<QSerialPort>();
     connect(m_serialPort.get(), &QSerialPort::readyRead, this,
             &SerialPortWorker::readyRead);
-    connect(m_serialPort.get(), &QSerialPort::errorOccurred, &loop,
-            &QEventLoop::quit);
-    connect(m_serialPort.get(), &SerialPortWorker::destroyed, &loop,
-            &QEventLoop::quit);
+    connect(m_serialPort.get(), &QSerialPort::errorOccurred, this,
+            &SerialPortWorker::closeSerialPort);
 
     m_serialPort->setPortName(info.name);
     m_serialPort->setBaudRate(info.baudRate);
@@ -30,8 +20,6 @@ void SerialPortWorker::openSerialPort(const SerialPortInfo &info) {
     m_serialPort->setParity(info.parity);
     m_serialPort->setStopBits(info.stopBits);
     if (m_serialPort->open(QIODevice::ReadWrite)) emit opened();
-
-    loop.exec();
 }
 
 void SerialPortWorker::closeSerialPort() {
@@ -49,13 +37,13 @@ void SerialPortWorker::readyRead() {
 }
 
 void SerialPortWorker::sendMessage(const QString &message, const bool &useHex) {
-    if (!isOpen()) {
+    if (!m_serialPort || !m_serialPort->isOpen()) {
         qDebug() << "Please open serial port first";
         return;
     }
 
-QByteArray data =
-    useHex ? QByteArray::fromHex(message.toUtf8()) : message.toUtf8();
-m_serialPort->write(data);
-qDebug() << "Sent message = " << data;
+    QByteArray data =
+        useHex ? QByteArray::fromHex(message.toUtf8()) : message.toUtf8();
+    m_serialPort->write(data);
+    qDebug() << "Sent message = " << data;
 }

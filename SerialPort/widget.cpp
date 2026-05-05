@@ -38,7 +38,8 @@ Widget::Widget(QWidget *parent)
       m_sendByAsciiButton(new QPushButton("Send By ASCII")),
       m_sendByHexButton(new QPushButton("Send By Hex")),
       m_serialPortWorker(new SerialPortWorker),
-      m_serialPortThread(new QThread(this)) {
+      m_serialPortThread(new QThread(this)),
+      m_isSerialPortOpen(false) {
     qRegisterMetaType<SerialPortInfo>("SerialPortInfo");
     initGui();
     initSetting();
@@ -69,11 +70,13 @@ void Widget::receiveMessage(const QString &message) {
 }
 
 void Widget::onSerialPortOpened() {
+    m_isSerialPortOpen = true;
     m_connectButton->setText("Disconnect");
     updateButtonsEnable(false);
 }
 
 void Widget::onSerialPortClosed() {
+    m_isSerialPortOpen = false;
     m_connectButton->setText("Connect");
     updateButtonsEnable(true);
 }
@@ -84,10 +87,8 @@ void Widget::onConnectButtonClicked() {
         return;
     }
 
-if (!m_serialPortWorker->isOpen())
-    emit openSerialPort(getSerialPortInfo());
-else
-    emit closeSerialPort();
+    m_isSerialPortOpen ? emit closeSerialPort()
+                       : emit openSerialPort(getSerialPortInfo());
 }
 
 void Widget::initGui() {
