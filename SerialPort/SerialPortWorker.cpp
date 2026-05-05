@@ -9,28 +9,24 @@ SerialPortWorker::SerialPortWorker(QObject *parent)
 void SerialPortWorker::openSerialPort(const SerialPortInfo &info) {
     if (!m_serialPort) {
         m_serialPort = new QSerialPort(this);
-
         connect(m_serialPort, &QSerialPort::readyRead, this,
                 &SerialPortWorker::readyRead);
-        connect(m_serialPort, &QSerialPort::errorOccurred, this,
-                &SerialPortWorker::closeSerialPort);
-
-        m_serialPort->setPortName(info.name);
-        m_serialPort->setBaudRate(info.baudRate);
-        m_serialPort->setDataBits(info.dataBits);
-        m_serialPort->setFlowControl(info.flowControl);
-        m_serialPort->setParity(info.parity);
-        m_serialPort->setStopBits(info.stopBits);
-        auto result = m_serialPort->open(QIODevice::ReadWrite);
-        result ? emit opened() : qDebug() << "Serial port cannot be opened";
     }
+
+    m_serialPort->setPortName(info.name);
+    m_serialPort->setBaudRate(info.baudRate);
+    m_serialPort->setDataBits(info.dataBits);
+    m_serialPort->setFlowControl(info.flowControl);
+    m_serialPort->setParity(info.parity);
+    m_serialPort->setStopBits(info.stopBits);
+    auto result = m_serialPort->open(QIODevice::ReadWrite);
+    result ? emit opened() : qDebug() << "Serial port cannot be opened";
 }
 
 void SerialPortWorker::closeSerialPort() {
     if (!m_serialPort) return;
 
     m_serialPort->close();
-    // m_serialPort.reset();
     emit closed();
 }
 
