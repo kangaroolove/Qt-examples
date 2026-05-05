@@ -19,13 +19,17 @@ void SerialPortWorker::openSerialPort(const SerialPortInfo &info) {
     m_serialPort->setFlowControl(info.flowControl);
     m_serialPort->setParity(info.parity);
     m_serialPort->setStopBits(info.stopBits);
-    auto result = m_serialPort->open(QIODevice::ReadWrite);
-    result ? emit opened() : qDebug() << "Serial port cannot be opened";
+    if (m_serialPort->open(QIODevice::ReadWrite)) {
+        qDebug() << "Serial port is opened";
+        emit opened();
+    } else
+        qDebug() << "Serial port cannot be opened";
 }
 
 void SerialPortWorker::closeSerialPort() {
     if (!m_serialPort) return;
 
+    qDebug() << "Serial port is closed";
     m_serialPort->close();
     emit closed();
 }
