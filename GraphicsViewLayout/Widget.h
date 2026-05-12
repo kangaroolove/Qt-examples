@@ -19,7 +19,6 @@ private:
 
     QGraphicsView* m_graphicsView;
     QGraphicsScene* m_graphicsSecne;
-    QGraphicsWidget* m_graphicsWidget = nullptr;
     QPushButton* m_switchButton;
     QGraphicsProxyWidget* m_rulerWidget;
     QGraphicsProxyWidget* m_parameterWidget;

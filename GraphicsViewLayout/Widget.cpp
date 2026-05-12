@@ -27,6 +27,7 @@ Widget::Widget(QWidget *parent)
 void Widget::initGui() {
     QPixmap pixmap("D:/2.png");
     m_imageLabel->setPixmap(pixmap);
+    // To show image correctly, size is important
     m_imageLabel->setMinimumSize(100, 100);
 
     m_rulerWidget = m_graphicsSecne->addWidget(new RulerWidget);
@@ -41,11 +42,10 @@ void Widget::initGui() {
     linearLayout->addItem(m_imageWidget);
     linearLayout->addItem(m_parameterWidget);
 
-    m_graphicsWidget = new QGraphicsWidget;
-    m_graphicsWidget->setLayout(linearLayout);
+    auto w = new QGraphicsWidget;
+    w->setLayout(linearLayout);
 
-    m_graphicsSecne->addItem(m_graphicsWidget);
-
+    m_graphicsSecne->addItem(w);
     m_graphicsView->setScene(m_graphicsSecne);
 
     auto layout = new QVBoxLayout(this);
