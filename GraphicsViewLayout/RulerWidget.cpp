@@ -5,5 +5,5 @@ RulerWidget::RulerWidget()
     setObjectName("RulerWidget");
     setAttribute(Qt::WA_StyledBackground);
     setStyleSheet("QWidget#RulerWidget{background-color:red}");
-    setMinimumWidth(50);
+    setMinimumSize(50, 50);
 }

@@ -26,11 +26,12 @@ void Widget::initGui() {
     QPixmap pixmap("D:/2.png");
     m_imageLabel->setPixmap(pixmap);
 
-    m_graphicsSecne->setSceneRect(0, 0, 1920, 1080);
+    // m_graphicsSecne->setSceneRect(0, 0, 1920, 1080);
 
     m_rulerWidget = m_graphicsSecne->addWidget(new RulerWidget);
+    // m_imageWidget = m_graphicsSecne->addWidget(m_imageLabel);
     m_parameterWidget = m_graphicsSecne->addWidget(new ParameterWidget);
-    m_imageWidget = m_graphicsSecne->addWidget(m_imageLabel);
+
     // m_imagePixmap = m_graphicsSecne->addPixmap(pixmap);
 
     auto linearLayout = new QGraphicsLinearLayout;
@@ -38,7 +39,7 @@ void Widget::initGui() {
     linearLayout->setSpacing(0);
     linearLayout->setOrientation(Qt::Horizontal);
     linearLayout->addItem(m_rulerWidget);
-    linearLayout->addItem(m_imageWidget);
+    // linearLayout->addItem(m_imageWidget);
     linearLayout->addItem(m_parameterWidget);
     // linearLayout->setMinimumSize(400, 300);
 
