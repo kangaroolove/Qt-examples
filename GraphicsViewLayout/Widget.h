@@ -16,6 +16,7 @@ public:
 
 private:
     void initGui();
+    void bindConnections();
 
     QGraphicsView* m_graphicsView;
     QGraphicsScene* m_graphicsSecne;
@@ -24,4 +25,5 @@ private:
     QGraphicsProxyWidget* m_parameterWidget;
     QLabel* m_imageLabel;
     QGraphicsProxyWidget* m_imageWidget;
+    QGraphicsWidget* m_graphicsWidget;
 };
