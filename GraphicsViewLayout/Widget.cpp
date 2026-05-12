@@ -1,6 +1,7 @@
 #include "Widget.h"
 
 #include <QDebug>
+#include <QGraphicsPixmapItem>
 #include <QGraphicsProxyWidget>
 #include <QGraphicsScene>
 #include <QGraphicsView>
@@ -19,6 +20,7 @@ Widget::Widget(QWidget *parent)
 
 void Widget::initGui() {
     m_rulerWidget = m_graphicsSecne->addWidget(new RulerWidget);
+    m_imagePixmap = m_graphicsSecne->addPixmap(QPixmap());
 
     m_graphicsView->setScene(m_graphicsSecne);
 
