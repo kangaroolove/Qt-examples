@@ -1,10 +1,13 @@
 #include "Widget.h"
 
 #include <QDebug>
+#include <QGraphicsProxyWidget>
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QPushButton>
 #include <QVBoxLayout>
+
+#include "RulerWidget.h"
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent),
@@ -15,6 +18,8 @@ Widget::Widget(QWidget *parent)
 }
 
 void Widget::initGui() {
+    m_rulerWidget = m_graphicsSecne->addWidget(new RulerWidget);
+
     m_graphicsView->setScene(m_graphicsSecne);
 
     auto layout = new QVBoxLayout(this);

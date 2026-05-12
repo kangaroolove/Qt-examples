@@ -5,6 +5,7 @@
 class QGraphicsView;
 class QGraphicsScene;
 class QPushButton;
+class QGraphicsProxyWidget;
 class Widget : public QWidget {
     Q_OBJECT
 public:
@@ -16,4 +17,5 @@ private:
     QGraphicsView* m_graphicsView;
     QGraphicsScene* m_graphicsSecne;
     QPushButton* m_switchButton;
+    QGraphicsProxyWidget* m_rulerWidget;
 };
