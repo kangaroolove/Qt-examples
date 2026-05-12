@@ -33,9 +33,6 @@ void Widget::initGui() {
 
     m_rulerWidget = m_graphicsSecne->addWidget(new RulerWidget);
     m_imageWidget = m_graphicsSecne->addWidget(m_imageLabel);
-    // m_imageWidget->setMinimumSize(pixmap.size());
-    // m_imageWidget->setPreferredSize(pixmap.size());
-    // m_imageWidget->setMaximumSize(pixmap.size());
     m_parameterWidget = m_graphicsSecne->addWidget(new ParameterWidget);
 
     auto vLayout = new QGraphicsLinearLayout;
