@@ -1,6 +1,7 @@
 #include "Widget.h"
 
 #include <QDebug>
+#include <QGraphicsGridLayout>
 #include <QGraphicsLinearLayout>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsProxyWidget>
@@ -26,8 +27,6 @@ Widget::Widget(QWidget *parent)
 }
 
 void Widget::initGui() {
-    QPixmap pixmap("D:/2.png");
-    m_imageLabel->setPixmap(pixmap);
     // To show image correctly, size is important
     m_imageLabel->setMinimumSize(100, 100);
 
@@ -35,23 +34,17 @@ void Widget::initGui() {
     m_imageWidget = m_graphicsSecne->addWidget(m_imageLabel);
     m_parameterWidget = m_graphicsSecne->addWidget(new ParameterWidget);
 
-    auto vLayout = new QGraphicsLinearLayout;
-    vLayout->setContentsMargins(0, 0, 0, 0);
-    vLayout->setSpacing(0);
-    vLayout->setOrientation(Qt::Vertical);
-    vLayout->addItem(m_parameterWidget);
-    vLayout->addStretch();
-
-    auto linearLayout = new QGraphicsLinearLayout;
-    linearLayout->setContentsMargins(0, 0, 0, 0);
-    linearLayout->setSpacing(0);
-    linearLayout->setOrientation(Qt::Horizontal);
-    linearLayout->addItem(m_rulerWidget);
-    linearLayout->addItem(m_imageWidget);
-    linearLayout->addItem(vLayout);
+    // Don't use too many layouts, it will crop the display, if you want to
+    // create a complex layout, please use QGraphicsGridLayout
+    auto gridLayout = new QGraphicsGridLayout;
+    gridLayout->setContentsMargins(0, 0, 0, 0);
+    gridLayout->setSpacing(0);
+    gridLayout->addItem(m_parameterWidget, 0, 0, 1, 2);
+    gridLayout->addItem(m_rulerWidget, 1, 0);
+    gridLayout->addItem(m_imageWidget, 1, 1);
 
     m_graphicsWidget = new QGraphicsWidget;
-    m_graphicsWidget->setLayout(linearLayout);
+    m_graphicsWidget->setLayout(gridLayout);
 
     m_graphicsSecne->addItem(m_graphicsWidget);
     m_graphicsView->setScene(m_graphicsSecne);
